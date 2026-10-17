@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tavern Peetri Toll — restoran ja muuseum Paldiskis</title>
+  <meta name="description" content="Restoran ja muuseum tsaariaegses tollimajas Paldiskis: näitus, raamatud, audiogiid, Pakri Express ja üritused.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — avaleht">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Peamenüü">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="#restoran">Meist</a></li>
+        <li><a class="nav__link" href="#">Menüü</a></li>
+        <li><a class="nav__link" href="#naitus">Muuseum</a></li>
+        <li><a class="nav__link" href="#teenused">Teenused</a></li>
+        <li><a class="nav__link" href="#kontakt">Kontakt</a></li>
+        <li><a class="nav__link" href="#">E-pood</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Keel">
+      <button class="lang__btn is-active" type="button" aria-pressed="true">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn" type="button" aria-pressed="false">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Ava menüü" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <img class="hero__bg" src="./images/hero.jpg" alt="" data-ph="hero.jpg">
+    <div class="container hero__content">
+      <p class="hero__kicker">Restoran &amp; Muuseum</p>
+      <p class="hero__sub">tsaariaegses tollimajas</p>
+      <h1 class="hero__title">Tavern Peetri Toll</h1>
+      <p class="hero__quote">kus ärkab ellu ajalugu ja taaselustuvad traditsioonid</p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#">Menüü</a>
+        <a class="btn btn--light" href="#">Broneeri laud</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 RESTORAN ============ -->
+  <section class="section section--bg1" id="restoran">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Restoran</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Restoran</h2>
+        <a class="section-head__more" href="#">Loe lähemalt</a>
+      </header>
+
+      <div class="restaurant">
+        <figure class="photo restaurant__main">
+          <div class="photo__frame photo__frame--gold">
+            <img src="./images/restaurant-hall.jpg" alt="Restorani saal" loading="lazy" data-ph="restaurant-hall.jpg">
+          </div>
+          <figcaption class="caption">Kolm saali esimesel korrusel</figcaption>
+        </figure>
+
+        <figure class="photo restaurant__mid">
+          <div class="photo__frame">
+            <img src="./images/restaurant-house.jpg" alt="Tollimaja hoov" loading="lazy" data-ph="restaurant-house.jpg">
+          </div>
+          <figcaption class="caption">Suur privaatne banketisaal</figcaption>
+        </figure>
+
+        <figure class="photo restaurant__small">
+          <div class="photo__frame">
+            <img src="./images/restaurant-terrace.jpg" alt="Suveterrass" loading="lazy" data-ph="restaurant-terrace.jpg">
+          </div>
+          <figcaption class="caption">Suveterrass</figcaption>
+        </figure>
+
+        <div class="restaurant__aside">
+          <p class="quote">koduselt maitsvad toidud<br>ajaloolises atmosfääris</p>
+          <a class="btn btn--red" href="#">Broneeri laud</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 NÄITUS ============ -->
+  <section class="section section--bg2" id="naitus">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Muuseum</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Ajaloolised külmrelvad</h2>
+        <a class="section-head__more" href="#">Loe lähemalt</a>
+      </header>
+
+      <div class="exhibition">
+        <div class="exhibition__text">
+          <h3 class="h3">Постоянная экспозиция на втором этаже ресторана «Таверна Петровская Таможня»</h3>
+          <p>Более 150 артефактов, которые словно сошли со страниц приключенческих романов. От сабли 2-метрового гиганта из Гражданской войны в США до мистического оружия африканских племён, изящных женских стилетов и клинков тайных орденов. Познакомьтесь с историей через призму стали, загадок и мастерства оружейников разных эпох и континентов.</p>
+
+          <dl class="facts">
+            <div class="facts__row"><dt>Экспозиция</dt><dd>2 зала, более 150 экспонатов</dd></div>
+            <div class="facts__row"><dt>Фильм</dt><dd>12 минут о самых интересных экспонатах</dd></div>
+            <div class="facts__row"><dt>Билет</dt><dd>3 €</dd></div>
+            <div class="facts__row"><dt>Экскурсия для групп</dt><dd>15–20 мин, 20 €</dd></div>
+          </dl>
+
+          <a class="btn" href="#">Broneeri ekskursioon</a>
+        </div>
+
+        <div class="exhibition__gallery">
+          <figure class="photo"><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Mõõgad näitusel" loading="lazy" data-ph="weapons-1.jpg"></div></figure>
+          <figure class="photo"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Mundris mannekeen" loading="lazy" data-ph="weapons-2.jpg"></div></figure>
+          <figure class="photo exhibition__wide"><div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Ajalooline foto" loading="lazy" data-ph="weapons-3.jpg"></div></figure>
+          <p class="quote exhibition__quote">более 150 старинных артефактов словно сошли со страниц приключенческих романов</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 RAAMATUD ============ -->
+  <section class="section section--bg1" id="raamatud">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Kirjastus</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Raamatud</h2>
+        <a class="section-head__more" href="#">Kõik raamatud</a>
+      </header>
+
+      <ul class="cards">
+        <li class="card">
+          <div class="card__img"><img src="./images/book-1.jpg" alt="Raamatu kaas: Lood baarileti tagant" loading="lazy" data-ph="book-1.jpg"></div>
+          <h3 class="card__title">Lood baarileti tagant + Moraal</h3>
+          <p class="card__author">Galina Maljutina</p>
+          <p class="card__price">Hind: 10 €</p>
+          <a class="btn btn--sm" href="#">Osta</a>
+        </li>
+        <li class="card">
+          <div class="card__img"><img src="./images/book-2.jpg" alt="Raamatu kaas: Paldiski ja tema inimesed" loading="lazy" data-ph="book-2.jpg"></div>
+          <h3 class="card__title">Paldiski ja tema inimesed</h3>
+          <p class="card__author">Josef Kats</p>
+          <p class="card__price">Hind: 10 €</p>
+          <a class="btn btn--sm" href="#">Osta</a>
+        </li>
+        <li class="card">
+          <div class="card__img"><img src="./images/book-3.jpg" alt="Raamatu kaas: Kodulinn Paldiski" loading="lazy" data-ph="book-3.jpg"></div>
+          <h3 class="card__title">Kodulinn Paldiski</h3>
+          <p class="card__author">Paul Laan</p>
+          <p class="card__price">Hind: 10 €</p>
+          <a class="btn btn--sm" href="#">Osta</a>
+        </li>
+        <li class="card">
+          <div class="card__img"><img src="./images/book-4.jpg" alt="Raamatu kaas" loading="lazy" data-ph="book-4.jpg"></div>
+          <h3 class="card__title">Raamatu pealkiri</h3>
+          <p class="card__author">Autor</p>
+          <p class="card__price">Hind: 10 €</p>
+          <a class="btn btn--sm" href="#">Osta</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 04 AUDIOGIID ============ -->
+  <section class="section section--bg2" id="teenused">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Teenused</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Audiogiid</h2>
+        <a class="section-head__more" href="#">Loe lähemalt</a>
+      </header>
+
+      <div class="split">
+        <figure class="photo split__media">
+          <div class="photo__frame photo__frame--square"><img src="./images/audioguide.jpg" alt="Audiogiidi kasutaja Pakri tuletorni taustal" loading="lazy" data-ph="audioguide.jpg"></div>
+        </figure>
+
+        <div class="split__text">
+          <h3 class="h3">Мобильный аудиогид: исследуйте город в своём ритме</h3>
+          <p>Погрузитесь в захватывающую историю Палдиски и дикую природу полуострова с нашим эксклюзивным аудиогидом. Каждая история — результат глубокого краеведческого исследования, а профессиональная актёрская озвучка в сочетании со звуковыми эффектами создаёт эффект полного погружения.</p>
+
+          <dl class="facts">
+            <div class="facts__row"><dt>Пешеходный маршрут, 3,2 км</dt><dd>Исторический центр, уютные улочки и ключевые памятники города</dd></div>
+            <div class="facts__row"><dt>Автомобильный маршрут, 15,3 км</dt><dd>Весь полуостров Пакри: маяк, обрывы, береговые батареи и ветропарк</dd></div>
+            <div class="facts__row"><dt>Языки</dt><dd>EE / EN / RU</dd></div>
+            <div class="facts__row"><dt>Цена</dt><dd>7 € (день), 10 € (72 ч), 15 € (6 мес.)</dd></div>
+          </dl>
+
+          <p class="h4">Как воспользоваться аудиогидом</p>
+          <ol class="steps">
+            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
+            <li>Найдите в поиске «Paldiski audioguide».</li>
+            <li>Приобретите доступ прямо в приложении. Лучше сделать это заранее, чтобы начать слушать истории уже в пути.</li>
+          </ol>
+
+          <a class="btn" href="#">Osta audiogiid</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 PAKRI EXPRESS ============ -->
+  <section class="section section--bg4" id="pakri-express">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Teenused</p>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Pakri Express</h2>
+        <a class="section-head__more" href="#">Loe lähemalt</a>
+      </header>
+
+      <div class="split split--reverse">
+        <figure class="photo split__media">
+          <div class="photo__frame photo__frame--wide"><img src="./images/pakri-express.jpg" alt="Elektriauto Pakri Express Pakri pangal" loading="lazy" data-ph="pakri-express.jpg"></div>
+        </figure>
+
+        <div class="split__text">
+          <p class="lead">«Пакри Экспресс» — популярный прогулочный формат знакомства с городом, а также площадка для театрализованных и праздничных программ, созданных вместе с культурными партнёрами.</p>
+
+          <dl class="facts facts--panel">
+            <div class="facts__row"><dt>Väljumine</dt><dd>Muuseumi värav, Paldiski</dd></div>
+            <div class="facts__row"><dt>Grupp</dt><dd>kuni … kohta</dd></div>
+            <div class="facts__row"><dt>Kestus</dt><dd>umbes 1 h 30 min</dd></div>
+            <div class="facts__row"><dt>Hind</dt><dd>… €</dd></div>
+          </dl>
+
+          <a class="btn btn--red" href="#">Broneeri sõit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 ÜRITUSED ============ -->
+  <section class="section section--bg1" id="uritused">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Muuseum</p>
+        <h2 class="section-head__title"><span class="section-head__num">06</span> Üritused</h2>
+        <a class="section-head__more" href="#">Kõik üritused</a>
+      </header>
+
+      <div class="events">
+        <ul class="events__list">
+          <li class="event">
+            <p class="event__date"><span class="event__day">18</span> oktoober</p>
+            <div class="event__body">
+              <p class="event__type">Kontsert</p>
+              <h3 class="event__title">Песни из любимых кинофильмов</h3>
+              <p class="event__desc">Анна Дытына (вокал), Александр Пелёвин (гитара)</p>
+              <p class="event__meta">Algus 18:00 <span>Hind 15 €</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Osta pilet</a>
+          </li>
+          <li class="event">
+            <p class="event__date"><span class="event__day">18</span> oktoober</p>
+            <div class="event__body">
+              <p class="event__type">Ekskursioon</p>
+              <h3 class="event__title">Giidiga tuur näitusel «Ajaloolised külmrelvad kogu maailmast»</h3>
+              <p class="event__meta">Hind 15 € <span>Kestus 30 min</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Osta pilet</a>
+          </li>
+        </ul>
+
+        <figure class="events__poster">
+          <img src="./images/event-poster.jpg" alt="Kontserdi plakat: 18.10.2026 kell 18.00" loading="lazy" data-ph="event-poster.jpg">
+        </figure>
+      </div>
+
+      <a class="link-more" href="#">Möödunud üritused</a>
+    </div>
+  </section>
+
+  <!-- ============ AVASTA VEEL ============ -->
+  <section class="section section--bg2 section--compact">
+    <div class="container">
+      <h2 class="h2">Avasta veel</h2>
+      <ul class="explore">
+        <li><a class="explore__link" href="#"><span class="explore__title">Galina Maljutina</span><span class="explore__text">Luule, proosa, laulud ja lood baarileti tagant</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Andrei Kirillov</span><span class="explore__text">Maalid, postkaardid ja magnetid</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Ekskursioonid ja giidid</span><span class="explore__text">Retked Pakri poolsaarel koos meie partneritega</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Vanade fotode pank</span><span class="explore__text">Ajaloolised fotod kõrges resolutsioonis</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Maalid Paldiskist ja Pakrist</span><span class="explore__text">Originaalid ja digitaalsed koopiad</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Kaardid ja dokumendid</span><span class="explore__text">Ajaloolised kaardid allalaadimiseks</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Videod ja arvustused</span><span class="explore__text">Reklaamklipid ja külaliste muljed</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">E-pood</span><span class="explore__text">Vanavara ja meened</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="kontakt">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Avatud: E–N 11.00–18.00, R–P 11.00–19.00</p>
+      <p>Mere 10, Paldiski 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
