@@ -4,7 +4,7 @@ const nav = document.getElementById('nav');
 
 function setMenu(open) {
   burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Sulge menüü' : 'Ava menüü');
+  burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
   nav.classList.toggle('is-open', open);
   document.body.style.overflow = open ? 'hidden' : '';
 }
@@ -50,4 +50,27 @@ function markMissing(img) {
 document.querySelectorAll('img[data-ph]').forEach((img) => {
   if (img.complete && img.naturalWidth === 0) markMissing(img);
   else img.addEventListener('error', () => markMissing(img), { once: true });
+});
+
+// Вкладки «Предстоящие / Архив»
+const tabs = document.querySelectorAll('.tabs__btn');
+
+function selectTab(tab) {
+  tabs.forEach((t) => {
+    const active = t === tab;
+    t.classList.toggle('is-active', active);
+    t.setAttribute('aria-selected', String(active));
+    t.tabIndex = active ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+  });
+}
+
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => selectTab(tab));
+  tab.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    selectTab(next);
+    next.focus();
+  });
 });

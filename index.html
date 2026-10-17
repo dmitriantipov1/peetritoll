@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="et">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tavern Peetri Toll — restoran ja muuseum Paldiskis</title>
-  <meta name="description" content="Restoran ja muuseum tsaariaegses tollimajas Paldiskis: näitus, raamatud, audiogiid, Pakri Express ja üritused.">
+  <title>Tavern Peetri Toll — ресторан и музей в Палдиски</title>
+  <meta name="description" content="Ресторан и музей в здании царской таможни в Палдиски: выставка холодного оружия, архивы, книги, экскурсии, аудиогид и Pakri Express.">
   <meta name="robots" content="noindex">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,28 +18,28 @@
 <!-- ============ HEADER ============ -->
 <header class="header" id="top">
   <div class="container header__inner">
-    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — avaleht">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
       <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
     </a>
 
-    <nav class="nav" id="nav" aria-label="Peamenüü">
+    <nav class="nav" id="nav" aria-label="Главное меню">
       <ul class="nav__list">
-        <li><a class="nav__link" href="#restoran">Meist</a></li>
-        <li><a class="nav__link" href="#">Menüü</a></li>
-        <li><a class="nav__link" href="#naitus">Muuseum</a></li>
-        <li><a class="nav__link" href="#teenused">Teenused</a></li>
-        <li><a class="nav__link" href="#kontakt">Kontakt</a></li>
-        <li><a class="nav__link" href="#">E-pood</a></li>
+        <li><a class="nav__link" href="#">О нас</a></li>
+        <li><a class="nav__link" href="#">Меню</a></li>
+        <li><a class="nav__link" href="#muzei">Музей</a></li>
+        <li><a class="nav__link" href="#uslugi">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="#">Магазин</a></li>
       </ul>
     </nav>
 
-    <div class="lang" role="group" aria-label="Keel">
-      <button class="lang__btn is-active" type="button" aria-pressed="true">EE</button>
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
       <button class="lang__btn" type="button" aria-pressed="false">EN</button>
-      <button class="lang__btn" type="button" aria-pressed="false">RU</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
     </div>
 
-    <button class="burger" type="button" aria-label="Ava menüü" aria-expanded="false" aria-controls="nav">
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -51,268 +51,272 @@
   <section class="hero">
     <img class="hero__bg" src="./images/hero.jpg" alt="" data-ph="hero.jpg">
     <div class="container hero__content">
-      <p class="hero__kicker">Restoran &amp; Muuseum</p>
-      <p class="hero__sub">tsaariaegses tollimajas</p>
+      <p class="hero__kicker">Ресторан и музей</p>
+      <p class="hero__sub">в здании царской таможни</p>
       <h1 class="hero__title">Tavern Peetri Toll</h1>
-      <p class="hero__quote">kus ärkab ellu ajalugu ja taaselustuvad traditsioonid</p>
+      <p class="hero__quote">где оживает история и возрождаются традиции</p>
       <div class="hero__actions">
-        <a class="btn btn--solid" href="#">Menüü</a>
-        <a class="btn btn--light" href="#">Broneeri laud</a>
+        <a class="btn btn--solid" href="#">Меню</a>
+        <a class="btn btn--light" href="#">Забронировать стол</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ 01 RESTORAN ============ -->
+  <!-- ============ 01 РЕСТОРАН ============ -->
   <section class="section section--bg1" id="restoran">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Restoran</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Restoran</h2>
-        <a class="section-head__more" href="#">Loe lähemalt</a>
+        <p class="section-head__crumb">Ресторан и банкетные залы</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Ресторан</h2>
+        <a class="section-head__more" href="#">Подробнее</a>
       </header>
 
-      <div class="restaurant">
-        <figure class="photo restaurant__main">
-          <div class="photo__frame photo__frame--gold">
-            <img src="./images/restaurant-hall.jpg" alt="Restorani saal" loading="lazy" data-ph="restaurant-hall.jpg">
-          </div>
-          <figcaption class="caption">Kolm saali esimesel korrusel</figcaption>
-        </figure>
-
-        <figure class="photo restaurant__mid">
-          <div class="photo__frame">
-            <img src="./images/restaurant-house.jpg" alt="Tollimaja hoov" loading="lazy" data-ph="restaurant-house.jpg">
-          </div>
-          <figcaption class="caption">Suur privaatne banketisaal</figcaption>
-        </figure>
-
-        <figure class="photo restaurant__small">
-          <div class="photo__frame">
-            <img src="./images/restaurant-terrace.jpg" alt="Suveterrass" loading="lazy" data-ph="restaurant-terrace.jpg">
-          </div>
-          <figcaption class="caption">Suveterrass</figcaption>
-        </figure>
-
-        <div class="restaurant__aside">
-          <p class="quote">koduselt maitsvad toidud<br>ajaloolises atmosfääris</p>
-          <a class="btn btn--red" href="#">Broneeri laud</a>
+      <div class="intro">
+        <div class="intro__text">
+          <h3 class="intro__title">Вкусная еда, историческая атмосфера и залы для любых событий</h3>
+          <p>«Петровская Таможня» — это не просто ресторан с богатой историей и аутентичной кухней, но и пространство для праздников, деловых встреч и семейных дат. Мы объединяем старинный уют с современным комфортом и предлагаем разные залы под ваши задачи.</p>
         </div>
+        <div class="intro__aside">
+          <p class="h4">Проводим события любого формата</p>
+          <ul class="formats">
+            <li><b>Торжества и праздники:</b> банкеты, свадьбы, юбилеи и детские дни рождения.</li>
+            <li><b>Корпоративные события:</b> корпоративы, закрытые приёмы и тимбилдинги.</li>
+            <li><b>Деловые мероприятия:</b> конференции, семинары, презентации и встречи делегаций.</li>
+            <li><b>Кейтеринг и сервис:</b> индивидуальное меню, рассадка гостей и обслуживание под ключ.</li>
+          </ul>
+        </div>
+      </div>
+
+      <ul class="halls">
+        <li class="hall hall--main">
+          <div class="photo__frame photo__frame--gold"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div>
+          <h4 class="hall__title">Три зала на первом этаже</h4>
+          <p class="hall__text">Уютная атмосфера исторической таверны, тепло камина и аутентичный интерьер для повседневного отдыха, романтических ужинов и семейных обедов.</p>
+        </li>
+        <li class="hall">
+          <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Выставочный зал на втором этаже" loading="lazy" data-ph="weapons-2.jpg"></div>
+          <h4 class="hall__title">Банкетный и выставочный зал</h4>
+          <p class="hall__text">Просторный зал на втором этаже с коллекцией исторического холодного оружия. Для торжеств, корпоративов и презентаций в неповторимой обстановке.</p>
+        </li>
+        <li class="hall">
+          <div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Летняя терраса" loading="lazy" data-ph="restaurant-house.jpg"></div>
+          <h4 class="hall__title">Летняя терраса</h4>
+          <p class="hall__text">Открытая площадка на свежем морском воздухе для тёплых летних вечеров, гриля, коктейлей и праздников под открытым небом.</p>
+        </li>
+      </ul>
+
+      <div class="cta-row">
+        <p class="quote">домашняя сытная кухня<br>в исторической атмосфере</p>
+        <a class="btn btn--red" href="#">Забронировать зал</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ 02 NÄITUS ============ -->
-  <section class="section section--bg2" id="naitus">
+  <!-- ============ 02 ВЫСТАВКА ============ -->
+  <section class="section section--bg2" id="vystavka">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Muuseum</p>
-        <h2 class="section-head__title"><span class="section-head__num">02</span> Ajaloolised külmrelvad</h2>
-        <a class="section-head__more" href="#">Loe lähemalt</a>
+        <p class="section-head__crumb">Постоянная экспозиция</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Выставка</h2>
+        <a class="section-head__more" href="#">Подробнее</a>
       </header>
 
       <div class="exhibition">
         <div class="exhibition__text">
-          <h3 class="h3">Постоянная экспозиция на втором этаже ресторана «Таверна Петровская Таможня»</h3>
+          <h3 class="intro__title">Холодное оружие со всего света</h3>
+          <p class="exhibition__sub">Постоянная экспозиция на втором этаже ресторана «Петровская Таможня»</p>
           <p>Более 150 артефактов, которые словно сошли со страниц приключенческих романов. От сабли 2-метрового гиганта из Гражданской войны в США до мистического оружия африканских племён, изящных женских стилетов и клинков тайных орденов. Познакомьтесь с историей через призму стали, загадок и мастерства оружейников разных эпох и континентов.</p>
 
           <dl class="facts">
-            <div class="facts__row"><dt>Экспозиция</dt><dd>2 зала, более 150 экспонатов</dd></div>
-            <div class="facts__row"><dt>Фильм</dt><dd>12 минут о самых интересных экспонатах</dd></div>
-            <div class="facts__row"><dt>Билет</dt><dd>3 €</dd></div>
-            <div class="facts__row"><dt>Экскурсия для групп</dt><dd>15–20 мин, 20 €</dd></div>
+            <div class="facts__row"><dt>Коллекция</dt><dd>150+ подлинных экспонатов, включая бронзовый кинжал возрастом более 3000 лет</dd></div>
+            <div class="facts__row"><dt>Новинка</dt><dd>12-минутный документальный фильм об артефактах коллекции</dd></div>
+            <div class="facts__row"><dt>Экскурсии</dt><dd>Экспресс-экскурсии для групп, 15–20 минут</dd></div>
+            <div class="facts__row"><dt>Вход</dt><dd>3 €, билеты на кассе у барной стойки</dd></div>
           </dl>
 
-          <a class="btn" href="#">Broneeri ekskursioon</a>
+          <a class="btn" href="#">Спланировать визит</a>
         </div>
 
         <div class="exhibition__gallery">
-          <figure class="photo"><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Mõõgad näitusel" loading="lazy" data-ph="weapons-1.jpg"></div></figure>
-          <figure class="photo"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Mundris mannekeen" loading="lazy" data-ph="weapons-2.jpg"></div></figure>
-          <figure class="photo exhibition__wide"><div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Ajalooline foto" loading="lazy" data-ph="weapons-3.jpg"></div></figure>
+          <figure class="photo"><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Сабли и шпаги на выставке" loading="lazy" data-ph="weapons-1.jpg"></div></figure>
+          <figure class="photo exhibition__wide"><div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Мартин ван Бюрен Бейтс, гигант ростом 2 м 36 см, на историческом фото" loading="lazy" data-ph="weapons-3.jpg"></div></figure>
           <p class="quote exhibition__quote">более 150 старинных артефактов словно сошли со страниц приключенческих романов</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 03 RAAMATUD ============ -->
-  <section class="section section--bg1" id="raamatud">
+  <!-- ============ 03 МУЗЕЙ ============ -->
+  <section class="section section--bg1" id="muzei">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Kirjastus</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Raamatud</h2>
-        <a class="section-head__more" href="#">Kõik raamatud</a>
+        <p class="section-head__crumb">Культурно-краеведческий центр Peetri Toll</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Музей</h2>
+        <a class="section-head__more" href="#">Все разделы</a>
       </header>
 
-      <ul class="cards">
-        <li class="card">
-          <div class="card__img"><img src="./images/book-1.jpg" alt="Raamatu kaas: Lood baarileti tagant" loading="lazy" data-ph="book-1.jpg"></div>
-          <h3 class="card__title">Lood baarileti tagant + Moraal</h3>
-          <p class="card__author">Galina Maljutina</p>
-          <p class="card__price">Hind: 10 €</p>
-          <a class="btn btn--sm" href="#">Osta</a>
+      <div class="intro intro--single">
+        <h3 class="intro__title">Музей живой истории: от клинков до старинных фолиантов</h3>
+        <p>Под крышей «Петровской Таможни» бережно собрано наследие трёх столетий: оружейная коллекция со всего света, редкие архивные кадры и карты, ремесленные традиции книгопечатания и творчество людей, влюблённых в этот морской край.</p>
+      </div>
+
+      <ul class="explore">
+        <li><a class="explore__link" href="#"><span class="explore__title">Экспозиции музея</span><span class="explore__text">Более 150 редких клинков, историческое обмундирование и сменные тематические выставки.</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Архивы и фотоархив</span><span class="explore__text">От чертежей петровской крепости и дореволюционных открыток до хроники закрытого военного города.</span></a></li>
+        <li><a class="explore__link" href="#knigi"><span class="explore__title">Книгопечатня</span><span class="explore__text">Книги, которые мы издаём: краеведение, проза и поэзия о Палдиски.</span></a></li>
+        <li><a class="explore__link" href="#"><span class="explore__title">Авторы</span><span class="explore__text">Художники, писатели и исследователи, запечатлевшие дух полуострова Пакри.</span></a></li>
+      </ul>
+
+      <div class="subsection" id="knigi">
+        <div class="subsection__head">
+          <h3 class="h3">Книги нашего издательства</h3>
+          <a class="link-more" href="#">Все книги</a>
+        </div>
+
+        <ul class="cards">
+          <li class="card">
+            <div class="card__img"><img src="./images/book-1.jpg" alt="Обложка: Lood baarileti tagant" loading="lazy" data-ph="book-1.jpg"></div>
+            <h4 class="card__title">Lood baarileti tagant + Moraal</h4>
+            <p class="card__author">Галина Малютина</p>
+            <p class="card__price">Цена: 10 €</p>
+            <a class="btn btn--sm" href="#">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="./images/book-2.jpg" alt="Обложка книги Йозефа Катса" loading="lazy" data-ph="book-2.jpg"></div>
+            <h4 class="card__title">Paldiski ja tema inimesed</h4>
+            <p class="card__author">Йозеф Катс</p>
+            <p class="card__price">Цена: 10 €</p>
+            <a class="btn btn--sm" href="#">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="./images/book-3.jpg" alt="Обложка: Kodulinn Paldiski" loading="lazy" data-ph="book-3.jpg"></div>
+            <h4 class="card__title">Kodulinn Paldiski</h4>
+            <p class="card__author">Пауль Лаан</p>
+            <p class="card__price">Цена: 10 €</p>
+            <a class="btn btn--sm" href="#">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="./images/book-4.jpg" alt="Обложка книги" loading="lazy" data-ph="book-4.jpg"></div>
+            <h4 class="card__title">Название книги</h4>
+            <p class="card__author">Автор</p>
+            <p class="card__price">Цена: 10 €</p>
+            <a class="btn btn--sm" href="#">Купить</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 УСЛУГИ ============ -->
+  <section class="section section--bg4" id="uslugi">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Впечатления и маршруты</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Экскурсии и поездки</h2>
+        <a class="section-head__more" href="#">Все услуги</a>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Откройте Палдиски и полуостров Пакри вместе с нами</h3>
+        <p>Мы помогаем гостям влюбиться в суровую красоту и богатую историю нашего края. Выбирайте удобный формат: экскурсии от нашей команды, программы с лучшими местными гидами, поездки на Pakri Express или самостоятельное путешествие с мобильным аудиогидом.</p>
+      </div>
+
+      <ul class="services">
+        <li class="service">
+          <div class="photo__frame"><img src="./images/restaurant-terrace.jpg" alt="Историческое фото из экспозиции музея" loading="lazy" data-ph="restaurant-terrace.jpg"></div>
+          <h4 class="service__title">Экскурсии от Peetri Toll</h4>
+          <p class="service__text">Короткие обзоры музея (15–20 мин) и исторические программы по старинному зданию таможни и окрестностям.</p>
+          <a class="service__link" href="#">Подробнее</a>
         </li>
-        <li class="card">
-          <div class="card__img"><img src="./images/book-2.jpg" alt="Raamatu kaas: Paldiski ja tema inimesed" loading="lazy" data-ph="book-2.jpg"></div>
-          <h3 class="card__title">Paldiski ja tema inimesed</h3>
-          <p class="card__author">Josef Kats</p>
-          <p class="card__price">Hind: 10 €</p>
-          <a class="btn btn--sm" href="#">Osta</a>
+        <li class="service">
+          <div class="photo__frame"><img src="./images/guides.jpg" alt="Экскурсия с местным гидом" loading="lazy" data-ph="guides.jpg"></div>
+          <h4 class="service__title">Сертифицированные гиды</h4>
+          <p class="service__text">Глубокое погружение для групп и индивидуальных туристов вместе с опытными местными краеведами. EST / ENG / RUS.</p>
+          <a class="service__link" href="#">Заказать гида</a>
         </li>
-        <li class="card">
-          <div class="card__img"><img src="./images/book-3.jpg" alt="Raamatu kaas: Kodulinn Paldiski" loading="lazy" data-ph="book-3.jpg"></div>
-          <h3 class="card__title">Kodulinn Paldiski</h3>
-          <p class="card__author">Paul Laan</p>
-          <p class="card__price">Hind: 10 €</p>
-          <a class="btn btn--sm" href="#">Osta</a>
+        <li class="service">
+          <div class="photo__frame"><img src="./images/audioguide.jpg" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.jpg"></div>
+          <h4 class="service__title">Мобильный аудиогид</h4>
+          <p class="service__text">Аудиоспектакль в вашем смартфоне: пешеходный (3,2 км) или автомобильный (15,3 км) маршрут по Пакри.</p>
+          <a class="service__link" href="#">Как скачать</a>
         </li>
-        <li class="card">
-          <div class="card__img"><img src="./images/book-4.jpg" alt="Raamatu kaas" loading="lazy" data-ph="book-4.jpg"></div>
-          <h3 class="card__title">Raamatu pealkiri</h3>
-          <p class="card__author">Autor</p>
-          <p class="card__price">Hind: 10 €</p>
-          <a class="btn btn--sm" href="#">Osta</a>
+        <li class="service">
+          <div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Электромобиль Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div>
+          <h4 class="service__title">Pakri Express</h4>
+          <p class="service__text">Экскурсионные поездки и тематические программы для детей, семей и организованных групп.</p>
+          <a class="service__link" href="#">Узнать расписание</a>
         </li>
       </ul>
-    </div>
-  </section>
 
-  <!-- ============ 04 AUDIOGIID ============ -->
-  <section class="section section--bg2" id="teenused">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Teenused</p>
-        <h2 class="section-head__title"><span class="section-head__num">04</span> Audiogiid</h2>
-        <a class="section-head__more" href="#">Loe lähemalt</a>
-      </header>
-
-      <div class="split">
-        <figure class="photo split__media">
-          <div class="photo__frame photo__frame--square"><img src="./images/audioguide.jpg" alt="Audiogiidi kasutaja Pakri tuletorni taustal" loading="lazy" data-ph="audioguide.jpg"></div>
-        </figure>
-
-        <div class="split__text">
-          <h3 class="h3">Мобильный аудиогид: исследуйте город в своём ритме</h3>
-          <p>Погрузитесь в захватывающую историю Палдиски и дикую природу полуострова с нашим эксклюзивным аудиогидом. Каждая история — результат глубокого краеведческого исследования, а профессиональная актёрская озвучка в сочетании со звуковыми эффектами создаёт эффект полного погружения.</p>
-
-          <dl class="facts">
-            <div class="facts__row"><dt>Пешеходный маршрут, 3,2 км</dt><dd>Исторический центр, уютные улочки и ключевые памятники города</dd></div>
-            <div class="facts__row"><dt>Автомобильный маршрут, 15,3 км</dt><dd>Весь полуостров Пакри: маяк, обрывы, береговые батареи и ветропарк</dd></div>
-            <div class="facts__row"><dt>Языки</dt><dd>EE / EN / RU</dd></div>
-            <div class="facts__row"><dt>Цена</dt><dd>7 € (день), 10 € (72 ч), 15 € (6 мес.)</dd></div>
-          </dl>
-
-          <p class="h4">Как воспользоваться аудиогидом</p>
-          <ol class="steps">
-            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
-            <li>Найдите в поиске «Paldiski audioguide».</li>
-            <li>Приобретите доступ прямо в приложении. Лучше сделать это заранее, чтобы начать слушать истории уже в пути.</li>
-          </ol>
-
-          <a class="btn" href="#">Osta audiogiid</a>
-        </div>
+      <div class="center">
+        <a class="btn btn--red" href="#">Выбрать маршрут и забронировать</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ 05 PAKRI EXPRESS ============ -->
-  <section class="section section--bg4" id="pakri-express">
+  <!-- ============ 05 МЕРОПРИЯТИЯ ============ -->
+  <section class="section section--bg1" id="meropriyatiya">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Teenused</p>
-        <h2 class="section-head__title"><span class="section-head__num">05</span> Pakri Express</h2>
-        <a class="section-head__more" href="#">Loe lähemalt</a>
+        <p class="section-head__crumb">Жизнь таверны</p>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Мероприятия</h2>
+        <a class="section-head__more" href="#">Все мероприятия</a>
       </header>
 
-      <div class="split split--reverse">
-        <figure class="photo split__media">
-          <div class="photo__frame photo__frame--wide"><img src="./images/pakri-express.jpg" alt="Elektriauto Pakri Express Pakri pangal" loading="lazy" data-ph="pakri-express.jpg"></div>
-        </figure>
-
-        <div class="split__text">
-          <p class="lead">«Пакри Экспресс» — популярный прогулочный формат знакомства с городом, а также площадка для театрализованных и праздничных программ, созданных вместе с культурными партнёрами.</p>
-
-          <dl class="facts facts--panel">
-            <div class="facts__row"><dt>Väljumine</dt><dd>Muuseumi värav, Paldiski</dd></div>
-            <div class="facts__row"><dt>Grupp</dt><dd>kuni … kohta</dd></div>
-            <div class="facts__row"><dt>Kestus</dt><dd>umbes 1 h 30 min</dd></div>
-            <div class="facts__row"><dt>Hind</dt><dd>… €</dd></div>
-          </dl>
-
-          <a class="btn btn--red" href="#">Broneeri sõit</a>
-        </div>
+      <div class="intro intro--single">
+        <h3 class="intro__title">События и культурная жизнь</h3>
+        <p>В «Петровской Таможне» всегда кипит жизнь: акустические вечера и дегустации, исторические лекции, экскурсии и городские праздники.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ 06 ÜRITUSED ============ -->
-  <section class="section section--bg1" id="uritused">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Muuseum</p>
-        <h2 class="section-head__title"><span class="section-head__num">06</span> Üritused</h2>
-        <a class="section-head__more" href="#">Kõik üritused</a>
-      </header>
+      <div class="tabs" role="tablist" aria-label="Мероприятия">
+        <button class="tabs__btn is-active" type="button" role="tab" id="tab-upcoming" aria-controls="panel-upcoming" aria-selected="true">Предстоящие</button>
+        <button class="tabs__btn" type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" tabindex="-1">Архив</button>
+      </div>
 
-      <div class="events">
+      <div class="events" id="panel-upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
         <ul class="events__list">
           <li class="event">
-            <p class="event__date"><span class="event__day">18</span> oktoober</p>
+            <p class="event__date"><span class="event__day">18</span> октября</p>
             <div class="event__body">
-              <p class="event__type">Kontsert</p>
-              <h3 class="event__title">Песни из любимых кинофильмов</h3>
+              <p class="event__type">Концерт</p>
+              <h4 class="event__title">Песни из любимых кинофильмов</h4>
               <p class="event__desc">Анна Дытына (вокал), Александр Пелёвин (гитара)</p>
-              <p class="event__meta">Algus 18:00 <span>Hind 15 €</span></p>
+              <p class="event__meta">Начало в 18:00 <span>Цена 15 €</span></p>
             </div>
-            <a class="btn btn--sm event__btn" href="#">Osta pilet</a>
+            <a class="btn btn--sm event__btn" href="#">Купить билет</a>
           </li>
           <li class="event">
-            <p class="event__date"><span class="event__day">18</span> oktoober</p>
+            <p class="event__date"><span class="event__day">18</span> октября</p>
             <div class="event__body">
-              <p class="event__type">Ekskursioon</p>
-              <h3 class="event__title">Giidiga tuur näitusel «Ajaloolised külmrelvad kogu maailmast»</h3>
-              <p class="event__meta">Hind 15 € <span>Kestus 30 min</span></p>
+              <p class="event__type">Экскурсия</p>
+              <h4 class="event__title">Экскурсия с гидом по выставке «Холодное оружие со всего света»</h4>
+              <p class="event__meta">Цена 15 € <span>30 минут</span></p>
             </div>
-            <a class="btn btn--sm event__btn" href="#">Osta pilet</a>
+            <a class="btn btn--sm event__btn" href="#">Купить билет</a>
           </li>
         </ul>
 
         <figure class="events__poster">
-          <img src="./images/event-poster.jpg" alt="Kontserdi plakat: 18.10.2026 kell 18.00" loading="lazy" data-ph="event-poster.jpg">
+          <img src="./images/event-poster.jpg" alt="Афиша концерта 18.10.2026 в 18:00" loading="lazy" data-ph="event-poster.jpg">
         </figure>
       </div>
 
-      <a class="link-more" href="#">Möödunud üritused</a>
-    </div>
-  </section>
-
-  <!-- ============ AVASTA VEEL ============ -->
-  <section class="section section--bg2 section--compact">
-    <div class="container">
-      <h2 class="h2">Avasta veel</h2>
-      <ul class="explore">
-        <li><a class="explore__link" href="#"><span class="explore__title">Galina Maljutina</span><span class="explore__text">Luule, proosa, laulud ja lood baarileti tagant</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Andrei Kirillov</span><span class="explore__text">Maalid, postkaardid ja magnetid</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Ekskursioonid ja giidid</span><span class="explore__text">Retked Pakri poolsaarel koos meie partneritega</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Vanade fotode pank</span><span class="explore__text">Ajaloolised fotod kõrges resolutsioonis</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Maalid Paldiskist ja Pakrist</span><span class="explore__text">Originaalid ja digitaalsed koopiad</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Kaardid ja dokumendid</span><span class="explore__text">Ajaloolised kaardid allalaadimiseks</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">Videod ja arvustused</span><span class="explore__text">Reklaamklipid ja külaliste muljed</span></a></li>
-        <li><a class="explore__link" href="#"><span class="explore__title">E-pood</span><span class="explore__text">Vanavara ja meened</span></a></li>
-      </ul>
+      <div class="events-empty" id="panel-archive" role="tabpanel" aria-labelledby="tab-archive" hidden>
+        <p>Здесь появятся фотоотчёты, памятные афиши и хроника прошедших встреч.</p>
+      </div>
     </div>
   </section>
 
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer" id="kontakt">
+<footer class="footer" id="kontakty">
   <div class="container footer__inner">
     <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
 
     <address class="footer__contacts">
-      <p>Avatud: E–N 11.00–18.00, R–P 11.00–19.00</p>
-      <p>Mere 10, Paldiski 76805</p>
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
       <p><a href="tel:+37253423425">+372 53 423 425</a></p>
       <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
     </address>

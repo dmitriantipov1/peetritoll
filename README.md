@@ -8,20 +8,20 @@
 Экспортируйте из Figma в папку `images/` с такими именами. Пока файла нет,
 на его месте показывается заглушка с именем файла.
 
-| Файл | Что это в макете |
+| Файл | Где используется |
 |---|---|
 | logo.svg | логотип в шапке |
-| hero.jpg | фон первого экрана (картина с застольем), ~2400 px по ширине |
-| restaurant-hall.jpg | 01 Restoran: большое фото зала (photo tavern) |
-| restaurant-house.jpg | 01 Restoran: здание с красной крышей (Rectangle 12) |
-| restaurant-terrace.jpg | 01 Restoran: маленькое фото (Frame 48) |
-| weapons-1.jpg | 02: сабли на стене |
-| weapons-2.jpg | 02: манекен в мундире |
-| weapons-3.jpg | 02: историческое фото (великан) |
-| book-1.jpg … book-4.jpg | 03 Raamatud: обложки книг |
-| audioguide.jpg | 04 Audiogiid: девушка у маяка с QR-кодом |
-| pakri-express.jpg | 05 Pakri Express: фото электромобиля |
-| event-poster.jpg | 06 Üritused: афиша концерта |
+| hero.jpg | фон первого экрана |
+| restaurant-hall.jpg | 01 Ресторан: три зала на первом этаже |
+| weapons-2.jpg | 01 Ресторан: банкетный и выставочный зал |
+| restaurant-house.jpg | 01 Ресторан: летняя терраса (временно, нужно фото террасы) |
+| weapons-1.jpg, weapons-3.jpg | 02 Выставка |
+| book-1.jpg … book-4.jpg | 03 Музей: книги издательства |
+| restaurant-terrace.jpg | 04 Экскурсии: карточка «Экскурсии от Peetri Toll» |
+| guides.jpg | 04 Экскурсии: карточка «Сертифицированные гиды» (нужно новое фото) |
+| audioguide.jpg | 04 Экскурсии: аудиогид |
+| pakri-express.jpg | 04 Экскурсии: Pakri Express |
+| event-poster.jpg | 05 Мероприятия: афиша |
 | footer.png | футер: логотип с птицами |
 
 Фото лучше выгружать в JPG 2x, логотипы в PNG.
