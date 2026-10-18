@@ -531,7 +531,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   list-style: none;
 }
 .service { display: flex; flex-direction: column; }
-.service .photo__frame { aspect-ratio: 4 / 5; margin-bottom: var(--s-2); }
+.service .photo__frame { aspect-ratio: 1; margin-bottom: var(--s-2); }
+/* Точка фокуса для обрезки, если фото не квадратное: class="photo__frame" style="--focus: 30% 50%" */
+.service .photo__frame img { object-position: var(--focus, 50% 50%); }
 .service__title { font-family: var(--f-head); font-weight: 700; font-size: 20px; margin: 0 0 6px; }
 .service__text { font-size: 16px; margin-bottom: var(--s-2); }
 .service__link {
@@ -690,7 +692,22 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 860px) {
   .halls { grid-template-columns: 1fr 1fr; }
   .hall--main { grid-column: 1 / -1; }
-  .hall--main .photo__frame { aspect-ratio: 4 / 3; }
+  /* На планшете и телефоне картинки показываются целиком, без обрезки */
+  .photo__frame,
+  .hall .photo__frame,
+  .hall--main .photo__frame,
+  .service .photo__frame,
+  .exhibition__gallery .photo__frame,
+  .exhibition__wide .photo__frame,
+  .card__img,
+  .events__poster { aspect-ratio: auto; height: auto; }
+
+  .photo__frame img,
+  .card__img img,
+  .events__poster img { height: auto; object-fit: initial; }
+
+  /* Заглушка, пока файла нет, чтобы блок не схлопнулся */
+  .is-missing { min-height: 220px; }
 }
 
 @media (max-width: 640px) {
@@ -704,7 +721,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .section-head__more { padding: var(--s-1) 0 0; }
 
   .halls { grid-template-columns: 1fr; }
-  .hall .photo__frame, .hall--main .photo__frame { aspect-ratio: 4 / 3; }
 
   .exhibition__gallery { grid-template-columns: 1fr 1fr; }
   .exhibition__quote { text-align: left; }
@@ -713,7 +729,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .card__title { font-size: 18px; }
 
   .services, .explore { grid-template-columns: 1fr; }
-  .service .photo__frame { aspect-ratio: 16 / 10; }
 
   .facts__row { grid-template-columns: 1fr; gap: 2px; }
 
