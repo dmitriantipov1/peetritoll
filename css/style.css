@@ -823,19 +823,31 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .prose p { margin-bottom: var(--s-2); max-width: 62ch; }
 
 .chips { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-4); list-style: none; }
+/* li — тоже flex, иначе ссылка внутри остаётся строчной и её padding наезжает на соседний ряд */
+.chips > li { display: flex; }
 .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
   padding: 8px 16px;
   border: 1px solid var(--c-gold);
   background: transparent;
   color: var(--c-gold-text);
   font-family: var(--f-deco);
   font-size: 16px;
+  line-height: 1.25;
   letter-spacing: .06em;
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
 }
 .chip:hover { border-color: var(--c-gold-dark); }
 .chip.is-active { background: var(--c-gold); color: var(--c-brown); }
+@media (max-width: 640px) {
+  .chips { gap: 6px; }
+  .chip { min-height: 38px; padding: 7px 12px; font-size: 15px; letter-spacing: .03em; }
+}
 
 [data-cat][hidden] { display: none; }
 
