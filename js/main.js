@@ -33,7 +33,7 @@ document.querySelectorAll('.lang__btn').forEach((btn, _, all) => {
 
 // Заглушки для картинок, которые ещё не положили в /images
 function markMissing(img) {
-  const box = img.closest('.photo__frame, .card__img, .events__poster');
+  const box = img.closest('.photo__frame, .card__img, .events__poster, .dish__img');
   if (box) {
     box.classList.add('is-missing');
     box.dataset.ph = img.dataset.ph;
@@ -74,3 +74,41 @@ tabs.forEach((tab, i) => {
     next.focus();
   });
 });
+
+// Фильтр по категориям (галерея, магазин)
+document.querySelectorAll('[data-filter-group]').forEach((group) => {
+  const target = document.getElementById(group.dataset.filterGroup);
+  const buttons = group.querySelectorAll('[data-filter]');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.filter;
+      buttons.forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      target.querySelectorAll('[data-cat]').forEach((item) => {
+        item.hidden = cat !== 'all' && item.dataset.cat !== cat;
+      });
+    });
+  });
+});
+
+// Переключатель вариантов карточек меню (для согласования с заказчиком)
+const menuRoot = document.getElementById('menu-root');
+if (menuRoot) {
+  const desc = document.querySelector('.variant-panel__desc');
+  const variantBtns = document.querySelectorAll('[data-variant]');
+  variantBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      menuRoot.className = menuRoot.className.replace(/menu--v\d/, 'menu--v' + btn.dataset.variant);
+      variantBtns.forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      desc.textContent = btn.dataset.desc;
+      history.replaceState(null, '', '#v' + btn.dataset.variant);
+    });
+  });
+  const fromHash = location.hash.match(/^#v([1-5])$/);
+  if (fromHash) document.querySelector('[data-variant="' + fromHash[1] + '"]').click();
+}

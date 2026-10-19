@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Меню — Tavern Peetri Toll</title>
+  <meta name="description" content="Меню ресторана «Петровская Таможня» в Палдиски: домашняя сытная кухня в исторической атмосфере.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link is-current" href="./menu.html" aria-current="page">Меню</a></li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / Меню</p>
+      <h1 class="page-hero__title">Меню</h1>
+      <p class="page-hero__lead">Домашняя сытная кухня в исторической атмосфере</p>
+    </div>
+  </section>
+
+  <section class="section section--bg1">
+    <div class="container">
+
+      <div class="variant-panel">
+        <p class="variant-panel__label">Для согласования: выберите вид карточки блюда</p>
+        <div class="chips" role="group" aria-label="Варианты карточек">
+          <button class="chip is-active" type="button" data-variant="1" data-desc="Крупное фото блюда, под ним название, цена и описание. Наглядно, хорошо работает, если фото блюд качественные." aria-pressed="true">1. Карточки с фото</button>
+          <button class="chip" type="button" data-variant="2" data-desc="Без фото, как в бумажном меню ресторана: название, отточие, цена. Строго и компактно, удобно для длинного меню." aria-pressed="false">2. Классическое меню</button>
+          <button class="chip" type="button" data-variant="3" data-desc="Маленькое фото в золотой рамке слева, текст справа. Компромисс: фото есть, но меню остаётся компактным." aria-pressed="false">3. Строка с миниатюрой</button>
+          <button class="chip" type="button" data-variant="4" data-desc="Тёмные карточки с золотой рамкой, как на вывеске таверны. Самый атмосферный вариант, хорошо подходит для фирменных блюд." aria-pressed="false">4. Тёмная таверна</button>
+          <button class="chip" type="button" data-variant="5" data-desc="Фото на всю карточку, название и цена поверх. Эффектно, но требует одинаково хороших фото для всех блюд." aria-pressed="false">5. Журнальный</button>
+        </div>
+        <p class="variant-panel__desc">Крупное фото блюда, под ним название, цена и описание. Наглядно, хорошо работает, если фото блюд качественные.</p>
+      </div>
+
+      <ul class="chips" aria-label="Разделы меню">
+        <li><a class="chip" href="#zakuski">Закуски</a></li>
+        <li><a class="chip" href="#pelmeni">Пельмени и вареники</a></li>
+        <li><a class="chip" href="#supy">Супы</a></li>
+        <li><a class="chip" href="#goryachee">Горячие блюда</a></li>
+        <li><a class="chip" href="#pogreb">Соленья из погреба</a></li>
+        <li><a class="chip" href="#deti">Детское меню</a></li>
+        <li><a class="chip" href="#deserty">Десерты</a></li>
+        <li><a class="chip" href="#sousy">Соусы и добавки</a></li>
+        <li><a class="chip" href="#napitki">Напитки</a></li>
+      </ul>
+
+      <div class="menu--v1" id="menu-root">
+      <section class="menu-cat" id="zakuski">
+        <h3 class="menu-cat__title">Закуски</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_48v04-08-2024_16-12-05.jpg" alt="Чесночные хлебцы" loading="lazy" data-ph="photo_48v04-08-2024_16-12-05.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,60 €</span></div>
+              <p class="dish__desc">Подаются с белым соусом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg" alt="Чесночные хлебцы с помидорами и сыром" loading="lazy" data-ph="photo_17v03-08-2024_20-38-03.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы с помидорами и сыром</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_41v04-08-2024_16-11-53.jpg" alt="Картофель фри" loading="lazy" data-ph="photo_41v04-08-2024_16-11-53.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Картофель фри</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></div>
+              <p class="dish__desc">Подаётся с томатным соусом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_44v04-08-2024_16-12-05.jpg" alt="Тигровые креветки" loading="lazy" data-ph="photo_44v04-08-2024_16-12-05.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Тигровые креветки</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,50 €</span></div>
+              <p class="dish__desc">Подаются с кисло-сладким соусом чили</p>
+            </div>
+          </li>
+        </ul>
+        <p class="price-list__label">Также</p>
+        <ul class="price-list">
+          <li><div class="dish__top"><span class="price-list__name">Пирог с лососем и брокколи</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,50 €</span></div></li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="pelmeni">
+        <h3 class="menu-cat__title">Пельмени и вареники</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_46v04-08-2024_16-12-05-1.jpg" alt="Пельмени домашние" loading="lazy" data-ph="photo_46v04-08-2024_16-12-05-1.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Пельмени домашние</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
+              <p class="dish__desc">Подаются со сметаной и сливочным маслом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_11v03-08-2024_20-38-02-1.jpg" alt="Вареники с картошкой" loading="lazy" data-ph="photo_11v03-08-2024_20-38-02-1.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Вареники с картошкой</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
+              <p class="dish__desc">Подаются со сметаной и сливочным маслом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg" alt="Вареники с картошкой и трюфелем" loading="lazy" data-ph="vareenikud-truhvila-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Вареники с картошкой и трюфелем</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">10,00 €</span></div>
+              <p class="dish__desc">Подаются со сметаной и сливочным маслом</p><p class="dish__meta">Новинка</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="supy">
+        <h3 class="menu-cat__title">Супы</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_45v04-08-2024_16-12-05-1.jpg" alt="Борщ" loading="lazy" data-ph="photo_45v04-08-2024_16-12-05-1.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Борщ</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 / 5,00 €</span></div>
+              <p class="dish__desc">Подаётся со сметаной</p><p class="dish__meta">маленький / большой</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/v_DSC1292.jpg" alt="Солянка сборная" loading="lazy" data-ph="v_DSC1292.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Солянка сборная</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 / 6,50 €</span></div>
+              <p class="dish__desc">Подаётся со сметаной, оливками и лимоном</p><p class="dish__meta">маленький / большой</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="goryachee">
+        <h3 class="menu-cat__title">Горячие блюда</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_12v03-08-2024_20-38-02.jpg" alt="Домашняя котлета" loading="lazy" data-ph="photo_12v03-08-2024_20-38-02.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Домашняя котлета</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,50 €</span></div>
+              <p class="dish__desc">Подаётся с запечённым картофелем, салатом и соусом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_5v03-08-2024_20-37-52.jpg" alt="Котлета по-киевски" loading="lazy" data-ph="photo_5v03-08-2024_20-37-52.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Котлета по-киевски</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">11,50 €</span></div>
+              <p class="dish__desc">Подаётся с запечённым картофелем, салатом и соусом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/a3bac925-6a32-49cb-8f40-63f43eef332e-web.jpg" alt="Куриная котлета с грибами и сыром" loading="lazy" data-ph="a3bac925-6a32-49cb-8f40-63f43eef332e-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Куриная котлета с грибами и сыром</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">11,00 €</span></div>
+              <p class="dish__desc">Подаётся с запечённым картофелем, салатом и соусом</p>
+            </div>
+          </li>
+        </ul>
+        <p class="price-list__label">Также</p>
+        <ul class="price-list">
+          <li><div class="dish__top"><span class="price-list__name">Блины с мясом</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,00 €</span></div><p class="price-list__desc">Подаются со сметаной</p></li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="pogreb">
+        <h3 class="menu-cat__title">Соленья из погреба</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/09/letcho-web.jpg" alt="Лечо" loading="lazy" data-ph="letcho-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Лечо</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
+              
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="deti">
+        <h3 class="menu-cat__title">Детское меню</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_8v03-08-2024_20-37-52.jpg" alt="Куриные наггетсы" loading="lazy" data-ph="photo_8v03-08-2024_20-37-52.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Куриные наггетсы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
+              <p class="dish__desc">Подаются с картофелем фри и свежими овощами</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="deserty">
+        <h3 class="menu-cat__title">Десерты</h3>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/kirsi-kook-web.jpg" alt="Вишнёвый торт" loading="lazy" data-ph="kirsi-kook-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Вишнёвый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,40 €</span></div>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/pistaatsia-kook-web.jpg" alt="Фисташковый торт" loading="lazy" data-ph="pistaatsia-kook-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Фисташковый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,00 €</span></div>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_25v04-08-2024_16-11-44.jpg" alt="Мороженое" loading="lazy" data-ph="photo_25v04-08-2024_16-11-44.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Мороженое</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,50 €</span></div>
+              <p class="dish__desc">Подаётся с карамельным соусом</p>
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2025/07/tsitrusi-magustoit-web.jpg" alt="Тыквенно-цитрусовый десерт" loading="lazy" data-ph="tsitrusi-magustoit-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Тыквенно-цитрусовый десерт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
+              
+            </div>
+          </li>
+          <li class="dish">
+            <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_7@03-08-2024_20-37-52-web.jpg" alt="Сладкий орешек" loading="lazy" data-ph="photo_7@03-08-2024_20-37-52-web.jpg"></div>
+            <div class="dish__body">
+              <div class="dish__top"><h4 class="dish__name">Сладкий орешек</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div>
+              <p class="dish__desc">С варёной сгущёнкой</p>
+            </div>
+          </li>
+        </ul>
+        <p class="price-list__label">Также</p>
+        <ul class="price-list">
+          <li><div class="dish__top"><span class="price-list__name">Шарик мороженого</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Карамельный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Варенье</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Мёд из одуванчиков</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div></li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="sousy">
+        <h3 class="menu-cat__title">Соусы и добавки</h3>
+        <ul class="price-list price-list--cols">
+          <li><div class="dish__top"><span class="price-list__name">Томатный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Белый соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div><p class="price-list__desc">Сметана, майонез, укроп</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Домашняя горчица</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Сметана</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+        </ul>
+      </section>
+      <section class="menu-cat" id="napitki">
+        <h3 class="menu-cat__title">Напитки</h3>
+        <ul class="price-list price-list--cols">
+          <li><div class="dish__top"><span class="price-list__name">Coca-Cola</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,00 €</span></div><p class="price-list__desc">Обычная или диетическая, 0,5 л</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Вода</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Газированная или негазированная, 0,5 л</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Сок</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div><p class="price-list__desc">Апельсиновый, мультифрукт, яблочный, клюквенный или томатный, 0,25 л</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Чай</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Чайник чая</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">6,00 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной, 0,8 л</p></li>
+          <li><div class="dish__top"><span class="price-list__name">Эспрессо</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Кофе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,80 €</span></div></li>
+          <li><div class="dish__top"><span class="price-list__name">Кофе гляссе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,80 €</span></div></li>
+        </ul>
+      </section>
+      </div>
+
+      <div class="cta-row">
+        <p class="note">Об аллергенах вам расскажет обслуживающий персонал. Банкетное меню составляем индивидуально.</p>
+        <a class="btn btn--red" href="#">Забронировать стол</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

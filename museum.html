@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Музей — Tavern Peetri Toll</title>
+  <meta name="description" content="Музей «Петровской Таможни»: выставка холодного оружия, фотоархив, исторические документы, книги и авторы Палдиски.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link is-current" href="./museum.html" aria-current="page">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/weapons-2.jpg" alt="" data-ph="weapons-2.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / Музей</p>
+      <h1 class="page-hero__title">Музей живой истории</h1>
+      <p class="page-hero__lead">От клинков до старинных фолиантов: наследие трёх столетий под одной крышей</p>
+    </div>
+  </section>
+
+  <!-- Постоянная выставка -->
+  <section class="section section--bg1" id="vystavka">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Постоянная экспозиция</p>
+        <h2 class="section-head__title">Холодное оружие со всего света</h2>
+      </header>
+      <div class="two-col">
+        <div class="prose">
+          <p class="lead">Приглашаем на второй этаж исторической таверны, где расположилась уникальная коллекция старинного холодного оружия: эволюция оружейного дела разных стран и эпох и невероятные истории владельцев.</p>
+          <div class="note">
+            <p class="note__title">Документальный фильм о выставке</p>
+            <p>12-минутный обзор самых захватывающих экспонатов коллекции и их тайн. На эстонском, русском и английском языках.</p>
+          </div>
+        </div>
+        <figure><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Клинки из коллекции" loading="lazy" data-ph="weapons-1.jpg"></div></figure>
+      </div>
+
+      <h3 class="intro__title" style="margin-top: var(--s-5)">Что вас ждёт в экспозиции</h3>
+      <ul class="grid-4">
+        <li class="tile"><h4 class="tile__title">Военная история</h4><p class="tile__text">Шпаги и рапиры европейских армий XVII–XIX веков, включая редчайшую рапиру «Паппенхаймер», и униформа Национальной гвардии США.</p></li>
+        <li class="tile"><h4 class="tile__title">Оружие как искусство</h4><p class="tile__text">Парадные мечи аристократии с золотом, серебром и перламутром, охотничьи ножи и траурные мечи с чернёной рукоятью.</p></li>
+        <li class="tile"><h4 class="tile__title">Экзотика и мистика</h4><p class="tile__text">Мандау охотников за головами с Борнео, индонезийский крис, индийский огненный меч и ритуальные кинжалы.</p></li>
+        <li class="tile"><h4 class="tile__title">Тайные общества</h4><p class="tile__text">Ритуальное оружие масонов и ордена Odd Fellows, самодельные ножи заключённых тюрьмы Румму.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Истории -->
+  <section class="section section--bg2">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Истории, которые хранит сталь</p>
+        <h2 class="section-head__title">Самые интересные экспонаты</h2>
+      </header>
+      <div class="two-col two-col--reverse">
+        <ul class="grid-2">
+          <li class="tile"><h4 class="tile__title">Сабля для великана</h4><p class="tile__text">Сделана на заказ для Мартина ван Бюрена Бейтса — героя Гражданской войны в США ростом 2 м 36 см.</p></li>
+          <li class="tile"><h4 class="tile__title">Женские тайны</h4><p class="tile__text">Дамские стилеты, которые прятали в складках платья, и клинки маркитанток французской армии.</p></li>
+          <li class="tile"><h4 class="tile__title">Древнейший артефакт</h4><p class="tile__text">Кинжал бронзового века возрастом более 3000 лет.</p></li>
+          <li class="tile"><h4 class="tile__title">Кортик с секретом</h4><p class="tile__text">Рукоять в форме головы птицы Гаруды, а в неё встроена… открывалка для бутылок.</p></li>
+        </ul>
+        <figure><div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Мартин ван Бюрен Бейтс на историческом фото" loading="lazy" data-ph="weapons-3.jpg"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Визит -->
+  <section class="section section--bg1">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Спланируйте визит</p>
+        <h2 class="section-head__title">Как нас посетить</h2>
+      </header>
+      <div class="two-col">
+        <dl class="facts">
+          <div class="facts__row"><dt>Где</dt><dd>Палдиски, Mere 10, второй этаж таверны</dd></div>
+          <div class="facts__row"><dt>Когда</dt><dd>В часы работы ресторана. Зал иногда бронируют под частные мероприятия, поэтому перед визитом лучше проверить нашу страницу в Facebook.</dd></div>
+          <div class="facts__row"><dt>Билет</dt><dd>3 €, на кассе у барной стойки на первом этаже</dd></div>
+          <div class="facts__row"><dt>Таблички</dt><dd>У всех экспонатов, на эстонском, английском и русском</dd></div>
+          <div class="facts__row"><dt>Экскурсия</dt><dd>Для групп, 15–20 минут, EE / EN / RU. 20 € по предварительной договорённости</dd></div>
+        </dl>
+        <div class="note">
+          <p class="note__title">Временные выставки</p>
+          <p>Несколько раз в год проводим сменные выставки: вернисажи местных художников и фотографов, экспозиции к памятным датам края, выставки прикладного искусства. Расписание — в календаре мероприятий.</p>
+          <p style="margin-top: var(--s-3)"><a class="btn btn--red" href="./services.html#zayavka">Заказать экскурсию</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Архивы -->
+  <section class="section section--bg2" id="arhivy">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Исследовательский фонд</p>
+        <h2 class="section-head__title">Архивы и документы</h2>
+        <a class="section-head__more" href="#">Заглянуть в архив</a>
+      </header>
+      <h3 class="intro__title">Историческая память: фотоархив, летописи и документы</h3>
+      <ul class="grid-2">
+        <li class="tile">
+          <h4 class="tile__title">Исторический фотоархив</h4>
+          <p class="tile__text">Как менялись Рогервик, Балтийский Порт и Палдиски: визиты императорских особ и встреча Николая II и Вильгельма II на рейде в 1912 году, мореходные классы и рыбацкие посёлки, обе мировые войны, хроника закрытого гарнизона до 1994 года.</p>
+          <p class="tile__meta">Копии в высоком разрешении — в магазине</p>
+        </li>
+        <li class="tile">
+          <h4 class="tile__title">Книги, карты и документы</h4>
+          <p class="tile__text">Копии первых чертежей крепости и мола (1718–1720-е), таможенные книги и переписка XIX века, краеведческие издания, атласы и исследования шведского наследия островов Пакри.</p>
+          <p class="tile__meta">Некоторые издания доступны в PDF</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Книгопечатня -->
+  <section class="section section--bg1" id="knigi">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Книгопечатня</p>
+        <h2 class="section-head__title">Книги, которые мы издаём</h2>
+        <a class="section-head__more" href="./shop.html">Все книги</a>
+      </header>
+      <ul class="cards cards--5">
+          <li class="card">
+            <div class="card__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+            <h4 class="card__title">Байки из-за барной стойки</h4>
+            <p class="card__author">Галина Малютина</p>
+            <p class="card__meta">2022 · 144 стр.</p>
+            <p class="card__desc">Юмористические рассказы о реальных историях в таверне, которая в 1989–2010 годах была сауна-баром «Садко».</p>
+            <p class="card__price">10,00 €</p>
+            <a class="btn btn--sm" href="./shop.html">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt="Обложка книги «Былой Палдиски и его люди»" loading="lazy" data-ph="byloj-paldiski-i-ego-ludi"></div>
+            <h4 class="card__title">Былой Палдиски и его люди</h4>
+            <p class="card__author">Йосеф Кац</p>
+            <p class="card__meta">2022 · 152 стр.</p>
+            <p class="card__desc">Три столетия города через биографии людей, которые его строили, лечили и учили. Иллюстрации Андрея Кириллова.</p>
+            <p class="card__price">12,00 €</p>
+            <a class="btn btn--sm" href="./shop.html">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги «Мой родной Палдиски»" loading="lazy" data-ph="moj-rodnoj-paldiski"></div>
+            <h4 class="card__title">Мой родной Палдиски</h4>
+            <p class="card__author">Пауль Лаан</p>
+            <p class="card__meta">2022 · 28 стр.</p>
+            <p class="card__desc">Довоенный Палдиски в воспоминаниях сына начальника таможни, с фотографиями из семейного архива.</p>
+            <p class="card__price">15,00 €</p>
+            <a class="btn btn--sm" href="./shop.html">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt="Обложка книги «Lood baarileti tagant»" loading="lazy" data-ph="lood-baarileti-tagant"></div>
+            <h4 class="card__title">Lood baarileti tagant</h4>
+            <p class="card__author">Galina Maljutina</p>
+            <p class="card__meta">2023 · 144 стр. <span class="dish__tag">на эстонском</span></p>
+            <p class="card__desc">Издание на эстонском языке: юмористические рассказы о 1989–2010 годах.</p>
+            <p class="card__price">10,00 €</p>
+            <a class="btn btn--sm" href="./shop.html">Купить</a>
+          </li>
+          <li class="card">
+            <div class="card__img"><img src="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" alt="Обложка книги «Kodulinn Paldiski»" loading="lazy" data-ph="kodulinn-paldiski"></div>
+            <h4 class="card__title">Kodulinn Paldiski</h4>
+            <p class="card__author">Paul Laan</p>
+            <p class="card__meta">2022 · 28 стр.</p>
+            <p class="card__desc">Брошюра по воспоминаниям Пауля Лаана о жизни в Палдиски в 1930-х годах.</p>
+            <p class="card__price">15,00 €</p>
+            <a class="btn btn--sm" href="./shop.html">Купить</a>
+          </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Авторы -->
+  <section class="section section--bg2" id="avtory">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Хранители и летописцы Палдиски</p>
+        <h2 class="section-head__title">Авторы</h2>
+      </header>
+      <p class="lead" style="max-width: 760px">Художники, исследователи и писатели, чьи работы создают живой культурный ландшафт нашего края.</p>
+      <ul class="grid-3">
+        <li class="author"><div class="photo__frame"><img src="./images/author-kirillov.jpg" alt="Андрей Кириллов" loading="lazy" data-ph="author-kirillov.jpg"></div><p class="author__role">Художник, график</p><h3 class="author__name">Андрей Кириллов</h3><p>Картины об истории Палдиски и о Салавате Юлаеве, иллюстрированная туристическая карта Пакри, иллюстрации к сборникам местных авторов.</p><a class="link-more" href="#">Работы автора</a></li>
+        <li class="author"><div class="photo__frame"><img src="./images/author-laan.jpg" alt="Пауль Лаан" loading="lazy" data-ph="author-laan.jpg"></div><p class="author__role">Филолог, архивист</p><h3 class="author__name">Пауль Лаан</h3><p>Сын последнего начальника довоенной таможни. Его мемуары о детстве в стенах этого здания сохранили для нас историю дома.</p><a class="link-more" href="#">Читать подробнее</a></li>
+        <li class="author"><div class="photo__frame"><img src="./images/author-maljutina.jpg" alt="Галина Малютина" loading="lazy" data-ph="author-maljutina.jpg"></div><p class="author__role">Писательница</p><h3 class="author__name">Галина Малютина</h3><p>Стихи, проза, песни и «Байки из-за барной стойки». Аудиокнигу можно послушать после покупки.</p><a class="link-more" href="#">Произведения</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

@@ -760,3 +760,322 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   white-space: nowrap;
 }
 .img-fallback.footer__logo { font-size: clamp(36px, 6vw, 64px); min-height: 0; }
+
+/* =========================================================
+   ВНУТРЕННИЕ СТРАНИЦЫ
+   ========================================================= */
+
+.nav__link.is-current { color: #fff; border-color: var(--c-gold); }
+
+/* ---------- Шапка страницы ---------- */
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 460px;
+  padding-block: 150px clamp(48px, 6vw, 72px);
+  background: #2a1d14;
+  border-bottom: 13px solid var(--c-red);
+  overflow: hidden;
+  color: var(--c-light);
+}
+.page-hero .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,12,6,.8) 0%, rgba(20,12,6,.55) 50%, rgba(20,12,6,.8) 100%);
+}
+.page-hero__content { position: relative; z-index: 1; }
+.page-hero__crumb {
+  margin-bottom: var(--s-2);
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+.page-hero__crumb a { text-decoration: none; }
+.page-hero__crumb a:hover { color: #fff; }
+.page-hero__title {
+  font-family: var(--f-deco);
+  font-weight: 400;
+  font-size: clamp(42px, 6vw, 84px);
+  line-height: 1.05;
+}
+.page-hero__lead {
+  margin-top: var(--s-3);
+  max-width: 640px;
+  font-family: var(--f-head);
+  font-style: italic;
+  font-size: clamp(18px, 1.8vw, 22px);
+}
+
+/* ---------- Общие блоки ---------- */
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.two-col--reverse > :first-child { order: 2; }
+.prose p { margin-bottom: var(--s-2); max-width: 62ch; }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-4); list-style: none; }
+.chip {
+  padding: 8px 16px;
+  border: 1px solid var(--c-gold);
+  background: transparent;
+  color: var(--c-gold-text);
+  font-family: var(--f-deco);
+  font-size: 16px;
+  letter-spacing: .06em;
+  text-decoration: none;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--c-gold-dark); }
+.chip.is-active { background: var(--c-gold); color: var(--c-brown); }
+
+[data-cat][hidden] { display: none; }
+
+.note {
+  padding: var(--s-3);
+  border-left: 3px solid var(--c-gold);
+  background: var(--bg-2);
+}
+.section--bg2 .note { background: var(--bg-1); }
+.note__title { font-family: var(--f-head); font-weight: 700; margin-bottom: 6px; }
+
+.grid-2, .grid-3, .grid-4 { display: grid; gap: var(--gap); list-style: none; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.tile { padding: var(--s-3); border: 1px solid rgba(111,108,108,.35); background: var(--bg-2); }
+.section--bg2 .tile { background: var(--bg-1); }
+.tile__title { font-family: var(--f-head); font-weight: 700; font-size: 19px; margin: 0 0 8px; }
+.tile__text { font-size: 16px; }
+.tile__meta { margin-top: var(--s-2); font-weight: 600; font-size: 14px; color: var(--c-red); }
+
+/* ---------- Таймлайн (история здания) ---------- */
+.timeline { list-style: none; border-left: 1px solid var(--c-gold); }
+.timeline li { position: relative; padding: 0 0 var(--s-4) var(--s-4); }
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 8px;
+  width: 11px;
+  height: 11px;
+  background: var(--c-gold);
+}
+.timeline__date { font-family: var(--f-deco); font-size: 22px; color: var(--c-red); }
+.timeline__text { max-width: 60ch; }
+
+/* ---------- Галерея ---------- */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-2); list-style: none; }
+.gallery .photo__frame { aspect-ratio: 1; }
+
+/* ---------- Новости ---------- */
+.news .photo__frame { aspect-ratio: 3 / 2; margin-bottom: var(--s-2); }
+.news__date { font-weight: 600; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
+.news__title { font-family: var(--f-head); font-weight: 700; font-size: 20px; margin: 4px 0 8px; }
+
+/* ---------- Партнёры ---------- */
+.partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--s-2); list-style: none; }
+.partners li {
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  padding: var(--s-2);
+  border: 1px solid rgba(111,108,108,.35);
+  font-family: var(--f-head);
+  font-weight: 700;
+  text-align: center;
+  color: var(--c-grey);
+}
+
+/* ---------- Отзывы ---------- */
+.review { padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
+.review__stars { color: var(--c-gold-dark); letter-spacing: .2em; margin-bottom: var(--s-2); }
+.review__text { font-family: var(--f-head); font-style: italic; font-size: 19px; line-height: 1.5; }
+.review__source { margin-top: var(--s-2); font-weight: 600; font-size: 14px; color: var(--c-grey); }
+
+/* ---------- Авторы ---------- */
+.author .photo__frame { aspect-ratio: 4 / 5; margin-bottom: var(--s-2); }
+.author__role { font-family: var(--f-head); font-style: italic; color: var(--c-gold-dark); margin-bottom: 8px; }
+.author__name { font-family: var(--f-head); font-weight: 700; font-size: 22px; margin: 0; }
+
+/* ---------- Форма ---------- */
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2) var(--s-3); }
+.form__full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
+.field input, .field select, .field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid rgba(111,108,108,.5);
+  background: var(--bg-2);
+  font: 16px var(--f-body);
+  color: var(--c-ink);
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
+.form__note { font-size: 14px; color: var(--c-grey); }
+
+/* ---------- Магазин ---------- */
+.shop-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2); margin-bottom: var(--s-2); }
+.shop-bar .chips { margin: 0; }
+.cart-link { font-family: var(--f-deco); font-size: 18px; color: var(--c-red); text-decoration: none; white-space: nowrap; }
+
+.product { display: flex; flex-direction: column; }
+.product .photo__frame { aspect-ratio: 1; margin-bottom: var(--s-2); }
+.product__cat { font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
+.product__name { font-family: var(--f-head); font-weight: 700; font-size: 19px; line-height: 1.3; margin: 4px 0; }
+.product__opt { font-size: 15px; color: #4d4842; margin-bottom: var(--s-1); }
+.product__price { font-family: var(--f-deco); font-size: 22px; color: var(--c-red); margin-bottom: var(--s-2); }
+.product .btn { margin-top: auto; align-self: flex-start; }
+
+/* =========================================================
+   МЕНЮ: 5 вариантов карточек блюд
+   ========================================================= */
+.variant-panel {
+  margin-bottom: clamp(40px, 5vw, 64px);
+  padding: var(--s-3);
+  border: 1px dashed var(--c-red);
+  background: var(--bg-2);
+}
+.variant-panel__label { font-weight: 600; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-red); margin-bottom: var(--s-2); }
+.variant-panel .chips { margin-bottom: var(--s-2); }
+.variant-panel__desc { font-family: var(--f-head); font-style: italic; }
+
+.menu-cat { margin-bottom: clamp(48px, 6vw, 80px); scroll-margin-top: 24px; }
+.menu-cat__title { font-family: var(--f-deco); font-weight: 400; font-size: clamp(30px, 3.5vw, 44px); margin-bottom: var(--s-3); }
+
+.dishes { display: grid; gap: var(--gap); list-style: none; }
+.dish { position: relative; }
+.dish__img { position: relative; overflow: hidden; background: rgba(60,31,12,.08); }
+.dish__img img { width: 100%; height: 100%; object-fit: cover; }
+.dish__top { display: flex; align-items: baseline; gap: var(--s-2); }
+.dish__name { font-family: var(--f-head); font-weight: 700; font-size: 20px; line-height: 1.3; margin: 0; }
+.dish__dots { display: none; flex: 1; border-bottom: 1px dotted var(--c-grey); transform: translateY(-5px); }
+.dish__price { margin-left: auto; font-family: var(--f-deco); font-size: 22px; color: var(--c-red); white-space: nowrap; }
+.dish__desc { font-size: 16px; color: #3d3833; }
+.dish__meta { margin-top: 6px; font-weight: 600; font-size: 13px; letter-spacing: .06em; color: var(--c-grey); }
+.dish__tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border: 1px solid var(--c-gold); color: var(--c-gold-text); }
+
+/* Вариант 1 — карточки с фото */
+.menu--v1 .dishes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.menu--v1 .dish__img { aspect-ratio: 4 / 3; margin-bottom: var(--s-2); }
+.menu--v1 .dish__desc { margin-top: 6px; }
+
+/* Вариант 2 — классическое меню без фото */
+.menu--v2 .dishes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) clamp(32px, 5vw, 80px); }
+.menu--v2 .dish__img { display: none; }
+.menu--v2 .dish__dots { display: block; }
+.menu--v2 .dish__price { margin-left: 0; }
+.menu--v2 .dish__desc { margin-top: 4px; font-family: var(--f-head); font-style: italic; }
+
+/* Вариант 3 — строка с миниатюрой */
+.menu--v3 .dishes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 5vw, 80px); }
+.menu--v3 .dish { display: grid; grid-template-columns: 104px 1fr; gap: var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid rgba(111,108,108,.35); }
+.menu--v3 .dish__img { aspect-ratio: 1; border: 1px solid var(--c-gold); padding: 4px; background: var(--bg-2); }
+.menu--v3 .dish__dots { display: block; }
+.menu--v3 .dish__price { margin-left: 0; }
+.menu--v3 .dish__desc { margin-top: 4px; }
+
+/* Вариант 4 — тёмная таверна */
+.menu--v4 .dishes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.menu--v4 .dish { padding: var(--s-2); background: var(--c-brown); color: var(--c-light); }
+.menu--v4 .dish::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(203,170,88,.6); pointer-events: none; }
+.menu--v4 .dish__img { aspect-ratio: 1; margin-bottom: var(--s-2); }
+.menu--v4 .dish__body { padding: 0 var(--s-1) var(--s-2); text-align: center; }
+.menu--v4 .dish__top { flex-direction: column; align-items: center; gap: 4px; }
+.menu--v4 .dish__name { font-family: var(--f-deco); font-weight: 400; font-size: 23px; }
+.menu--v4 .dish__price { margin: 0; color: var(--c-gold); font-size: 26px; }
+.menu--v4 .dish__desc { margin-top: 8px; color: var(--c-light); opacity: .85; }
+.menu--v4 .dish__meta { color: var(--c-gold); }
+.menu--v4 .dish__tag { border-color: var(--c-gold); color: var(--c-gold); }
+
+/* Вариант 5 — журнальный, текст на фото */
+.menu--v5 .dishes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2); }
+.menu--v5 .dish { aspect-ratio: 3 / 4; overflow: hidden; background: #2a1d14; }
+.menu--v5 .dish__img { position: absolute; inset: 0; transition: transform .4s; }
+.menu--v5 .dish:hover .dish__img { transform: scale(1.04); }
+.menu--v5 .dish__body {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 80px var(--s-3) var(--s-3);
+  background: linear-gradient(180deg, transparent, rgba(20,12,6,.92) 55%);
+  color: var(--c-light);
+}
+.menu--v5 .dish__price { color: var(--c-gold); }
+.menu--v5 .dish__desc { margin-top: 6px; color: var(--c-light); font-size: 15px; }
+.menu--v5 .dish__meta { display: none; }
+
+/* ---------- Адаптив внутренних страниц ---------- */
+@media (max-width: 1024px) {
+  .grid-4, .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .menu--v1 .dishes, .menu--v4 .dishes, .menu--v5 .dishes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .menu--v2 .dishes, .menu--v3 .dishes { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+  .two-col { grid-template-columns: 1fr; }
+  .two-col--reverse > :first-child { order: 0; }
+  /* Здесь кадры фиксированные — это сетки-превью, а не «главные» фото */
+  .gallery .photo__frame, .product .photo__frame { aspect-ratio: 1; }
+  .gallery .photo__frame img, .product .photo__frame img { height: 100%; object-fit: cover; }
+}
+
+@media (max-width: 640px) {
+  .page-hero { min-height: 380px; padding-top: 120px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .form { grid-template-columns: 1fr; }
+  .menu--v1 .dishes, .menu--v4 .dishes { grid-template-columns: 1fr; }
+  .menu--v3 .dish { grid-template-columns: 80px 1fr; gap: var(--s-2); }
+  .menu--v5 .dishes { grid-template-columns: 1fr; }
+  .menu--v5 .dish { aspect-ratio: 4 / 5; }
+}
+
+.steps { padding-left: 1.3em; margin-bottom: var(--s-4); }
+.steps li { margin-bottom: 6px; }
+
+/* ---------- Меню: позиции без фото (добавки, соусы, напитки) ---------- */
+.price-list { list-style: none; display: grid; gap: var(--s-2); }
+.price-list--cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 80px); }
+.price-list .dish__dots { display: block; }
+.price-list .dish__price { margin-left: 0; font-size: 20px; }
+.price-list__name { font-family: var(--f-head); font-weight: 700; font-size: 18px; }
+.price-list__desc { font-size: 15px; color: var(--c-grey); }
+.price-list__label {
+  margin: var(--s-4) 0 var(--s-2);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+}
+@media (max-width: 640px) {
+  .price-list--cols { grid-template-columns: 1fr; }
+}
+/* Список без фото одинаковый во всех вариантах карточек */
+#menu-root .price-list .dish__top { flex-direction: row; align-items: baseline; gap: var(--s-2); }
+#menu-root .price-list .dish__price { margin: 0; color: var(--c-red); font-size: 20px; }
+
+/* ---------- Книги: обложки целиком (у брошюр Лаана квадратный формат) ---------- */
+.card__img { display: grid; place-items: center; }
+.card__img img { object-fit: contain; }
+.card__meta { font-size: 14px; color: var(--c-grey); margin-bottom: 6px; }
+.card__desc { font-size: 15px; color: #4d4842; margin-bottom: var(--s-2); }
+.cards--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
+.product--book .photo__frame img { object-fit: contain; padding: 12px; }
+@media (max-width: 1180px) { .cards--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1024px) { .cards--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .product--book .photo__frame img { object-fit: contain; } }
+/* Цена и кнопка прижаты к низу карточки, чтобы ряд выровнялся */
+.card__price { margin-top: auto; padding-top: var(--s-1); }
+.card .btn { margin-top: 0; }

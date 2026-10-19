@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>О нас — Tavern Peetri Toll</title>
+  <meta name="description" content="История семейного ресторана и музея «Петровская Таможня», здания царской таможни и города Палдиски.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link is-current" href="./about.html" aria-current="page">О нас</a></li>
+        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/hero.jpg" alt="" data-ph="hero.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / О нас</p>
+      <h1 class="page-hero__title">О нас</h1>
+      <p class="page-hero__lead">Семейное дело, старинный дом и история морского города</p>
+    </div>
+  </section>
+
+  <!-- Семейное дело -->
+  <section class="section section--bg1">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Семейные традиции и гостеприимство</p>
+        <h2 class="section-head__title">Семейное дело</h2>
+      </header>
+      <div class="two-col">
+        <div class="prose">
+          <h3 class="intro__title">Более 20 лет с любовью к своему делу, истории и гостям</h3>
+          <p>«Петровская Таможня» (Peetri Toll) — не просто ресторан или музей, а настоящее семейное дело, которому мы посвятили больше двух десятилетий. Всё это время нашей главной страстью остаётся сохранение уникальной истории Палдиски, бережное возрождение старинных традиций и искреннее гостеприимство.</p>
+          <p>Нам важно, чтобы каждый гость — будь то путешественник, заглянувший на обед, или большая семья, отмечающая юбилей, — чувствовал себя как дома. Мы сами встречаем гостей, разрабатываем блюда, собираем исторические коллекции и вкладываем душу в каждый уголок этого старинного дома.</p>
+        </div>
+        <figure><div class="photo__frame"><img src="./images/about-family.jpg" alt="Владельцы «Петровской Таможни»" loading="lazy" data-ph="about-family.jpg"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- История здания -->
+  <section class="section section--bg2">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Архитектурное наследие</p>
+        <h2 class="section-head__title">История здания</h2>
+      </header>
+      <div class="two-col">
+        <div>
+          <h3 class="intro__title">Здание с двухвековой судьбой</h3>
+          <ol class="timeline">
+            <li><p class="timeline__date">1760-е</p><p class="timeline__text">Первые упоминания и строительство здания по проекту архитектора Иоганна Давида Бантельмана.</p></li>
+            <li><p class="timeline__date">XIX век</p><p class="timeline__text">Балтийское отделение Ревельской таможни — важный форпост морской торговли и контроля на Балтике.</p></li>
+            <li><p class="timeline__date">XX век</p><p class="timeline__text">Государственная таможня Эстонской Республики. По воспоминаниям Пауля Лаана, сына начальника таможни, перед войной под полом спрятали освящённый церковный крест — и дом пережил Вторую мировую почти без повреждений. В советские годы здесь были мастерские и офицерский бар.</p></li>
+            <li><p class="timeline__date">2005 — наши дни</p><p class="timeline__text">После реставрации открыта таверна «Петровская Таможня». Дом пережил пожар 2015 года, был полностью восстановлен и сегодня остаётся центром культурной и гастрономической жизни города.</p></li>
+          </ol>
+        </div>
+        <figure><div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание таможни сегодня" loading="lazy" data-ph="restaurant-house.jpg"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- История Палдиски -->
+  <section class="section section--bg1">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Город и его легенды</p>
+        <h2 class="section-head__title">История Палдиски</h2>
+      </header>
+      <div class="two-col two-col--reverse">
+        <div class="prose">
+          <h3 class="intro__title">От петровского форпоста до современного морского города</h3>
+          <p>Летопись Палдиски началась 23 июля 1718 года, когда Пётр I лично заложил здесь незамерзающий военный порт и морскую крепость на берегу залива Пакри — тогда Рогервик. Бастионы вырубали прямо в известняковом обрыве, а каменный мол должен был соединить материк с островами Пакри.</p>
+          <p>За три столетия город пережил времена Екатерины II, был местом каторги Салавата Юлаева, получил железную дорогу до Санкт-Петербурга и одну из лучших мореходных школ Эстонии. В советское время Палдиски был закрытым городом с учебным центром атомных подводных лодок. Сегодня это открытый миру морской край с величественными клифами Пакри.</p>
+        </div>
+        <figure><div class="photo__frame"><img src="./images/paldiski-history.jpg" alt="Старинная карта Рогервика" loading="lazy" data-ph="paldiski-history.jpg"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Галерея -->
+  <section class="section section--bg2">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Фотоархив</p>
+        <h2 class="section-head__title">Галерея</h2>
+      </header>
+      <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
+      <div class="chips" data-filter-group="about-gallery" role="group" aria-label="Категории галереи">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
+        <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
+        <button class="chip" type="button" data-filter="food" aria-pressed="false">Наши блюда</button>
+        <button class="chip" type="button" data-filter="banquets" aria-pressed="false">Банкеты и фуршеты</button>
+        <button class="chip" type="button" data-filter="events" aria-pressed="false">Мероприятия и гости</button>
+      </div>
+      <ul class="gallery" id="about-gallery">
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Фасад и двор" loading="lazy" data-ph="restaurant-house.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-1.jpg" alt="Праздничная сервировка" loading="lazy" data-ph="banquet-1.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Новости -->
+  <section class="section section--bg1">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Актуальное</p>
+        <h2 class="section-head__title">Новости</h2>
+        <a class="section-head__more" href="#">Все новости</a>
+      </header>
+      <ul class="grid-3 news">
+        <li><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Кадр из фильма о выставке" loading="lazy" data-ph="weapons-1.jpg"></div><p class="news__date">Октябрь 2026</p><h3 class="news__title">Документальный фильм о выставке холодного оружия</h3><p>Премьера 12-минутного фильма о коллекции — на эстонском, английском и русском языках.</p></li>
+        <li><div class="photo__frame"><img src="./images/dish-03.jpg" alt="Сезонные напитки" loading="lazy" data-ph="dish-03.jpg"></div><p class="news__date">Сентябрь 2026</p><h3 class="news__title">Сезонное меню</h3><p>Согревающие авторские напитки из местных ягод и трав.</p></li>
+        <li><div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Летняя терраса" loading="lazy" data-ph="restaurant-house.jpg"></div><p class="news__date">Май 2026</p><h3 class="news__title">Летняя терраса открыта</h3><p>Начинаем сезон отдыха на свежем морском воздухе.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Партнёры -->
+  <section class="section section--bg2">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Сообщество и развитие края</p>
+        <h2 class="section-head__title">Развиваем регион вместе</h2>
+      </header>
+      <div class="two-col">
+        <div class="prose">
+          <p>Мы убеждены, что бизнес должен приносить пользу родной земле. Наша команда занимается развитием региона, сохранением исторической памяти и туристической привлекательностью волости Ляэне-Харью.</p>
+          <p>Многие наши культурные, образовательные и инфраструктурные проекты получили поддержку фондов, самоуправления и партнёров. Благодаря этому мы создаём новые экспозиции, издаём материалы и делаем Палдиски яркой точкой на карте Эстонии.</p>
+        </div>
+        <ul class="partners">
+          <li>Lääne-Harju Vald</li>
+          <li>MTÜ Toetusgrupp</li>
+          <li>Lääne-Harju Koostöökogu</li>
+          <li>LEADER</li>
+          <li>Eesti Kultuurkapital</li>
+          <li>AS Alexela</li>
+          <li>AS Derevaat</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Отзывы -->
+  <section class="section section--bg1">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Отзывы гостей</p>
+        <h2 class="section-head__title">Что говорят наши гости</h2>
+      </header>
+      <ul class="grid-2">
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
