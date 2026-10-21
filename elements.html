@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Варианты блоков — Tavern Peetri Toll</title>
+  <meta name="description" content="Варианты оформления блоков сайта для выбора: мероприятия, бронирование стола, дневное меню, банкетные наборы, радиогиды.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / Варианты блоков</p>
+      <h1 class="page-hero__title">Варианты блоков</h1>
+      <p class="page-hero__lead">Выберите, как должен выглядеть каждый блок будущего сайта</p>
+    </div>
+  </section>
+
+  <section class="section section--bg1">
+    <div class="container">
+
+      <div class="variants-intro">
+        <p class="lead">Здесь собраны блоки, которых на сайте ещё нет, — каждый в нескольких вариантах оформления.</p>
+        <p>Переключайте кнопками и смотрите, что нравится. Выбирать нужно только внешний вид:
+          тексты, блюда, даты и цены здесь выдуманы для примера. Всё это потом заводится
+          через админку и меняется в любой момент.</p>
+        <p>Если ни один вариант не подходит — так и скажите, это тоже ответ.
+          Проще нарисовать новый, чем делать то, что не нравится.</p>
+      </div>
+
+      <ul class="chips variants-nav" aria-label="Блоки на странице">
+        <li><a class="chip" href="#mero">Мероприятия</a></li>
+        <li><a class="chip" href="#bron">Бронирование стола</a></li>
+        <li><a class="chip" href="#lunch">Дневное меню</a></li>
+        <li><a class="chip" href="#banket">Банкетные наборы</a></li>
+        <li><a class="chip" href="#radio">Радиогиды</a></li>
+      </ul>
+
+      <!-- ============ 1. МЕРОПРИЯТИЯ ============ -->
+      <section class="variant-group" id="mero" data-variants="mero">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 01 · раздел «Музей»</p>
+          <h2 class="variant-group__title">Список мероприятий</h2>
+          <p class="variant-group__why">Как выглядит афиша на странице мероприятий. Это первое,
+            что увидят посетители после запуска раздела музея, и этот блок вы будете
+            наполнять чаще всего.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид карточки мероприятия</p>
+          <div class="chips" role="group" aria-label="Варианты списка мероприятий">
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Афиша крупно, под ней название и цена. Самый заметный вариант: хорошо работает, когда афиши красивые.">1. Афиша сверху</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Афиша слева, текст справа, кнопка в конце строки. Компактно, помещается много мероприятий подряд.">2. Строка с афишей</button>
+            <button class="chip" type="button" data-variant="3" aria-pressed="false" data-desc="Без фото: крупная дата золотом и название. Подходит, если афиши есть не у всех мероприятий.">3. Блок с датой</button>
+            <button class="chip" type="button" data-variant="4" aria-pressed="false" data-desc="Афиша на всю карточку, название и цена поверх затемнения. Эффектно, но требует одинаково хороших афиш.">4. Афиша целиком</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div data-v="1">
+          <ul class="ev-grid">
+            <li class="ev-card">
+              <div class="ev-card__img photo__frame"><span class="ev-badge">16 мая</span>
+                <img src="./images/event-poster.jpg" alt="Ночь музеев" data-ph="event-poster.jpg"></div>
+              <h3 class="ev-card__title">Ночь музеев</h3>
+              <p class="ev-card__meta">16 мая 2026, 18:00 — 23:00</p>
+              <p class="ev-card__price">Вход свободный</p>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-card">
+              <div class="ev-card__img photo__frame"><span class="ev-badge">7 марта</span>
+                <img src="./images/weapons-3.jpg" alt="Байки из-за барной стойки" data-ph="weapons-3.jpg"></div>
+              <h3 class="ev-card__title">Вечер Галины Малютиной</h3>
+              <p class="ev-card__meta">7 марта 2026, 19:00</p>
+              <p class="ev-card__price">15 €</p>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-card">
+              <div class="ev-card__img photo__frame"><span class="ev-badge">по субботам</span>
+                <img src="./images/weapons-1.jpg" alt="Тайны старой таможни" data-ph="weapons-1.jpg"></div>
+              <h3 class="ev-card__title">Тайны старой таможни</h3>
+              <p class="ev-card__meta">Каждую субботу, 14:00</p>
+              <p class="ev-card__price">18 € · дети до 12 бесплатно</p>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-v="2" hidden>
+          <ul class="ev-rows">
+            <li class="ev-row">
+              <div class="ev-row__img photo__frame"><img src="./images/event-poster.jpg" alt="Ночь музеев" data-ph="event-poster.jpg"></div>
+              <div>
+                <h3 class="ev-card__title">Ночь музеев</h3>
+                <p class="ev-card__meta">16 мая 2026, 18:00 — 23:00 · вход свободный</p>
+                <p>Экспозиция открыта до полуночи, экскурсии каждый час, живая музыка во дворе.</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-row">
+              <div class="ev-row__img photo__frame"><img src="./images/weapons-3.jpg" alt="Вечер Галины Малютиной" data-ph="weapons-3.jpg"></div>
+              <div>
+                <h3 class="ev-card__title">Вечер Галины Малютиной</h3>
+                <p class="ev-card__meta">7 марта 2026, 19:00 · 15 €</p>
+                <p>Автор читает «Байки из-за барной стойки». В цену входит бокал глинтвейна.</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-row">
+              <div class="ev-row__img photo__frame"><img src="./images/weapons-1.jpg" alt="Тайны старой таможни" data-ph="weapons-1.jpg"></div>
+              <div>
+                <h3 class="ev-card__title">Тайны старой таможни</h3>
+                <p class="ev-card__meta">Каждую субботу, 14:00 · 18 €</p>
+                <p>Часовая экскурсия по зданию 1716 года и коллекции холодного оружия.</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-v="3" hidden>
+          <ul class="ev-dates">
+            <li class="ev-dateitem">
+              <p class="ev-day"><span class="ev-day__num">16</span><span class="ev-day__mon">мая</span></p>
+              <div>
+                <h3 class="ev-card__title">Ночь музеев</h3>
+                <p class="ev-card__meta">18:00 — 23:00 · вход свободный</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-dateitem">
+              <p class="ev-day"><span class="ev-day__num">07</span><span class="ev-day__mon">марта</span></p>
+              <div>
+                <h3 class="ev-card__title">Вечер Галины Малютиной</h3>
+                <p class="ev-card__meta">19:00 · 15 €</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+            <li class="ev-dateitem">
+              <p class="ev-day"><span class="ev-day__num">21</span><span class="ev-day__mon">марта</span></p>
+              <div>
+                <h3 class="ev-card__title">Кухня петровских времён</h3>
+                <p class="ev-card__meta">12:00 · мастер-класс · 35 €</p>
+              </div>
+              <a class="btn btn--sm" href="#mero">Записаться</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-v="4" hidden>
+          <ul class="ev-tiles">
+            <li class="ev-tile">
+              <img src="./images/event-poster.jpg" alt="Ночь музеев" data-ph="event-poster.jpg">
+              <div class="ev-tile__body">
+                <p class="ev-tile__date">16 мая 2026, 18:00</p>
+                <h3 class="ev-tile__title">Ночь музеев</h3>
+                <p class="ev-tile__price">Вход свободный</p>
+              </div>
+            </li>
+            <li class="ev-tile">
+              <img src="./images/weapons-3.jpg" alt="Вечер Галины Малютиной" data-ph="weapons-3.jpg">
+              <div class="ev-tile__body">
+                <p class="ev-tile__date">7 марта 2026, 19:00</p>
+                <h3 class="ev-tile__title">Вечер Галины Малютиной</h3>
+                <p class="ev-tile__price">15 €</p>
+              </div>
+            </li>
+            <li class="ev-tile">
+              <img src="./images/weapons-1.jpg" alt="Тайны старой таможни" data-ph="weapons-1.jpg">
+              <div class="ev-tile__body">
+                <p class="ev-tile__date">Каждую субботу, 14:00</p>
+                <h3 class="ev-tile__title">Тайны старой таможни</h3>
+                <p class="ev-tile__price">18 €</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 2. БРОНИРОВАНИЕ СТОЛА ============ -->
+      <section class="variant-group" id="bron" data-variants="bron">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 02 · раздел «Ресторан»</p>
+          <h2 class="variant-group__title">Бронирование стола</h2>
+          <p class="variant-group__why">Чем короче форма, тем больше броней доходит до конца.
+            Но короткая форма собирает меньше сведений, и часть придётся уточнять по телефону.
+            Выбор между скоростью и полнотой.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид формы брони</p>
+          <div class="chips" role="group" aria-label="Варианты формы бронирования">
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Узкая полоса: дата, время, гости, кнопка. Помещается прямо на главной странице. Самый быстрый путь, остальное уточняете при подтверждении.">1. Строка-бронь</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Обычная форма в два столбца. Сразу собирает всё, что нужно, включая повод и пожелания. Выглядит основательно.">2. Карточка-форма</button>
+            <button class="chip" type="button" data-variant="3" aria-pressed="false" data-desc="Три шага: когда, сколько гостей, контакты. Гость видит прогресс и не пугается длинной формы. Свободное время показывается кнопками.">3. По шагам</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div data-v="1">
+          <form class="bk-bar" onsubmit="return false">
+            <div class="field"><label for="b1-date">Дата</label><input id="b1-date" type="date" value="2026-03-07"></div>
+            <div class="field"><label for="b1-time">Время</label>
+              <select id="b1-time"><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option></select></div>
+            <div class="field"><label for="b1-ppl">Гостей</label><input id="b1-ppl" type="number" min="1" value="2"></div>
+            <div class="field"><label for="b1-phone">Телефон</label><input id="b1-phone" type="tel" placeholder="+372"></div>
+            <button class="btn btn--red" type="submit">Забронировать</button>
+          </form>
+          <p class="form__note" style="margin-top:var(--s-2)">Эскиз: форма пока ничего не отправляет.</p>
+        </div>
+
+        <div data-v="2" hidden>
+          <div class="bk-card">
+            <h3 class="bk-card__title">Забронировать стол</h3>
+            <form class="form" onsubmit="return false">
+              <div class="field"><label for="b2-name">Имя</label><input id="b2-name" type="text" autocomplete="name"></div>
+              <div class="field"><label for="b2-phone">Телефон</label><input id="b2-phone" type="tel" autocomplete="tel"></div>
+              <div class="field"><label for="b2-date">Дата</label><input id="b2-date" type="date"></div>
+              <div class="field"><label for="b2-time">Время</label>
+                <select id="b2-time"><option>12:00</option><option>14:00</option><option>18:00</option><option>19:00</option><option>20:00</option></select></div>
+              <div class="field"><label for="b2-ppl">Количество гостей</label><input id="b2-ppl" type="number" min="1" value="2"></div>
+              <div class="field"><label for="b2-occ">Повод</label>
+                <select id="b2-occ"><option>Просто поужинать</option><option>День рождения</option><option>Семейный обед</option><option>Деловая встреча</option></select></div>
+              <div class="field form__full"><label for="b2-msg">Пожелания</label><textarea id="b2-msg" rows="3" placeholder="Столик у окна, детский стул, аллергии"></textarea></div>
+              <div class="form__full"><button class="btn btn--red" type="submit">Забронировать</button></div>
+              <p class="form__note form__full">Эскиз: форма пока ничего не отправляет.</p>
+            </form>
+          </div>
+        </div>
+
+        <div data-v="3" hidden>
+          <div class="bk-steps">
+            <ol class="bk-steps__rail">
+              <li class="is-done">1 · Когда</li>
+              <li class="is-now">2 · Гости</li>
+              <li>3 · Контакты</li>
+            </ol>
+            <div class="bk-steps__body">
+              <h3 class="h3">Сколько вас будет?</h3>
+              <form class="form" onsubmit="return false">
+                <div class="field"><label for="b3-ppl">Количество гостей</label><input id="b3-ppl" type="number" min="1" value="4"></div>
+                <div class="field"><label for="b3-occ">Повод</label>
+                  <select id="b3-occ"><option>Просто поужинать</option><option>День рождения</option><option>Семейный обед</option></select></div>
+                <div class="form__full">
+                  <p class="caption" style="margin-top:0">Свободное время на 7 марта</p>
+                  <ul class="chips bk-times" aria-label="Свободное время">
+                    <li><button class="chip" type="button">17:30</button></li>
+                    <li><button class="chip is-active" type="button">18:00</button></li>
+                    <li><button class="chip" type="button">19:30</button></li>
+                    <li><button class="chip" type="button">20:00</button></li>
+                  </ul>
+                </div>
+                <div class="form__full"><button class="btn btn--red" type="submit">Дальше</button></div>
+                <p class="form__note form__full">Эскиз: форма пока ничего не отправляет.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 3. ДНЕВНОЕ МЕНЮ ============ -->
+      <section class="variant-group" id="lunch" data-variants="lunch">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 03 · раздел «Ресторан»</p>
+          <h2 class="variant-group__title">Дневное меню</h2>
+          <p class="variant-group__why">Дневное меню меняется чаще всего остального на сайте.
+            От выбранного вида зависит, сколько времени уходит на его обновление:
+            один день заполнить быстрее, чем неделю вперёд.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид дневного меню</p>
+          <div class="chips" role="group" aria-label="Варианты дневного меню">
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Только сегодняшний день, крупно. Заполнять быстрее всего — одно меню в день. Но гость не может посмотреть, что будет завтра.">1. Меню дня</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Вкладки по дням недели. Гость видит всю неделю, переключаясь между днями. Заполнять нужно заранее на неделю вперёд.">2. Вкладки по дням</button>
+            <button class="chip" type="button" data-variant="3" aria-pressed="false" data-desc="Вся неделя таблицей на одном экране. Удобно распечатать и повесить в зале. На телефоне читается хуже.">3. Таблица на неделю</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div data-v="1">
+          <div class="lunch-hero">
+            <p class="lunch-hero__date">Сегодня, пятница 7 марта</p>
+            <h3 class="lunch-hero__title">Обед дня</h3>
+            <div class="lunch-course">
+              <p class="lunch-course__label">Суп</p>
+              <p class="lunch-course__dish">Солянка сборная мясная</p>
+            </div>
+            <div class="lunch-course">
+              <p class="lunch-course__label">Горячее</p>
+              <p class="lunch-course__dish">Свиная отбивная с тушёной капустой</p>
+            </div>
+            <div class="lunch-course">
+              <p class="lunch-course__label">Напиток</p>
+              <p class="lunch-course__dish">Домашний морс или компот</p>
+            </div>
+            <p class="lunch-hero__price">9,50 € <span>подаём с 12:00 до 15:00</span></p>
+          </div>
+        </div>
+
+        <div data-v="2" hidden>
+          <div class="tabs" role="tablist" aria-label="Дни недели">
+            <button class="tabs__btn is-active" type="button" role="tab" aria-selected="true" aria-controls="lunch-mon">Пн</button>
+            <button class="tabs__btn" type="button" role="tab" aria-selected="false" aria-controls="lunch-tue" tabindex="-1">Вт</button>
+            <button class="tabs__btn" type="button" role="tab" aria-selected="false" aria-controls="lunch-wed" tabindex="-1">Ср</button>
+            <button class="tabs__btn" type="button" role="tab" aria-selected="false" aria-controls="lunch-thu" tabindex="-1">Чт</button>
+            <button class="tabs__btn" type="button" role="tab" aria-selected="false" aria-controls="lunch-fri" tabindex="-1">Пт</button>
+          </div>
+          <div id="lunch-mon" role="tabpanel">
+            <div class="lunch-hero">
+              <p class="lunch-hero__date">Понедельник</p>
+              <div class="lunch-course"><p class="lunch-course__label">Суп</p><p class="lunch-course__dish">Грибной крем-суп</p></div>
+              <div class="lunch-course"><p class="lunch-course__label">Горячее</p><p class="lunch-course__dish">Куриное филе с картофелем</p></div>
+              <p class="lunch-hero__price">9,50 €</p>
+            </div>
+          </div>
+          <div id="lunch-tue" role="tabpanel" hidden>
+            <div class="lunch-hero">
+              <p class="lunch-hero__date">Вторник</p>
+              <div class="lunch-course"><p class="lunch-course__label">Суп</p><p class="lunch-course__dish">Щи из квашеной капусты</p></div>
+              <div class="lunch-course"><p class="lunch-course__label">Горячее</p><p class="lunch-course__dish">Пельмени домашние со сметаной</p></div>
+              <p class="lunch-hero__price">9,50 €</p>
+            </div>
+          </div>
+          <div id="lunch-wed" role="tabpanel" hidden>
+            <div class="lunch-hero">
+              <p class="lunch-hero__date">Среда</p>
+              <div class="lunch-course"><p class="lunch-course__label">Суп</p><p class="lunch-course__dish">Уха из балтийской рыбы</p></div>
+              <div class="lunch-course"><p class="lunch-course__label">Горячее</p><p class="lunch-course__dish">Треска с овощами на пару</p></div>
+              <p class="lunch-hero__price">10,50 €</p>
+            </div>
+          </div>
+          <div id="lunch-thu" role="tabpanel" hidden>
+            <div class="lunch-hero">
+              <p class="lunch-hero__date">Четверг</p>
+              <div class="lunch-course"><p class="lunch-course__label">Суп</p><p class="lunch-course__dish">Гороховый с копчёностями</p></div>
+              <div class="lunch-course"><p class="lunch-course__label">Горячее</p><p class="lunch-course__dish">Жаркое по-таможенному в горшочке</p></div>
+              <p class="lunch-hero__price">9,50 €</p>
+            </div>
+          </div>
+          <div id="lunch-fri" role="tabpanel" hidden>
+            <div class="lunch-hero">
+              <p class="lunch-hero__date">Пятница</p>
+              <div class="lunch-course"><p class="lunch-course__label">Суп</p><p class="lunch-course__dish">Солянка сборная мясная</p></div>
+              <div class="lunch-course"><p class="lunch-course__label">Горячее</p><p class="lunch-course__dish">Свиная отбивная с тушёной капустой</p></div>
+              <p class="lunch-hero__price">9,50 €</p>
+            </div>
+          </div>
+        </div>
+
+        <div data-v="3" hidden>
+          <table class="lunch-week">
+            <caption class="caption" style="text-align:left">Обеды с 12:00 до 15:00, 2—6 марта</caption>
+            <thead>
+              <tr><th>День</th><th>Суп</th><th>Горячее</th><th>Цена</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Понедельник</th><td>Грибной крем-суп</td><td>Куриное филе с картофелем</td><td>9,50 €</td></tr>
+              <tr><th>Вторник</th><td>Щи из квашеной капусты</td><td>Пельмени домашние со сметаной</td><td>9,50 €</td></tr>
+              <tr><th>Среда</th><td>Уха из балтийской рыбы</td><td>Треска с овощами на пару</td><td>10,50 €</td></tr>
+              <tr><th>Четверг</th><td>Гороховый с копчёностями</td><td>Жаркое по-таможенному в горшочке</td><td>9,50 €</td></tr>
+              <tr><th>Пятница</th><td>Солянка сборная мясная</td><td>Свиная отбивная с тушёной капустой</td><td>9,50 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ 4. БАНКЕТНЫЕ НАБОРЫ ============ -->
+      <section class="variant-group" id="banket" data-variants="banket">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 04 · раздел «Ресторан»</p>
+          <h2 class="variant-group__title">Банкетные наборы</h2>
+          <p class="variant-group__why">Наборы вы заводите и правите в админке. Здесь выбирается
+            только то, как гость их видит и сравнивает перед тем, как отправить запрос.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид банкетного меню</p>
+          <div class="chips" role="group" aria-label="Варианты банкетных наборов">
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Три карточки рядом, в каждой состав и цена за человека. Привычный вид, один набор можно выделить как рекомендуемый.">1. Карточки наборов</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Таблица: строки — блюда по категориям, столбцы — наборы. Видно, чем наборы отличаются. Чем больше наборов, тем теснее на телефоне.">2. Таблица сравнения</button>
+            <button class="chip" type="button" data-variant="3" aria-pressed="false" data-desc="Один набор как страница бумажного меню, с отточием. Самый атмосферный вариант, но наборы приходится листать по одному.">3. Как в меню</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div data-v="1">
+          <ul class="banq-grid">
+            <li class="banq-card">
+              <h3 class="banq-card__name">Купеческий</h3>
+              <p class="banq-card__price">28 €</p>
+              <p class="banq-card__per">на человека, от 10 гостей</p>
+              <ul class="banq-list">
+                <li>Три холодные закуски</li>
+                <li>Салат на выбор</li>
+                <li>Горячее блюдо</li>
+                <li>Хлебная корзина, морс</li>
+              </ul>
+              <a class="btn btn--sm" href="#banket">Выбрать</a>
+            </li>
+            <li class="banq-card banq-card--pick">
+              <p class="banq-card__tag">Чаще всего выбирают</p>
+              <h3 class="banq-card__name">Таможенный</h3>
+              <p class="banq-card__price">35 €</p>
+              <p class="banq-card__per">на человека, от 10 гостей</p>
+              <ul class="banq-list">
+                <li>Пять холодных закусок</li>
+                <li>Два салата</li>
+                <li>Суп на выбор</li>
+                <li>Горячее блюдо на выбор</li>
+                <li>Десерт, морс, чай</li>
+              </ul>
+              <a class="btn btn--sm btn--red" href="#banket">Выбрать</a>
+            </li>
+            <li class="banq-card">
+              <h3 class="banq-card__name">Рыбацкий</h3>
+              <p class="banq-card__price">42 €</p>
+              <p class="banq-card__per">на человека, от 10 гостей</p>
+              <ul class="banq-list">
+                <li>Балтийские закуски и копчения</li>
+                <li>Уха в горшочке</li>
+                <li>Рыба на гриле</li>
+                <li>Десерт, морс, чай</li>
+              </ul>
+              <a class="btn btn--sm" href="#banket">Выбрать</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-v="2" hidden>
+          <table class="banq-table">
+            <thead>
+              <tr><th>Что входит</th><th>Купеческий</th><th>Таможенный</th><th>Рыбацкий</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Холодные закуски</td><td>3 вида</td><td>5 видов</td><td>Балтийские копчения</td></tr>
+              <tr><td>Салаты</td><td>1 на выбор</td><td>2 на выбор</td><td>2 на выбор</td></tr>
+              <tr><td>Суп</td><td>—</td><td>На выбор</td><td>Уха в горшочке</td></tr>
+              <tr><td>Горячее</td><td>1 блюдо</td><td>На выбор</td><td>Рыба на гриле</td></tr>
+              <tr><td>Десерт</td><td>—</td><td>Да</td><td>Да</td></tr>
+              <tr><td>Напитки</td><td>Морс</td><td>Морс, чай</td><td>Морс, чай</td></tr>
+              <tr><td>Цена на человека</td><td>28 €</td><td>35 €</td><td>42 €</td></tr>
+            </tbody>
+          </table>
+          <p class="form__note" style="margin-top:var(--s-3)">Минимум 10 гостей. Запрос подтверждаем вручную.</p>
+        </div>
+
+        <div data-v="3" hidden>
+          <div class="banq-paper">
+            <h3 class="banq-paper__name">Таможенный</h3>
+            <p class="banq-paper__sub">банкетное меню · 35 € на человека</p>
+
+            <p class="banq-paper__label">Холодные закуски</p>
+            <ul>
+              <li><span>Сельдь по-домашнему с отварным картофелем</span><i></i></li>
+              <li><span>Мясное ассорти с хреном и горчицей</span><i></i></li>
+              <li><span>Соленья из нашего погреба</span><i></i></li>
+              <li><span>Копчёная рыба Балтийского моря</span><i></i></li>
+              <li><span>Сырная тарелка с мёдом</span><i></i></li>
+            </ul>
+
+            <p class="banq-paper__label">Горячее на выбор</p>
+            <ul>
+              <li><span>Жаркое по-таможенному в горшочке</span><i></i></li>
+              <li><span>Свиная рулька с тушёной капустой</span><i></i></li>
+              <li><span>Треска с овощами на пару</span><i></i></li>
+            </ul>
+
+            <p class="banq-paper__label">Десерт и напитки</p>
+            <ul>
+              <li><span>Яблочный пирог с корицей</span><i></i></li>
+              <li><span>Морс, чай, кофе без ограничения</span><i></i></li>
+            </ul>
+
+            <p style="text-align:center;margin-top:var(--s-4)">
+              <a class="btn btn--red" href="#banket">Запросить этот набор</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 5. РАДИОГИДЫ ============ -->
+      <section class="variant-group" id="radio" data-variants="radio">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 05 · раздел «Музей»</p>
+          <h2 class="variant-group__title">Радиогиды на странице экскурсий</h2>
+          <p class="variant-group__why">Договорились, что радиогиды живут блоком на странице
+            экскурсий, а не отдельной страницей. Остался вопрос, как этот блок выглядит:
+            одной плашкой или двумя предложениями — купить и арендовать.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид блока радиогидов</p>
+          <div class="chips" role="group" aria-label="Варианты блока радиогидов">
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Одна плашка внутри страницы экскурсий. Не перетягивает внимание с экскурсий, но покупка и аренда смешаны в одной кнопке.">1. Плашка в тексте</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Два отдельных предложения рядом: купить себе и арендовать на группу. Сценарии разведены, но блок занимает заметно больше места.">2. Две карточки</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div data-v="1">
+          <div class="radio-bar">
+            <div class="radio-bar__img photo__frame"><img src="./images/audioguide.jpg" alt="Радиогид" data-ph="audioguide.jpg"></div>
+            <div>
+              <h3 class="ev-card__title">Радиогиды для групп</h3>
+              <p>Слышно каждое слово гида даже в большой группе и на ветру.
+                Выдаём на месте, можно купить себе или взять в аренду на время экскурсии.</p>
+            </div>
+            <a class="btn btn--sm" href="#radio">Оставить запрос</a>
+          </div>
+        </div>
+
+        <div data-v="2" hidden>
+          <div class="radio-two">
+            <div>
+              <h3 class="ev-card__title">Купить радиогид</h3>
+              <p class="ev-card__price">89 €</p>
+              <p>Приёмник с наушником. Подходит для всех наших экскурсий
+                и работает с оборудованием других музеев.</p>
+              <a class="btn btn--sm" href="#radio">В магазин</a>
+            </div>
+            <div>
+              <h3 class="ev-card__title">Арендовать на группу</h3>
+              <p class="ev-card__price">3 € за устройство</p>
+              <p>От 5 устройств, выдаём на месте перед экскурсией.
+                Залог не требуется, оплата на месте.</p>
+              <a class="btn btn--sm btn--red" href="#radio">Оставить запрос</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
