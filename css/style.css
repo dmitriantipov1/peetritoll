@@ -1286,7 +1286,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   background: var(--c-brown); color: var(--bg-2);
   box-shadow: 0 -6px 18px rgba(31,26,22,.18);
 }
-.calc-bar__total { font-family: var(--f-deco); font-size: 28px; color: var(--c-gold); }
+.calc-bar__total { font-family: var(--f-deco); font-size: 28px; color: var(--c-gold); white-space: nowrap; }
 .calc-bar__per { font-size: 14px; opacity: .85; }
 .calc-bar__note { flex: 1 1 260px; font-size: 13px; opacity: .8; }
 .calc-bar .btn { border-color: var(--c-gold); color: var(--c-gold); }
@@ -1305,7 +1305,17 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .calc-chosen { list-style: none; margin-bottom: var(--s-2); }
 .calc-chosen li { display: flex; justify-content: space-between; gap: var(--s-1); padding: 6px 0; border-bottom: 1px solid rgba(111,108,108,.22); font-size: 15px; }
 .calc-chosen__empty { color: var(--c-grey); font-style: italic; }
-.calc-side__total { display: flex; justify-content: space-between; align-items: baseline; padding-top: var(--s-2); border-top: 2px solid var(--c-gold); font-family: var(--f-deco); font-size: 24px; color: var(--c-red); }
+/* Подпись и сумма: подпись мелкая, сумма не разрывается по знаку евро.
+   При нехватке ширины сумма уходит на свою строку и прижимается вправо. */
+.calc-side__total {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--s-2);
+  padding-top: var(--s-2); border-top: 2px solid var(--c-gold);
+}
+.calc-side__total span:first-child { font-size: 15px; color: var(--c-grey); }
+.calc-side__total [data-total] {
+  margin-left: auto;
+  font-family: var(--f-deco); font-size: 24px; color: var(--c-red); white-space: nowrap;
+}
 .calc-side__note { margin-top: var(--s-1); font-size: 13px; color: var(--c-grey); }
 
 @media (max-width: 1024px) {

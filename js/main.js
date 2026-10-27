@@ -171,7 +171,11 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   const warn = calc.querySelector('[data-warn]');
   if (!rows.length) return;
 
-  const money = (n) => n.toFixed(2).replace('.', ',') + ' €';
+  // 8500 → «8 500,00 €»: разряды разделены, знак евро не отрывается от суммы
+  function money(n) {
+    const parts = n.toFixed(2).split('.');
+    return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0') + ',' + parts[1] + '\u00A0€';
+  }
   const qty = (row) => Number(row.querySelector('[data-qty]').value) || 0;
 
   function setQty(row, n) {
