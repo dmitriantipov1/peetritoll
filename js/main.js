@@ -178,6 +178,12 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   }
   const qty = (row) => Number(row.querySelector('[data-qty]').value) || 0;
 
+  // Цена сета за человека считается из цен блюд в разметке,
+  // чтобы не держать одно и то же число в двух местах
+  const sets = Array.prototype.slice.call(calc.querySelectorAll('[data-preset]'));
+  const priceOf = {};
+  rows.forEach((row) => { priceOf[row.dataset.dish] = Number(row.dataset.price); });
+
   function setQty(row, n) {
     const input = row.querySelector('[data-qty]');
     input.value = Math.max(0, Math.round(n));
@@ -189,10 +195,14 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   function recalc() {
     let total = 0;
     const picked = [];
+    const pickedKeys = [];
     rows.forEach((row) => {
       const q = qty(row);
       total += q * Number(row.dataset.price);
-      if (q) picked.push({ name: row.querySelector('.calc-row__name').textContent, q });
+      if (q) {
+        picked.push({ name: row.querySelector('.calc-row__name').textContent, q });
+        pickedKeys.push(row.dataset.dish);
+      }
     });
 
     const people = Number(guests && guests.value) || 0;
@@ -227,6 +237,17 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
       warn.hidden = !few;
       if (few) warn.textContent = 'На ' + people + ' гостей выбрано ' + hot + ' порций горячего — проверьте, достаточно ли.';
     }
+
+    // Сет остаётся отмеченным, пока состав совпадает: количество порций не в счёт,
+    // иначе отметка слетала бы от любой ручной правки
+    const now = pickedKeys.sort().join(',');
+    sets.forEach((b) => {
+      const match = b.dataset.preset.split(',').sort().join(',') === now;
+      b.classList.toggle('is-active', match);
+      b.setAttribute('aria-pressed', match ? 'true' : 'false');
+    });
+
+    calc.querySelectorAll('[data-reset], [data-fill]').forEach((b) => { b.disabled = !picked.length; });
   }
 
   calc.addEventListener('click', (e) => {
@@ -242,7 +263,11 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
       const keys = preset.dataset.preset.split(',');
       const people = Number(guests && guests.value) || 1;
       rows.forEach((row) => setQty(row, keys.includes(row.dataset.dish) ? people : 0));
-      calc.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('is-active', b === preset));
+      recalc();
+      return;
+    }
+    if (e.target.closest('[data-reset]')) {
+      rows.forEach((row) => setQty(row, 0));
       recalc();
       return;
     }
@@ -258,5 +283,9 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
     recalc();
   });
 
+  sets.forEach((b) => {
+    const el = b.querySelector('[data-set-price]');
+    if (el) el.textContent = money(b.dataset.preset.split(',').reduce((sum, k) => sum + (priceOf[k] || 0), 0));
+  });
   recalc();
 });

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261027-3">
+  <link rel="stylesheet" href="./css/style.css?v=20261027-4">
 </head>
 <body>
 
@@ -433,13 +433,32 @@
             <div class="field"><label for="c1-ppl">Гостей</label><input id="c1-ppl" type="number" min="1" value="20" data-guests></div>
           </div>
           <div class="calc-presets">
-            <p class="calc-presets__label">Начать с заготовки</p>
-            <div class="chips">
-              <button class="chip" type="button" data-preset="seld,assorti,zharkoe,mors">Купеческий</button>
-              <button class="chip" type="button" data-preset="seld,assorti,solenya,zharkoe,pirog,chai">Таможенный</button>
-              <button class="chip" type="button" data-preset="seld,solenya,rulka,pirog,mors">Рыбацкий</button>
-              <button class="chip" type="button" data-fill>Заполнить по числу гостей</button>
+            <div class="calc-presets__head">
+              <p class="calc-presets__label">Начать с готового сета</p>
+              <button class="calc-presets__act" type="button" data-fill disabled>Заполнить по числу гостей</button>
+              <button class="calc-presets__act" type="button" data-reset disabled>Сбросить выбор</button>
             </div>
+            <div class="calc-sets">
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,zharkoe,chai">
+                <span class="calc-set__tier">Базовый</span>
+                <span class="calc-set__name">Таможенный</span>
+                <span class="calc-set__list">Закуска, горячее, чай или кофе</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,solenya,zharkoe,pirog,mors">
+                <span class="calc-set__tier">Средний</span>
+                <span class="calc-set__name">Купеческий</span>
+                <span class="calc-set__list">Две закуски, горячее, десерт, морс</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,assorti,solenya,rulka,pirog,mors,chai">
+                <span class="calc-set__tier">Премиум</span>
+                <span class="calc-set__name">Губернаторский</span>
+                <span class="calc-set__list">Три закуски, рулька, десерт, напитки</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+            </div>
+            <p class="calc-presets__hint">Сет расставит порции по числу гостей. Дальше любое блюдо можно добавить или убрать вручную — сет останется отмечен, пока состав совпадает.</p>
           </div>
           <div class="calc-cat">
             <p class="calc-cat__name">Холодные закуски</p>
@@ -540,13 +559,32 @@
             <div class="field"><label for="c2-ppl">Гостей</label><input id="c2-ppl" type="number" min="1" value="20" data-guests></div>
           </div>
           <div class="calc-presets">
-            <p class="calc-presets__label">Начать с заготовки</p>
-            <div class="chips">
-              <button class="chip" type="button" data-preset="seld,assorti,zharkoe,mors">Купеческий</button>
-              <button class="chip" type="button" data-preset="seld,assorti,solenya,zharkoe,pirog,chai">Таможенный</button>
-              <button class="chip" type="button" data-preset="seld,solenya,rulka,pirog,mors">Рыбацкий</button>
-              <button class="chip" type="button" data-fill>Заполнить по числу гостей</button>
+            <div class="calc-presets__head">
+              <p class="calc-presets__label">Начать с готового сета</p>
+              <button class="calc-presets__act" type="button" data-fill disabled>Заполнить по числу гостей</button>
+              <button class="calc-presets__act" type="button" data-reset disabled>Сбросить выбор</button>
             </div>
+            <div class="calc-sets">
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,zharkoe,chai">
+                <span class="calc-set__tier">Базовый</span>
+                <span class="calc-set__name">Таможенный</span>
+                <span class="calc-set__list">Закуска, горячее, чай или кофе</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,solenya,zharkoe,pirog,mors">
+                <span class="calc-set__tier">Средний</span>
+                <span class="calc-set__name">Купеческий</span>
+                <span class="calc-set__list">Две закуски, горячее, десерт, морс</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,assorti,solenya,rulka,pirog,mors,chai">
+                <span class="calc-set__tier">Премиум</span>
+                <span class="calc-set__name">Губернаторский</span>
+                <span class="calc-set__list">Три закуски, рулька, десерт, напитки</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+            </div>
+            <p class="calc-presets__hint">Сет расставит порции по числу гостей. Дальше любое блюдо можно добавить или убрать вручную — сет останется отмечен, пока состав совпадает.</p>
           </div>
           <div class="calc-two">
             <div>
@@ -654,13 +692,32 @@
           </ol>
           <p class="calc-hint">16 мая 2026, 18:00, 20 гостей. Обычно берут 2–3 закуски и одно горячее на человека.</p>
           <div class="calc-presets">
-            <p class="calc-presets__label">Начать с заготовки</p>
-            <div class="chips">
-              <button class="chip" type="button" data-preset="seld,assorti,zharkoe,mors">Купеческий</button>
-              <button class="chip" type="button" data-preset="seld,assorti,solenya,zharkoe,pirog,chai">Таможенный</button>
-              <button class="chip" type="button" data-preset="seld,solenya,rulka,pirog,mors">Рыбацкий</button>
-              <button class="chip" type="button" data-fill>Заполнить по числу гостей</button>
+            <div class="calc-presets__head">
+              <p class="calc-presets__label">Начать с готового сета</p>
+              <button class="calc-presets__act" type="button" data-fill disabled>Заполнить по числу гостей</button>
+              <button class="calc-presets__act" type="button" data-reset disabled>Сбросить выбор</button>
             </div>
+            <div class="calc-sets">
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,zharkoe,chai">
+                <span class="calc-set__tier">Базовый</span>
+                <span class="calc-set__name">Таможенный</span>
+                <span class="calc-set__list">Закуска, горячее, чай или кофе</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,solenya,zharkoe,pirog,mors">
+                <span class="calc-set__tier">Средний</span>
+                <span class="calc-set__name">Купеческий</span>
+                <span class="calc-set__list">Две закуски, горячее, десерт, морс</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+              <button class="calc-set" type="button" aria-pressed="false" data-preset="seld,assorti,solenya,rulka,pirog,mors,chai">
+                <span class="calc-set__tier">Премиум</span>
+                <span class="calc-set__name">Губернаторский</span>
+                <span class="calc-set__list">Три закуски, рулька, десерт, напитки</span>
+                <span class="calc-set__price"><b data-set-price>—</b> на человека</span>
+              </button>
+            </div>
+            <p class="calc-presets__hint">Сет расставит порции по числу гостей. Дальше любое блюдо можно добавить или убрать вручную — сет останется отмечен, пока состав совпадает.</p>
           </div>
           <div class="calc-cat">
             <p class="calc-cat__name">Холодные закуски</p>
@@ -834,6 +891,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261027-3"></script>
+<script src="./js/main.js?v=20261027-4"></script>
 </body>
 </html>

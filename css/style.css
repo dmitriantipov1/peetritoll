@@ -1242,9 +1242,47 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   margin-bottom: var(--s-3);
 }
 .calc-presets { margin-bottom: var(--s-3); }
+.calc-presets__head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px var(--s-2);
+  margin-bottom: var(--s-1);
+}
 .calc-presets__label {
   font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--c-grey); margin-bottom: var(--s-1);
+  text-transform: uppercase; color: var(--c-grey); margin-right: auto;
+}
+/* Текстовые кнопки «заполнить» и «сбросить»: это не действия уровня формы,
+   поэтому не .btn, а подчёркнутый текст. Пока ничего не выбрано — неактивны. */
+.calc-presets__act {
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: 15px/1.2 var(--f-body); color: var(--c-gold-text);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.calc-presets__act:hover { color: var(--c-red); }
+.calc-presets__act[disabled] { color: var(--c-grey); opacity: .55; cursor: default; text-decoration: none; }
+.calc-presets__hint { margin-top: var(--s-1); font-size: 14px; color: var(--c-grey); }
+
+.calc-sets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2); }
+.calc-set {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: var(--s-2); text-align: left; cursor: pointer;
+  border: 1px solid var(--c-gold); background: var(--bg-2); color: inherit;
+}
+.calc-set:hover { border-color: var(--c-gold-dark); }
+/* Отмеченный сет: рамка толще за счёт внутренней тени, иначе блок дёргается */
+.calc-set.is-active {
+  background: rgba(203, 170, 88, .2); border-color: var(--c-gold-dark);
+  box-shadow: inset 0 0 0 1px var(--c-gold-dark);
+}
+.calc-set__tier {
+  font-family: var(--f-head); font-weight: 700; font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--c-grey);
+}
+.calc-set__name { font-family: var(--f-deco); font-size: 21px; line-height: 1.15; color: var(--c-gold-text); }
+.calc-set__list { font-size: 14px; line-height: 1.35; color: var(--c-grey); }
+.calc-set__price { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--c-grey); }
+.calc-set__price b {
+  font-family: var(--f-deco); font-weight: 400; font-size: 19px;
+  color: var(--c-red); white-space: nowrap;
 }
 
 .calc-cat { margin-bottom: var(--s-3); }
@@ -1324,6 +1362,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 @media (max-width: 640px) {
   .calc-top { grid-template-columns: 1fr; }
+  .calc-sets { grid-template-columns: 1fr; }
+  .calc-set__price { margin-top: 0; }
   .calc-row { grid-template-columns: 1fr auto; row-gap: 6px; }
   .calc-row__sum { grid-column: 2; }
   .calc-row .calc-step { grid-column: 2; grid-row: 1; }
