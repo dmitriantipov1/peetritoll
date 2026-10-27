@@ -161,3 +161,98 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
 
   show(fromHash() || buttons[0].dataset.variant, false);
 });
+
+// Калькулятор банкета на elements.html.
+// Считает прямо в браузере — отправки нет, это по-прежнему эскиз.
+document.querySelectorAll('[data-calc]').forEach((calc) => {
+  const rows = calc.querySelectorAll('.calc-row');
+  const guests = calc.querySelector('[data-guests]');
+  const chosen = calc.querySelector('[data-chosen]');
+  const warn = calc.querySelector('[data-warn]');
+  if (!rows.length) return;
+
+  const money = (n) => n.toFixed(2).replace('.', ',') + ' €';
+  const qty = (row) => Number(row.querySelector('[data-qty]').value) || 0;
+
+  function setQty(row, n) {
+    const input = row.querySelector('[data-qty]');
+    input.value = Math.max(0, Math.round(n));
+    const q = qty(row);
+    row.classList.toggle('is-picked', q > 0);
+    row.querySelector('[data-sum]').textContent = q ? money(q * Number(row.dataset.price)) : '—';
+  }
+
+  function recalc() {
+    let total = 0;
+    const picked = [];
+    rows.forEach((row) => {
+      const q = qty(row);
+      total += q * Number(row.dataset.price);
+      if (q) picked.push({ name: row.querySelector('.calc-row__name').textContent, q });
+    });
+
+    const people = Number(guests && guests.value) || 0;
+    calc.querySelectorAll('[data-total]').forEach((el) => { el.textContent = money(total); });
+    calc.querySelectorAll('[data-per-guest]').forEach((el) => {
+      el.textContent = people ? money(total / people) : '—';
+    });
+
+    if (chosen) {
+      chosen.innerHTML = '';
+      if (!picked.length) {
+        const li = document.createElement('li');
+        li.className = 'calc-chosen__empty';
+        li.textContent = 'Пока ничего не выбрано';
+        chosen.appendChild(li);
+      } else {
+        picked.forEach((p) => {
+          const li = document.createElement('li');
+          li.innerHTML = '<span></span><b></b>';
+          li.firstChild.textContent = p.name;
+          li.lastChild.textContent = p.q + ' шт.';
+          chosen.appendChild(li);
+        });
+      }
+    }
+
+    // Подсказка, а не запрет: заявка — не заказ, отправить можно всегда
+    if (warn) {
+      let hot = 0;
+      rows.forEach((row) => { if (row.closest('.calc-cat').querySelector('.calc-cat__name').textContent === 'Горячее') hot += qty(row); });
+      const few = people && picked.length && hot < people / 2;
+      warn.hidden = !few;
+      if (few) warn.textContent = 'На ' + people + ' гостей выбрано ' + hot + ' порций горячего — проверьте, достаточно ли.';
+    }
+  }
+
+  calc.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-step]');
+    if (btn) {
+      const row = btn.closest('.calc-row');
+      setQty(row, qty(row) + Number(btn.dataset.step));
+      recalc();
+      return;
+    }
+    const preset = e.target.closest('[data-preset]');
+    if (preset) {
+      const keys = preset.dataset.preset.split(',');
+      const people = Number(guests && guests.value) || 1;
+      rows.forEach((row) => setQty(row, keys.includes(row.dataset.dish) ? people : 0));
+      calc.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('is-active', b === preset));
+      recalc();
+      return;
+    }
+    if (e.target.closest('[data-fill]')) {
+      const people = Number(guests && guests.value) || 1;
+      rows.forEach((row) => { if (qty(row) > 0) setQty(row, people); });
+      recalc();
+    }
+  });
+
+  calc.addEventListener('input', (e) => {
+    if (e.target.matches('[data-qty]')) setQty(e.target.closest('.calc-row'), Number(e.target.value));
+    recalc();
+  });
+
+  recalc();
+});

@@ -1195,36 +1195,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lunch-week th { font-family: var(--f-head); font-size: 15px; color: var(--c-gold-text); white-space: nowrap; }
 .lunch-week td:last-child { font-family: var(--f-deco); font-size: 19px; color: var(--c-red); white-space: nowrap; text-align: right; }
 
-/* ---------- 4. Банкетные наборы ---------- */
-.banq-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); list-style: none; }
-.banq-card { display: flex; flex-direction: column; padding: var(--s-4); background: var(--bg-2); border: 1px solid var(--c-gold); }
-.banq-card--pick { border-width: 2px; border-color: var(--c-red); }
-.banq-card__tag {
-  align-self: flex-start; margin-bottom: var(--s-2); padding: 2px 10px;
-  background: var(--c-red); color: var(--bg-2); font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
-}
-.banq-card__name { font-family: var(--f-head); font-weight: 700; font-size: 24px; margin-bottom: 6px; }
-.banq-card__price { font-family: var(--f-deco); font-size: 32px; color: var(--c-red); }
-.banq-card__per { font-size: 14px; color: var(--c-grey); margin-bottom: var(--s-3); }
-.banq-list { list-style: none; margin-bottom: var(--s-3); }
-.banq-list li { padding: 7px 0; border-top: 1px solid rgba(111,108,108,.25); font-size: 16px; }
-.banq-card .btn { margin-top: auto; }
-
-.banq-table { width: 100%; border-collapse: collapse; }
-.banq-table th, .banq-table td { padding: var(--s-2); border-bottom: 1px solid rgba(111,108,108,.3); text-align: left; }
-.banq-table thead th { font-family: var(--f-head); font-size: 18px; color: var(--c-brown); background: var(--bg-2); }
-.banq-table td:first-child { font-family: var(--f-head); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--c-grey); }
-.banq-table tr:last-child td { font-family: var(--f-deco); font-size: 22px; color: var(--c-red); }
-
-.banq-paper { max-width: 760px; padding: var(--s-5); background: var(--bg-2); border: 1px solid var(--c-gold); }
-.banq-paper__name { font-family: var(--f-head); font-weight: 400; font-size: 30px; text-align: center; margin-bottom: 4px; }
-.banq-paper__sub { text-align: center; font-family: var(--f-head); font-style: italic; color: var(--c-gold-dark); margin-bottom: var(--s-4); }
-.banq-paper__label { margin: var(--s-3) 0 var(--s-1); font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--c-grey); text-align: center; }
-.banq-paper ul { list-style: none; }
-.banq-paper li { display: flex; align-items: baseline; gap: var(--s-1); padding: 5px 0; }
-.banq-paper li span:first-child { font-size: 17px; }
-.banq-paper li i { flex: 1; border-bottom: 1px dotted var(--c-grey); transform: translateY(-5px); }
-
 /* ---------- 5. Радиогиды ---------- */
 .radio-bar {
   display: grid; grid-template-columns: 180px 1fr auto; gap: var(--s-3); align-items: center;
@@ -1236,9 +1206,12 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .radio-two > div { display: flex; flex-direction: column; padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
 .radio-two .btn { margin-top: auto; align-self: flex-start; }
 
+/* Широкие таблицы на телефоне прокручиваются сами, а не тянут страницу */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
 /* ---------- Адаптив страницы вариантов ---------- */
 @media (max-width: 1024px) {
-  .ev-grid, .ev-tiles, .banq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ev-grid, .ev-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bk-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bk-bar .btn { grid-column: 1 / -1; }
 }
@@ -1249,7 +1222,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .radio-bar .btn { grid-column: 2; justify-self: start; }
 }
 @media (max-width: 640px) {
-  .ev-grid, .ev-tiles, .banq-grid, .radio-two { grid-template-columns: 1fr; }
+  .ev-grid, .ev-tiles, .radio-two { grid-template-columns: 1fr; }
   .ev-row, .radio-bar { grid-template-columns: 1fr; }
   .ev-row .btn, .radio-bar .btn { grid-column: 1; }
   .ev-dateitem { grid-template-columns: 72px 1fr; }
@@ -1257,7 +1230,95 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .ev-day__num { font-size: 32px; }
   .bk-bar { grid-template-columns: 1fr; }
   .bk-steps__rail { flex-direction: column; gap: 6px; }
-  .bk-card, .bk-steps__body, .banq-paper, .lunch-hero { padding: var(--s-3); }
+  .bk-card, .bk-steps__body, .lunch-hero { padding: var(--s-3); }
+  .lunch-week { min-width: 420px; }
   .lunch-week th, .lunch-week td { padding: 10px 8px; font-size: 15px; }
-  .banq-table { font-size: 15px; }
+}
+
+/* ---------- Калькулятор банкета (elements.html) ---------- */
+.calc-top {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2);
+  padding: var(--s-3); background: var(--bg-2); border-top: 3px solid var(--c-gold);
+  margin-bottom: var(--s-3);
+}
+.calc-presets { margin-bottom: var(--s-3); }
+.calc-presets__label {
+  font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--c-grey); margin-bottom: var(--s-1);
+}
+
+.calc-cat { margin-bottom: var(--s-3); }
+.calc-cat__name {
+  font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--c-gold-dark);
+  padding-bottom: 6px; border-bottom: 1px solid var(--c-gold); margin-bottom: 4px;
+}
+.calc-row {
+  display: grid; grid-template-columns: 1fr auto 96px; gap: var(--s-2);
+  align-items: center; padding: 10px 8px;
+  border-bottom: 1px solid rgba(111,108,108,.22);
+}
+.calc-row.is-picked { background: rgba(203,170,88,.14); }
+.calc-row__name { font-size: 17px; }
+.calc-row__price { font-size: 14px; color: var(--c-grey); }
+.calc-row__sum {
+  text-align: right; font-family: var(--f-deco); font-size: 18px;
+  color: var(--c-red); white-space: nowrap;
+}
+
+.calc-step { display: flex; align-items: center; gap: 4px; }
+.calc-step__btn {
+  width: 36px; height: 36px; display: grid; place-items: center;
+  border: 1px solid var(--c-gold); background: transparent;
+  font-family: var(--f-deco); font-size: 20px; line-height: 1; color: var(--c-gold-text); cursor: pointer;
+}
+.calc-step__btn:hover { background: var(--c-gold); color: var(--c-brown); }
+.calc-step__input {
+  width: 48px; height: 36px; padding: 0; text-align: center;
+  border: 1px solid rgba(111,108,108,.5); background: var(--bg-2);
+  font: 16px var(--f-body); color: var(--c-ink);
+}
+
+.calc-bar {
+  position: sticky; bottom: 0; z-index: 2;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-3); padding: var(--s-3);
+  background: var(--c-brown); color: var(--bg-2);
+  box-shadow: 0 -6px 18px rgba(31,26,22,.18);
+}
+.calc-bar__total { font-family: var(--f-deco); font-size: 28px; color: var(--c-gold); }
+.calc-bar__per { font-size: 14px; opacity: .85; }
+.calc-bar__note { flex: 1 1 260px; font-size: 13px; opacity: .8; }
+.calc-bar .btn { border-color: var(--c-gold); color: var(--c-gold); }
+.calc-bar .btn:hover { background: var(--c-gold); color: var(--c-brown); }
+
+.calc-hint { margin-bottom: var(--s-2); font-family: var(--f-head); font-style: italic; color: var(--c-gold-dark); }
+.calc-warn {
+  margin-top: var(--s-2); padding: 10px var(--s-2);
+  border-left: 3px solid var(--c-red); background: rgba(153,49,34,.07); font-size: 15px;
+}
+
+/* вариант 2 — меню и «ваш выбор» рядом */
+.calc-two { display: grid; grid-template-columns: 1fr 320px; gap: var(--gap); align-items: start; }
+.calc-side { position: sticky; top: 24px; padding: var(--s-3); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
+.calc-side__title { font-family: var(--f-head); font-weight: 700; font-size: 19px; margin-bottom: var(--s-2); }
+.calc-chosen { list-style: none; margin-bottom: var(--s-2); }
+.calc-chosen li { display: flex; justify-content: space-between; gap: var(--s-1); padding: 6px 0; border-bottom: 1px solid rgba(111,108,108,.22); font-size: 15px; }
+.calc-chosen__empty { color: var(--c-grey); font-style: italic; }
+.calc-side__total { display: flex; justify-content: space-between; align-items: baseline; padding-top: var(--s-2); border-top: 2px solid var(--c-gold); font-family: var(--f-deco); font-size: 24px; color: var(--c-red); }
+.calc-side__note { margin-top: var(--s-1); font-size: 13px; color: var(--c-grey); }
+
+@media (max-width: 1024px) {
+  .calc-two { grid-template-columns: 1fr; }
+  .calc-side { position: static; }
+}
+@media (max-width: 640px) {
+  .calc-top { grid-template-columns: 1fr; }
+  .calc-row { grid-template-columns: 1fr auto; row-gap: 6px; }
+  .calc-row__sum { grid-column: 2; }
+  .calc-row .calc-step { grid-column: 2; grid-row: 1; }
+  .calc-bar { padding: var(--s-2); gap: var(--s-1) var(--s-2); }
+  .calc-bar__total { font-size: 23px; }
+  .calc-bar__note { flex-basis: 100%; }
+  .calc-bar .btn { flex: 1 1 100%; }
 }
