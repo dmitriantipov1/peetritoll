@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Настройки сайта — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-8">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="./orders.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="./gallery.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./leads.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./contacts.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link is-current" href="./settings.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ НАСТРОЙКИ САЙТА ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <p class="adm-top__crumb">Сайт</p>
+        <h1 class="adm-top__title">Настройки сайта<span class="adm-mock">данные — пример</span></h1>
+      </div>
+      <div class="adm-top__actions">
+        <a class="adm-top__site" href="../index.html" target="_blank" rel="noopener">Открыть сайт</a>
+        <button class="btn btn--solid btn--sm" type="button">Сохранить</button>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+        <section class="adm-panel" aria-labelledby="p-sec">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-sec">Разделы сайта</h2>
+            <p class="adm-panel__hint">Выключенный — пропадает из меню и ссылок</p>
+          </div>
+          <ul class="adm-sections">
+          <li>
+            <div><b>Ресторан</b><small><code>/</code> · Меню, история, отзывы</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Ресторан: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Ресторан: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Ресторан: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Ресторан: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li class="is-sub">
+            <div><b>Основное меню</b><small><code>/menu</code> · 37 блюд</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Основное меню: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Основное меню: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Основное меню: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Основное меню: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li class="is-sub">
+            <div><b>Дневное меню и предзаказ обедов</b><small><code>/lunch</code> · Будни, 11:00–15:00</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Дневное меню и предзаказ обедов: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Дневное меню и предзаказ обедов: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Дневное меню и предзаказ обедов: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Дневное меню и предзаказ обедов: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li class="is-sub">
+            <div><b>Бронь стола</b><small><code>форма</code> · Заявки приходят в «Заявки»</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Бронь стола: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Бронь стола: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Бронь стола: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Бронь стола: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li class="is-sub">
+            <div><b>Запрос на банкет</b><small><code>форма</code> · С калькулятором</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Запрос на банкет: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Запрос на банкет: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Запрос на банкет: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Запрос на банкет: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li>
+            <div><b>Музей</b><small><code>/museum</code> · Выставка, архивы, книги, авторы</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Музей: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Музей: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Музей: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Музей: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li>
+            <div><b>Экскурсии и поездки</b><small><code>/services</code> · Экскурсии, аудиогид, радиогиды</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Экскурсии и поездки: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Экскурсии и поездки: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Экскурсии и поездки: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Экскурсии и поездки: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li class="is-sub">
+            <div><b>Pakri Express</b><small><code>/services</code> · Ждём от заказчицы расписание и условия</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Pakri Express: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Pakri Express: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Pakri Express: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" aria-label="Pakri Express: показывать на сайте"><span class="adm-switch__track"></span>Скрыто</label></div>
+          </li>
+          <li>
+            <div><b>Мероприятия</b><small><code>/events</code> · Предстоящие и архив</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Мероприятия: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Мероприятия: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Мероприятия: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Мероприятия: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li>
+            <div><b>Новости</b><small><code>/news</code> · Выключите — блок новостей пропадёт со всех страниц</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Новости: в эстонской версии — показан">ET</button><button type="button" class="is-untranslated" aria-pressed="true" title="EN: показан, нет перевода" aria-label="Новости: в английской версии — показан, нет перевода">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Новости: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Новости: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li>
+            <div><b>Галерея</b><small><code>/about</code> · 10 фото в 4 категориях</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Галерея: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Галерея: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Галерея: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" checked aria-label="Галерея: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
+          </li>
+          <li>
+            <div><b>Магазин</b><small><code>/shop</code> · Пока кнопки «Купить» ведут в магазин SumUp</small></div>
+            <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Магазин: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Магазин: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Магазин: в русской версии — показан">RU</button></span></div>
+            <div><label class="adm-switch"><input type="checkbox" aria-label="Магазин: показывать на сайте"><span class="adm-switch__track"></span>Скрыто</label></div>
+          </li>
+          </ul>
+          <p class="adm-note" style="margin-top:12px">Кнопки языков — показывать ли раздел в этой версии сайта. Внутри раздела у каждого товара и материала свои языки (8.5).</p>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Уведомления и языки">
+        <section class="adm-panel" aria-labelledby="p-notify">
+          <h2 class="adm-panel__title" id="p-notify" style="margin-bottom:14px">Уведомления</h2>
+          <div class="adm-stack" style="gap:16px">
+            <div class="field">
+              <label for="n-mail">Заявки и заказы на почту</label>
+              <input id="n-mail" type="email" value="info@peetritoll.ee">
+              <span class="adm-note">С этого адреса удобно сразу ответить гостю</span>
+            </div>
+            <div class="field">
+              <label for="n-tg">Канал в Telegram</label>
+              <input id="n-tg" type="text" value="Peetri Toll — заявки" readonly>
+              <span class="adm-note">Подключён 21.10.2026 · каждая заявка отдельным сообщением</span>
+            </div>
+            <button class="btn btn--sm" type="button">Отправить пробное уведомление</button>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-langs">
+          <h2 class="adm-panel__title" id="p-langs" style="margin-bottom:14px">Языки</h2>
+          <dl class="adm-facts">
+            <div><dt>Версии сайта</dt><dd>Эстонская, английская, русская</dd></div>
+            <div><dt>Если перевода нет</dt><dd>Показываем эстонский текст</dd></div>
+          </dl>
+          <div class="field" style="margin-top:14px">
+            <label for="l-def">Язык по умолчанию</label>
+            <select id="l-def"><option selected>Эстонский</option><option>Английский</option><option>Русский</option></select>
+            <span class="adm-q">Определять ли язык по браузеру гостя — вопрос</span>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-docs">
+          <h2 class="adm-panel__title" id="p-docs" style="margin-bottom:14px">Документы</h2>
+          <dl class="adm-facts">
+            <div><dt>Политика конфиденциальности</dt><dd><span class="adm-q">Текст ждём (8.1)</span></dd></div>
+            <div><dt>Условия продажи</dt><dd><span class="adm-q">Нужны к запуску магазина (7.3)</span></dd></div>
+          </dl>
+          <p class="adm-note" style="margin-top:12px">Новая версия документа получает номер, и в заявках видно, с какой версией согласился гость.</p>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
