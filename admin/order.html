@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Заказ № 2087 — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-6">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link is-current" href="./orders.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ ЗАКАЗ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./orders.html">← Все заказы</a>
+        <h1 class="adm-top__title">Заказ № 2087<span class="adm-status adm-status--new">Новый</span><span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Наталья Ким · 31 октября, 11:04 · русская версия сайта · оплачено 25,00 €</p>
+      </div>
+      <div class="adm-top__actions">
+        <a class="btn btn--sm" href="mailto:natalja.kim@gmail.com">Написать покупателю</a>
+        <button class="btn btn--solid btn--sm" type="button">Сохранить</button>
+      </div>
+    </header>
+
+    <ol class="adm-steps" aria-label="Ход заказа">
+      <li class="is-done"><b>Оплачен</b>31.10, 11:04</li>
+      <li class="is-current" aria-current="step"><b>Цена доставки</b>сообщить покупателю</li>
+      <li><b>Собирается</b>упаковать</li>
+      <li><b>Отправлен</b>трек-номер</li>
+      <li><b>Получен</b>покупатель забрал</li>
+    </ol>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+
+        <section class="adm-panel" aria-labelledby="p-items">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-items">Состав заказа</h2>
+            <p class="adm-panel__hint">Смешанный: печатная книга и PDF</p>
+          </div>
+          <table class="adm-calc">
+            <thead><tr><th scope="col">Товар</th><th scope="col">Получение</th><th scope="col" class="num">Кол-во</th><th scope="col" class="num">Цена</th><th scope="col" class="num">Сумма</th></tr></thead>
+            <tbody>
+              <tr><td><a class="adm-dish__name" href="./product-digital.html">Мой родной Палдиски</a><small>Печатная книга</small></td><td>Доставка по запросу</td><td class="num">1</td><td class="num">15,00 €</td><td class="num">15,00 €</td></tr>
+              <tr><td><a class="adm-dish__name" href="./product-digital.html">Мой родной Палдиски</a><small>PDF · русский</small></td><td>Ссылка на почту</td><td class="num">1</td><td class="num">10,00 €</td><td class="num">10,00 €</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="4" class="adm-calc__label">Оплачено через SumUp</td><td class="num"><span class="adm-calc__total">25,00 €</span></td></tr>
+              <tr><td colspan="4">Доставка</td><td class="num"><span class="adm-q">ещё не назначена</span></td></tr>
+            </tfoot>
+          </table>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-ship">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-ship">Доставка печатной книги</h2>
+            <p class="adm-panel__hint">Считается только на физическую часть заказа</p>
+          </div>
+          <dl class="adm-facts" style="margin-bottom:18px">
+            <div><dt>Куда</dt><dd>Почтомат, Тарту — Lõunakeskus · выбрал покупатель</dd></div>
+            <div><dt>Получатель</dt><dd>Наталья Ким, +372 5812 3390</dd></div>
+          </dl>
+          <div class="adm-alert" role="note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.5"/></svg>
+            <p><b>Шаг 1. Назовите цену доставки.</b> Покупатель получит письмо с ценой и ссылкой на оплату.
+            Пока доставка не оплачена, книгу не отправляем.<br><span class="adm-q">Как гость платит за доставку — второй ссылкой SumUp или иначе — вопрос к заказчице (7.3)</span></p>
+          </div>
+          <div class="adm-inline">
+            <div class="field">
+              <label for="d-price">Цена доставки, €</label>
+              <input id="d-price" type="text" placeholder="например, 4,50">
+            </div>
+            <button class="btn btn--solid btn--sm" type="button">Отправить покупателю</button>
+          </div>
+
+          <div class="adm-inline" style="margin-top:22px;opacity:.55">
+            <div class="field">
+              <label for="d-track">Трек-номер <span style="font-weight:400">— шаг 2, после покупки наклейки</span></label>
+              <input id="d-track" type="text" placeholder="CC 0000 0000 EE" disabled>
+            </div>
+            <button class="btn btn--sm" type="button" disabled>Сохранить и сообщить</button>
+          </div>
+          <p class="adm-note" style="margin-top:8px">С трек-номером заказ перейдёт в «Отправлен», покупатель получит письмо со ссылкой на отслеживание.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-digital">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-digital">Цифровая часть</h2>
+            <p class="adm-panel__hint">Ушла сама, сразу после оплаты</p>
+          </div>
+          <div class="adm-file"><span class="adm-file__ico" aria-hidden="true">PDF</span><div><p class="adm-file__name">moj-rodnoj-paldiski-ru.pdf</p><small>Ссылка отправлена 31.10, 11:04 на natalja.kim@gmail.com</small></div></div>
+          <p class="adm-dl-meta">
+            <span>Скачано: <b>1 из 5</b></span>
+            <span>Действует до: <b>07.11.2026</b></span>
+            <span>Последнее скачивание: <b>31.10, 11:09</b></span>
+          </p>
+          <div class="adm-inline" style="margin-top:16px">
+            <div class="field">
+              <label for="r-mail">Выслать на адрес</label>
+              <input id="r-mail" type="email" value="natalja.kim@gmail.com">
+            </div>
+            <button class="btn btn--sm" type="button">Выслать ссылку повторно</button>
+          </div>
+          <p class="adm-note" style="margin-top:8px">Покупатель потерял письмо — личного кабинета нет, поэтому новую ссылку высылаете вы. Старая перестанет работать, срок и счётчик начнутся заново.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-history">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-history">История</h2>
+            <p class="adm-panel__hint">Сначала новые</p>
+          </div>
+          <ol class="adm-history">
+            <li><time datetime="2026-10-31T11:09">31.10, 11:09</time><p>PDF скачан, 1 из 5</p></li>
+            <li><time datetime="2026-10-31T11:04">31.10, 11:04</time><p>Ссылка на PDF отправлена покупателю<small>natalja.kim@gmail.com</small></p></li>
+            <li><time datetime="2026-10-31T11:04">31.10, 11:04</time><p>Уведомление в Telegram и на info@peetritoll.ee</p></li>
+            <li><time datetime="2026-10-31T11:04">31.10, 11:04</time><p>Оплата 25,00 € прошла<small>SumUp, карта</small></p></li>
+            <li class="is-key"><time datetime="2026-10-31T11:01">31.10, 11:01</time><p>Заказ с сайта<small>Русская версия, магазин</small></p></li>
+          </ol>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Статус и сведения">
+        <section class="adm-panel" aria-labelledby="p-status">
+          <h2 class="adm-panel__title" id="p-status" style="margin-bottom:14px">Статус</h2>
+          <div class="field">
+            <label class="adm-vh" for="o-status">Статус заказа</label>
+            <select id="o-status">
+              <option selected>Новый</option>
+              <option>Собирается</option>
+              <option>Готов к выдаче</option>
+              <option>Отправлен</option>
+              <option>Выполнен</option>
+              <option>Отменён</option>
+            </select>
+          </div>
+          <label class="adm-check"><input type="checkbox" checked> Сообщить покупателю о смене статуса по e-mail</label>
+          <div class="adm-actions">
+            <button class="btn btn--solid" type="button">Сохранить</button>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-pay">
+          <h2 class="adm-panel__title" id="p-pay" style="margin-bottom:14px">Оплата</h2>
+          <dl class="adm-facts">
+            <div><dt>Способ</dt><dd>SumUp, банковская карта</dd></div>
+            <div><dt>Оплачено</dt><dd>25,00 € · 31.10.2026, 11:04</dd></div>
+            <div><dt>Номер платежа в SumUp</dt><dd><span class="adm-track">TX-8F2K-41QA</span></dd></div>
+          </dl>
+          <div class="adm-actions">
+            <button class="btn btn--sm" type="button">Вернуть деньги…</button>
+          </div>
+          <p class="adm-note" style="margin-top:10px">Возврат — полностью или за отдельные товары, проходит через SumUp.
+          <span class="adm-q">Возвращаем ли деньги за уже скачанный PDF — вопрос к заказчице</span></p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-buyer">
+          <h2 class="adm-panel__title" id="p-buyer" style="margin-bottom:14px">Покупатель</h2>
+          <dl class="adm-facts">
+            <div><dt>Имя</dt><dd>Наталья Ким</dd></div>
+            <div><dt>Связь</dt><dd><a href="mailto:natalja.kim@gmail.com">natalja.kim@gmail.com</a><br>+372 5812 3390</dd></div>
+            <div><dt>Контакт в лидах</dt><dd><a href="#">Наталья Ким</a> · 2-й заказ<br><span class="adm-tag">покупка: книги</span></dd></div>
+            <div><dt>Рассылка</dt><dd>Подписана при заказе</dd></div>
+            <div><dt>Согласие на обработку данных</dt><dd>31.10.2026, 11:01 · условия продажи и политика конфиденциальности, версия 1</dd></div>
+          </dl>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
