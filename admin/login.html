@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Вход — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031">
+</head>
+<body class="adm-body">
+
+<main class="adm-login">
+  <div class="adm-login__box">
+    <a class="adm-login__brand" href="../index.html" aria-label="Peetri Toll — на сайт">
+      <img src="../images/logo.svg" alt="Peetri Toll" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <div class="adm-login__card">
+      <h1 class="adm-login__title">Вход для сотрудников</h1>
+      <p class="adm-login__lead">Учётные записи заводит владелец в разделе «Сотрудники».</p>
+
+      <!-- Заглушка: форма ведёт сразу на список заявок -->
+      <form class="adm-login__form" action="./index.html" method="get">
+        <div class="field">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" type="email" autocomplete="username" placeholder="name@peetritoll.ee">
+        </div>
+        <div class="field">
+          <label for="login-pass">Пароль</label>
+          <input id="login-pass" type="password" autocomplete="current-password">
+        </div>
+        <div class="adm-login__row">
+          <label><input type="checkbox" checked> Запомнить меня</label>
+          <a href="#">Забыли пароль?</a>
+        </div>
+        <button class="btn btn--solid" type="submit">Войти</button>
+      </form>
+    </div>
+
+    <p class="adm-login__foot">Это закрытый раздел, в поиске не показывается. <a href="../index.html">Вернуться на сайт</a></p>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+/* =========================================================
+   Peetri Toll — админка
+   Подключается после css/style.css: токены, .btn, .field, .chip — оттуда.
+   Desktop first, адаптив не делаем.
+   ========================================================= */
+
+:root {
+  --adm-side: 248px;
+  --adm-side-bg: #2A1D14;
+  --adm-side-muted: #B5A88F;   /* подписи групп в боковом меню */
+  --adm-card: var(--bg-2);
+  --adm-line: rgba(111, 108, 108, .35);
+}
+
+body.adm-body { min-width: 1200px; font-size: 16px; }
+
+/* ---------- Каркас ---------- */
+.adm {
+  display: grid;
+  grid-template-columns: var(--adm-side) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.adm-side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--adm-side-bg);
+  color: var(--c-light);
+  border-right: 4px solid var(--c-red);
+}
+
+.adm-side__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 24px 20px;
+  text-decoration: none;
+}
+.adm-side__brand img { width: 72px; height: auto; }
+.adm-side__brand span {
+  font-family: var(--f-deco);
+  font-size: 15px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+.adm-nav { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
+.adm-nav__group + .adm-nav__group { margin-top: 18px; }
+.adm-nav__title {
+  padding: 0 24px 6px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--adm-side-muted);
+}
+.adm-nav ul { list-style: none; }
+.adm-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 8px 24px;
+  font-size: 15px;
+  color: var(--c-light);
+  text-decoration: none;
+}
+.adm-nav__link svg { flex-shrink: 0; width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.adm-nav__link:hover { background: rgba(217, 206, 187, .08); color: #fff; }
+.adm-nav__link.is-current { background: rgba(203, 170, 88, .16); color: var(--c-gold); font-weight: 600; }
+.adm-nav__count {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 1px 6px;
+  background: var(--c-red);
+  color: var(--bg-2);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.adm-side__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(217, 206, 187, .15);
+  font-size: 14px;
+}
+.adm-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: var(--c-gold);
+  color: var(--c-brown);
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 14px;
+}
+.adm-side__user b { display: block; font-weight: 600; color: #fff; }
+.adm-side__user div span { color: var(--adm-side-muted); }
+.adm-side__user a { margin-left: auto; color: var(--adm-side-muted); font-size: 13px; }
+.adm-side__user a:hover { color: var(--c-gold); }
+
+.adm-main { padding: 28px 40px 56px; min-width: 0; }
+
+/* ---------- Верхняя панель ---------- */
+.adm-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(111, 108, 108, .6);
+}
+.adm-top__crumb {
+  margin-bottom: 4px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+}
+.adm-top__title {
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.1;
+}
+.adm-top__actions { display: flex; align-items: center; gap: 12px; }
+.adm-top__site { font-size: 14px; color: var(--c-gold-text); }
+
+.adm-mock {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 2px 8px;
+  border: 1px dashed var(--c-grey);
+  font-family: var(--f-body);
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  vertical-align: middle;
+}
+
+/* Поиск — поле .field без метки */
+.adm-search { position: relative; width: 300px; }
+.adm-search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 14px 8px 40px;
+  border: 1px solid rgba(111, 108, 108, .5);
+  background: var(--bg-2);
+  font: 15px var(--f-body);
+  color: var(--c-ink);
+}
+.adm-search input:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
+.adm-search svg { position: absolute; left: 13px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); stroke: var(--c-grey); fill: none; stroke-width: 1.8; }
+
+.btn .adm-ico { width: 16px; height: 16px; margin-right: 8px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ---------- Сводка ---------- */
+.adm-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.adm-stat {
+  padding: 18px 20px;
+  background: var(--adm-card);
+  border: 1px solid var(--adm-line);
+}
+.adm-stat__label {
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+}
+.adm-stat__num {
+  margin-top: 6px;
+  font-family: var(--f-head);
+  font-size: 40px;
+  line-height: 1.05;
+}
+.adm-stat__num--alert { color: var(--c-red); }
+.adm-stat__note { margin-top: 4px; font-size: 14px; color: #4d4842; }
+
+/* ---------- Фильтры ---------- */
+.adm-filters { margin-bottom: 16px; }
+.adm-filters .chips { margin: 0; gap: 6px; }
+.adm-filters .chip { min-height: 38px; padding: 6px 12px; font-size: 15px; letter-spacing: .03em; }
+.chip__count { margin-left: 6px; font-family: var(--f-body); font-size: 13px; opacity: .8; }
+
+.adm-table-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--adm-line);
+}
+.adm-table-bar label { font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
+.adm-table-bar select + label { margin-left: 14px; }
+.adm-table-bar__note { margin-left: auto; font-size: 14px; color: #4d4842; }
+.adm-select {
+  min-height: 38px;
+  padding: 6px 12px;
+  border: 1px solid rgba(111, 108, 108, .5);
+  background: var(--bg-2);
+  font: 15px var(--f-body);
+  color: var(--c-ink);
+}
+
+/* ---------- Таблица ---------- */
+.adm-table-wrap { background: var(--adm-card); border: 1px solid var(--adm-line); }
+.adm-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.adm-table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(111, 108, 108, .6);
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  text-align: left;
+  white-space: nowrap;
+}
+.adm-table th.is-sorted { color: var(--c-ink); }
+.adm-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--adm-line);
+  vertical-align: top;
+}
+.adm-table tbody tr:last-child td { border-bottom: 0; }
+.adm-table tbody tr:hover { background: var(--bg-1); }
+.adm-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.adm-table .nowrap { white-space: nowrap; }
+@media (max-width: 1360px) {
+  .adm-table th, .adm-table td { padding-inline: 12px; }
+}
+.adm-table small { display: block; color: #4d4842; font-size: 13px; }
+
+.adm-row--new td:first-child { position: relative; }
+.adm-row--new td:first-child::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 21px;
+  width: 6px;
+  height: 6px;
+  background: var(--c-red);
+}
+.adm-row--new .adm-guest { font-weight: 600; }
+.adm-row--cancel { color: var(--c-grey); }
+
+.adm-guest { color: var(--c-ink); text-decoration: none; }
+.adm-guest:hover { color: var(--c-gold-text); text-decoration: underline; }
+.adm-type { white-space: nowrap; }
+.adm-details { max-width: 280px; color: #3d3833; }
+.adm-sum { font-family: var(--f-deco); color: var(--c-red); white-space: nowrap; }
+
+.adm-open {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--c-gold-text);
+}
+.adm-open svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+.adm-open:hover { background: var(--c-gold); color: var(--c-brown); }
+
+/* Статусы различаются не только цветом, но и светлотой и заливкой */
+.adm-status {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.adm-status--new    { background: var(--c-red); color: var(--bg-2); }
+.adm-status--work   { background: var(--c-gold); color: var(--c-brown); }
+.adm-status--done   { border: 1px solid var(--c-ink); color: var(--c-ink); padding: 2px 9px; }
+.adm-status--cancel { background: rgba(111, 108, 108, .14); color: #4d4842; }
+
+.adm-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--adm-line);
+  font-size: 14px;
+  color: #4d4842;
+}
+.adm-pager__pages { display: flex; gap: 6px; }
+.adm-pager__pages a, .adm-pager__pages span {
+  display: grid;
+  place-items: center;
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid var(--c-gold);
+  color: var(--c-gold-text);
+  text-decoration: none;
+}
+.adm-pager__pages .is-current { background: var(--c-gold); color: var(--c-brown); }
+
+/* ---------- Вход ---------- */
+.adm-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  background: var(--adm-side-bg);
+  border-top: 13px solid var(--c-red);
+}
+.adm-login__box { width: 420px; }
+.adm-login__brand { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 28px; text-decoration: none; }
+.adm-login__brand img { width: 120px; height: auto; }
+.adm-login__brand span { font-family: var(--f-deco); font-size: 16px; letter-spacing: .14em; text-transform: uppercase; color: var(--c-gold); }
+.adm-login__card { padding: 36px 36px 32px; background: var(--bg-2); }
+.adm-login__title { font-family: var(--f-head); font-weight: 400; font-size: 32px; line-height: 1.15; margin-bottom: 6px; }
+.adm-login__lead { margin-bottom: 24px; font-size: 15px; color: #4d4842; }
+.adm-login__form { display: grid; gap: 16px; }
+.adm-login__form .field input { background: #fff; }
+.adm-login__row { display: flex; align-items: center; justify-content: space-between; font-size: 15px; }
+.adm-login__row label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.adm-login__row input { width: 18px; height: 18px; accent-color: var(--c-gold-dark); }
+.adm-login__row a { color: var(--c-gold-text); }
+.adm-login__form .btn { width: 100%; margin-top: 8px; }
+.adm-login__foot { margin-top: 20px; text-align: center; font-size: 14px; color: var(--adm-side-muted); }
+.adm-login__foot a { color: var(--c-light); }
+.adm-login__foot a:hover { color: var(--c-gold); }
+
+/* Скрыто визуально, но читается экранным диктором */
+.adm-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
