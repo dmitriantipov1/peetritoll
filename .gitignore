@@ -1,2 +1,8 @@
+# Настройки WebStorm, у каждого свои
+.idea/
+
 # Замок LibreOffice: появляется, пока SCOPE.docx открыт
 .~lock.*#
+
+# Мусор macOS
+.DS_Store
