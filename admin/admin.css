@@ -780,3 +780,63 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-week th:last-child { width: 130px; }
 .adm-week td input { text-align: left; }
 .adm-week td .adm-week__price { text-align: right; }
+
+/* =========================================================
+   Материалы: новости, мероприятия, страницы
+   ========================================================= */
+/* Язык в списке: виден и переведён / виден без перевода / скрыт в этой локали */
+.adm-lang--off { border: 1px solid rgba(111, 108, 108, .45); color: var(--c-grey); text-decoration: line-through; }
+.adm-legend { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 14px; font-size: 14px; color: #4d4842; }
+.adm-legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+.adm-status--draft   { border: 1px dashed var(--c-grey); color: #4d4842; padding: 2px 9px; }
+.adm-status--planned { background: rgba(203, 170, 88, .3); color: var(--c-brown); }
+.adm-status--archive { background: rgba(111, 108, 108, .14); color: #4d4842; }
+.adm-status small { display: block; font-weight: 400; font-size: 12px; }
+
+.adm-type-ico { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.adm-type-ico svg { width: 16px; height: 16px; stroke: var(--c-gold-dark); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.adm-toolbar .adm-switch { margin-left: 8px; }
+
+/* Редактор */
+.adm-slug { display: flex; align-items: stretch; }
+.adm-slug span {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid rgba(111, 108, 108, .5);
+  border-right: 0;
+  background: rgba(111, 108, 108, .1);
+  font-size: 14px;
+  color: #4d4842;
+  white-space: nowrap;
+}
+.adm-slug input { flex: 1; min-width: 0; }
+
+.adm-editor { border: 1px solid rgba(111, 108, 108, .5); background: var(--bg-1); }
+.adm-editor__bar { display: flex; gap: 2px; padding: 6px; border-bottom: 1px solid var(--adm-line); }
+.adm-editor__bar button {
+  min-width: 34px;
+  height: 32px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  font: 600 14px var(--f-body);
+  color: #4d4842;
+  cursor: pointer;
+}
+.adm-editor__bar button:hover { background: rgba(203, 170, 88, .25); color: var(--c-ink); }
+.adm-editor__bar .sep { width: 1px; margin: 4px 6px; background: var(--adm-line); }
+.adm-editor__body { min-height: 180px; padding: 14px 16px; font-size: 16px; line-height: 1.6; }
+.adm-editor__body p + p { margin-top: 10px; }
+
+.adm-cover { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px; align-items: start; }
+.adm-cover img { width: 200px; aspect-ratio: 3 / 4; object-fit: cover; background: rgba(60, 31, 12, .08); }
+
+.adm-sub { font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); margin: 6px 0 10px; }
+.adm-switch-list { display: grid; gap: 12px; }
+.adm-switch-list .adm-switch { justify-content: space-between; width: 100%; font-size: 15px; }
+.adm-switch-list .adm-switch .adm-switch__track { order: 2; }
+.adm-note { font-size: 14px; color: #4d4842; }
+.adm-q { color: var(--c-red); font-size: 13px; }
