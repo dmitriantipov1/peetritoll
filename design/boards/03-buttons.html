@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<meta name="robots" content="noindex">
+<title>Peetri Toll — Кнопки и переключатели</title>
+<link href="https://fonts.googleapis.com/css2?family=Kurale&amp;family=Lora:ital,wght@0,400;0,500;0,700;1,400&amp;family=Source+Sans+3:wght@400;600&amp;display=swap&amp;subset=cyrillic,latin-ext" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8A5B0B}a:hover{color:#993122}
+</style>
+</head>
+<body>
+<div style="width: 1280px; min-height: 980px; box-sizing: border-box; padding: 72px 80px; background: #EDE5D8; color: #1F1A16; font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif; font-size: 17px; line-height: 1.6; display: flex; flex-direction: column; gap: 40px">
+
+<header style="display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(111,108,108,.6)">
+<p style="grid-column: 1 / -1; margin: 0 0 8px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: #6F6C6C">Основа дизайна</p>
+<h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 400; font-size: 80px; line-height: 1.05"><span style="font-weight: 500; color: #CBAA58">03</span> Кнопки</h1>
+<p style="margin: 0; padding-bottom: 10px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #8A5B0B">Без скруглений</p>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Кнопки на светлом фоне</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Подробнее</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.btn — основная. Рамка золотом, 52 px.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #CBAA58; background: #CBAA58; color: #3C1F0C; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Подробнее</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.btn при наведении: заливка золотом.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #993122; background: transparent; color: #993122; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Забронировать</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.btn--red — главное действие раздела.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #993122; background: #993122; color: #F4EFE6; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Забронировать</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.btn--red при наведении.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<button type="button" style="min-height: 44px; padding: 8px 18px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 17px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Купить</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.btn--sm — в карточках, 44 px.</p>
+</div>
+</div>
+</section>
+
+<section style="padding: 40px; background: #2a1d14; display: flex; flex-direction: column; gap: 24px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px; color: #D9CEBB">На тёмном фоне: герой и шапка</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #CBAA58; background: #CBAA58; color: #3C1F0C; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Меню</button>
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #CBAA58; background: transparent; color: #CBAA58; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Забронировать стол</button>
+<div role="group" aria-label="Язык" style="margin-left: auto; display: flex; gap: 12px">
+<button type="button" aria-pressed="false" style="width: 44px; height: 44px; border: 1px solid #CBAA58; background: transparent; color: #D9CEBB; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 13px; cursor: pointer">EE</button>
+<button type="button" aria-pressed="false" style="width: 44px; height: 44px; border: 1px solid #CBAA58; background: transparent; color: #D9CEBB; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 13px; cursor: pointer">EN</button>
+<button type="button" aria-pressed="true" style="width: 44px; height: 44px; border: 1px solid #CBAA58; background: #CBAA58; color: #3C1F0C; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 13px; cursor: pointer">RU</button>
+</div>
+<button type="button" aria-label="Открыть меню" style="width: 44px; height: 44px; padding: 10px; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; justify-content: center; gap: 5px">
+<span style="display: block; height: 2px; background: #D9CEBB"></span>
+<span style="display: block; height: 2px; background: #D9CEBB"></span>
+<span style="display: block; height: 2px; background: #D9CEBB"></span>
+</button>
+</div>
+<nav aria-label="Главное меню" style="display: flex; gap: 36px; padding-top: 8px">
+<a href="#" style="padding: 6px 0; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; color: #D9CEBB; text-decoration: none; border-bottom: 1px solid transparent">О нас</a>
+<a href="#" style="padding: 6px 0; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; color: #ffffff; text-decoration: none; border-bottom: 1px solid #CBAA58">Меню</a>
+<a href="#" style="padding: 6px 0; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; color: #D9CEBB; text-decoration: none; border-bottom: 1px solid transparent">Музей</a>
+<a href="#" style="padding: 6px 0; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; color: #D9CEBB; text-decoration: none; border-bottom: 1px solid transparent">Услуги</a>
+</nav>
+<p style="margin: 0; font-size: 14px; color: #D9CEBB">Пункт меню при наведении — белый с золотой линией. Переключатель языка: активный залит золотом. Бургер — до 1180 px.</p>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Чипсы и вкладки</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" aria-pressed="true" style="min-height: 44px; padding: 8px 16px; border: 1px solid #CBAA58; background: #CBAA58; color: #3C1F0C; font-family: Kurale, Georgia, serif; font-size: 16px; letter-spacing: .06em; cursor: pointer">Все</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 8px 16px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 16px; letter-spacing: .06em; cursor: pointer">Книги</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 8px 16px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 16px; letter-spacing: .06em; cursor: pointer">Сувениры</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 8px 16px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 16px; letter-spacing: .06em; cursor: pointer">Картины</button>
+</div>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.chip — фильтры магазина и меню. Активный залит золотом.</p>
+<div role="tablist" aria-label="Мероприятия" style="display: flex; gap: 8px; margin-top: 8px">
+<button type="button" role="tab" aria-selected="true" style="min-height: 44px; padding: 10px 20px; border: 1px solid #CBAA58; background: #CBAA58; color: #3C1F0C; font-family: Kurale, Georgia, serif; font-size: 18px; letter-spacing: .08em; cursor: pointer">Предстоящие</button>
+<button type="button" role="tab" aria-selected="false" style="min-height: 44px; padding: 10px 20px; border: 1px solid #CBAA58; background: transparent; color: #8A5B0B; font-family: Kurale, Georgia, serif; font-size: 18px; letter-spacing: .08em; cursor: pointer">Архив</button>
+</div>
+<p style="margin: 0; font-size: 14px; color: #4d4842">.tabs__btn — переключение вкладок.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Ссылки</h2>
+<div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start">
+<div>
+<a href="#" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #8A5B0B; text-decoration: none">Все разделы</a>
+<p style="margin: 4px 0 0; font-size: 14px; color: #4d4842">.section-head__more — справа в заголовке раздела.</p>
+</div>
+<div>
+<a href="#" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #6F6C6C; text-decoration: none">Все книги</a>
+<p style="margin: 4px 0 0; font-size: 14px; color: #4d4842">.link-more — справа в подразделе.</p>
+</div>
+<div>
+<a href="#" style="padding-bottom: 2px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: #8A5B0B; text-decoration: none; border-bottom: 1px solid #CBAA58">Заказать гида</a>
+<p style="margin: 6px 0 0; font-size: 14px; color: #4d4842">.service__link — внизу карточки услуги.</p>
+</div>
+<div>
+<a href="#" style="color: #8A5B0B">ссылка в тексте</a>
+<p style="margin: 4px 0 0; font-size: 14px; color: #4d4842">Внутри абзаца — подчёркнутая, золотом для текста.</p>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+</body>
+</html>

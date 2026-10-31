@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<meta name="robots" content="noindex">
+<title>Peetri Toll — Поля форм</title>
+<link href="https://fonts.googleapis.com/css2?family=Kurale&amp;family=Lora:ital,wght@0,400;0,500;0,700;1,400&amp;family=Source+Sans+3:wght@400;600&amp;display=swap&amp;subset=cyrillic,latin-ext" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8A5B0B}a:hover{color:#993122}
+</style>
+</head>
+<body>
+<div style="width: 1280px; min-height: 1080px; box-sizing: border-box; padding: 72px 80px; background: #EDE5D8; color: #1F1A16; font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif; font-size: 17px; line-height: 1.6; display: flex; flex-direction: column; gap: 40px">
+
+<header style="display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(111,108,108,.6)">
+<p style="grid-column: 1 / -1; margin: 0 0 8px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: #6F6C6C">Основа дизайна</p>
+<h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 400; font-size: 80px; line-height: 1.05"><span style="font-weight: 500; color: #CBAA58">04</span> Поля форм</h1>
+<p style="margin: 0; padding-bottom: 10px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #8A5B0B">.form · .field</p>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Состояния поля</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-name" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Имя</label>
+<input id="f-name" type="text" placeholder="Как к вам обращаться" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; color: #1F1A16">
+<p style="margin: 0; font-size: 14px; color: #4d4842">Обычное</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-phone" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Телефон</label>
+<input id="f-phone" type="tel" value="+372 5342 3425" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; outline: 2px solid #CBAA58; outline-offset: 0; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; color: #1F1A16">
+<p style="margin: 0; font-size: 14px; color: #4d4842">В фокусе: обводка 2 px золотом</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-mail" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #993122">E-mail</label>
+<input id="f-mail" type="email" value="info@peetritoll" aria-invalid="true" aria-describedby="f-mail-err" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #993122; border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; color: #1F1A16">
+<p id="f-mail-err" style="margin: 0; font-size: 14px; color: #993122">Проверьте адрес: не хватает домена</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-off" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Время</label>
+<input id="f-off" type="text" value="Выберите дату" disabled style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px dashed rgba(111,108,108,.5); border-radius: 0; background: transparent; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; color: #6F6C6C">
+<p style="margin: 0; font-size: 14px; color: #4d4842">Недоступно</p>
+</div>
+</div>
+<p style="margin: 0; font-size: 14px; color: #4d4842">Ошибка и недоступное поле в прототипе пока не нарисованы — это предложение.</p>
+</section>
+
+<section style="display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Форма целиком: бронь стола</h2>
+<form style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="b-name" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Имя</label>
+<input id="b-name" type="text" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="b-phone" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Телефон</label>
+<input id="b-phone" type="tel" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="b-date" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Дата</label>
+<input id="b-date" type="date" value="2026-11-14" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="b-guests" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Гостей</label>
+<select id="b-guests" style="box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; color: #1F1A16">
+<option>2</option>
+<option>4</option>
+<option>6</option>
+</select>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px">
+<label for="b-msg" style="font-family: Lora, Georgia, serif; font-weight: 700; font-size: 14px; color: #6F6C6C">Комментарий</label>
+<textarea id="b-msg" rows="4" style="box-sizing: border-box; width: 100%; min-height: 120px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); border-radius: 0; background: #F4EFE6; font-family: 'Source Sans 3', Arial, sans-serif; font-size: 16px; resize: vertical"></textarea>
+</div>
+<div style="grid-column: 1 / -1; display: flex; gap: 12px; align-items: flex-start">
+<input id="b-ok" type="checkbox" checked style="width: 22px; height: 22px; margin: 2px 0 0; accent-color: #A66E0E; flex-shrink: 0">
+<label for="b-ok" style="font-size: 15px; color: #1F1A16">Согласен на обработку персональных данных по <a href="#">политике конфиденциальности</a></label>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center">
+<button type="button" style="min-height: 52px; padding: 10px 22px; border: 1px solid #993122; background: transparent; color: #993122; font-family: Kurale, Georgia, serif; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer">Отправить заявку</button>
+<p style="margin: 0; font-size: 14px; color: #4d4842">Мы перезвоним, чтобы подтвердить бронь.</p>
+</div>
+</form>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 500; font-size: 24px">Правила</h2>
+<ul style="margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(111,108,108,.35)">
+<li style="padding: 10px 0; border-bottom: 1px solid rgba(111,108,108,.35); font-size: 16px"><b style="font-weight: 600">Метка над полем,</b> Lora 700, 14 px. Плейсхолдер не заменяет метку.</li>
+<li style="padding: 10px 0; border-bottom: 1px solid rgba(111,108,108,.35); font-size: 16px"><b style="font-weight: 600">Поле</b> 48 px, фон 2, рамка серым 50 %, без скруглений.</li>
+<li style="padding: 10px 0; border-bottom: 1px solid rgba(111,108,108,.35); font-size: 16px"><b style="font-weight: 600">Две колонки,</b> на телефоне — одна. Комментарий и согласие во всю ширину.</li>
+<li style="padding: 10px 0; border-bottom: 1px solid rgba(111,108,108,.35); font-size: 16px"><b style="font-weight: 600">Согласие</b> отдельной галочкой, без неё кнопка неактивна (требования, 8.1).</li>
+<li style="padding: 10px 0; border-bottom: 1px solid rgba(111,108,108,.35); font-size: 16px"><b style="font-weight: 600">Отправка</b> — красная кнопка, рядом подсказка, что будет дальше.</li>
+</ul>
+</div>
+</section>
+
+</div>
+</body>
+</html>
