@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Мария Тамм — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-9">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="./orders.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="./gallery.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./leads.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link is-current" href="./staff.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./contacts.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="./settings.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ СОТРУДНИК ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./staff.html">← Сотрудники</a>
+        <h1 class="adm-top__title">Мария Тамм<span class="adm-status adm-status--done">Активен</span><span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Администратор зала · в админке с 12.03.2026 · последний вход сегодня, 11:40</p>
+      </div>
+      <div class="adm-top__actions">
+        <button class="btn btn--solid btn--sm" type="button">Сохранить</button>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+
+        <section class="adm-panel" aria-labelledby="p-user">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-user">Сотрудник</h2>
+          </div>
+          <form class="form">
+            <div class="field">
+              <label for="u-name">Имя</label>
+              <input id="u-name" type="text" value="Мария Тамм">
+            </div>
+            <div class="field">
+              <label for="u-mail">E-mail для входа</label>
+              <input id="u-mail" type="email" value="maria@peetritoll.ee">
+            </div>
+            <div class="field">
+              <label for="u-role">Роль</label>
+              <select id="u-role">
+                <option>Владелец</option>
+                <option selected>Администратор зала</option>
+                <option>Шеф-повар</option>
+                <option>Музей и экскурсии</option>
+                <option>Магазин</option>
+                <option>Официант</option>
+              </select>
+              <span class="adm-note">Роль — готовый набор прав, ниже его можно поправить</span>
+            </div>
+            <div class="field">
+              <label for="u-lang">Язык админки</label>
+              <select id="u-lang"><option selected>Русский</option><option>Эстонский</option></select>
+              <span class="adm-q">Нужен ли эстонский — вопрос к заказчице (9.1)</span>
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-perm">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-perm">Права по разделам</h2>
+            <button class="adm-link-btn" type="button">Вернуть как у роли</button>
+          </div>
+          <table class="adm-perm">
+            <thead><tr><th scope="col">Раздел</th><th scope="col">Нет доступа</th><th scope="col">Смотрит</th><th scope="col">Правит</th></tr></thead>
+            <tbody>
+              <tr class="adm-perm__group"><td colspan="4">Работа</td></tr>
+              <tr class="is-sub"><td><b>Заявки: бронь стола</b></td><td><input type="radio" name="perm-1" aria-label="Заявки: бронь стола: нет доступа"></td><td><input type="radio" name="perm-1" aria-label="Заявки: бронь стола: смотрит"></td><td><input type="radio" name="perm-1" aria-label="Заявки: бронь стола: правит" checked></td></tr>
+              <tr class="is-sub"><td><b>Заявки: банкеты</b><small>с расчётом и Excel</small></td><td><input type="radio" name="perm-2" aria-label="Заявки: банкеты: нет доступа"></td><td><input type="radio" name="perm-2" aria-label="Заявки: банкеты: смотрит"></td><td><input type="radio" name="perm-2" aria-label="Заявки: банкеты: правит" checked></td></tr>
+              <tr class="is-sub"><td><b>Заявки: предзаказ обедов</b></td><td><input type="radio" name="perm-3" aria-label="Заявки: предзаказ обедов: нет доступа"></td><td><input type="radio" name="perm-3" aria-label="Заявки: предзаказ обедов: смотрит"></td><td><input type="radio" name="perm-3" aria-label="Заявки: предзаказ обедов: правит" checked></td></tr>
+              <tr class="is-sub is-diff"><td><b>Заявки: экскурсии, Pakri Express, радиогиды</b></td><td><input type="radio" name="perm-4" aria-label="Заявки: экскурсии, Pakri Express, радиогиды: нет доступа"></td><td><input type="radio" name="perm-4" aria-label="Заявки: экскурсии, Pakri Express, радиогиды: смотрит" checked></td><td><input type="radio" name="perm-4" aria-label="Заявки: экскурсии, Pakri Express, радиогиды: правит"></td></tr>
+              <tr class="is-sub"><td><b>Заявки: регистрация на мероприятия</b></td><td><input type="radio" name="perm-5" aria-label="Заявки: регистрация на мероприятия: нет доступа" checked></td><td><input type="radio" name="perm-5" aria-label="Заявки: регистрация на мероприятия: смотрит"></td><td><input type="radio" name="perm-5" aria-label="Заявки: регистрация на мероприятия: правит"></td></tr>
+              <tr><td><b>Заказы магазина</b></td><td><input type="radio" name="perm-6" aria-label="Заказы магазина: нет доступа" checked></td><td><input type="radio" name="perm-6" aria-label="Заказы магазина: смотрит"></td><td><input type="radio" name="perm-6" aria-label="Заказы магазина: правит"></td></tr>
+              <tr class="adm-perm__group"><td colspan="4">Содержимое</td></tr>
+              <tr><td><b>Меню: основное и банкетное</b><small>цены и состав</small></td><td><input type="radio" name="perm-8" aria-label="Меню: основное и банкетное: нет доступа"></td><td><input type="radio" name="perm-8" aria-label="Меню: основное и банкетное: смотрит" checked></td><td><input type="radio" name="perm-8" aria-label="Меню: основное и банкетное: правит"></td></tr>
+              <tr><td><b>Меню: дневное</b><small>обеды недели</small></td><td><input type="radio" name="perm-9" aria-label="Меню: дневное: нет доступа"></td><td><input type="radio" name="perm-9" aria-label="Меню: дневное: смотрит"></td><td><input type="radio" name="perm-9" aria-label="Меню: дневное: правит" checked></td></tr>
+              <tr><td><b>Новости и мероприятия</b></td><td><input type="radio" name="perm-10" aria-label="Новости и мероприятия: нет доступа" checked></td><td><input type="radio" name="perm-10" aria-label="Новости и мероприятия: смотрит"></td><td><input type="radio" name="perm-10" aria-label="Новости и мероприятия: правит"></td></tr>
+              <tr><td><b>Товары</b></td><td><input type="radio" name="perm-11" aria-label="Товары: нет доступа" checked></td><td><input type="radio" name="perm-11" aria-label="Товары: смотрит"></td><td><input type="radio" name="perm-11" aria-label="Товары: правит"></td></tr>
+              <tr><td><b>Галерея</b></td><td><input type="radio" name="perm-12" aria-label="Галерея: нет доступа" checked></td><td><input type="radio" name="perm-12" aria-label="Галерея: смотрит"></td><td><input type="radio" name="perm-12" aria-label="Галерея: правит"></td></tr>
+              <tr class="adm-perm__group"><td colspan="4">Люди и сайт</td></tr>
+              <tr><td><b>Лиды</b><small>почта и телефоны гостей</small></td><td><input type="radio" name="perm-14" aria-label="Лиды: нет доступа"></td><td><input type="radio" name="perm-14" aria-label="Лиды: смотрит" checked></td><td><input type="radio" name="perm-14" aria-label="Лиды: правит"></td></tr>
+              <tr><td><b>Контакты и часы</b></td><td><input type="radio" name="perm-15" aria-label="Контакты и часы: нет доступа"></td><td><input type="radio" name="perm-15" aria-label="Контакты и часы: смотрит"></td><td><input type="radio" name="perm-15" aria-label="Контакты и часы: правит" checked></td></tr>
+              <tr><td><b>Настройки сайта</b><small>разделы, уведомления</small></td><td><input type="radio" name="perm-16" aria-label="Настройки сайта: нет доступа" checked></td><td><input type="radio" name="perm-16" aria-label="Настройки сайта: смотрит"></td><td><input type="radio" name="perm-16" aria-label="Настройки сайта: правит"></td></tr>
+              <tr class="is-locked"><td><b>Сотрудники</b><small>только владелец</small></td><td><input type="radio" name="perm-17" aria-label="Сотрудники: нет доступа" checked disabled></td><td><input type="radio" name="perm-17" aria-label="Сотрудники: смотрит" disabled></td><td><input type="radio" name="perm-17" aria-label="Сотрудники: правит" disabled></td></tr>
+            </tbody>
+          </table>
+          <p class="adm-note" style="margin-top:14px">Раздела без доступа сотрудник не видит в меню слева. «Смотрит» — открывает, но не меняет и не удаляет.</p>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Вход и уведомления">
+        <section class="adm-panel" aria-labelledby="p-login">
+          <h2 class="adm-panel__title" id="p-login" style="margin-bottom:14px">Вход</h2>
+          <dl class="adm-facts">
+            <div><dt>Пароль</dt><dd>Задан самой сотрудницей 12.03.2026</dd></div>
+            <div><dt>Последний вход</dt><dd>Сегодня, 11:40 · Chrome, Палдиски</dd></div>
+          </dl>
+          <div class="adm-actions">
+            <button class="btn btn--sm" type="button">Выслать ссылку для нового пароля</button>
+          </div>
+          <p class="adm-note" style="margin-top:10px">Пароль сотрудника владелец не видит и не задаёт — только высылает ссылку.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-mailme">
+          <h2 class="adm-panel__title" id="p-mailme" style="margin-bottom:14px">Письма о новом</h2>
+          <div class="adm-switch-list">
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>Бронь стола</label>
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>Банкеты</label>
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>Предзаказ обедов</label>
+            <label class="adm-switch"><input type="checkbox"><span class="adm-switch__track"></span>Экскурсии</label>
+          </div>
+          <p class="adm-note" style="margin-top:12px">Только из разделов, к которым есть доступ. Общий канал в Telegram — в настройках сайта.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-recent">
+          <h2 class="adm-panel__title" id="p-recent" style="margin-bottom:14px">Последние действия</h2>
+          <ol class="adm-history">
+            <li><time datetime="2026-10-31T11:52">31.10, 11:52</time><p>Обеды на неделю 03.11–07.11 сохранены</p></li>
+            <li><time datetime="2026-10-30T17:20">30.10, 17:20</time><p>Заявка № 1039: статус → Согласована</p></li>
+            <li><time datetime="2026-10-30T15:02">30.10, 15:02</time><p>Часы: добавлен особый день 24.12</p></li>
+          </ol>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-off">
+          <h2 class="adm-panel__title" id="p-off" style="margin-bottom:14px">Отключить</h2>
+          <p class="adm-note">Сотрудница больше не сможет войти. Её имя останется в истории заявок — удалять учётную запись не нужно.</p>
+          <div class="adm-actions">
+            <button class="btn btn--sm adm-danger" type="button">Отключить доступ…</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

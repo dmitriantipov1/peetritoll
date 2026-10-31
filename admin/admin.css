@@ -1088,3 +1088,35 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-sections .is-sub b { font-size: 15px; }
 .adm-photo__body { flex-wrap: wrap; }
 .adm-photo__body p { flex-basis: 100%; }
+
+/* =========================================================
+   Сотрудники и права
+   ========================================================= */
+.adm-person { display: flex; align-items: center; gap: 12px; }
+.adm-person .adm-avatar { flex-shrink: 0; }
+.adm-row--off td { color: #4d4842; }
+.adm-row--off .adm-avatar { opacity: .45; }
+.adm-access { display: flex; flex-wrap: wrap; gap: 4px; max-width: 360px; }
+.adm-access span { padding: 1px 7px; font-size: 12px; border: 1px solid var(--adm-line); color: #4d4842; }
+.adm-access .is-edit { border-color: var(--c-gold); background: rgba(203, 170, 88, .22); color: var(--c-brown); }
+
+.adm-perm { width: 100%; border-collapse: collapse; font-size: 15px; }
+.adm-perm th {
+  padding: 0 8px 10px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--c-grey);
+  text-align: center;
+}
+.adm-perm th:first-child { text-align: left; padding-left: 0; }
+.adm-perm td { padding: 10px 8px; border-top: 1px solid var(--adm-line); text-align: center; vertical-align: middle; }
+.adm-perm td:first-child { text-align: left; padding-left: 0; }
+.adm-perm td:first-child b { font-weight: 600; }
+.adm-perm td:first-child small { display: block; font-size: 13px; color: #4d4842; }
+.adm-perm input { width: 18px; height: 18px; margin: 0; accent-color: var(--c-gold-dark); cursor: pointer; }
+.adm-perm .adm-perm__group td { padding-top: 18px; border-top: 0; font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
+.adm-perm .is-sub td:first-child { padding-left: 22px; }
+.adm-perm .is-locked td { color: #4d4842; }
+.adm-perm .is-locked input { cursor: not-allowed; opacity: .5; }
+.adm-perm .is-diff td:first-child b::after { content: " · изменено"; font-weight: 400; font-size: 13px; color: var(--c-gold-text); }
