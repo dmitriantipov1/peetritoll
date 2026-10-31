@@ -345,3 +345,208 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 
 /* Скрыто визуально, но читается экранным диктором */
 .adm-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* =========================================================
+   Карточка заявки
+   ========================================================= */
+.adm-back {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  text-decoration: none;
+}
+.adm-back:hover { color: var(--c-red); }
+.adm-top__title .adm-status { margin-left: 12px; font-family: var(--f-body); vertical-align: middle; }
+.adm-top__meta { margin-top: 6px; font-size: 15px; color: #4d4842; }
+
+.adm-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  align-items: start;
+}
+.adm-stack { display: grid; gap: 24px; }
+
+.adm-panel {
+  padding: 24px;
+  background: var(--adm-card);
+  border: 1px solid var(--adm-line);
+}
+.adm-panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.adm-panel__title { font-family: var(--f-head); font-weight: 500; font-size: 21px; line-height: 1.3; }
+.adm-panel__hint { font-size: 14px; color: #4d4842; }
+.adm-panel .field input,
+.adm-panel .field select,
+.adm-panel .field textarea { background: var(--bg-1); }
+.adm-panel .field textarea { min-height: 96px; }
+.adm-panel .form { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.adm-panel .form__half { grid-column: span 1; }
+.form__wide { grid-column: span 2; }
+
+/* Поле, изменённое сотрудником после поступления заявки */
+.field.is-changed input { border-color: var(--c-gold-dark); }
+.field__was { font-size: 13px; color: var(--c-gold-text); }
+
+/* Статус: четыре кнопки в ряд */
+.adm-seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.adm-seg button {
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1px solid rgba(111, 108, 108, .5);
+  background: transparent;
+  font: 600 14px var(--f-body);
+  color: #4d4842;
+  cursor: pointer;
+}
+.adm-seg button:hover { border-color: var(--c-gold-dark); color: var(--c-ink); }
+.adm-seg [aria-pressed="true"].is-new    { background: var(--c-red); border-color: var(--c-red); color: var(--bg-2); }
+.adm-seg [aria-pressed="true"].is-work   { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-brown); }
+.adm-seg [aria-pressed="true"].is-done   { background: transparent; border: 2px solid var(--c-ink); color: var(--c-ink); }
+.adm-seg [aria-pressed="true"].is-cancel { background: rgba(111, 108, 108, .2); border-color: transparent; color: var(--c-ink); }
+
+.adm-actions { display: grid; gap: 8px; margin-top: 16px; }
+.adm-actions .btn { width: 100%; }
+
+.adm-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 14px; }
+.adm-check input { width: 18px; height: 18px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--c-gold-dark); }
+
+/* Справка справа: строки «название — значение» */
+.adm-facts { border-top: 1px solid var(--adm-line); }
+.adm-facts div { padding: 10px 0; border-bottom: 1px solid var(--adm-line); font-size: 15px; }
+.adm-facts dt { font-family: var(--f-head); font-weight: 700; font-size: 13px; color: var(--c-grey); }
+.adm-facts dd { margin: 2px 0 0; }
+.adm-facts a { color: var(--c-gold-text); }
+.adm-tag {
+  display: inline-block;
+  margin: 4px 4px 0 0;
+  padding: 1px 8px;
+  border: 1px solid var(--c-gold);
+  font-size: 13px;
+  color: var(--c-gold-text);
+}
+
+/* История */
+.adm-history { list-style: none; }
+.adm-history li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 12px;
+  padding: 0 0 16px;
+  font-size: 15px;
+}
+.adm-history li::before {
+  content: "";
+  position: absolute;
+  left: 105px;
+  top: 8px;
+  bottom: -8px;
+  width: 1px;
+  background: var(--adm-line);
+}
+.adm-history li:last-child::before { display: none; }
+.adm-history time { font-size: 13px; color: #4d4842; padding-top: 2px; }
+.adm-history p { position: relative; padding-left: 18px; }
+.adm-history p::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 7px;
+  width: 9px;
+  height: 9px;
+  background: var(--bg-2);
+  border: 2px solid var(--c-gold);
+}
+.adm-history .is-key p::before { background: var(--c-gold); }
+.adm-history small { display: block; font-size: 13px; color: #4d4842; }
+.adm-history del { color: #4d4842; }
+.adm-history ins { text-decoration: none; font-weight: 600; }
+
+/* Предупреждение */
+.adm-alert {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  background: rgba(203, 170, 88, .16);
+  border: 1px solid rgba(166, 110, 14, .45);
+  font-size: 15px;
+}
+.adm-alert svg { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; stroke: var(--c-gold-dark); fill: none; stroke-width: 2; stroke-linecap: round; }
+.adm-alert b { font-weight: 600; }
+
+/* Расчёт банкета */
+.adm-calc { width: 100%; border-collapse: collapse; font-size: 15px; }
+.adm-calc th {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(111, 108, 108, .6);
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-grey);
+  text-align: left;
+}
+.adm-calc td { padding: 10px 12px; border-bottom: 1px solid var(--adm-line); vertical-align: middle; }
+.adm-calc .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.adm-calc .adm-calc__cat td {
+  padding-top: 16px;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  border-bottom: 0;
+}
+.adm-calc input {
+  width: 72px;
+  min-height: 36px;
+  padding: 4px 8px;
+  border: 1px solid rgba(111, 108, 108, .5);
+  background: var(--bg-1);
+  font: 15px var(--f-body);
+  text-align: right;
+}
+.adm-calc input:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
+.adm-calc__now { display: block; font-size: 13px; color: var(--c-red); }
+.adm-calc tfoot td { padding-top: 16px; border-bottom: 0; }
+.adm-calc__total { font-family: var(--f-deco); font-size: 26px; color: var(--c-red); }
+.adm-calc__label { font-family: var(--f-head); font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
+.adm-disclaimer { margin-top: 6px; font-size: 13px; color: #4d4842; text-align: right; }
+
+/* Вложение */
+.adm-file {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--adm-line);
+  background: var(--bg-1);
+}
+.adm-file__ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid var(--c-gold);
+  font: 700 11px var(--f-body);
+  letter-spacing: .06em;
+  color: var(--c-gold-text);
+}
+.adm-file__name { font-weight: 600; word-break: break-all; }
+.adm-file small { display: block; font-size: 13px; color: #4d4842; }
+.adm-file .btn { margin-left: auto; flex-shrink: 0; }

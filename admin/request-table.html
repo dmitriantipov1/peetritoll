@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Бронь стола № 1036 — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-2">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ БРОНЬ СТОЛА ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./index.html">← Все заявки</a>
+        <h1 class="adm-top__title">Бронь стола № 1036<span class="adm-status adm-status--done">Согласована</span><span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Елена Мельник · пятница, 31 октября, 18:00 · 2 гостя</p>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+
+      <div class="adm-stack">
+        <section class="adm-panel" aria-labelledby="p-visit">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-visit">Визит</h2>
+            <p class="adm-panel__hint">Золотая рамка — поле изменено после поступления заявки</p>
+          </div>
+          <form class="form">
+            <div class="field">
+              <label for="v-date">Дата</label>
+              <input id="v-date" type="date" value="2026-10-31">
+            </div>
+            <div class="field is-changed">
+              <label for="v-time">Время</label>
+              <input id="v-time" type="time" value="18:00" aria-describedby="v-time-was">
+              <span class="field__was" id="v-time-was">в заявке было 18:30</span>
+            </div>
+            <div class="field is-changed">
+              <label for="v-guests">Гостей</label>
+              <input id="v-guests" type="number" min="1" value="2" aria-describedby="v-guests-was">
+              <span class="field__was" id="v-guests-was">в заявке было 3</span>
+            </div>
+            <div class="field form__full">
+              <label for="v-comment">Комментарий гостя</label>
+              <textarea id="v-comment" readonly>Отмечаем годовщину, хотелось бы тихий столик.</textarea>
+            </div>
+            <div class="field form__full">
+              <label for="v-note">Заметка для персонала <span style="font-weight:400">— гость её не видит</span></label>
+              <textarea id="v-note">Стол 4 у окна в малом зале. Поставить свечу.</textarea>
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-guest">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-guest">Гость</h2>
+          </div>
+          <form class="form">
+            <div class="field">
+              <label for="g-name">Имя</label>
+              <input id="g-name" type="text" value="Елена Мельник">
+            </div>
+            <div class="field">
+              <label for="g-phone">Телефон</label>
+              <input id="g-phone" type="tel" value="+372 5390 4478">
+            </div>
+            <div class="field">
+              <label for="g-mail">E-mail</label>
+              <input id="g-mail" type="email" value="elena.melnik@mail.ee">
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-history">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-history">История</h2>
+            <p class="adm-panel__hint">Сначала новые</p>
+          </div>
+          <ol class="adm-history">
+            <li class="is-key"><time datetime="2026-10-28T13:53">28.10, 13:53</time><p>Статус: В работе → <b>Согласована</b><small>Ольга Петрова</small></p></li>
+            <li><time datetime="2026-10-28T13:53">28.10, 13:53</time><p>Гостю отправлено письмо об изменениях<small>elena.melnik@mail.ee</small></p></li>
+            <li><time datetime="2026-10-28T13:52">28.10, 13:52</time><p>Время <del>18:30</del> → <ins>18:00</ins>, гостей <del>3</del> → <ins>2</ins><small>Ольга Петрова, по звонку гостя</small></p></li>
+            <li><time datetime="2026-10-28T13:40">28.10, 13:40</time><p>Статус: Новая → В работе<small>Ольга Петрова</small></p></li>
+            <li><time datetime="2026-10-28T12:13">28.10, 12:13</time><p>Уведомление в Telegram и на info@peetritoll.ee</p></li>
+            <li class="is-key"><time datetime="2026-10-28T12:13">28.10, 12:13</time><p>Заявка с сайта<small>Русская версия, форма «Забронировать стол»</small></p></li>
+          </ol>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Статус и сведения">
+        <section class="adm-panel" aria-labelledby="p-status">
+          <h2 class="adm-panel__title" id="p-status" style="margin-bottom:14px">Статус</h2>
+          <div class="adm-seg" role="group" aria-labelledby="p-status">
+            <button class="is-new" type="button" aria-pressed="false">Новая</button>
+            <button class="is-work" type="button" aria-pressed="false">В работе</button>
+            <button class="is-done" type="button" aria-pressed="true">Согласована</button>
+            <button class="is-cancel" type="button" aria-pressed="false">Отменена</button>
+          </div>
+          <label class="adm-check"><input type="checkbox" checked> Сообщить гостю об изменениях по e-mail</label>
+          <div class="adm-actions">
+            <button class="btn btn--solid" type="button">Сохранить</button>
+            <a class="btn btn--sm" href="tel:+37253904478">Позвонить</a>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-info">
+          <h2 class="adm-panel__title" id="p-info" style="margin-bottom:14px">Сведения</h2>
+          <dl class="adm-facts">
+            <div><dt>Контакт в лидах</dt><dd><a href="#">Елена Мельник</a> · 3 визита с 2025 года<br><span class="adm-tag">бронь стола</span><span class="adm-tag">мероприятие: Ночь музеев</span></dd></div>
+            <div><dt>Рассылка</dt><dd>Не подписана</dd></div>
+            <div><dt>Согласие на обработку данных</dt><dd>28.10.2026, 12:13 · политика конфиденциальности, версия 1</dd></div>
+            <div><dt>Источник</dt><dd>Сайт, русская версия</dd></div>
+          </dl>
+        </section>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

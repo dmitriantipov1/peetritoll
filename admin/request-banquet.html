@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Запрос на банкет № 1042 — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-2">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ ЗАПРОС НА БАНКЕТ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./index.html">← Все заявки</a>
+        <h1 class="adm-top__title">Запрос на банкет № 1042<span class="adm-status adm-status--new">Новая</span><span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Марина Койт · суббота, 15 ноября, 18:00 · 24 гостя · день рождения</p>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+
+      <div class="adm-stack">
+        <section class="adm-panel" aria-labelledby="p-event">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-event">Событие</h2>
+          </div>
+          <form class="form">
+            <div class="field">
+              <label for="e-date">Дата</label>
+              <input id="e-date" type="date" value="2026-11-15">
+            </div>
+            <div class="field">
+              <label for="e-time">Время</label>
+              <input id="e-time" type="time" value="18:00">
+            </div>
+            <div class="field">
+              <label for="e-guests">Гостей</label>
+              <input id="e-guests" type="number" min="1" value="24">
+            </div>
+            <div class="field">
+              <label for="e-reason">Повод</label>
+              <select id="e-reason">
+                <option selected>День рождения</option>
+                <option>Свадьба</option>
+                <option>Корпоратив</option>
+                <option>Поминки</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="field form__wide">
+              <label for="e-comment">Комментарий гостя</label>
+              <input id="e-comment" type="text" readonly value="Юбилей мамы, 70 лет. Торт привезём свой — можно?">
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-calc">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-calc">Расчёт</h2>
+            <p class="adm-panel__hint">Начато с сета «Купеческий» (средний), состав изменён гостем</p>
+          </div>
+
+          <div class="adm-alert" role="note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>
+            <p><b>На 24 гостя — 18 порций горячего.</b> Гость видел подсказку калькулятора и отправил заявку как есть. Стоит уточнить при звонке.</p>
+          </div>
+
+          <table class="adm-calc">
+            <thead>
+              <tr>
+                <th scope="col">Блюдо</th>
+                <th scope="col" class="num">Цена за порцию</th>
+                <th scope="col" class="num">Порций</th>
+                <th scope="col" class="num">Сумма</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="adm-calc__cat"><td colspan="4">Холодные закуски</td></tr>
+              <tr><td>Сельдь по-домашнему с картофелем</td><td class="num">6,50 €</td><td class="num"><input type="number" min="0" value="24" aria-label="Порций: сельдь"></td><td class="num">156,00 €</td></tr>
+              <tr><td>Мясное ассорти с хреном и горчицей</td><td class="num">9,80 €</td><td class="num"><input type="number" min="0" value="12" aria-label="Порций: мясное ассорти"></td><td class="num">117,60 €</td></tr>
+              <tr><td>Соленья из нашего погреба</td><td class="num">5,40 €</td><td class="num"><input type="number" min="0" value="24" aria-label="Порций: соленья"></td><td class="num">129,60 €</td></tr>
+
+              <tr class="adm-calc__cat"><td colspan="4">Горячее</td></tr>
+              <tr><td>Жаркое по-таможенному в горшочке</td><td class="num">14,50 €<span class="adm-calc__now">в каталоге уже 15,00 €</span></td><td class="num"><input type="number" min="0" value="12" aria-label="Порций: жаркое"></td><td class="num">174,00 €</td></tr>
+              <tr><td>Свиная рулька с тушёной капустой</td><td class="num">16,80 €</td><td class="num"><input type="number" min="0" value="6" aria-label="Порций: рулька"></td><td class="num">100,80 €</td></tr>
+
+              <tr class="adm-calc__cat"><td colspan="4">Десерты</td></tr>
+              <tr><td>Яблочный пирог с корицей</td><td class="num">4,80 €</td><td class="num"><input type="number" min="0" value="24" aria-label="Порций: пирог"></td><td class="num">115,20 €</td></tr>
+
+              <tr class="adm-calc__cat"><td colspan="4">Напитки</td></tr>
+              <tr><td>Морс домашний</td><td class="num">3,20 €</td><td class="num"><input type="number" min="0" value="30" aria-label="Порций: морс"></td><td class="num">96,00 €</td></tr>
+              <tr><td>Чай и кофе</td><td class="num">2,80 €</td><td class="num"><input type="number" min="0" value="24" aria-label="Порций: чай и кофе"></td><td class="num">67,20 €</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td><span class="adm-calc__label">Ориентировочно</span></td>
+                <td class="num" colspan="2">≈ 39,85 € на гостя</td>
+                <td class="num"><span class="adm-calc__total">956,40 €</span></td>
+              </tr>
+            </tfoot>
+          </table>
+          <p class="adm-disclaimer">Цены — снимок на момент отправки, 31.10.2026, 10:42. Предварительный расчёт, не является офертой.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-guest">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-guest">Гость</h2>
+          </div>
+          <form class="form">
+            <div class="field">
+              <label for="g-name">Имя</label>
+              <input id="g-name" type="text" value="Марина Койт">
+            </div>
+            <div class="field">
+              <label for="g-phone">Телефон</label>
+              <input id="g-phone" type="tel" value="+372 5551 2034">
+            </div>
+            <div class="field">
+              <label for="g-mail">E-mail</label>
+              <input id="g-mail" type="email" value="marina.koit@gmail.com">
+            </div>
+            <div class="field form__full">
+              <label for="g-note">Заметка для персонала <span style="font-weight:400">— гость её не видит</span></label>
+              <textarea id="g-note" placeholder="Например: о чём договорились по телефону"></textarea>
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-history">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-history">История</h2>
+            <p class="adm-panel__hint">Сначала новые</p>
+          </div>
+          <ol class="adm-history">
+            <li><time datetime="2026-10-31T10:42">31.10, 10:42</time><p>Уведомление в Telegram и письмо на info@peetritoll.ee с Excel</p></li>
+            <li class="is-key"><time datetime="2026-10-31T10:42">31.10, 10:42</time><p>Заявка с сайта<small>Русская версия, калькулятор банкета</small></p></li>
+          </ol>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Статус и сведения">
+        <section class="adm-panel" aria-labelledby="p-status">
+          <h2 class="adm-panel__title" id="p-status" style="margin-bottom:14px">Статус</h2>
+          <div class="adm-seg" role="group" aria-labelledby="p-status">
+            <button class="is-new" type="button" aria-pressed="true">Новая</button>
+            <button class="is-work" type="button" aria-pressed="false">В работе</button>
+            <button class="is-done" type="button" aria-pressed="false">Согласована</button>
+            <button class="is-cancel" type="button" aria-pressed="false">Отменена</button>
+          </div>
+          <div class="adm-actions">
+            <button class="btn btn--solid" type="button">Взять в работу</button>
+            <a class="btn btn--sm" href="tel:+37255512034">Позвонить</a>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-file">
+          <h2 class="adm-panel__title" id="p-file" style="margin-bottom:14px">Файл для согласования</h2>
+          <div class="adm-file">
+            <span class="adm-file__ico" aria-hidden="true">XLSX</span>
+            <div>
+              <p class="adm-file__name">banket-1042-koit.xlsx</p>
+              <small>Ушёл с письмом 31.10, 10:42</small>
+            </div>
+          </div>
+          <div class="adm-actions">
+            <a class="btn btn--sm" href="#">Скачать</a>
+          </div>
+          <p class="adm-panel__hint" style="margin-top:12px">В файле пустые колонки «Предложение заведения» и «Комментарий» — для ответа гостю. Поправите порции здесь — соберём файл заново.</p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-info">
+          <h2 class="adm-panel__title" id="p-info" style="margin-bottom:14px">Сведения</h2>
+          <dl class="adm-facts">
+            <div><dt>Контакт в лидах</dt><dd><a href="#">Марина Койт</a> · новый контакт<br><span class="adm-tag">запрос на банкет</span></dd></div>
+            <div><dt>Рассылка</dt><dd>Согласие дано 31.10.2026</dd></div>
+            <div><dt>Согласие на обработку данных</dt><dd>31.10.2026, 10:42 · политика конфиденциальности, версия 1</dd></div>
+            <div><dt>Источник</dt><dd>Сайт, русская версия</dd></div>
+          </dl>
+        </section>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
