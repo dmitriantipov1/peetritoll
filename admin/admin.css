@@ -840,3 +840,88 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-switch-list .adm-switch .adm-switch__track { order: 2; }
 .adm-note { font-size: 14px; color: #4d4842; }
 .adm-q { color: var(--c-red); font-size: 13px; }
+
+/* =========================================================
+   Товары
+   ========================================================= */
+.adm-thumb--book { object-fit: contain; background: var(--bg-1); }
+.adm-thumb--ph {
+  display: block;
+  width: 56px;
+  height: 42px;
+  background: repeating-linear-gradient(45deg, rgba(0,0,0,.04) 0 6px, transparent 6px 12px), rgba(60, 31, 12, .08);
+}
+
+/* Языки в строке товара — кнопки: клик показывает или скрывает товар в этой версии */
+.adm-loc { display: inline-flex; gap: 3px; }
+.adm-loc button {
+  min-width: 32px;
+  height: 26px;
+  padding: 0 5px;
+  border: 1px solid rgba(111, 108, 108, .45);
+  background: transparent;
+  font: 600 11px var(--f-body);
+  letter-spacing: .04em;
+  color: var(--c-grey);
+  text-decoration: line-through;
+  cursor: pointer;
+}
+.adm-loc button[aria-pressed="true"] { border-color: var(--c-brown); background: var(--c-brown); color: var(--bg-2); text-decoration: none; }
+.adm-loc button.is-untranslated[aria-pressed="true"] { border: 1px dashed var(--c-red); background: transparent; color: var(--c-red); }
+.adm-loc button:hover { outline: 2px solid var(--c-gold); outline-offset: 1px; }
+
+.adm-kind { font-size: 14px; white-space: nowrap; }
+.adm-kind small { color: #4d4842; }
+.adm-stock--one { font-weight: 600; }
+.adm-stock--zero { color: var(--c-red); font-weight: 600; }
+.adm-status--sold { background: rgba(153, 49, 34, .12); color: var(--c-red); }
+
+.adm-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--adm-line);
+  background: var(--bg-2);
+  font-size: 15px;
+}
+.adm-banner svg { flex-shrink: 0; width: 20px; height: 20px; stroke: var(--c-gold-dark); fill: none; stroke-width: 2; stroke-linecap: round; }
+.adm-banner a { margin-left: auto; color: var(--c-gold-text); white-space: nowrap; }
+
+/* Карточка товара */
+.adm-gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
+.adm-gallery__item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 10px;
+  background: repeating-linear-gradient(45deg, rgba(0,0,0,.03) 0 10px, transparent 10px 20px), rgba(60, 31, 12, .08);
+  font-size: 13px;
+  color: #4d4842;
+  text-align: center;
+}
+.adm-gallery__item:first-child { grid-row: span 2; }
+.adm-gallery__item b { position: absolute; top: 8px; left: 8px; padding: 1px 8px; background: var(--c-brown); color: var(--bg-2); font-size: 12px; }
+.adm-gallery__add { border: 1px dashed rgba(111, 108, 108, .6); background: var(--bg-1); }
+
+.adm-radios { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; }
+.adm-radios legend { margin-bottom: 8px; font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
+.adm-radios label { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; cursor: pointer; }
+.adm-radios input { width: 18px; height: 18px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--c-gold-dark); }
+.adm-radios small { display: block; font-size: 13px; color: #4d4842; }
+
+.adm-files { list-style: none; border-top: 1px solid var(--adm-line); }
+.adm-files li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--adm-line);
+}
+.adm-files .adm-lang { min-width: 40px; height: 26px; font-size: 12px; }
+.adm-files .adm-file { padding: 10px 12px; }
+.adm-files .adm-file__ico { width: 34px; height: 40px; font-size: 10px; }
+.adm-files__empty { font-size: 14px; color: #4d4842; }

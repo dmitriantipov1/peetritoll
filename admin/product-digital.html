@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Мой родной Палдиски — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-5">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link is-current" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ ТОВАР: ПЕЧАТЬ + PDF ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./products.html">← Товары · Книги</a>
+        <h1 class="adm-top__title">Мой родной Палдиски<span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Книга Пауля Лаана · печатная и PDF · продано 34 печатных и 12 PDF</p>
+      </div>
+      <div class="adm-top__actions">
+        <a class="adm-top__site" href="../shop.html" target="_blank" rel="noopener">Посмотреть на сайте</a>
+        <button class="btn btn--solid btn--sm" type="button">Сохранить</button>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+        <section class="adm-panel" aria-labelledby="p-text">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-text">Название и описание</h2>
+            <p class="adm-panel__hint">Если перевода нет, покажем эстонский текст</p>
+          </div>
+          <div class="adm-lang-tabs" role="tablist" aria-label="Язык">
+            <button type="button" role="tab" aria-selected="false">ET</button>
+            <button type="button" role="tab" aria-selected="false" title="Скрыто в английской версии">EN · скрыто</button>
+            <button type="button" role="tab" aria-selected="true">RU</button>
+          </div>
+          <form class="form" style="grid-template-columns:1fr">
+            <div class="field">
+              <label for="t-name">Название</label>
+              <input id="t-name" type="text" value="Мой родной Палдиски">
+            </div>
+            <div class="field">
+              <label for="t-desc">Описание</label>
+              <textarea id="t-desc" style="min-height:120px">Воспоминания Пауля Лаана о городе его детства: улицы, люди и истории Палдиски. 28 страниц, издательство Peetri Toll, 2022.</textarea>
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-var" style="padding-bottom:8px">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-var">Варианты</h2>
+            <button class="adm-link-btn" type="button">+ Вариант</button>
+          </div>
+          <table class="adm-table">
+            <thead><tr><th scope="col">Вариант</th><th scope="col" class="num">Цена</th><th scope="col" class="num">Остаток</th><th scope="col">Получение</th></tr></thead>
+            <tbody>
+              <tr><td><b style="font-weight:600">Печатная книга</b><small>Физический</small></td><td class="num"><span class="adm-price">15,00 €</span></td><td class="num">22 шт.</td><td>Самовывоз или доставка по запросу</td></tr>
+              <tr><td><b style="font-weight:600">PDF</b><small>Цифровой</small></td><td class="num"><span class="adm-price">10,00 €</span></td><td class="num">—</td><td>Ссылка на почту сразу после оплаты</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-files">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-files">Файлы PDF по языкам</h2>
+            <p class="adm-panel__hint">Покупатель получит файл на языке версии сайта</p>
+          </div>
+          <ul class="adm-files">
+            <li>
+              <span class="adm-lang adm-lang--ok">RU</span>
+              <div class="adm-file"><span class="adm-file__ico" aria-hidden="true">PDF</span><div><p class="adm-file__name">moj-rodnoj-paldiski-ru.pdf</p><small>3,1 МБ · загружен 12.10.2026</small></div></div>
+              <button class="btn btn--sm" type="button">Заменить</button>
+            </li>
+            <li>
+              <span class="adm-lang adm-lang--ok">ET</span>
+              <div class="adm-file"><span class="adm-file__ico" aria-hidden="true">PDF</span><div><p class="adm-file__name">kodulinn-paldiski-et.pdf</p><small>3,0 МБ · загружен 12.10.2026</small></div></div>
+              <button class="btn btn--sm" type="button">Заменить</button>
+            </li>
+            <li>
+              <span class="adm-lang adm-lang--off">EN</span>
+              <p class="adm-files__empty">Товар скрыт в английской версии — файл не нужен</p>
+              <span></span>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Публикация и доступ">
+        <section class="adm-panel" aria-labelledby="p-sale">
+          <h2 class="adm-panel__title" id="p-sale" style="margin-bottom:14px">Продажа</h2>
+          <div class="adm-stack" style="gap:16px">
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>На сайте</label>
+            <div class="field">
+              <label for="s-cat">Категория</label>
+              <select id="s-cat"><option selected>Книги</option><option>Аудиогиды</option><option>Антиквариат</option><option>Фото и карты</option><option>Картины и открытки</option><option>Сувениры</option></select>
+            </div>
+          </div>
+          <div class="adm-actions"><button class="btn btn--solid" type="button">Сохранить</button></div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-link">
+          <h2 class="adm-panel__title" id="p-link" style="margin-bottom:14px">Ссылка на скачивание</h2>
+          <div class="adm-stack" style="gap:16px">
+            <div class="field">
+              <label for="l-days">Действует</label>
+              <input id="l-days" type="text" value="7 дней">
+            </div>
+            <div class="field">
+              <label for="l-count">Скачиваний не больше</label>
+              <input id="l-count" type="text" value="5">
+              <span class="adm-q">Защита от перепродажи ссылок — вопрос к заказчице (7.4)</span>
+            </div>
+          </div>
+        </section>
+        <section class="adm-panel" aria-labelledby="p-loc">
+          <h2 class="adm-panel__title" id="p-loc" style="margin-bottom:6px">Где показывать</h2>
+          <p class="adm-note" style="margin-bottom:14px">Выключенный язык — товара в этой версии сайта нет: ни в каталоге, ни в поиске, ни в блоках на страницах.</p>
+          <div class="adm-switch-list">
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>Эстонская версия</label>
+            <label class="adm-switch"><input type="checkbox"><span class="adm-switch__track"></span>Английская версия</label>
+            <label class="adm-switch"><input type="checkbox" checked><span class="adm-switch__track"></span>Русская версия</label>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-cover">
+          <h2 class="adm-panel__title" id="p-cover" style="margin-bottom:14px">Обложка</h2>
+          <img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги" style="width:100%;aspect-ratio:3/4;object-fit:contain;background:var(--bg-1)">
+          <div class="adm-actions"><button class="btn btn--sm" type="button">Заменить</button></div>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

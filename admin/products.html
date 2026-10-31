@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Товары — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-5">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link is-current" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ ТОВАРЫ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <p class="adm-top__crumb">Содержимое</p>
+        <h1 class="adm-top__title">Товары<span class="adm-mock">данные — пример</span></h1>
+      </div>
+      <div class="adm-top__actions">
+        <a class="adm-top__site" href="../shop.html" target="_blank" rel="noopener">Магазин на сайте</a>
+        <a class="btn btn--sm" href="#">Категории</a>
+        <a class="btn btn--solid btn--sm" href="./product.html"><svg class="adm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Товар</a>
+      </div>
+    </header>
+
+    <div class="adm-filters">
+      <ul class="chips" aria-label="Категория">
+        <li><button class="chip is-active" type="button" aria-pressed="true">Все<span class="chip__count">14</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Книги<span class="chip__count">5</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Аудиогиды<span class="chip__count">1</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Антиквариат<span class="chip__count">3</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Фото и карты<span class="chip__count">2</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Картины и открытки<span class="chip__count">2</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Сувениры<span class="chip__count">1</span></button></li>
+      </ul>
+    </div>
+
+    <div class="adm-toolbar">
+      <label class="adm-search">
+        <span class="adm-vh">Поиск по товарам</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" placeholder="Название или автор">
+      </label>
+      <label class="adm-vh" for="pr-kind">Вид товара</label>
+      <select class="adm-select" id="pr-kind">
+        <option>Все виды</option>
+        <option>Физические</option>
+        <option>Цифровые</option>
+      </select>
+      <label class="adm-vh" for="pr-lang">Язык</label>
+      <select class="adm-select" id="pr-lang">
+        <option>Во всех версиях</option>
+        <option>Скрыты в EN</option>
+        <option>Без перевода</option>
+      </select>
+      <p class="adm-toolbar__note">Клик по языку — показать или скрыть товар в этой версии сайта</p>
+    </div>
+
+    <div class="adm-banner" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.5"/></svg>
+      <p>В английской версии скрыты все книги — категории «Книги» там не будет, блок книг на страницах тоже исчезнет.</p>
+      <a href="#">Показать скрытые в EN</a>
+    </div>
+
+    <div class="adm-legend" aria-label="Обозначения языков">
+      <span><span class="adm-lang adm-lang--ok">RU</span> показан</span>
+      <span><span class="adm-lang adm-lang--missing">EN</span> показан, но перевода нет — покажем эстонский текст</span>
+      <span><span class="adm-lang adm-lang--off">EN</span> скрыт в этой версии</span>
+    </div>
+
+    <div class="adm-table-wrap">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th scope="col">Фото</th>
+            <th scope="col">Товар</th>
+            <th scope="col">Вид</th>
+            <th scope="col" class="num">Цена</th>
+            <th scope="col" class="num">Остаток</th>
+            <th scope="col">Языки</th>
+            <th scope="col">Статус</th>
+            <th scope="col"><span class="adm-vh">Изменить</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img class="adm-thumb adm-thumb--book" src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Байки из-за барной стойки</a><small>Книги · Галина Малютина</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">10,00 €</span></td>
+            <td class="num nowrap">46 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Байки из-за барной стойки: в эстонской версии — показан">ET</button><button type="button" aria-pressed="false" title="EN: скрыт" aria-label="Байки из-за барной стойки: в английской версии — скрыт">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Байки из-за барной стойки: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Байки из-за барной стойки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><img class="adm-thumb adm-thumb--book" src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Байки из-за барной стойки — аудиокнига</a><small>Книги · Галина Малютина</small></td>
+            <td class="adm-kind">Цифровой<small> · аудио RU</small></td>
+            <td class="num"><span class="adm-price">[цена]</span></td>
+            <td class="num nowrap">—</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="false" title="ET: скрыт" aria-label="Байки из-за барной стойки — аудиокнига: в эстонской версии — скрыт">ET</button><button type="button" aria-pressed="false" title="EN: скрыт" aria-label="Байки из-за барной стойки — аудиокнига: в английской версии — скрыт">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Байки из-за барной стойки — аудиокнига: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Байки из-за барной стойки — аудиокнига"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><img class="adm-thumb adm-thumb--book" src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Lood baarileti tagant</a><small>Книги · Galina Maljutina</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">10,00 €</span></td>
+            <td class="num nowrap">30 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Lood baarileti tagant: в эстонской версии — показан">ET</button><button type="button" aria-pressed="false" title="EN: скрыт" aria-label="Lood baarileti tagant: в английской версии — скрыт">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Lood baarileti tagant: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Lood baarileti tagant"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><img class="adm-thumb adm-thumb--book" src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Былой Палдиски и его люди</a><small>Книги · Йосеф Кац</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">12,00 €</span></td>
+            <td class="num nowrap">18 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Былой Палдиски и его люди: в эстонской версии — показан">ET</button><button type="button" aria-pressed="false" title="EN: скрыт" aria-label="Былой Палдиски и его люди: в английской версии — скрыт">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Былой Палдиски и его люди: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Былой Палдиски и его люди"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><img class="adm-thumb adm-thumb--book" src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt=""></td>
+            <td><a class="adm-dish__name" href="./product-digital.html">Мой родной Палдиски · Kodulinn Paldiski</a><small>Книги · Пауль Лаан</small></td>
+            <td class="adm-kind">Печать + PDF<small> · ET, RU</small></td>
+            <td class="num"><span class="adm-price">от 10,00 €</span></td>
+            <td class="num nowrap">22 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Мой родной Палдиски · Kodulinn Paldiski: в эстонской версии — показан">ET</button><button type="button" aria-pressed="false" title="EN: скрыт" aria-label="Мой родной Палдиски · Kodulinn Paldiski: в английской версии — скрыт">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Мой родной Палдиски · Kodulinn Paldiski: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="./product-digital.html" aria-label="Изменить: Мой родной Палдиски · Kodulinn Paldiski"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Аудиогид по полуострову Пакри</a><small>Аудиогиды</small></td>
+            <td class="adm-kind">Цифровой<small> · аудио ET, EN, RU</small></td>
+            <td class="num"><span class="adm-price">[цена]</span></td>
+            <td class="num nowrap">—</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Аудиогид по полуострову Пакри: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Аудиогид по полуострову Пакри: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Аудиогид по полуострову Пакри: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Аудиогид по полуострову Пакри"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="./product.html">Медный самовар, начало XX века</a><small>Антиквариат</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">120 €</span></td>
+            <td class="num nowrap adm-stock--one">1 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Медный самовар, начало XX века: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Медный самовар, начало XX века: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Медный самовар, начало XX века: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="./product.html" aria-label="Изменить: Медный самовар, начало XX века"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-row--hidden">
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Морской компас</a><small>Антиквариат</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">85 €</span></td>
+            <td class="num nowrap adm-stock--zero">0 — продан</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Морской компас: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Морской компас: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Морской компас: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--sold">Продан</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Морской компас"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Набор старинных ключей</a><small>Антиквариат</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">35 €</span></td>
+            <td class="num nowrap adm-stock--one">1 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Набор старинных ключей: в эстонской версии — показан">ET</button><button type="button" class="is-untranslated" aria-pressed="true" title="EN: показан, нет перевода" aria-label="Набор старинных ключей: в английской версии — показан, нет перевода">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Набор старинных ключей: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Набор старинных ключей"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Рейд Палдиски, 1912 год</a><small>Фото и карты</small></td>
+            <td class="adm-kind">Печать + цифровой</td>
+            <td class="num"><span class="adm-price">от 5 €</span></td>
+            <td class="num nowrap">12 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Рейд Палдиски, 1912 год: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Рейд Палдиски, 1912 год: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Рейд Палдиски, 1912 год: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Рейд Палдиски, 1912 год"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">План крепости Рогервик, 1720-е</a><small>Фото и карты</small></td>
+            <td class="adm-kind">Цифровой<small> · JPG</small></td>
+            <td class="num"><span class="adm-price">12 €</span></td>
+            <td class="num nowrap">—</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="План крепости Рогервик, 1720-е: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="План крепости Рогервик, 1720-е: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="План крепости Рогервик, 1720-е: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: План крепости Рогервик, 1720-е"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Андрей Кириллов. Маяк Пакри</a><small>Картины и открытки</small></td>
+            <td class="adm-kind">Оригинал, печать, цифровой</td>
+            <td class="num"><span class="adm-price">от 15 €</span></td>
+            <td class="num nowrap">1 оригинал</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Андрей Кириллов. Маяк Пакри: в эстонской версии — показан">ET</button><button type="button" class="is-untranslated" aria-pressed="true" title="EN: показан, нет перевода" aria-label="Андрей Кириллов. Маяк Пакри: в английской версии — показан, нет перевода">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Андрей Кириллов. Маяк Пакри: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Андрей Кириллов. Маяк Пакри"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Набор открыток «Старый Палдиски»</a><small>Картины и открытки</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">9 €</span></td>
+            <td class="num nowrap">120 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Набор открыток «Старый Палдиски»: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Набор открыток «Старый Палдиски»: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Набор открыток «Старый Палдиски»: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--done">На сайте</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Набор открыток «Старый Палдиски»"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-row--hidden">
+            <td><span class="adm-thumb--ph" aria-hidden="true"></span></td>
+            <td><a class="adm-dish__name" href="#">Магнит Peetri Toll</a><small>Сувениры</small></td>
+            <td class="adm-kind">Физический</td>
+            <td class="num"><span class="adm-price">4 €</span></td>
+            <td class="num nowrap">200 шт.</td>
+            <td><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Магнит Peetri Toll: в эстонской версии — показан">ET</button><button type="button" class="is-untranslated" aria-pressed="true" title="EN: показан, нет перевода" aria-label="Магнит Peetri Toll: в английской версии — показан, нет перевода">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Магнит Peetri Toll: в русской версии — показан">RU</button></span></td>
+            <td><span class="adm-status adm-status--draft">Скрыт</span></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Магнит Peetri Toll"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
