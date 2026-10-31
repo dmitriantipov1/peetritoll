@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Банкетное меню — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-3">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ МЕНЮ: БАНКЕТНОЕ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <p class="adm-top__crumb">Содержимое</p>
+        <h1 class="adm-top__title">Меню<span class="adm-mock">данные — пример</span></h1>
+      </div>
+      <div class="adm-top__actions">
+        <a class="adm-top__site" href="../elements.html#banket" target="_blank" rel="noopener">Калькулятор на сайте</a>
+        <a class="btn btn--solid btn--sm" href="#"><svg class="adm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Блюдо</a>
+      </div>
+    </header>
+
+    <ul class="adm-tabs" aria-label="Виды меню">
+      <li><a href="./menu.html">Основное<small>37 блюд</small></a></li>
+      <li><a href="./menu-lunch.html">Дневное<small>неделя</small></a></li>
+      <li><a href="./menu-banquet.html" aria-current="page">Банкетное<small>8 блюд · 3 сета</small></a></li>
+    </ul>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+        <section class="adm-panel" aria-labelledby="p-sets">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-sets">Сеты</h2>
+            <p class="adm-panel__hint">Цена сета считается из цен блюд — отдельно не вводится</p>
+          </div>
+          <div class="adm-sets">
+          <article class="adm-set">
+            <p class="adm-set__tier">Базовый</p>
+            <h3 class="adm-set__name">Таможенный</h3>
+            <ul class="adm-set__list"><li>Сельдь по-домашнему</li><li>Жаркое по-таможенному</li><li>Чай и кофе</li></ul>
+            <p class="adm-set__price"><b>24,30 €</b> на гостя</p>
+            <p class="adm-set__edit"><a href="#">Изменить состав и название</a></p>
+          </article>
+          <article class="adm-set">
+            <p class="adm-set__tier">Средний</p>
+            <h3 class="adm-set__name">Купеческий</h3>
+            <ul class="adm-set__list"><li>Сельдь по-домашнему</li><li>Соленья из погреба</li><li>Жаркое по-таможенному</li><li>Яблочный пирог</li><li>Морс домашний</li></ul>
+            <p class="adm-set__price"><b>34,90 €</b> на гостя</p>
+            <p class="adm-set__edit"><a href="#">Изменить состав и название</a></p>
+          </article>
+          <article class="adm-set">
+            <p class="adm-set__tier">Премиум</p>
+            <h3 class="adm-set__name">Губернаторский</h3>
+            <ul class="adm-set__list"><li>Сельдь по-домашнему</li><li>Мясное ассорти</li><li>Соленья из погреба</li><li>Свиная рулька</li><li>Яблочный пирог</li><li>Морс домашний</li><li>Чай и кофе</li></ul>
+            <p class="adm-set__price"><b>49,30 €</b> на гостя</p>
+            <p class="adm-set__edit"><a href="#">Изменить состав и название</a></p>
+          </article>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-cat" style="padding-bottom:8px">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-cat">Блюда для калькулятора</h2>
+            <p class="adm-panel__hint">Новая цена не меняет поступившие заявки: в них снимок цен</p>
+          </div>
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th scope="col"><span class="adm-vh">Порядок</span></th>
+                <th scope="col">Блюдо</th>
+                <th scope="col" class="num">За порцию</th>
+                <th scope="col">Переводы</th>
+                <th scope="col">Доступность</th>
+              </tr>
+            </thead>
+            <tbody>
+          <tr class="adm-cat-row">
+            <td colspan="5"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Холодные закуски</span><span class="adm-cat-row__links"><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Сельдь по-домашнему с картофелем</a></td>
+            <td class="num"><span class="adm-price">6,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Сельдь по-домашнему с картофелем"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Мясное ассорти с хреном и горчицей</a></td>
+            <td class="num"><span class="adm-price">9,80 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Мясное ассорти с хреном и горчицей"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Соленья из нашего погреба</a></td>
+            <td class="num"><span class="adm-price">5,40 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Соленья из нашего погреба"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="5"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Горячее</span><span class="adm-cat-row__links"><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Жаркое по-таможенному в горшочке</a><small style="color:var(--c-red)">цена изменена 31.10: было 14,50 €</small></td>
+            <td class="num"><span class="adm-price">15,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Жаркое по-таможенному в горшочке"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Свиная рулька с тушёной капустой</a></td>
+            <td class="num"><span class="adm-price">16,80 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--missing" title="Нет перевода: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Свиная рулька с тушёной капустой"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="5"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Десерты</span><span class="adm-cat-row__links"><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Яблочный пирог с корицей</a></td>
+            <td class="num"><span class="adm-price">4,80 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Яблочный пирог с корицей"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="5"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Напитки</span><span class="adm-cat-row__links"><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Морс домашний</a></td>
+            <td class="num"><span class="adm-price">3,20 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Морс домашний"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><a class="adm-dish__name" href="#">Чай и кофе</a></td>
+            <td class="num"><span class="adm-price">2,80 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Можно заказать: Чай и кофе"><span class="adm-switch__track"></span>Можно заказать</label></td>
+          </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Настройки калькулятора">
+        <section class="adm-panel" aria-labelledby="p-calc-set">
+          <h2 class="adm-panel__title" id="p-calc-set" style="margin-bottom:14px">Калькулятор на сайте</h2>
+          <form class="adm-stack" style="gap:16px">
+            <div class="field">
+              <label for="c-min">Минимум гостей</label>
+              <input id="c-min" type="text" value="[уточнить у заказчицы]">
+            </div>
+            <div class="field">
+              <label for="c-days">Запрос не позже чем за</label>
+              <input id="c-days" type="text" value="[уточнить] дней до события">
+            </div>
+            <div class="field">
+              <label for="c-hint">Подсказка гостю</label>
+              <textarea id="c-hint">Обычно берут 2–3 закуски и одно горячее на человека.</textarea>
+            </div>
+            <div class="field">
+              <label for="c-warn">Предупреждать, если горячего меньше</label>
+              <input id="c-warn" type="text" value="1 порции на гостя">
+            </div>
+          </form>
+          <p class="adm-panel__hint" style="margin-top:14px">Предупреждения мягкие: гость может отправить заявку всё равно.</p>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

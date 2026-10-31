@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Вареники с картошкой и трюфелем — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-3">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ МЕНЮ: РЕДАКТОР БЛЮДА ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <a class="adm-back" href="./menu.html">← Меню · Пельмени и вареники</a>
+        <h1 class="adm-top__title">Вареники с картошкой и трюфелем<span class="adm-mock">данные — пример</span></h1>
+        <p class="adm-top__meta">Основное меню · изменено 12.04.2026, Ольга Петрова</p>
+      </div>
+      <div class="adm-top__actions">
+        <button class="btn btn--sm" type="button">Отмена</button>
+        <button class="btn btn--solid btn--sm" type="button">Сохранить</button>
+      </div>
+    </header>
+
+    <div class="adm-layout">
+      <div class="adm-stack">
+
+        <section class="adm-panel" aria-labelledby="p-text">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-text">Название и описание</h2>
+            <p class="adm-panel__hint">Если перевода нет, на сайте покажем эстонский текст</p>
+          </div>
+          <div class="adm-lang-tabs" role="tablist" aria-label="Язык">
+            <button type="button" role="tab" aria-selected="false">ET</button>
+            <button type="button" role="tab" aria-selected="false" class="is-untranslated">EN</button>
+            <button type="button" role="tab" aria-selected="true">RU</button>
+          </div>
+          <form class="form" style="grid-template-columns:1fr">
+            <div class="field">
+              <label for="d-name">Название</label>
+              <input id="d-name" type="text" value="Вареники с картошкой и трюфелем">
+            </div>
+            <div class="field">
+              <label for="d-desc">Описание</label>
+              <textarea id="d-desc">Подаются со сметаной и сливочным маслом</textarea>
+            </div>
+          </form>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-price">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-price">Цена и порции</h2>
+            <p class="adm-panel__hint">Одна цена или несколько вариантов, как у супов</p>
+          </div>
+          <div class="adm-variants">
+            <div class="adm-variants__row">
+              <div class="field"><label for="v1-name">Вариант</label><input id="v1-name" type="text" value="Порция, 12 шт." ></div>
+              <div class="field"><label for="v1-price">Цена</label><input id="v1-price" type="text" value="10,00 €"></div>
+              <button class="adm-icon-btn" type="button" aria-label="Удалить вариант"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            </div>
+          </div>
+          <p style="margin-top:14px"><button class="adm-link-btn" type="button">+ Добавить вариант (например, «маленький / большой»)</button></p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-photo">
+          <div class="adm-panel__head">
+            <h2 class="adm-panel__title" id="p-photo">Фото</h2>
+            <p class="adm-panel__hint">JPG или PNG, от 1200 px по длинной стороне</p>
+          </div>
+          <div class="adm-upload">
+            <img src="https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg" alt="Текущее фото блюда">
+            <div class="adm-upload__drop">
+              <p>Перетащите новое фото сюда</p>
+              <button class="btn btn--sm" type="button">Выбрать файл</button>
+              <button class="adm-link-btn adm-danger" type="button">Убрать фото</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="adm-stack" aria-label="Публикация">
+        <section class="adm-panel" aria-labelledby="p-pub">
+          <h2 class="adm-panel__title" id="p-pub" style="margin-bottom:14px">Публикация</h2>
+          <div class="adm-stack" style="gap:16px">
+            <label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте"><span class="adm-switch__track"></span>На сайте</label>
+            <div class="field">
+              <label for="d-cat">Категория</label>
+              <select id="d-cat">
+                <option>Закуски</option>
+                <option selected>Пельмени и вареники</option>
+                <option>Супы</option>
+                <option>Горячие блюда</option>
+                <option>Соленья из погреба</option>
+                <option>Детское меню</option>
+                <option>Десерты</option>
+                <option>Соусы и добавки</option>
+                <option>Напитки</option>
+              </select>
+            </div>
+            <fieldset style="border:0;padding:0;margin:0">
+              <legend style="font-family:var(--f-head);font-weight:700;font-size:14px;color:var(--c-grey);margin-bottom:6px">Отметки</legend>
+              <label class="adm-check" style="margin-top:0"><input type="checkbox" checked> Новинка</label>
+              <label class="adm-check" style="margin-top:8px"><input type="checkbox"> Детское</label>
+            </fieldset>
+          </div>
+          <div class="adm-actions">
+            <button class="btn btn--solid" type="button">Сохранить</button>
+          </div>
+          <p style="margin-top:16px;text-align:center"><button class="adm-link-btn adm-danger" type="button">Удалить блюдо</button></p>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-trans">
+          <h2 class="adm-panel__title" id="p-trans" style="margin-bottom:14px">Переводы</h2>
+          <dl class="adm-facts">
+            <div><dt>Эстонский</dt><dd>Готов · Vareenikud kartuli ja trühvliga</dd></div>
+            <div><dt>Английский</dt><dd class="adm-danger">Нет перевода — на сайте покажем эстонский</dd></div>
+            <div><dt>Русский</dt><dd>Готов</dd></div>
+          </dl>
+        </section>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

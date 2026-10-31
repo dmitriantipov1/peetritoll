@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Меню — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-3">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ МЕНЮ: ОСНОВНОЕ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <p class="adm-top__crumb">Содержимое</p>
+        <h1 class="adm-top__title">Меню<span class="adm-mock">данные — пример</span></h1>
+      </div>
+      <div class="adm-top__actions">
+        <a class="adm-top__site" href="../menu.html" target="_blank" rel="noopener">Меню на сайте</a>
+        <a class="btn btn--sm" href="#"><svg class="adm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Категория</a>
+        <a class="btn btn--solid btn--sm" href="./dish.html"><svg class="adm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Блюдо</a>
+      </div>
+    </header>
+
+    <ul class="adm-tabs" aria-label="Виды меню">
+      <li><a href="./menu.html" aria-current="page">Основное<small>37 блюд</small></a></li>
+      <li><a href="./menu-lunch.html">Дневное<small>неделя</small></a></li>
+      <li><a href="./menu-banquet.html">Банкетное<small>8 блюд · 3 сета</small></a></li>
+    </ul>
+
+    <div class="adm-toolbar">
+      <label class="adm-search">
+        <span class="adm-vh">Поиск по меню</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" placeholder="Название блюда">
+      </label>
+      <label class="adm-vh" for="m-show">Показать</label>
+      <select class="adm-select" id="m-show">
+        <option>Все блюда</option>
+        <option>Только скрытые</option>
+        <option>Без перевода</option>
+        <option>Без фото</option>
+      </select>
+      <p class="adm-toolbar__note">Порядок категорий и блюд — перетаскиванием за <span aria-hidden="true">⋮⋮</span></p>
+    </div>
+
+    <div class="adm-table-wrap">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="adm-vh">Порядок</span></th>
+            <th scope="col">Фото</th>
+            <th scope="col">Блюдо</th>
+            <th scope="col" class="num">Цена</th>
+            <th scope="col">Переводы</th>
+            <th scope="col">Видимость</th>
+            <th scope="col"><span class="adm-vh">Изменить</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="adm-cat-row">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Закуски</span><span class="adm-cat-row__count">5 блюд</span><span class="adm-cat-row__links"><a href="#">Переименовать</a><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_48v04-08-2024_16-12-05.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Чесночные хлебцы</a><small>Подаются с белым соусом</small></td>
+            <td class="num"><span class="adm-price">5,60 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Чесночные хлебцы"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Чесночные хлебцы"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Чесночные хлебцы с помидорами и сыром</a></td>
+            <td class="num"><span class="adm-price">8,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Чесночные хлебцы с помидорами и сыром"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Чесночные хлебцы с помидорами и сыром"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_41v04-08-2024_16-11-53.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Картофель фри</a><small>Подаётся с томатным соусом</small></td>
+            <td class="num"><span class="adm-price">5,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Картофель фри"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Картофель фри"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_44v04-08-2024_16-12-05.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Тигровые креветки</a><small>Подаются с кисло-сладким соусом чили</small></td>
+            <td class="num"><span class="adm-price">7,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Тигровые креветки"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Тигровые креветки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-row--hidden">
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><span class="adm-thumb--empty">нет фото</span></td>
+            <td><a class="adm-dish__name" href="#">Пирог с лососем и брокколи</a><small>Сезонное, вернём весной</small></td>
+            <td class="num"><span class="adm-price">5,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" aria-label="Показывать на сайте: Пирог с лососем и брокколи"><span class="adm-switch__track"></span>Скрыто</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Пирог с лососем и брокколи"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Пельмени и вареники</span><span class="adm-cat-row__count">3 блюда</span><span class="adm-cat-row__links"><a href="#">Переименовать</a><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_46v04-08-2024_16-12-05-1.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Пельмени домашние</a><small>Подаются со сметаной и сливочным маслом</small></td>
+            <td class="num"><span class="adm-price">8,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Пельмени домашние"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Пельмени домашние"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_11v03-08-2024_20-38-02-1.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Вареники с картошкой</a><small>Подаются со сметаной и сливочным маслом</small></td>
+            <td class="num"><span class="adm-price">8,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Вареники с картошкой"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Вареники с картошкой"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="./dish.html">Вареники с картошкой и трюфелем</a><span class="adm-label">Новинка</span><small>Подаются со сметаной и сливочным маслом</small></td>
+            <td class="num"><span class="adm-price">10,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--missing" title="Нет перевода: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Вареники с картошкой и трюфелем"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="./dish.html" aria-label="Изменить: Вареники с картошкой и трюфелем"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Супы</span><span class="adm-cat-row__count">2 блюда</span><span class="adm-cat-row__links"><a href="#">Переименовать</a><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_45v04-08-2024_16-12-05-1.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Борщ</a><small>Подаётся со сметаной</small></td>
+            <td class="num"><span class="adm-price">4,00 / 5,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Борщ"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Борщ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/v_DSC1292.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Солянка сборная</a><small>Подаётся со сметаной, оливками и лимоном</small></td>
+            <td class="num"><span class="adm-price">5,00 / 6,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Солянка сборная"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Солянка сборная"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-cat-row">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Горячие блюда</span><span class="adm-cat-row__count">4 блюда</span><span class="adm-cat-row__links"><a href="#">Переименовать</a><a href="#">+ Блюдо в категорию</a></span></div></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_12v03-08-2024_20-38-02.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Домашняя котлета</a><small>Подаётся с запечённым картофелем, салатом и соусом</small></td>
+            <td class="num"><span class="adm-price">8,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Домашняя котлета"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Домашняя котлета"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_5v03-08-2024_20-37-52.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Котлета по-киевски</a><small>Подаётся с запечённым картофелем, салатом и соусом</small></td>
+            <td class="num"><span class="adm-price">11,50 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Котлета по-киевски"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Котлета по-киевски"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><img class="adm-thumb" src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/a3bac925-6a32-49cb-8f40-63f43eef332e-web.jpg" alt=""></td>
+            <td><a class="adm-dish__name" href="#">Куриная котлета с грибами и сыром</a><small>Подаётся с запечённым картофелем, салатом и соусом</small></td>
+            <td class="num"><span class="adm-price">11,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--missing" title="Нет перевода: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Куриная котлета с грибами и сыром"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Куриная котлета с грибами и сыром"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span></td>
+            <td><span class="adm-thumb--empty">нет фото</span></td>
+            <td><a class="adm-dish__name" href="#">Блины с мясом</a></td>
+            <td class="num"><span class="adm-price">7,00 €</span></td>
+            <td><span class="adm-langs" aria-label="Переводы"><span class="adm-lang adm-lang--ok" title="Есть перевод: эстонский">ET</span><span class="adm-lang adm-lang--ok" title="Есть перевод: английский">EN</span><span class="adm-lang adm-lang--ok" title="Есть перевод: русский">RU</span></span></td>
+            <td><label class="adm-switch"><input type="checkbox" checked aria-label="Показывать на сайте: Блины с мясом"><span class="adm-switch__track"></span>На сайте</label></td>
+            <td><a class="adm-open" href="#" aria-label="Изменить: Блины с мясом"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr class="adm-cat-row adm-row--collapsed">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Соленья из погреба</span><span class="adm-cat-row__count">1 блюдо · свернуто</span><span class="adm-cat-row__links"><a href="#">Развернуть</a></span></div></td>
+          </tr>
+          <tr class="adm-cat-row adm-row--collapsed">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Детское меню</span><span class="adm-cat-row__count">1 блюдо · свернуто</span><span class="adm-cat-row__links"><a href="#">Развернуть</a></span></div></td>
+          </tr>
+          <tr class="adm-cat-row adm-row--collapsed">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Десерты</span><span class="adm-cat-row__count">9 блюд · свернуто</span><span class="adm-cat-row__links"><a href="#">Развернуть</a></span></div></td>
+          </tr>
+          <tr class="adm-cat-row adm-row--collapsed">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Соусы и добавки</span><span class="adm-cat-row__count">4 блюда · свернуто</span><span class="adm-cat-row__links"><a href="#">Развернуть</a></span></div></td>
+          </tr>
+          <tr class="adm-cat-row adm-row--collapsed">
+            <td colspan="7"><div class="adm-cat-row__inner"><span class="adm-drag" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><span class="adm-cat-row__name">Напитки</span><span class="adm-cat-row__count">8 блюд · свернуто</span><span class="adm-cat-row__links"><a href="#">Развернуть</a></span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
