@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261027-4">
+  <link rel="stylesheet" href="./css/style.css?v=20261031">
 </head>
 <body>
 
@@ -70,8 +70,9 @@
         <li><a class="chip" href="#mero">Мероприятия</a></li>
         <li><a class="chip" href="#bron">Бронирование стола</a></li>
         <li><a class="chip" href="#lunch">Дневное меню</a></li>
-        <li><a class="chip" href="#banket">Банкетные наборы</a></li>
+        <li><a class="chip" href="#banket">Калькулятор банкета</a></li>
         <li><a class="chip" href="#radio">Радиогиды</a></li>
+        <li><a class="chip" href="#dish">Карточки блюд</a></li>
       </ul>
 
       <!-- ============ 1. МЕРОПРИЯТИЯ ============ -->
@@ -863,6 +864,69 @@
           </div>
         </div>
       </section>
+
+      <!-- ============ 6. КАРТОЧКИ БЛЮД ============ -->
+      <section class="variant-group" id="dish" data-variants="dish">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 06 · раздел «Ресторан»</p>
+          <h2 class="variant-group__title">Карточки блюд в меню</h2>
+          <p class="variant-group__why">Эти варианты уже показаны на странице меню — здесь они
+            собраны вместе с остальными блоками, чтобы всё решалось в одном месте. Для примера
+            взяты закуски; на странице меню тот же вид применяется ко всем разделам сразу.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид карточки блюда</p>
+          <div class="chips" role="group" aria-label="Варианты карточек блюд">
+            <button class="chip" type="button" aria-pressed="false" data-variant="1" data-desc="Крупное фото блюда, под ним название, цена и описание. Наглядно, хорошо работает, если фото блюд качественные.">1. Карточки с фото</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="2" data-desc="Без фото, как в бумажном меню ресторана: название, отточие, цена. Строго и компактно, удобно для длинного меню.">2. Классическое меню</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="3" data-desc="Маленькое фото в золотой рамке слева, текст справа. Компромисс: фото есть, но меню остаётся компактным.">3. Строка с миниатюрой</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="4" data-desc="Тёмные карточки с золотой рамкой, как на вывеске таверны. Самый атмосферный вариант, хорошо подходит для фирменных блюд.">4. Тёмная таверна</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="5" data-desc="Фото на всю карточку, название и цена поверх. Эффектно, но требует одинаково хороших фото для всех блюд.">5. Журнальный</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div class="menu-root menu--v1" data-v-class="menu--v">
+        <section class="menu-cat">
+          <h3 class="menu-cat__title">Закуски</h3>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_48v04-08-2024_16-12-05.jpg" alt="Чесночные хлебцы" loading="lazy" data-ph="photo_48v04-08-2024_16-12-05.jpg"></div>
+              <div class="dish__body">
+                <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,60 €</span></div>
+                <p class="dish__desc">Подаются с белым соусом</p>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg" alt="Чесночные хлебцы с помидорами и сыром" loading="lazy" data-ph="photo_17v03-08-2024_20-38-03.jpg"></div>
+              <div class="dish__body">
+                <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы с помидорами и сыром</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
+              
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_41v04-08-2024_16-11-53.jpg" alt="Картофель фри" loading="lazy" data-ph="photo_41v04-08-2024_16-11-53.jpg"></div>
+              <div class="dish__body">
+                <div class="dish__top"><h4 class="dish__name">Картофель фри</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></div>
+                <p class="dish__desc">Подаётся с томатным соусом</p>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_44v04-08-2024_16-12-05.jpg" alt="Тигровые креветки" loading="lazy" data-ph="photo_44v04-08-2024_16-12-05.jpg"></div>
+              <div class="dish__body">
+                <div class="dish__top"><h4 class="dish__name">Тигровые креветки</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,50 €</span></div>
+                <p class="dish__desc">Подаются с кисло-сладким соусом чили</p>
+              </div>
+            </li>
+          </ul>
+          <p class="price-list__label">Также</p>
+          <ul class="price-list">
+            <li><div class="dish__top"><span class="price-list__name">Пирог с лососем и брокколи</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,50 €</span></div></li>
+          </ul>
+        </section>
+        </div>
+      </section>
     </div>
   </section>
 </main>
@@ -891,6 +955,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261027-4"></script>
+<script src="./js/main.js?v=20261031"></script>
 </body>
 </html>

@@ -126,8 +126,12 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
   const name = group.dataset.variants;
   const buttons = group.querySelectorAll('[data-variant]');
   const items = group.querySelectorAll('[data-v]');
+  // Вариант может не прятать блоки, а менять класс на одном контейнере:
+  // так устроены карточки блюд — разметка одна, вид задаёт menu--v1…menu--v5.
+  // В атрибуте лежит префикс класса, номер дописывается.
+  const root = group.querySelector('[data-v-class]');
   const desc = group.querySelector('.variant-panel__desc');
-  if (!buttons.length || !items.length) return;
+  if (!buttons.length || (!items.length && !root)) return;
 
   function show(n, push) {
     let found = false;
@@ -136,6 +140,14 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
       item.hidden = !match;
       if (match) found = true;
     });
+    if (root) {
+      const base = root.dataset.vClass;
+      Array.prototype.slice.call(root.classList).forEach((c) => {
+        if (c.indexOf(base) === 0) root.classList.remove(c);
+      });
+      root.classList.add(base + n);
+      found = true;
+    }
     if (!found) return;
     buttons.forEach((b) => {
       const active = b.dataset.variant === n;

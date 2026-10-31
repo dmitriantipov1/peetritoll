@@ -1075,8 +1075,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .price-list--cols { grid-template-columns: 1fr; }
 }
 /* Список без фото одинаковый во всех вариантах карточек */
-#menu-root .price-list .dish__top { flex-direction: row; align-items: baseline; gap: var(--s-2); }
-#menu-root .price-list .dish__price { margin: 0; color: var(--c-red); font-size: 20px; }
+.menu-root .price-list .dish__top { flex-direction: row; align-items: baseline; gap: var(--s-2); }
+.menu-root .price-list .dish__price { margin: 0; color: var(--c-red); font-size: 20px; }
 
 /* ---------- Книги: обложки целиком (у брошюр Лаана квадратный формат) ---------- */
 .card__img { display: grid; place-items: center; }
