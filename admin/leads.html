@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Лиды — админка Peetri Toll</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css?v=20261031">
+  <link rel="stylesheet" href="./admin.css?v=20261031-7">
+</head>
+<body class="adm-body">
+
+<div class="adm">
+
+  <!-- ============ БОКОВОЕ МЕНЮ ============ -->
+  <aside class="adm-side">
+    <a class="adm-side__brand" href="./index.html" aria-label="Админка Peetri Toll — заявки">
+      <img src="../images/logo.svg" alt="" width="109" height="57">
+      <span>Админка</span>
+    </a>
+
+    <nav class="adm-nav" aria-label="Разделы админки">
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Работа</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./index.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg>
+            Заявки <span class="adm-nav__count" aria-label="5 новых">5</span></a></li>
+          <li><a class="adm-nav__link" href="./orders.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Заказы <span class="adm-nav__count" aria-label="2 новых">2</span></a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Содержимое</p>
+        <ul>
+          <li><a class="adm-nav__link" href="./menu.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 21V3c-2 0-3 3-3 6s1 4 3 4"/></svg>
+            Меню</a></li>
+          <li><a class="adm-nav__link" href="./materials.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>
+            Новости и мероприятия</a></li>
+          <li><a class="adm-nav__link" href="./products.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+            Товары</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+            Галерея</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Люди</p>
+        <ul>
+          <li><a class="adm-nav__link is-current" href="./leads.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21 20c0-3-1.7-5.3-4-5.9"/></svg>
+            Лиды</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Сотрудники</a></li>
+        </ul>
+      </div>
+
+      <div class="adm-nav__group">
+        <p class="adm-nav__title">Сайт</p>
+        <ul>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Контакты и часы</a></li>
+          <li><a class="adm-nav__link" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+            Настройки сайта</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="adm-side__user">
+      <span class="adm-avatar" aria-hidden="true">ОП</span>
+      <div><b>Ольга Петрова</b><span>Владелец</span></div>
+      <a href="./login.html">Выйти</a>
+    </div>
+  </aside>
+
+  <!-- ============ ЛИДЫ ============ -->
+  <main class="adm-main">
+
+    <header class="adm-top">
+      <div>
+        <p class="adm-top__crumb">Люди</p>
+        <h1 class="adm-top__title">Лиды<span class="adm-mock">данные — пример</span></h1>
+      </div>
+      <div class="adm-top__actions">
+        <label class="adm-search">
+          <span class="adm-vh">Поиск по лидам</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" placeholder="Имя, e-mail или телефон">
+        </label>
+        <button class="btn btn--sm" type="button" disabled title="Экспорт CSV и Mautic — этап 5">Экспорт CSV · этап 5</button>
+      </div>
+    </header>
+
+    <section class="adm-stats" aria-label="Сводка">
+      <div class="adm-stat">
+        <p class="adm-stat__label">Контактов</p>
+        <p class="adm-stat__num">412</p>
+        <p class="adm-stat__note">один человек — один контакт</p>
+      </div>
+      <div class="adm-stat">
+        <p class="adm-stat__label">Согласны на рассылку</p>
+        <p class="adm-stat__num">96</p>
+        <p class="adm-stat__note">только они уедут в Mautic</p>
+      </div>
+      <div class="adm-stat">
+        <p class="adm-stat__label">Новых за октябрь</p>
+        <p class="adm-stat__num">37</p>
+        <p class="adm-stat__note">из заявок, заказов и подписки</p>
+      </div>
+      <div class="adm-stat">
+        <p class="adm-stat__label">Возможные дубли</p>
+        <p class="adm-stat__num adm-stat__num--alert">2</p>
+        <p class="adm-stat__note">один телефон, разные почты</p>
+      </div>
+    </section>
+
+    <div class="adm-filters">
+      <ul class="chips" aria-label="Категория">
+        <li><button class="chip is-active" type="button" aria-pressed="true">Все<span class="chip__count">412</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Ресторан<span class="chip__count">238</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Мероприятия<span class="chip__count">117</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Экскурсии<span class="chip__count">41</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Покупатели<span class="chip__count">64</span></button></li>
+        <li><button class="chip" type="button" aria-pressed="false">Подписчики<span class="chip__count">52</span></button></li>
+      </ul>
+    </div>
+
+    <div class="adm-table-wrap">
+      <div class="adm-table-bar">
+        <label for="l-tag">Тег</label>
+        <select class="adm-select" id="l-tag">
+          <option>Любой</option>
+          <option>бронь стола</option>
+          <option>запрос: банкет</option>
+          <option>мероприятие: Ночь музеев</option>
+          <option>покупка: книги</option>
+          <option>подписка с сайта</option>
+          <option>постоянный гость</option>
+        </select>
+        <label for="l-flag">Рассылка</label>
+        <select class="adm-select" id="l-flag">
+          <option>Все</option>
+          <option>Согласны</option>
+          <option>Ждут подтверждения</option>
+          <option>Не согласны</option>
+        </select>
+        <p class="adm-table-bar__note">Пунктирные теги ставит сайт сам, по источнику</p>
+      </div>
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th scope="col">Контакт</th>
+            <th scope="col">Теги</th>
+            <th scope="col">Язык</th>
+            <th scope="col">Рассылка</th>
+            <th scope="col" class="num">Событий</th>
+            <th scope="col" class="is-sorted">Последнее ↓</th>
+            <th scope="col"><span class="adm-vh">Открыть</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="adm-guest" href="#">Марина Койт</a><small>marina.koit@gmail.com<br>+372 5551 2034</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">запрос: банкет</span></td>
+            <td>RU</td>
+            <td><span class="adm-flag adm-flag--off">Нет</span></td>
+            <td class="num">1</td>
+            <td class="nowrap">31.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Марина Койт"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Наталья Ким</a><small>natalja.kim@gmail.com<br>+372 5812 3390</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">покупка: книги</span><span class="adm-tag adm-tag--auto">подписка при заказе</span></td>
+            <td>RU</td>
+            <td><span class="adm-flag adm-flag--on">Да<small>&nbsp;· 31.10</small></span></td>
+            <td class="num">2</td>
+            <td class="nowrap">31.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Наталья Ким"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Mart Kask</a><small>mart.kask@neti.ee</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">покупка: антиквариат</span><span class="adm-tag adm-tag--hand">коллекционер</span></td>
+            <td>ET</td>
+            <td><span class="adm-flag adm-flag--off">Нет</span></td>
+            <td class="num">1</td>
+            <td class="nowrap">31.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Mart Kask"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Kati Saar</a><small>kati.saar@gmail.com<br>+372 5677 2210</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">мероприятие: Ночь музеев</span><span class="adm-tag adm-tag--auto">мероприятие: Мартов день</span><span class="adm-tag adm-tag--auto">подписка с сайта</span></td>
+            <td>ET</td>
+            <td><span class="adm-flag adm-flag--on">Да<small>&nbsp;· 02.05</small></span></td>
+            <td class="num">4</td>
+            <td class="nowrap">30.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Kati Saar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Sarah Miller</a><small>s.miller@outlook.com</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">покупка: карты и фото</span></td>
+            <td>EN</td>
+            <td><span class="adm-flag adm-flag--off">Нет</span></td>
+            <td class="num">1</td>
+            <td class="nowrap">30.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Sarah Miller"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="./lead.html">Елена Мельник</a><small>elena.melnik@mail.ee<br>+372 5390 4478</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">бронь стола</span><span class="adm-tag adm-tag--auto">мероприятие: Ночь музеев</span><span class="adm-tag adm-tag--hand">постоянный гость</span></td>
+            <td>RU</td>
+            <td><span class="adm-flag adm-flag--off">Нет</span></td>
+            <td class="num">4</td>
+            <td class="nowrap">28.10.2026</td>
+            <td><a class="adm-open" href="./lead.html" aria-label="Открыть контакт: Елена Мельник"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Олег Соколов</a><small>+372 5309 6612</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">предзаказ обеда</span></td>
+            <td>RU</td>
+            <td><span class="adm-flag adm-flag--off">Нет</span></td>
+            <td class="num">6</td>
+            <td class="nowrap">28.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Олег Соколов"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Liis Tamm</a><small>liis.tamm@gmail.com</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">подписка с сайта</span></td>
+            <td>ET</td>
+            <td><span class="adm-flag adm-flag--wait">Ждёт подтверждения</span></td>
+            <td class="num">1</td>
+            <td class="nowrap">27.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Liis Tamm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">Андрес Тамм</a><small>andres.tamm@elisa.ee<br>+372 5123 4410</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">бронь стола</span><span class="adm-tag adm-tag--auto">экскурсия: Пакри</span></td>
+            <td>ET</td>
+            <td><span class="adm-flag adm-flag--on">Да<small>&nbsp;· 14.03</small></span></td>
+            <td class="num">2</td>
+            <td class="nowrap">31.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: Андрес Тамм"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+          <tr>
+            <td><a class="adm-guest" href="#">ООО «Балтик Логистик»</a><small>events@balticlog.ee<br>+372 6 400 120</small></td>
+            <td class="adm-tags-cell"><span class="adm-tag adm-tag--auto">запрос: банкет</span><span class="adm-tag adm-tag--hand">корпоративный</span></td>
+            <td>RU</td>
+            <td><span class="adm-flag adm-flag--on">Да<small>&nbsp;· 10.09</small></span></td>
+            <td class="num">3</td>
+            <td class="nowrap">12.10.2026</td>
+            <td><a class="adm-open" href="#" aria-label="Открыть контакт: ООО «Балтик Логистик»"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="adm-pager">
+        <p>Показаны 10 из 412</p>
+        <div><button class="btn btn--sm" type="button">Показать ещё</button></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

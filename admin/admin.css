@@ -973,3 +973,54 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-inline .field { flex: 1; }
 .adm-calc td small { display: block; font-size: 13px; color: #4d4842; }
 .adm-calc .adm-dish__name { color: var(--c-ink); }
+
+/* =========================================================
+   Лиды
+   ========================================================= */
+.adm-tag--auto { border-style: dashed; }
+.adm-tag--auto::before { content: "авто · "; color: #4d4842; }
+.adm-tag--hand { background: rgba(203, 170, 88, .22); border-color: rgba(203, 170, 88, .22); color: var(--c-brown); }
+.adm-tag button { margin-left: 6px; padding: 0; border: 0; background: none; color: inherit; font-size: 14px; line-height: 1; cursor: pointer; }
+.adm-tags-cell { max-width: 340px; }
+.adm-tags-cell .adm-tag { margin: 0 4px 4px 0; }
+
+.adm-flag { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; }
+.adm-flag::before { content: ""; width: 10px; height: 10px; flex-shrink: 0; }
+.adm-flag--on::before { background: var(--c-gold-dark); }
+.adm-flag--wait::before { border: 1.5px dashed var(--c-gold-dark); }
+.adm-flag--off::before { border: 1.5px solid rgba(111, 108, 108, .6); }
+.adm-flag--off { color: #4d4842; }
+
+.adm-tag-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--c-gold);
+  background: #fff;
+}
+.adm-tag-input .adm-tag { margin: 0; }
+.adm-tag-input input { flex: 1; min-width: 160px; padding: 4px 2px; border: 0; background: none; font: inherit; font-size: 15px; outline: 0; }
+.adm-suggest { list-style: none; margin-top: -1px; border: 1px solid var(--adm-line); background: #fff; box-shadow: 0 6px 18px rgba(60, 31, 12, .08); }
+.adm-suggest li { display: flex; justify-content: space-between; padding: 7px 12px; font-size: 14px; }
+.adm-suggest li:first-child { background: var(--bg-2); }
+.adm-suggest small { color: #4d4842; }
+
+.adm-events { list-style: none; border-top: 1px solid var(--adm-line); }
+.adm-events li {
+  display: grid;
+  grid-template-columns: 96px 150px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--adm-line);
+  font-size: 15px;
+}
+.adm-events time { font-size: 14px; color: #4d4842; }
+.adm-events small { display: block; font-size: 13px; color: #4d4842; }
+.adm-events a { color: var(--c-gold-text); }
+
+.adm-dupe { padding: 14px 16px; border: 1px dashed var(--c-gold-dark); background: rgba(203, 170, 88, .1); font-size: 15px; }
+.adm-dupe p + p { margin-top: 4px; }
+.adm-dupe mark { background: rgba(203, 170, 88, .45); color: inherit; padding: 0 2px; }
