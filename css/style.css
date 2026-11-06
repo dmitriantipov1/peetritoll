@@ -484,6 +484,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .facts dt { font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
 .facts dd { font-size: 16px; }
+.facts--compact { margin-bottom: 0; }
 
 /* ---------- 03 Музей ---------- */
 .explore {
@@ -966,6 +967,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .field textarea { min-height: 120px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
 .form__note { font-size: 14px; color: var(--c-grey); }
+.form__check { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; }
+.form__check input { margin-top: 4px; accent-color: var(--c-red); }
 
 /* ---------- Магазин ---------- */
 .shop-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2); margin-bottom: var(--s-2); }
