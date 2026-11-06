@@ -52,6 +52,62 @@ document.querySelectorAll('img[data-ph]').forEach((img) => {
   else img.addEventListener('error', () => markMissing(img), { once: true });
 });
 
+// Фото блюда крупно: клик по миниатюре в меню открывает окно с фото, названием и ценой.
+// Стрелки листают блюда, у которых есть фото; Esc и клик мимо окна закрывают.
+const lightbox = document.querySelector('.lightbox');
+if (lightbox) {
+  const thumbs = document.querySelectorAll('.menu-root .dish__img');
+  const img = lightbox.querySelector('.lightbox__img');
+  const nameEl = lightbox.querySelector('.lightbox__name');
+  const descEl = lightbox.querySelector('.lightbox__desc');
+  const priceEl = lightbox.querySelector('.lightbox__price');
+  let list = [];
+  let current = 0;
+
+  function show(i) {
+    current = (i + list.length) % list.length;
+    const dish = list[current].closest('.dish');
+    const photo = list[current].querySelector('img');
+    const desc = dish.querySelector('.dish__desc');
+    // Цена одна или по порциям — переносим как есть, со своей разметкой
+    const price = dish.querySelector('.dish__sizes') || dish.querySelector('.dish__price');
+    img.src = photo.currentSrc || photo.src;
+    img.alt = photo.alt;
+    nameEl.textContent = dish.querySelector('.dish__name').textContent;
+    descEl.textContent = desc ? desc.textContent : '';
+    descEl.hidden = !desc;
+    priceEl.replaceChildren(price.cloneNode(true));
+  }
+
+  function open(thumb) {
+    list = [...thumbs].filter((t) => !t.classList.contains('is-missing'));
+    if (!list.includes(thumb)) return;
+    show(list.indexOf(thumb));
+    lightbox.classList.toggle('is-single', list.length < 2);
+    lightbox.showModal();
+  }
+
+  thumbs.forEach((thumb) => {
+    const name = thumb.closest('.dish').querySelector('.dish__name').textContent;
+    thumb.tabIndex = 0;
+    thumb.setAttribute('role', 'button');
+    thumb.setAttribute('aria-label', 'Открыть фото: ' + name);
+    thumb.addEventListener('click', () => open(thumb));
+    thumb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(thumb); }
+    });
+  });
+
+  lightbox.querySelector('.lightbox__nav--prev').addEventListener('click', () => show(current - 1));
+  lightbox.querySelector('.lightbox__nav--next').addEventListener('click', () => show(current + 1));
+  // Клик по затемнению: у <dialog> он приходит на сам элемент, а не на содержимое
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+}
+
 // Вкладки «Предстоящие / Архив».
 // Каждая группа .tabs живёт отдельно — на странице их может быть несколько.
 document.querySelectorAll('.tabs').forEach((group) => {
@@ -97,27 +153,6 @@ document.querySelectorAll('[data-filter-group]').forEach((group) => {
     });
   });
 });
-
-// Переключатель вариантов карточек меню (для согласования с заказчиком)
-const menuRoot = document.getElementById('menu-root');
-if (menuRoot) {
-  const desc = document.querySelector('.variant-panel__desc');
-  const variantBtns = document.querySelectorAll('[data-variant]');
-  variantBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      menuRoot.className = menuRoot.className.replace(/menu--v\d/, 'menu--v' + btn.dataset.variant);
-      variantBtns.forEach((b) => {
-        b.classList.toggle('is-active', b === btn);
-        b.setAttribute('aria-pressed', String(b === btn));
-      });
-      desc.textContent = btn.dataset.desc;
-      history.replaceState(null, '', '#v' + btn.dataset.variant);
-    });
-  });
-  const fromHash = location.hash.match(/^#v([1-5])$/);
-  if (fromHash) document.querySelector('[data-variant="' + fromHash[1] + '"]').click();
-}
-
 
 // Переключатель вариантов блоков на elements.html.
 // Группа: <div data-variants="имя">, внутри кнопки [data-variant] и блоки [data-v].

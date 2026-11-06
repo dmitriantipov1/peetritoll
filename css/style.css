@@ -375,7 +375,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .photo__frame::after,
 .dish__img::after,
 .events__poster::after,
-.ev-tile::after {
+.ev-tile::after,
+.lightbox__frame::after {
   content: "";
   position: absolute;
   inset: 12px;
@@ -704,6 +705,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   /* На планшете и телефоне картинки показываются целиком, без обрезки */
   .photo__frame,
   .hall .photo__frame,
+  .story__media .photo__frame,
   .service .photo__frame,
   .exhibition__gallery .photo__frame,
   .exhibition__wide .photo__frame,
@@ -731,7 +733,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .halls { grid-template-columns: 1fr; }
 
   .exhibition__gallery { grid-template-columns: 1fr 1fr; }
-  .exhibition__quote { text-align: left; }
+  .exhibition__quote,
+  .story__quote { text-align: left; }
 
   .cards { gap: var(--s-4) var(--s-2); }
   .card__title { font-size: 18px; }
@@ -878,6 +881,21 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .tile__text { font-size: 16px; }
 .tile__meta { margin-top: var(--s-2); font-weight: 600; font-size: 14px; color: var(--c-red); }
 
+/* ---------- О нас: текст + большое фото с цитатой, как «Выставка» на главной ---------- */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.story--reverse { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.story--reverse .story__media { order: -1; }
+.story__text p { margin-bottom: var(--s-3); max-width: 60ch; }
+.story__text .facts { margin-top: var(--s-4); }
+.story__media .photo__frame { aspect-ratio: 4 / 3; }
+.story__quote { margin-top: var(--s-3); text-align: right; }
+.story--reverse .story__quote { text-align: left; }
+
 /* ---------- Таймлайн (история здания) ---------- */
 .timeline { list-style: none; border-left: 1px solid var(--c-gold); }
 .timeline li { position: relative; padding: 0 0 var(--s-4) var(--s-4); }
@@ -903,7 +921,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .news__title { font-family: var(--f-head); font-weight: 700; font-size: 20px; margin: 4px 0 8px; }
 
 /* ---------- Партнёры ---------- */
-.partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--s-2); list-style: none; }
+.partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-2); list-style: none; }
 .partners li {
   display: grid;
   place-items: center;
@@ -986,6 +1004,71 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .dish__meta { margin-top: 6px; font-weight: 600; font-size: 13px; letter-spacing: .06em; color: var(--c-grey); }
 .dish__tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border: 1px solid var(--c-gold); color: var(--c-gold-text); }
 
+/* Миниатюра в меню открывает фото крупно (окно .lightbox ниже) */
+.menu-root .dish__img { cursor: zoom-in; }
+.menu-root .dish__img.is-missing { cursor: default; }
+.menu-root .dish__img img { transition: transform .3s; }
+.menu-root .dish__img:hover img { transform: scale(1.06); }
+.menu-root .dish__img:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+
+/* ---------- Фото блюда крупно ---------- */
+.lightbox {
+  width: min(880px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.lightbox::backdrop { background: rgba(20, 12, 6, .88); }
+.lightbox__figure { background: var(--bg-1); padding: var(--s-2); }
+.lightbox__frame { position: relative; background: #2a1d14; }
+.lightbox__img { display: block; width: 100%; max-height: calc(100vh - 220px); object-fit: contain; }
+.lightbox__caption { padding: var(--s-3) var(--s-2) var(--s-1); }
+.lightbox__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px var(--s-3); }
+.lightbox__name { font-family: var(--f-head); font-weight: 700; font-size: clamp(20px, 2vw, 26px); line-height: 1.3; }
+.lightbox__price .dish__sizes { margin: 0; min-width: 240px; }
+.lightbox__desc { margin-top: 6px; color: #3d3833; }
+.lightbox__nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--c-gold);
+  background: rgba(20, 12, 6, .6);
+  color: var(--c-gold);
+  font-family: var(--f-deco);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__nav:hover { background: var(--c-gold); color: var(--c-brown); }
+.lightbox__nav { top: 40%; }
+.lightbox__nav--prev { left: -64px; }
+.lightbox__nav--next { right: -64px; }
+.lightbox.is-single .lightbox__nav { display: none; }
+
+/* Стрелки по бокам не помещаются — ставим их на фото */
+@media (max-width: 1024px) {
+  .lightbox__nav { z-index: 1; }
+  .lightbox__nav--prev { left: 24px; }
+  .lightbox__nav--next { right: 24px; }
+}
+@media (max-width: 640px) {
+  .lightbox__img { max-height: 55vh; }
+  .lightbox__nav { width: 44px; height: 44px; font-size: 28px; }
+}
+
+/* Порции разного размера, у каждой своя цена: у супов маленькая и большая */
+.dish__sizes { list-style: none; display: grid; gap: 2px; margin-top: 8px; }
+.dish__sizes li { display: flex; align-items: baseline; gap: var(--s-2); }
+.dish__size { font-size: 16px; color: #3d3833; white-space: nowrap; }
+.dish__sizes .dish__dots { display: block; }
+.dish__sizes .dish__price { margin-left: 0; font-size: 20px; }
+
 /* Вариант 1 — карточки с фото */
 .menu--v1 .dishes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .menu--v1 .dish__img { aspect-ratio: 4 / 3; margin-bottom: var(--s-2); }
@@ -1046,6 +1129,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 860px) {
   .two-col { grid-template-columns: 1fr; }
   .two-col--reverse > :first-child { order: 0; }
+  .story, .story--reverse { grid-template-columns: 1fr; }
+  .story--reverse .story__media { order: 0; }
   /* Здесь кадры фиксированные — это сетки-превью, а не «главные» фото */
   .gallery .photo__frame, .product .photo__frame { aspect-ratio: 1; }
   .gallery .photo__frame img, .product .photo__frame img { height: 100%; object-fit: cover; }

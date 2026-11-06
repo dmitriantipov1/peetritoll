@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261106-6">
 </head>
 <body>
 
@@ -58,16 +58,14 @@
   <section class="section section--bg1">
     <div class="container">
 
-      <div class="variant-panel">
-        <p class="variant-panel__label">Для согласования: выберите вид карточки блюда</p>
-        <div class="chips" role="group" aria-label="Варианты карточек">
-          <button class="chip is-active" type="button" data-variant="1" data-desc="Крупное фото блюда, под ним название, цена и описание. Наглядно, хорошо работает, если фото блюд качественные." aria-pressed="true">1. Карточки с фото</button>
-          <button class="chip" type="button" data-variant="2" data-desc="Без фото, как в бумажном меню ресторана: название, отточие, цена. Строго и компактно, удобно для длинного меню." aria-pressed="false">2. Классическое меню</button>
-          <button class="chip" type="button" data-variant="3" data-desc="Маленькое фото в золотой рамке слева, текст справа. Компромисс: фото есть, но меню остаётся компактным." aria-pressed="false">3. Строка с миниатюрой</button>
-          <button class="chip" type="button" data-variant="4" data-desc="Тёмные карточки с золотой рамкой, как на вывеске таверны. Самый атмосферный вариант, хорошо подходит для фирменных блюд." aria-pressed="false">4. Тёмная таверна</button>
-          <button class="chip" type="button" data-variant="5" data-desc="Фото на всю карточку, название и цена поверх. Эффектно, но требует одинаково хороших фото для всех блюд." aria-pressed="false">5. Журнальный</button>
-        </div>
-        <p class="variant-panel__desc">Крупное фото блюда, под ним название, цена и описание. Наглядно, хорошо работает, если фото блюд качественные.</p>
+      <header class="section-head">
+        <p class="section-head__crumb">Кухня таверны</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Меню ресторана</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Домашняя сытная кухня в исторической атмосфере</h3>
+        <p>Пельмени и вареники, супы, горячие блюда, соленья из нашего погреба и домашние десерты. У супов две порции, маленькая и большая, — цена указана для каждой.</p>
       </div>
 
       <ul class="chips" aria-label="Разделы меню">
@@ -82,7 +80,7 @@
         <li><a class="chip" href="#napitki">Напитки</a></li>
       </ul>
 
-      <div class="menu-root menu--v1" id="menu-root">
+      <div class="menu-root menu--v3">
       <section class="menu-cat" id="zakuski">
         <h3 class="menu-cat__title">Закуски</h3>
         <ul class="dishes">
@@ -152,15 +150,23 @@
           <li class="dish">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_45v04-08-2024_16-12-05-1.jpg" alt="Борщ" loading="lazy" data-ph="photo_45v04-08-2024_16-12-05-1.jpg"></div>
             <div class="dish__body">
-              <div class="dish__top"><h4 class="dish__name">Борщ</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 / 5,00 €</span></div>
-              <p class="dish__desc">Подаётся со сметаной</p><p class="dish__meta">маленький / большой</p>
+              <div class="dish__top"><h4 class="dish__name">Борщ</h4></div>
+              <p class="dish__desc">Подаётся со сметаной</p>
+              <ul class="dish__sizes">
+                <li><span class="dish__size">Маленькая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></li>
+                <li><span class="dish__size">Большая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></li>
+              </ul>
             </div>
           </li>
           <li class="dish">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/v_DSC1292.jpg" alt="Солянка сборная" loading="lazy" data-ph="v_DSC1292.jpg"></div>
             <div class="dish__body">
-              <div class="dish__top"><h4 class="dish__name">Солянка сборная</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 / 6,50 €</span></div>
-              <p class="dish__desc">Подаётся со сметаной, оливками и лимоном</p><p class="dish__meta">маленький / большой</p>
+              <div class="dish__top"><h4 class="dish__name">Солянка сборная</h4></div>
+              <p class="dish__desc">Подаётся со сметаной, оливками и лимоном</p>
+              <ul class="dish__sizes">
+                <li><span class="dish__size">Маленькая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></li>
+                <li><span class="dish__size">Большая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">6,50 €</span></li>
+              </ul>
             </div>
           </li>
         </ul>
@@ -290,12 +296,30 @@
       </section>
       </div>
 
+      <p class="note">Об аллергенах вам расскажет обслуживающий персонал. Банкетное меню составляем индивидуально.</p>
+
       <div class="cta-row">
-        <p class="note">Об аллергенах вам расскажет обслуживающий персонал. Банкетное меню составляем индивидуально.</p>
+        <p class="quote">Старинный уют, щедрый стол<br><span class="quote__indent">и неповторимая атмосфера</span></p>
         <a class="btn btn--red" href="#">Забронировать стол</a>
       </div>
     </div>
   </section>
+
+  <!-- Фото блюда крупно. Открывается кликом по миниатюре, закрывается кликом мимо фото или Esc. Наполняет js/main.js -->
+  <dialog class="lightbox" aria-labelledby="lightbox-name">
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее блюдо">‹</button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее блюдо">›</button>
+    <figure class="lightbox__figure">
+      <div class="lightbox__frame"><img class="lightbox__img" src="" alt=""></div>
+      <figcaption class="lightbox__caption">
+        <div class="lightbox__head">
+          <p class="lightbox__name" id="lightbox-name"></p>
+          <div class="lightbox__price"></div>
+        </div>
+        <p class="lightbox__desc"></p>
+      </figcaption>
+    </figure>
+  </dialog>
 
 </main>
 
@@ -323,6 +347,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261106"></script>
+<script src="./js/main.js?v=20261106-4"></script>
 </body>
 </html>

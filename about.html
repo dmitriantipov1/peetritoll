@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261106-6">
 </head>
 <body>
 
@@ -55,33 +55,46 @@
     </div>
   </section>
 
-  <!-- Семейное дело -->
-  <section class="section section--bg1">
+  <!-- ============ 01 СЕМЕЙНОЕ ДЕЛО ============ -->
+  <section class="section section--bg1" id="semya">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Семейные традиции и гостеприимство</p>
-        <h2 class="section-head__title">Семейное дело</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Семейное дело</h2>
       </header>
-      <div class="two-col">
-        <div class="prose">
+
+      <div class="story">
+        <div class="story__text">
           <h3 class="intro__title">Более 20 лет с любовью к своему делу, истории и гостям</h3>
           <p>«Петровская Таможня» (Peetri Toll) — не просто ресторан или музей, а настоящее семейное дело, которому мы посвятили больше двух десятилетий. Всё это время нашей главной страстью остаётся сохранение уникальной истории Палдиски, бережное возрождение старинных традиций и искреннее гостеприимство.</p>
           <p>Нам важно, чтобы каждый гость — будь то путешественник, заглянувший на обед, или большая семья, отмечающая юбилей, — чувствовал себя как дома. Мы сами встречаем гостей, разрабатываем блюда, собираем исторические коллекции и вкладываем душу в каждый уголок этого старинного дома.</p>
+
+          <dl class="facts">
+            <div class="facts__row"><dt>С 2005 года</dt><dd>Таверна «Петровская Таможня» в старинном здании царской таможни</dd></div>
+            <div class="facts__row"><dt>Ресторан</dt><dd>Три исторических зала, оружейный зал на втором этаже и летняя терраса</dd></div>
+            <div class="facts__row"><dt>Музей</dt><dd>150+ подлинных экспонатов холодного оружия, архивы и фотоархив</dd></div>
+            <div class="facts__row"><dt>Издательство</dt><dd>Книги о Палдиски: краеведение, проза и поэзия</dd></div>
+          </dl>
         </div>
-        <figure><div class="photo__frame"><img src="./images/about-family.jpg" alt="Владельцы «Петровской Таможни»" loading="lazy" data-ph="about-family.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/about-family.jpg" alt="Владельцы «Петровской Таможни»" loading="lazy" data-ph="about-family.jpg"></div>
+          <figcaption class="quote story__quote">чтобы каждый гость<br><span class="quote__indent">чувствовал себя как дома</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- История здания -->
-  <section class="section section--bg2">
+  <!-- ============ 02 ИСТОРИЯ ЗДАНИЯ ============ -->
+  <section class="section section--bg2" id="zdanie">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Архитектурное наследие</p>
-        <h2 class="section-head__title">История здания</h2>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> История здания</h2>
       </header>
-      <div class="two-col">
-        <div>
+
+      <div class="story">
+        <div class="story__text">
           <h3 class="intro__title">Здание с двухвековой судьбой</h3>
           <ol class="timeline">
             <li><p class="timeline__date">1760-е</p><p class="timeline__text">Первые упоминания и строительство здания по проекту архитектора Иоганна Давида Бантельмана.</p></li>
@@ -90,37 +103,50 @@
             <li><p class="timeline__date">2005 — наши дни</p><p class="timeline__text">После реставрации открыта таверна «Петровская Таможня». Дом пережил пожар 2015 года, был полностью восстановлен и сегодня остаётся центром культурной и гастрономической жизни города.</p></li>
           </ol>
         </div>
-        <figure><div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание таможни сегодня" loading="lazy" data-ph="restaurant-house.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание таможни сегодня" loading="lazy" data-ph="restaurant-house.jpg"></div>
+          <figcaption class="quote story__quote">пережил войну и пожар,<br><span class="quote__indent">чтобы снова встречать гостей</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- История Палдиски -->
-  <section class="section section--bg1">
+  <!-- ============ 03 ИСТОРИЯ ПАЛДИСКИ ============ -->
+  <section class="section section--bg1" id="paldiski">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Город и его легенды</p>
-        <h2 class="section-head__title">История Палдиски</h2>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> История Палдиски</h2>
       </header>
-      <div class="two-col two-col--reverse">
-        <div class="prose">
+
+      <div class="story story--reverse">
+        <div class="story__text">
           <h3 class="intro__title">От петровского форпоста до современного морского города</h3>
           <p>Летопись Палдиски началась 23 июля 1718 года, когда Пётр I лично заложил здесь незамерзающий военный порт и морскую крепость на берегу залива Пакри — тогда Рогервик. Бастионы вырубали прямо в известняковом обрыве, а каменный мол должен был соединить материк с островами Пакри.</p>
           <p>За три столетия город пережил времена Екатерины II, был местом каторги Салавата Юлаева, получил железную дорогу до Санкт-Петербурга и одну из лучших мореходных школ Эстонии. В советское время Палдиски был закрытым городом с учебным центром атомных подводных лодок. Сегодня это открытый миру морской край с величественными клифами Пакри.</p>
+          <a class="btn" href="./museum.html#arhivy">Архивы и фотоархив</a>
         </div>
-        <figure><div class="photo__frame"><img src="./images/paldiski-history.jpg" alt="Старинная карта Рогервика" loading="lazy" data-ph="paldiski-history.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/paldiski-history.jpg" alt="Старинная карта Рогервика" loading="lazy" data-ph="paldiski-history.jpg"></div>
+          <figcaption class="quote story__quote">23 июля 1718 года<br><span class="quote__indent">Пётр I заложил Рогервик</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Галерея -->
-  <section class="section section--bg2">
+  <!-- ============ 04 ГАЛЕРЕЯ ============ -->
+  <section class="section section--bg4" id="galereya">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Фотоархив</p>
-        <h2 class="section-head__title">Галерея</h2>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Галерея</h2>
       </header>
-      <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
+      </div>
       <div class="chips" data-filter-group="about-gallery" role="group" aria-label="Категории галереи">
         <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
         <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
@@ -130,23 +156,23 @@
       </div>
       <ul class="gallery" id="about-gallery">
         <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
-        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Фасад и двор" loading="lazy" data-ph="restaurant-house.jpg"></div></li>
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div></li>
         <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
         <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале" loading="lazy" data-ph="banquet-hall.jpg"></div></li>
         <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
-        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-1.jpg" alt="Праздничная сервировка" loading="lazy" data-ph="banquet-1.jpg"></div></li>
         <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
         <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- Новости -->
-  <section class="section section--bg1">
+  <!-- ============ 05 НОВОСТИ ============ -->
+  <section class="section section--bg1" id="novosti">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Актуальное</p>
-        <h2 class="section-head__title">Новости</h2>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Новости</h2>
         <a class="section-head__more" href="#">Все новости</a>
       </header>
       <ul class="grid-3 news">
@@ -157,42 +183,48 @@
     </div>
   </section>
 
-  <!-- Партнёры -->
-  <section class="section section--bg2">
+  <!-- ============ 06 ПАРТНЁРЫ ============ -->
+  <section class="section section--bg2" id="partnery">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Сообщество и развитие края</p>
-        <h2 class="section-head__title">Развиваем регион вместе</h2>
+        <h2 class="section-head__title"><span class="section-head__num">06</span> Развиваем регион вместе</h2>
       </header>
-      <div class="two-col">
-        <div class="prose">
-          <p>Мы убеждены, что бизнес должен приносить пользу родной земле. Наша команда занимается развитием региона, сохранением исторической памяти и туристической привлекательностью волости Ляэне-Харью.</p>
+      <div class="intro">
+        <div class="intro__text">
+          <h3 class="intro__title">Бизнес, который приносит пользу родной земле</h3>
+          <p>Наша команда занимается развитием региона, сохранением исторической памяти и туристической привлекательностью волости Ляэне-Харью.</p>
           <p>Многие наши культурные, образовательные и инфраструктурные проекты получили поддержку фондов, самоуправления и партнёров. Благодаря этому мы создаём новые экспозиции, издаём материалы и делаем Палдиски яркой точкой на карте Эстонии.</p>
         </div>
-        <ul class="partners">
-          <li>Lääne-Harju Vald</li>
-          <li>MTÜ Toetusgrupp</li>
-          <li>Lääne-Harju Koostöökogu</li>
-          <li>LEADER</li>
-          <li>Eesti Kultuurkapital</li>
-          <li>AS Alexela</li>
-          <li>AS Derevaat</li>
-        </ul>
       </div>
+      <ul class="partners">
+        <li>Lääne-Harju Vald</li>
+        <li>MTÜ Toetusgrupp</li>
+        <li>Lääne-Harju Koostöökogu</li>
+        <li>LEADER</li>
+        <li>Eesti Kultuurkapital</li>
+        <li>AS Alexela</li>
+        <li>AS Derevaat</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Отзывы -->
-  <section class="section section--bg1">
+  <!-- ============ 07 ОТЗЫВЫ ============ -->
+  <section class="section section--bg1" id="otzyvy">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Отзывы гостей</p>
-        <h2 class="section-head__title">Что говорят наши гости</h2>
+        <h2 class="section-head__title"><span class="section-head__num">07</span> Что говорят наши гости</h2>
       </header>
       <ul class="grid-2">
         <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
         <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
       </ul>
+
+      <div class="cta-row">
+        <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
+        <a class="btn btn--red" href="#">Забронировать стол</a>
+      </div>
     </div>
   </section>
 
@@ -222,6 +254,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261106"></script>
+<script src="./js/main.js?v=20261106-4"></script>
 </body>
 </html>
