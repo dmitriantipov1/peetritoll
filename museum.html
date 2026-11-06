@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-6">
+  <link rel="stylesheet" href="./css/style.css?v=20261106-9">
 </head>
 <body>
 
@@ -55,86 +55,199 @@
     </div>
   </section>
 
-  <!-- Постоянная выставка -->
+  <!-- ============ 01 ВЫСТАВКА ============ -->
   <section class="section section--bg1" id="vystavka">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Постоянная экспозиция</p>
-        <h2 class="section-head__title">Холодное оружие со всего света</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Выставка</h2>
       </header>
-      <div class="two-col">
-        <div class="prose">
-          <p class="lead">Приглашаем на второй этаж исторической таверны, где расположилась уникальная коллекция старинного холодного оружия: эволюция оружейного дела разных стран и эпох и невероятные истории владельцев.</p>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Холодное оружие со всего света</h3>
+          <p>Приглашаем на второй этаж исторической таверны, где расположилась уникальная коллекция старинного холодного оружия: эволюция оружейного дела разных стран и эпох и невероятные истории владельцев.</p>
           <div class="note">
             <p class="note__title">Документальный фильм о выставке</p>
             <p>12-минутный обзор самых захватывающих экспонатов коллекции и их тайн. На эстонском, русском и английском языках.</p>
           </div>
         </div>
-        <figure><div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Клинки из коллекции" loading="lazy" data-ph="weapons-1.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/weapons-1.jpg" alt="Клинки из коллекции" loading="lazy" data-ph="weapons-1.jpg"></div>
+          <figcaption class="quote story__quote">более 150 уникальных экспонатов</figcaption>
+        </figure>
       </div>
 
-      <h3 class="intro__title" style="margin-top: var(--s-5)">Что вас ждёт в экспозиции</h3>
-      <ul class="grid-4">
-        <li class="tile"><h4 class="tile__title">Военная история</h4><p class="tile__text">Шпаги и рапиры европейских армий XVII–XIX веков, включая редчайшую рапиру «Паппенхаймер», и униформа Национальной гвардии США.</p></li>
-        <li class="tile"><h4 class="tile__title">Оружие как искусство</h4><p class="tile__text">Парадные мечи аристократии с золотом, серебром и перламутром, охотничьи ножи и траурные мечи с чернёной рукоятью.</p></li>
-        <li class="tile"><h4 class="tile__title">Экзотика и мистика</h4><p class="tile__text">Мандау охотников за головами с Борнео, индонезийский крис, индийский огненный меч и ритуальные кинжалы.</p></li>
-        <li class="tile"><h4 class="tile__title">Тайные общества</h4><p class="tile__text">Ритуальное оружие масонов и ордена Odd Fellows, самодельные ножи заключённых тюрьмы Румму.</p></li>
-      </ul>
+      <div class="subsection">
+        <div class="subsection__head"><h3 class="h3">Что вас ждёт в экспозиции</h3></div>
+        <ul class="grid-4">
+          <li class="tile"><h4 class="tile__title">Военная история</h4><p class="tile__text">Шпаги и рапиры европейских армий XVII–XIX веков, включая редчайшую рапиру «Паппенхаймер», и униформа Национальной гвардии США.</p></li>
+          <li class="tile"><h4 class="tile__title">Оружие как искусство</h4><p class="tile__text">Парадные мечи аристократии с золотом, серебром и перламутром, охотничьи ножи и траурные мечи с чернёной рукоятью.</p></li>
+          <li class="tile"><h4 class="tile__title">Экзотика и мистика</h4><p class="tile__text">Мандау охотников за головами с Борнео, индонезийский крис, индийский огненный меч и ритуальные кинжалы.</p></li>
+          <li class="tile"><h4 class="tile__title">Тайные общества</h4><p class="tile__text">Ритуальное оружие масонов и ордена Odd Fellows, самодельные ножи заключённых тюрьмы Румму.</p></li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- Истории -->
-  <section class="section section--bg2">
+  <!-- ============ 02 ЭКСПОНАТЫ ============ -->
+  <section class="section section--bg2" id="eksponaty">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Истории, которые хранит сталь</p>
-        <h2 class="section-head__title">Самые интересные экспонаты</h2>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Самые интересные экспонаты</h2>
       </header>
-      <div class="two-col two-col--reverse">
-        <ul class="grid-2">
-          <li class="tile"><h4 class="tile__title">Сабля для великана</h4><p class="tile__text">Сделана на заказ для Мартина ван Бюрена Бейтса — героя Гражданской войны в США ростом 2 м 36 см.</p></li>
-          <li class="tile"><h4 class="tile__title">Женские тайны</h4><p class="tile__text">Дамские стилеты, которые прятали в складках платья, и клинки маркитанток французской армии.</p></li>
-          <li class="tile"><h4 class="tile__title">Древнейший артефакт</h4><p class="tile__text">Кинжал бронзового века возрастом более 3000 лет.</p></li>
-          <li class="tile"><h4 class="tile__title">Кортик с секретом</h4><p class="tile__text">Рукоять в форме головы птицы Гаруды, а в неё встроена… открывалка для бутылок.</p></li>
-        </ul>
-        <figure><div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Мартин ван Бюрен Бейтс на историческом фото" loading="lazy" data-ph="weapons-3.jpg"></div></figure>
+
+      <div class="story story--reverse">
+        <div class="story__text">
+          <h3 class="intro__title">Каждый клинок — со своей историей</h3>
+          <dl class="facts">
+            <div class="facts__row"><dt>Сабля для великана</dt><dd>Сделана на заказ для Мартина ван Бюрена Бейтса — героя Гражданской войны в США ростом 2 м 36 см.</dd></div>
+            <div class="facts__row"><dt>Женские тайны</dt><dd>Дамские стилеты, которые прятали в складках платья, и клинки маркитанток французской армии.</dd></div>
+            <div class="facts__row"><dt>Древнейший артефакт</dt><dd>Кинжал бронзового века возрастом более 3000 лет.</dd></div>
+            <div class="facts__row"><dt>Кортик с секретом</dt><dd>Рукоять в форме головы птицы Гаруды, а в неё встроена… открывалка для бутылок.</dd></div>
+          </dl>
+          <a class="btn" href="#vizit">Спланировать визит</a>
+        </div>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/weapons-3.jpg" alt="Мартин ван Бюрен Бейтс на историческом фото" loading="lazy" data-ph="weapons-3.jpg"></div>
+          <figcaption class="quote story__quote">сабля для великана<br><span class="quote__indent">ростом 2 м 36 см</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Визит -->
-  <section class="section section--bg1">
+  <!-- ============ 03 ВИЗИТ ============ -->
+  <section class="section section--bg1" id="vizit">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Спланируйте визит</p>
-        <h2 class="section-head__title">Как нас посетить</h2>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Как нас посетить</h2>
       </header>
-      <div class="two-col">
-        <dl class="facts">
-          <div class="facts__row"><dt>Где</dt><dd>Палдиски, Mere 10, второй этаж таверны</dd></div>
-          <div class="facts__row"><dt>Когда</dt><dd>В часы работы ресторана. Зал иногда бронируют под частные мероприятия, поэтому перед визитом лучше проверить нашу страницу в Facebook.</dd></div>
-          <div class="facts__row"><dt>Билет</dt><dd>3 €, на кассе у барной стойки на первом этаже</dd></div>
-          <div class="facts__row"><dt>Таблички</dt><dd>У всех экспонатов, на эстонском, английском и русском</dd></div>
-          <div class="facts__row"><dt>Экскурсия</dt><dd>Для групп, 15–20 минут, EE / EN / RU. 20 € по предварительной договорённости</dd></div>
-        </dl>
-        <div class="note">
-          <p class="note__title">Временные выставки</p>
-          <p>Несколько раз в год проводим сменные выставки: вернисажи местных художников и фотографов, экспозиции к памятным датам края, выставки прикладного искусства. Расписание — в календаре мероприятий.</p>
-          <p style="margin-top: var(--s-3)"><a class="btn btn--red" href="./services.html#zayavka">Заказать экскурсию</a></p>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Билет 3 €, экскурсия для групп по договорённости</h3>
+          <dl class="facts">
+            <div class="facts__row"><dt>Где</dt><dd>Палдиски, Mere 10, второй этаж таверны</dd></div>
+            <div class="facts__row"><dt>Когда</dt><dd>В часы работы ресторана. Зал иногда бронируют под частные мероприятия, поэтому перед визитом лучше проверить нашу страницу в Facebook.</dd></div>
+            <div class="facts__row"><dt>Билет</dt><dd>3 €, на кассе у барной стойки на первом этаже</dd></div>
+            <div class="facts__row"><dt>Таблички</dt><dd>У всех экспонатов, на эстонском, английском и русском</dd></div>
+            <div class="facts__row"><dt>Экскурсия</dt><dd>Для групп, 15–20 минут, EE / EN / RU. 20 € по предварительной договорённости</dd></div>
+          </dl>
+          <a class="btn" href="./services.html#zayavka">Заказать экскурсию</a>
         </div>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Выставочный зал на втором этаже" loading="lazy" data-ph="weapons-2.jpg"></div>
+          <div class="note story__note">
+            <p class="note__title">Временные выставки</p>
+            <p>Несколько раз в год проводим сменные выставки: вернисажи местных художников и фотографов, экспозиции к памятным датам края, выставки прикладного искусства. Расписание — <a href="#meropriyatiya">в мероприятиях</a>.</p>
+          </div>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Архивы -->
-  <section class="section section--bg2" id="arhivy">
+  <!-- ============ 04 МЕРОПРИЯТИЯ ============ -->
+  <section class="section section--bg4" id="meropriyatiya">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Жизнь таверны</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Мероприятия</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Концерты, лекции, экскурсии и праздники</h3>
+        <p>Регистрация бесплатная, оплата на месте. Прошедшие встречи — во вкладке «Архив».</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Мероприятия">
+        <button class="tabs__btn is-active" type="button" role="tab" id="tab-upcoming" aria-controls="panel-upcoming" aria-selected="true">Предстоящие</button>
+        <button class="tabs__btn" type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" tabindex="-1">Архив</button>
+      </div>
+
+      <div class="events" id="panel-upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
+        <ul class="events__list">
+          <li class="event">
+            <p class="event__date"><span class="event__day">18</span> октября</p>
+            <div class="event__body">
+              <p class="event__type">Концерт</p>
+              <h4 class="event__title">Песни из любимых кинофильмов</h4>
+              <p class="event__desc">Анна Дытына (вокал), Александр Пелёвин (гитара)</p>
+              <p class="event__meta">Начало в 18:00 <span>Цена 15 €</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Записаться</a>
+          </li>
+          <li class="event">
+            <p class="event__date"><span class="event__day">18</span> октября</p>
+            <div class="event__body">
+              <p class="event__type">Экскурсия</p>
+              <h4 class="event__title">Экскурсия с гидом по выставке «Холодное оружие со всего света»</h4>
+              <p class="event__meta">Цена 15 € <span>30 минут</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Записаться</a>
+          </li>
+          <li class="event">
+            <p class="event__date"><span class="event__day">Сб</span> каждую</p>
+            <div class="event__body">
+              <p class="event__type">Экскурсия</p>
+              <h4 class="event__title">Тайны старой таможни</h4>
+              <p class="event__desc">Прогулка по дому от подвала до мансарды</p>
+              <p class="event__meta">Цена 18 € <span>дети до 12 бесплатно</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Записаться</a>
+          </li>
+        </ul>
+
+        <figure class="events__poster">
+          <img src="./images/event-poster.jpg" alt="Афиша концерта 18.10.2026 в 18:00" loading="lazy" data-ph="event-poster.jpg">
+        </figure>
+      </div>
+
+      <div class="events" id="panel-archive" role="tabpanel" aria-labelledby="tab-archive" hidden>
+        <ul class="events__list">
+          <li class="event">
+            <p class="event__date"><span class="event__day">16</span> мая</p>
+            <div class="event__body">
+              <p class="event__type">Праздник</p>
+              <h4 class="event__title">Ночь музеев</h4>
+              <p class="event__meta">18:00 — 23:00 <span>Вход свободный</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Фотоотчёт</a>
+          </li>
+          <li class="event">
+            <p class="event__date"><span class="event__day">7</span> марта</p>
+            <div class="event__body">
+              <p class="event__type">Литературный вечер</p>
+              <h4 class="event__title">Вечер Галины Малютиной</h4>
+              <p class="event__meta">19:00 <span>Цена 15 €</span></p>
+            </div>
+            <a class="btn btn--sm event__btn" href="#">Фотоотчёт</a>
+          </li>
+        </ul>
+
+        <figure class="events__poster">
+          <img src="./images/weapons-3.jpg" alt="Фото из архива мероприятий" loading="lazy" data-ph="weapons-3.jpg">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 АРХИВЫ ============ -->
+  <section class="section section--bg1" id="arhivy">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Исследовательский фонд</p>
-        <h2 class="section-head__title">Архивы и документы</h2>
-        <a class="section-head__more" href="#">Заглянуть в архив</a>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Архивы и документы</h2>
+        <a class="section-head__more" href="./shop.html">Копии в магазине</a>
       </header>
-      <h3 class="intro__title">Историческая память: фотоархив, летописи и документы</h3>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Историческая память: фотоархив, летописи и документы</h3>
+      </div>
       <ul class="grid-2">
         <li class="tile">
           <h4 class="tile__title">Исторический фотоархив</h4>
@@ -150,12 +263,12 @@
     </div>
   </section>
 
-  <!-- Книгопечатня -->
-  <section class="section section--bg1" id="knigi">
+  <!-- ============ 06 КНИГИ ============ -->
+  <section class="section section--bg2" id="knigi">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Книгопечатня</p>
-        <h2 class="section-head__title">Книги, которые мы издаём</h2>
+        <h2 class="section-head__title"><span class="section-head__num">06</span> Книги, которые мы издаём</h2>
         <a class="section-head__more" href="./shop.html">Все книги</a>
       </header>
       <ul class="cards cards--5">
@@ -166,7 +279,7 @@
             <p class="card__meta">2022 · 144 стр.</p>
             <p class="card__desc">Юмористические рассказы о реальных историях в таверне, которая в 1989–2010 годах была сауна-баром «Садко».</p>
             <p class="card__price">10,00 €</p>
-            <a class="btn btn--sm" href="./shop.html">Купить</a>
+            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/bajki-iz-za-barnoj-stojki" target="_blank" rel="noopener">Купить</a>
           </li>
           <li class="card">
             <div class="card__img"><img src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt="Обложка книги «Былой Палдиски и его люди»" loading="lazy" data-ph="byloj-paldiski-i-ego-ludi"></div>
@@ -175,7 +288,7 @@
             <p class="card__meta">2022 · 152 стр.</p>
             <p class="card__desc">Три столетия города через биографии людей, которые его строили, лечили и учили. Иллюстрации Андрея Кириллова.</p>
             <p class="card__price">12,00 €</p>
-            <a class="btn btn--sm" href="./shop.html">Купить</a>
+            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/byloj-paldiski-i-ego-ludi" target="_blank" rel="noopener">Купить</a>
           </li>
           <li class="card">
             <div class="card__img"><img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги «Мой родной Палдиски»" loading="lazy" data-ph="moj-rodnoj-paldiski"></div>
@@ -184,7 +297,7 @@
             <p class="card__meta">2022 · 28 стр.</p>
             <p class="card__desc">Довоенный Палдиски в воспоминаниях сына начальника таможни, с фотографиями из семейного архива.</p>
             <p class="card__price">15,00 €</p>
-            <a class="btn btn--sm" href="./shop.html">Купить</a>
+            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/moj-rodnoj-paldiski" target="_blank" rel="noopener">Купить</a>
           </li>
           <li class="card">
             <div class="card__img"><img src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt="Обложка книги «Lood baarileti tagant»" loading="lazy" data-ph="lood-baarileti-tagant"></div>
@@ -193,7 +306,7 @@
             <p class="card__meta">2023 · 144 стр. <span class="dish__tag">на эстонском</span></p>
             <p class="card__desc">Издание на эстонском языке: юмористические рассказы о 1989–2010 годах.</p>
             <p class="card__price">10,00 €</p>
-            <a class="btn btn--sm" href="./shop.html">Купить</a>
+            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/lood-baarileti-tagant" target="_blank" rel="noopener">Купить</a>
           </li>
           <li class="card">
             <div class="card__img"><img src="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" alt="Обложка книги «Kodulinn Paldiski»" loading="lazy" data-ph="kodulinn-paldiski"></div>
@@ -202,25 +315,34 @@
             <p class="card__meta">2022 · 28 стр.</p>
             <p class="card__desc">Брошюра по воспоминаниям Пауля Лаана о жизни в Палдиски в 1930-х годах.</p>
             <p class="card__price">15,00 €</p>
-            <a class="btn btn--sm" href="./shop.html">Купить</a>
+            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/kodulinn-paldiski" target="_blank" rel="noopener">Купить</a>
           </li>
       </ul>
     </div>
   </section>
 
-  <!-- Авторы -->
-  <section class="section section--bg2" id="avtory">
+  <!-- ============ 07 АВТОРЫ ============ -->
+  <section class="section section--bg1" id="avtory">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Хранители и летописцы Палдиски</p>
-        <h2 class="section-head__title">Авторы</h2>
+        <h2 class="section-head__title"><span class="section-head__num">07</span> Авторы</h2>
       </header>
-      <p class="lead" style="max-width: 760px">Художники, исследователи и писатели, чьи работы создают живой культурный ландшафт нашего края.</p>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Художники, исследователи и писатели</h3>
+        <p>Их работы создают живой культурный ландшафт нашего края.</p>
+      </div>
       <ul class="grid-3">
-        <li class="author"><div class="photo__frame"><img src="./images/author-kirillov.jpg" alt="Андрей Кириллов" loading="lazy" data-ph="author-kirillov.jpg"></div><p class="author__role">Художник, график</p><h3 class="author__name">Андрей Кириллов</h3><p>Картины об истории Палдиски и о Салавате Юлаеве, иллюстрированная туристическая карта Пакри, иллюстрации к сборникам местных авторов.</p><a class="link-more" href="#">Работы автора</a></li>
-        <li class="author"><div class="photo__frame"><img src="./images/author-laan.jpg" alt="Пауль Лаан" loading="lazy" data-ph="author-laan.jpg"></div><p class="author__role">Филолог, архивист</p><h3 class="author__name">Пауль Лаан</h3><p>Сын последнего начальника довоенной таможни. Его мемуары о детстве в стенах этого здания сохранили для нас историю дома.</p><a class="link-more" href="#">Читать подробнее</a></li>
-        <li class="author"><div class="photo__frame"><img src="./images/author-maljutina.jpg" alt="Галина Малютина" loading="lazy" data-ph="author-maljutina.jpg"></div><p class="author__role">Писательница</p><h3 class="author__name">Галина Малютина</h3><p>Стихи, проза, песни и «Байки из-за барной стойки». Аудиокнигу можно послушать после покупки.</p><a class="link-more" href="#">Произведения</a></li>
+        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-kirillov.jpg" alt="Андрей Кириллов" loading="lazy" data-ph="author-kirillov.jpg"></div></a><p class="author__role">Художник, график</p><h3 class="author__name">Андрей Кириллов</h3><p>Картины об истории Палдиски и о Салавате Юлаеве, иллюстрированная туристическая карта Пакри, иллюстрации к сборникам местных авторов.</p><a class="link-more" href="./author.html">Работы автора</a></li>
+        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-laan.jpg" alt="Пауль Лаан" loading="lazy" data-ph="author-laan.jpg"></div></a><p class="author__role">Филолог, архивист</p><h3 class="author__name">Пауль Лаан</h3><p>Сын последнего начальника довоенной таможни. Его мемуары о детстве в стенах этого здания сохранили для нас историю дома.</p><a class="link-more" href="./author.html">Читать подробнее</a></li>
+        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-maljutina.jpg" alt="Галина Малютина" loading="lazy" data-ph="author-maljutina.jpg"></div></a><p class="author__role">Писательница</p><h3 class="author__name">Галина Малютина</h3><p>Стихи, проза, песни и «Байки из-за барной стойки». Аудиокнигу можно послушать после покупки.</p><a class="link-more" href="./author.html">Произведения</a></li>
       </ul>
+
+      <div class="cta-row">
+        <p class="quote">От клинков<br><span class="quote__indent">до старинных фолиантов</span></p>
+        <a class="btn btn--red" href="./services.html#zayavka">Заказать экскурсию</a>
+      </div>
     </div>
   </section>
 

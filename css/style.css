@@ -734,7 +734,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
   .exhibition__gallery { grid-template-columns: 1fr 1fr; }
   .exhibition__quote,
-  .story__quote { text-align: left; }
+  .story .story__quote { text-align: left; }
 
   .cards { gap: var(--s-4) var(--s-2); }
   .card__title { font-size: 18px; }
@@ -895,6 +895,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story__media .photo__frame { aspect-ratio: 4 / 3; }
 .story__quote { margin-top: var(--s-3); text-align: right; }
 .story--reverse .story__quote { text-align: left; }
+.story__note { margin-top: var(--s-3); }
 
 /* ---------- Таймлайн (история здания) ---------- */
 .timeline { list-style: none; border-left: 1px solid var(--c-gold); }
@@ -942,6 +943,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 /* ---------- Авторы ---------- */
 .author .photo__frame { aspect-ratio: 4 / 5; margin-bottom: var(--s-2); }
+.author__photo { display: block; }
+.author__photo img { transition: transform .3s; }
+.author__photo:hover img { transform: scale(1.04); }
 .author__role { font-family: var(--f-head); font-style: italic; color: var(--c-gold-dark); margin-bottom: 8px; }
 .author__name { font-family: var(--f-head); font-weight: 700; font-size: 22px; margin: 0; }
 
@@ -1298,6 +1302,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .radio-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
 .radio-two > div { display: flex; flex-direction: column; padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
 .radio-two .btn { margin-top: auto; align-self: flex-start; }
+.section--bg2 .radio-two > div { background: var(--bg-1); }
 
 /* Широкие таблицы на телефоне прокручиваются сами, а не тянут страницу */
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }

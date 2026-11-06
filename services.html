@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-6">
+  <link rel="stylesheet" href="./css/style.css?v=20261106-9">
 </head>
 <body>
 
@@ -55,61 +55,75 @@
     </div>
   </section>
 
-  <!-- Авторские экскурсии -->
+  <!-- ============ 01 ЭКСКУРСИИ ============ -->
   <section class="section section--bg1" id="ekskursii">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Программы нашей команды</p>
-        <h2 class="section-head__title">Экскурсии от Peetri Toll</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Экскурсии от Peetri Toll</h2>
       </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Откройте Палдиски и полуостров Пакри вместе с нами</h3>
+        <p>Короткие обзоры музея и исторические программы по старинному зданию таможни. Проводим на эстонском, английском и русском.</p>
+      </div>
+
       <ul class="grid-2">
         <li class="service">
           <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Выставочный зал" loading="lazy" data-ph="weapons-2.jpg"></div>
           <h3 class="service__title">Экспресс-экскурсия по выставке</h3>
           <p class="service__text">Идеальное дополнение к обеду или визиту группы. Гид покажет саблю великана, дамские стилеты, клинки шаманов Борнео и кинжал бронзового века.</p>
           <p class="tile__meta">15–20 минут · 20 € за группу · по предварительному заказу</p>
+          <a class="service__link" href="#zayavka">Заказать</a>
         </li>
         <li class="service">
           <div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание старой таможни" loading="lazy" data-ph="restaurant-house.jpg"></div>
           <h3 class="service__title">«Тайны старой таможни»</h3>
           <p class="service__text">История дома с 1760-х годов: царские таможенники, эстонская пограничная стража, спасённый под полом крест и возрождение таверны.</p>
           <p class="tile__meta">30–45 минут</p>
+          <a class="service__link" href="#zayavka">Заказать</a>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- Гиды -->
+  <!-- ============ 02 ГИДЫ ============ -->
   <section class="section section--bg2" id="gidy">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Партнёрская сеть</p>
-        <h2 class="section-head__title">Местные гиды</h2>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Местные гиды</h2>
       </header>
-      <div class="two-col">
-        <div class="prose">
+
+      <div class="story">
+        <div class="story__text">
           <h3 class="intro__title">Пешеходные и автобусные туры по Палдиски</h3>
           <p>Мы сотрудничаем с аккредитованными гидами Ляэне-Харью. Они проведут вашу группу по знаковым местам: бастионы Петра Великого, маяк Пакри, старинный вокзал, церковь Георгия Победоносца, лютеранская церковь и наследие гарнизона.</p>
           <dl class="facts">
             <div class="facts__row"><dt>Языки</dt><dd>Эстонский, русский, английский; по запросу финский и немецкий</dd></div>
             <div class="facts__row"><dt>Маршрут</dt><dd>Составим под тайминг вашей группы и объединим с обедом или банкетом в таверне</dd></div>
           </dl>
+          <a class="btn" href="#zayavka">Заказать гида</a>
         </div>
-        <figure><div class="photo__frame"><img src="./images/guides.jpg" alt="Экскурсия с гидом" loading="lazy" data-ph="guides.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/guides.jpg" alt="Экскурсия с гидом" loading="lazy" data-ph="guides.jpg"></div>
+          <figcaption class="quote story__quote">от петровских бастионов<br><span class="quote__indent">до маяка Пакри</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Аудиогид -->
+  <!-- ============ 03 АУДИОГИД ============ -->
   <section class="section section--bg1" id="audiogid">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Для самостоятельных путешественников</p>
-        <h2 class="section-head__title">Мобильный аудиогид</h2>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Мобильный аудиогид</h2>
       </header>
-      <div class="two-col">
-        <figure><div class="photo__frame"><img src="./images/audioguide.jpg" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.jpg"></div></figure>
-        <div class="prose">
+
+      <div class="story story--reverse">
+        <div class="story__text">
           <h3 class="intro__title">Исследуйте город в своём ритме</h3>
           <p>Каждая история — результат глубокого краеведческого исследования, а профессиональная актёрская озвучка со звуковыми эффектами создаёт эффект полного погружения.</p>
           <dl class="facts">
@@ -123,45 +137,91 @@
             <li>Купите доступ в приложении — лучше заранее, чтобы слушать уже в пути.</li>
           </ol>
         </div>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/audioguide.jpg" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.jpg"></div>
+          <figcaption class="quote story__quote">аудиоспектакль<br><span class="quote__indent">в вашем смартфоне</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Pakri Express -->
+  <!-- ============ 04 РАДИОГИДЫ ============ -->
+  <section class="section section--bg2" id="radiogidy">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Для групповых экскурсий</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Радиогиды</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Слышно каждое слово гида</h3>
+        <p>Даже в большой группе и на ветру у обрывов Пакри. Приёмник можно купить себе или взять в аренду на время экскурсии.</p>
+      </div>
+
+      <div class="radio-two">
+        <div>
+          <h3 class="ev-card__title">Купить радиогид</h3>
+          <p class="ev-card__price">89 €</p>
+          <p>Приёмник с наушником. Подходит для всех наших экскурсий и работает с оборудованием других музеев.</p>
+          <a class="btn btn--sm" href="./shop.html">В магазин</a>
+        </div>
+        <div>
+          <h3 class="ev-card__title">Арендовать на группу</h3>
+          <p class="ev-card__price">3 € за устройство</p>
+          <p>От 5 устройств, выдаём на месте перед экскурсией. Залог не требуется, оплата на месте.</p>
+          <a class="btn btn--sm btn--red" href="#zayavka">Оставить запрос</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 PAKRI EXPRESS ============ -->
   <section class="section section--bg4" id="pakri-express">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Для детей, туристов и праздников</p>
-        <h2 class="section-head__title">Pakri Express</h2>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Pakri Express</h2>
       </header>
-      <div class="two-col two-col--reverse">
-        <div class="prose">
-          <p class="lead">Прогулочный формат знакомства с городом и площадка для театрализованных и праздничных программ, созданных вместе с культурными партнёрами.</p>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Город из окна электромобиля</h3>
+          <p>Прогулочный формат знакомства с городом и площадка для театрализованных и праздничных программ, созданных вместе с культурными партнёрами.</p>
           <dl class="facts">
             <div class="facts__row"><dt>Рейсы</dt><dd>Регулярные обзорные поездки в сезон</dd></div>
             <div class="facts__row"><dt>Программы</dt><dd>Новогодние сказки, детские дни рождения, тематические квесты</dd></div>
             <div class="facts__row"><dt>Аренда</dt><dd>Частные мероприятия, свадебные кортежи, школьные группы</dd></div>
             <div class="facts__row"><dt>Отправление</dt><dd>От таверны, Mere 10</dd></div>
           </dl>
-          <a class="btn btn--red" href="#zayavka">Узнать расписание</a>
+          <a class="btn" href="#zayavka">Узнать расписание</a>
         </div>
-        <figure><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Электромобиль Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></figure>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Электромобиль Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div>
+          <figcaption class="quote story__quote">отправление<br><span class="quote__indent">от дверей таверны</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Заявка -->
+  <!-- ============ 06 ЗАЯВКА ============ -->
   <section class="section section--bg1" id="zayavka">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Бронирование и консультации</p>
-        <h2 class="section-head__title">Оставить заявку</h2>
+        <h2 class="section-head__title"><span class="section-head__num">06</span> Оставить заявку</h2>
       </header>
+
       <div class="two-col">
         <div class="prose">
           <h3 class="intro__title">Хотите организовать экскурсию или поездку?</h3>
           <p>Свяжитесь с нами: подберём гида, поможем составить тайминг дня, объединим экскурсию с обедом или дегустацией и забронируем билеты.</p>
-          <p><a href="tel:+37253423425">+372 53 423 425</a><br><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+          <dl class="facts">
+            <div class="facts__row"><dt>Телефон</dt><dd><a href="tel:+37253423425">+372 53 423 425</a></dd></div>
+            <div class="facts__row"><dt>E-mail</dt><dd><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></dd></div>
+          </dl>
+          <p class="quote">Подберём маршрут<br><span class="quote__indent">и накроем стол после прогулки</span></p>
         </div>
         <form class="form" onsubmit="return false">
           <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
@@ -173,6 +233,7 @@
               <option>Экскурсия по выставке</option>
               <option>«Тайны старой таможни»</option>
               <option>Тур с местным гидом</option>
+              <option>Радиогиды в аренду</option>
               <option>Pakri Express</option>
               <option>Другое</option>
             </select>

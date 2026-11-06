@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Страница автора — Tavern Peetri Toll</title>
+  <meta name="description" content="Автор Палдиски: биография, книги, работы и тексты.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css?v=20261106-9">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link is-current" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="#kontakty">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/weapons-2.jpg" alt="" data-ph="weapons-2.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / <a href="./museum.html">Музей</a> / <a href="./museum.html#avtory">Авторы</a> / Страница автора</p>
+      <h1 class="page-hero__title">Страница автора</h1>
+      <p class="page-hero__lead">Имя автора и одна строка о нём: художник, писатель, исследователь</p>
+    </div>
+  </section>
+
+  <!-- Заглушка: одна страница-шаблон на всех авторов. Тексты и фото подставит админка -->
+
+  <!-- ============ 01 ОБ АВТОРЕ ============ -->
+  <section class="section section--bg1" id="ob-avtore">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Хранители и летописцы Палдиски</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Об авторе</h2>
+        <a class="section-head__more" href="./museum.html#avtory">Все авторы</a>
+      </header>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Заголовок о главном в творчестве автора</h3>
+          <p>Здесь будет рассказ об авторе: кто он, как связан с Палдиски и «Петровской Таможней», о чём его книги, картины или исследования.</p>
+          <p>Второй абзац — путь в творчестве, важные работы, выставки и награды. Текст заводится в админке на каждом языке.</p>
+
+          <dl class="facts">
+            <div class="facts__row"><dt>Кто</dt><dd>Писатель, художник или исследователь</dd></div>
+            <div class="facts__row"><dt>Работы</dt><dd>Книги, картины, открытки, песни</dd></div>
+            <div class="facts__row"><dt>Языки</dt><dd>На каких языках изданы работы</dd></div>
+          </dl>
+        </div>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/author-photo.jpg" alt="Портрет автора" loading="lazy" data-ph="author-photo.jpg"></div>
+          <figcaption class="quote story__quote">короткая цитата автора<br><span class="quote__indent">или о его творчестве</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 КНИГИ ============ -->
+  <section class="section section--bg2" id="knigi">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Издания автора</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Книги</h2>
+        <a class="section-head__more" href="./shop.html">Все книги</a>
+      </header>
+      <ul class="cards cards--5">
+        <li class="card">
+          <div class="card__img"><img src="./images/author-book-1.jpg" alt="Обложка книги" loading="lazy" data-ph="author-book-1.jpg"></div>
+          <h4 class="card__title">Название книги</h4>
+          <p class="card__meta">Год · страниц</p>
+          <p class="card__desc">Короткое описание книги в одну-две строки.</p>
+          <p class="card__price">0,00 €</p>
+          <a class="btn btn--sm" href="./shop.html">Купить</a>
+        </li>
+        <li class="card">
+          <div class="card__img"><img src="./images/author-book-2.jpg" alt="Обложка книги" loading="lazy" data-ph="author-book-2.jpg"></div>
+          <h4 class="card__title">Название книги</h4>
+          <p class="card__meta">Год · страниц <span class="dish__tag">на эстонском</span></p>
+          <p class="card__desc">Издание на другом языке отмечается плашкой.</p>
+          <p class="card__price">0,00 €</p>
+          <a class="btn btn--sm" href="./shop.html">Купить</a>
+        </li>
+        <li class="card">
+          <div class="card__img"><img src="./images/author-book-3.jpg" alt="Обложка аудиокниги" loading="lazy" data-ph="author-book-3.jpg"></div>
+          <h4 class="card__title">Аудиокнига</h4>
+          <p class="card__meta">Цифровой товар · MP3</p>
+          <p class="card__desc">Слушать можно сразу после покупки.</p>
+          <p class="card__price">0,00 €</p>
+          <a class="btn btn--sm" href="./shop.html">Купить</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 03 РАБОТЫ ============ -->
+  <section class="section section--bg1" id="raboty">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Картины, графика, открытки</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Работы</h2>
+      </header>
+      <div class="intro intro--single">
+        <h3 class="intro__title">Галерея работ</h3>
+        <p>Для художника — картины и графика, для писателя — фото с презентаций и иллюстрации. Если работы продаются, под фото ссылка в магазин.</p>
+      </div>
+      <ul class="gallery">
+        <li><div class="photo__frame"><img src="./images/author-work-1.jpg" alt="Работа автора" loading="lazy" data-ph="author-work-1.jpg"></div></li>
+        <li><div class="photo__frame"><img src="./images/author-work-2.jpg" alt="Работа автора" loading="lazy" data-ph="author-work-2.jpg"></div></li>
+        <li><div class="photo__frame"><img src="./images/author-work-3.jpg" alt="Работа автора" loading="lazy" data-ph="author-work-3.jpg"></div></li>
+        <li><div class="photo__frame"><img src="./images/author-work-4.jpg" alt="Работа автора" loading="lazy" data-ph="author-work-4.jpg"></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 04 ТЕКСТЫ ============ -->
+  <section class="section section--bg2" id="teksty">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Стихи, проза, песни</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Тексты</h2>
+      </header>
+      <ul class="grid-2">
+        <li class="review"><p class="review__text">Отрывок стихотворения или рассказа. Несколько строк, которые дают почувствовать голос автора.</p><p class="review__source">Название произведения, год</p></li>
+        <li class="review"><p class="review__text">Второй отрывок: строки песни или фрагмент прозы. Полный текст — в книге.</p><p class="review__source">Название произведения, год</p></li>
+      </ul>
+
+      <div class="cta-row">
+        <p class="quote">Книги и работы автора<br><span class="quote__indent">в нашем магазине</span></p>
+        <a class="btn btn--red" href="./shop.html">Перейти в магазин</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js?v=20261106-4"></script>
+</body>
+</html>
