@@ -106,6 +106,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   line-height: 1.35;
   color: var(--c-gold-dark);
 }
+/* Вторая строка цитаты со сдвигом вправо, как в макете */
+.quote__indent { padding-left: 2.6em; }
 
 .caption {
   margin-top: 12px;
@@ -367,14 +369,21 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .photo__frame--square { aspect-ratio: 1; }
 .photo__frame--wide   { aspect-ratio: 6 / 5; }
 
-/* Золотая рамка внутри фото — элемент из макета */
-.photo__frame--gold::after {
+/* Золотая рамка внутри картинки, 12 px от краёв. Требование заказчицы:
+   рамка у всех картинок, кроме товаров (карточки магазина и обложки книг).
+   У миниатюр варианта 3 меню своя рамка снаружи, внутренняя там не помещается */
+.photo__frame::after,
+.dish__img::after,
+.events__poster::after,
+.ev-tile::after {
   content: "";
   position: absolute;
   inset: 12px;
   border: 1px solid var(--c-gold);
   pointer-events: none;
 }
+.product .photo__frame::after,
+.menu--v3 .dish__img::after { content: none; }
 
 /* Заглушка, если картинка ещё не выгружена */
 .is-missing { position: relative; }
@@ -418,13 +427,13 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* ---------- 01 Ресторан: залы ---------- */
 .halls {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap);
   list-style: none;
   align-items: start;
+  text-align: center;
 }
-.hall .photo__frame { aspect-ratio: 4 / 5; margin-bottom: var(--s-2); }
-.hall--main .photo__frame { aspect-ratio: 5 / 6; }
+.hall .photo__frame { aspect-ratio: 3 / 4; margin-bottom: var(--s-2); }
 
 .hall__title {
   font-family: var(--f-head);
@@ -691,11 +700,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 @media (max-width: 860px) {
   .halls { grid-template-columns: 1fr 1fr; }
-  .hall--main { grid-column: 1 / -1; }
+  .hall:first-child { grid-column: 1 / -1; }
   /* На планшете и телефоне картинки показываются целиком, без обрезки */
   .photo__frame,
   .hall .photo__frame,
-  .hall--main .photo__frame,
   .service .photo__frame,
   .exhibition__gallery .photo__frame,
   .exhibition__wide .photo__frame,
