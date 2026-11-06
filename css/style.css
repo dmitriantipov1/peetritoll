@@ -1456,6 +1456,24 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .bq-done__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
 @media (max-width: 860px) { .bq-top { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .bq-top { grid-template-columns: 1fr; } }
+/* На планшете и телефоне «Ваш выбор» уезжает под список — оставляем от него
+   прилипшую снизу полосу с суммой и кнопкой; выбранные блюда и так подсвечены в списке */
+@media (max-width: 860px) {
+  .bq-form .calc-two .calc-side {
+    position: sticky; bottom: 0; z-index: 2;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--s-2);
+    padding: var(--s-2); background: var(--c-brown); color: var(--bg-2);
+    box-shadow: 0 -6px 18px rgba(31,26,22,.18);
+  }
+  .bq-form .calc-two .calc-side__title, .bq-form .calc-chosen { display: none; }
+  .bq-form .calc-two .calc-side__total { margin: 0; padding: 0; border: 0; }
+  .bq-form .calc-two .calc-side__total span:first-child,
+  .bq-form .calc-two .calc-side__note { color: var(--bg-2); opacity: .8; }
+  .bq-form .calc-two .calc-side__note { flex-basis: 100%; margin: 0; }
+  .bq-form .calc-two .calc-side__total [data-total] { color: var(--c-gold); }
+  .bq-form .calc-two .calc-side__act { flex-basis: 100%; margin: 4px 0 0; }
+  .bq-form .calc-two .calc-side__act .btn { width: 100%; border-color: var(--c-gold); color: var(--c-gold); }
+}
 
 /* вариант 2 — меню и «ваш выбор» рядом */
 .calc-two { display: grid; grid-template-columns: 1fr 320px; gap: var(--gap); align-items: start; }
@@ -1476,6 +1494,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   font-family: var(--f-deco); font-size: 24px; color: var(--c-red); white-space: nowrap;
 }
 .calc-side__note { margin-top: var(--s-1); font-size: 13px; color: var(--c-grey); }
+.calc-side__act { margin-top: var(--s-2); }
+.section--bg1 .calc-side { background: var(--bg-2); }
 
 @media (max-width: 1024px) {
   .calc-two { grid-template-columns: 1fr; }

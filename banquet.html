@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-11">
+  <link rel="stylesheet" href="./css/style.css?v=20261106-15">
 </head>
 <body>
 
@@ -155,95 +155,101 @@
             </div>
             <p class="calc-presets__hint">Сет расставит порции по числу гостей. Дальше любое блюдо можно добавить или убрать вручную — сет останется отмечен, пока состав совпадает.</p>
           </div>
-          <div class="calc-cat">
-            <p class="calc-cat__name">Холодные закуски</p>
-            <div class="calc-row" data-dish="seld" data-price="6.50">
-              <div><p class="calc-row__name">Сельдь по-домашнему с картофелем</p><p class="calc-row__price">6,50 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Сельдь по-домашнему с картофелем">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Сельдь по-домашнему с картофелем">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Сельдь по-домашнему с картофелем">+</button>
+          <div class="calc-two">
+            <div>
+            <div class="calc-cat">
+              <p class="calc-cat__name">Холодные закуски</p>
+              <div class="calc-row" data-dish="seld" data-price="6.50">
+                <div><p class="calc-row__name">Сельдь по-домашнему с картофелем</p><p class="calc-row__price">6,50 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Сельдь по-домашнему с картофелем">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Сельдь по-домашнему с картофелем">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Сельдь по-домашнему с картофелем">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
-            </div>
-            <div class="calc-row" data-dish="assorti" data-price="9.80">
-              <div><p class="calc-row__name">Мясное ассорти с хреном и горчицей</p><p class="calc-row__price">9,80 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Мясное ассорти с хреном и горчицей">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Мясное ассорти с хреном и горчицей">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Мясное ассорти с хреном и горчицей">+</button>
+              <div class="calc-row" data-dish="assorti" data-price="9.80">
+                <div><p class="calc-row__name">Мясное ассорти с хреном и горчицей</p><p class="calc-row__price">9,80 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Мясное ассорти с хреном и горчицей">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Мясное ассорти с хреном и горчицей">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Мясное ассорти с хреном и горчицей">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
-            </div>
-            <div class="calc-row" data-dish="solenya" data-price="5.40">
-              <div><p class="calc-row__name">Соленья из нашего погреба</p><p class="calc-row__price">5,40 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Соленья из нашего погреба">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Соленья из нашего погреба">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Соленья из нашего погреба">+</button>
+              <div class="calc-row" data-dish="solenya" data-price="5.40">
+                <div><p class="calc-row__name">Соленья из нашего погреба</p><p class="calc-row__price">5,40 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Соленья из нашего погреба">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Соленья из нашего погреба">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Соленья из нашего погреба">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
             </div>
-          </div>
-          <div class="calc-cat">
-            <p class="calc-cat__name">Горячее</p>
-            <div class="calc-row" data-dish="zharkoe" data-price="14.50">
-              <div><p class="calc-row__name">Жаркое по-таможенному в горшочке</p><p class="calc-row__price">14,50 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Жаркое по-таможенному в горшочке">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Жаркое по-таможенному в горшочке">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Жаркое по-таможенному в горшочке">+</button>
+            <div class="calc-cat">
+              <p class="calc-cat__name">Горячее</p>
+              <div class="calc-row" data-dish="zharkoe" data-price="14.50">
+                <div><p class="calc-row__name">Жаркое по-таможенному в горшочке</p><p class="calc-row__price">14,50 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Жаркое по-таможенному в горшочке">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Жаркое по-таможенному в горшочке">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Жаркое по-таможенному в горшочке">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
-            </div>
-            <div class="calc-row" data-dish="rulka" data-price="16.80">
-              <div><p class="calc-row__name">Свиная рулька с тушёной капустой</p><p class="calc-row__price">16,80 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Свиная рулька с тушёной капустой">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Свиная рулька с тушёной капустой">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Свиная рулька с тушёной капустой">+</button>
+              <div class="calc-row" data-dish="rulka" data-price="16.80">
+                <div><p class="calc-row__name">Свиная рулька с тушёной капустой</p><p class="calc-row__price">16,80 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Свиная рулька с тушёной капустой">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Свиная рулька с тушёной капустой">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Свиная рулька с тушёной капустой">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
             </div>
-          </div>
-          <div class="calc-cat">
-            <p class="calc-cat__name">Десерты</p>
-            <div class="calc-row" data-dish="pirog" data-price="4.80">
-              <div><p class="calc-row__name">Яблочный пирог с корицей</p><p class="calc-row__price">4,80 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Яблочный пирог с корицей">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Яблочный пирог с корицей">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Яблочный пирог с корицей">+</button>
+            <div class="calc-cat">
+              <p class="calc-cat__name">Десерты</p>
+              <div class="calc-row" data-dish="pirog" data-price="4.80">
+                <div><p class="calc-row__name">Яблочный пирог с корицей</p><p class="calc-row__price">4,80 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Яблочный пирог с корицей">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Яблочный пирог с корицей">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Яблочный пирог с корицей">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
             </div>
-          </div>
-          <div class="calc-cat">
-            <p class="calc-cat__name">Напитки</p>
-            <div class="calc-row" data-dish="mors" data-price="3.20">
-              <div><p class="calc-row__name">Морс домашний</p><p class="calc-row__price">3,20 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Морс домашний">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Морс домашний">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Морс домашний">+</button>
+            <div class="calc-cat">
+              <p class="calc-cat__name">Напитки</p>
+              <div class="calc-row" data-dish="mors" data-price="3.20">
+                <div><p class="calc-row__name">Морс домашний</p><p class="calc-row__price">3,20 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Морс домашний">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Морс домашний">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Морс домашний">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
-            </div>
-            <div class="calc-row" data-dish="chai" data-price="2.80">
-              <div><p class="calc-row__name">Чай и кофе</p><p class="calc-row__price">2,80 € за порцию</p></div>
-              <div class="calc-step">
-                <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Чай и кофе">−</button>
-                <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Чай и кофе">
-                <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Чай и кофе">+</button>
+              <div class="calc-row" data-dish="chai" data-price="2.80">
+                <div><p class="calc-row__name">Чай и кофе</p><p class="calc-row__price">2,80 € за порцию</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Чай и кофе">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Чай и кофе">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Чай и кофе">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <p class="calc-row__sum" data-sum>—</p>
             </div>
-          </div>
-          <p class="calc-warn" data-warn hidden></p>
-          <div class="calc-bar">
-            <p><span class="calc-bar__total" data-total>0,00 €</span><br><span class="calc-bar__per">на человека: <span data-per-guest>—</span></span></p>
-            <p class="calc-bar__note">Предварительный расчёт, не является офертой. Окончательную смету мы подтвердим в ответном письме.</p>
-            <a class="btn btn--sm" href="#b-contacts">Дальше: контакты</a>
+              <p class="calc-warn" data-warn hidden></p>
+            </div>
+            <aside class="calc-side">
+              <p class="calc-side__title">Ваш выбор</p>
+              <ul class="calc-chosen" data-chosen><li class="calc-chosen__empty">Пока ничего не выбрано</li></ul>
+              <p class="calc-side__total"><span>Ориентировочно</span> <span data-total>0,00 €</span></p>
+              <p class="calc-side__note">На человека: <span data-per-guest>—</span>. Предварительный расчёт, не является офертой.</p>
+              <p class="calc-side__act"><a class="btn btn--sm" href="#b-contacts">Дальше: контакты</a></p>
+            </aside>
           </div>
 
         <h3 class="bq-step" id="b-contacts"><span class="bq-step__num">3</span> Контакты</h3>
