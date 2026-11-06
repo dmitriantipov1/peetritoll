@@ -1437,6 +1437,26 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   border-left: 3px solid var(--c-red); background: rgba(153,49,34,.07); font-size: 15px;
 }
 
+/* ---------- Банкетный зал: запрос в три шага ---------- */
+.bq-how { counter-reset: none; }
+.bq-how__num { font-family: var(--f-head); font-weight: 500; font-size: 44px; line-height: 1; color: var(--c-gold); margin-bottom: var(--s-1); }
+.bq-step {
+  display: flex; align-items: baseline; gap: var(--s-2);
+  margin: var(--s-5) 0 var(--s-3);
+  font-family: var(--f-head); font-weight: 400; font-size: clamp(24px, 2.6vw, 32px);
+}
+.bq-step:first-child { margin-top: 0; }
+.bq-step__num { font-weight: 500; color: var(--c-gold); }
+.bq-top { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bq-contacts { max-width: 760px; }
+.bq-send { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+.bq-done { max-width: 760px; padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
+.bq-done .quote { margin-bottom: var(--s-1); }
+.bq-done p { margin-bottom: var(--s-2); }
+.bq-done__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
+@media (max-width: 860px) { .bq-top { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .bq-top { grid-template-columns: 1fr; } }
+
 /* вариант 2 — меню и «ваш выбор» рядом */
 .calc-two { display: grid; grid-template-columns: 1fr 320px; gap: var(--gap); align-items: start; }
 .calc-side { position: sticky; top: 24px; padding: var(--s-3); background: var(--bg-2); border-top: 3px solid var(--c-gold); }

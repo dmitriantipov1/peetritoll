@@ -209,7 +209,7 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
   show(fromHash() || buttons[0].dataset.variant, false);
 });
 
-// Калькулятор банкета на elements.html.
+// Калькулятор банкета на elements.html и banquet.html.
 // Считает прямо в браузере — отправки нет, это по-прежнему эскиз.
 document.querySelectorAll('[data-calc]').forEach((calc) => {
   const rows = calc.querySelectorAll('.calc-row');
@@ -336,3 +336,20 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   });
   recalc();
 });
+
+// Запрос на банкет (banquet.html): отправки нет, показываем гостю ответ, который он увидит.
+// Важно, что это запрос, а не бронь, — так и написано в ответе.
+const banquetForm = document.querySelector('[data-banquet]');
+if (banquetForm) {
+  const done = document.querySelector('[data-banquet-done]');
+  banquetForm.addEventListener('submit', () => {
+    banquetForm.hidden = true;
+    done.hidden = false;
+    done.focus();
+  });
+  done.querySelector('[data-banquet-again]').addEventListener('click', () => {
+    done.hidden = true;
+    banquetForm.hidden = false;
+    banquetForm.scrollIntoView();
+  });
+}
