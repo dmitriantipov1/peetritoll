@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261107-15">
+  <link rel="stylesheet" href="./css/style.css?v=20261107-16">
 </head>
 <body>
 
@@ -88,36 +88,51 @@
         <li><a class="chip" href="#napitki">Напитки</a></li>
       </ul>
 
+      <div class="diet-filter" role="group" aria-label="Фильтр по отметкам" data-diet-filter>
+        <p class="diet-filter__label">Показать только:</p>
+        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="veg">Вегетарианское</button>
+        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="vegan">Веганское</button>
+        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="gf">Без глютена</button>
+        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="lf">Без лактозы</button>
+        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="spicy">Острое</button>
+        <button class="diet-filter__reset" type="button" data-diet-reset hidden>Сбросить</button>
+      </div>
+      <p class="diet-empty" data-diet-empty hidden>Нет блюд со всеми выбранными отметками. Уберите одну из отметок или <button type="button" class="diet-filter__reset" data-diet-reset>сбросьте фильтр</button>.</p>
+      <p class="diet-note">Отметки — подсказка. Об аллергенах точно расскажет официант.</p>
+
       <div class="menu-root menu--v3">
       <section class="menu-cat" id="zakuski">
         <h3 class="menu-cat__title">Закуски</h3>
         <ul class="dishes">
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_48v04-08-2024_16-12-05.jpg" alt="Чесночные хлебцы" loading="lazy" data-ph="photo_48v04-08-2024_16-12-05.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,60 €</span></div>
               <p class="dish__desc">Подаются с белым соусом</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg" alt="Чесночные хлебцы с помидорами и сыром" loading="lazy" data-ph="photo_17v03-08-2024_20-38-03.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы с помидорами и сыром</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
-              
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg vegan lf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_41v04-08-2024_16-11-53.jpg" alt="Картофель фри" loading="lazy" data-ph="photo_41v04-08-2024_16-11-53.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Картофель фри</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></div>
               <p class="dish__desc">Подаётся с томатным соусом</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--vegan">Веганское</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="spicy lf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_44v04-08-2024_16-12-05.jpg" alt="Тигровые креветки" loading="lazy" data-ph="photo_44v04-08-2024_16-12-05.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Тигровые креветки</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,50 €</span></div>
               <p class="dish__desc">Подаются с кисло-сладким соусом чили</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--spicy">Острое</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
         </ul>
@@ -136,18 +151,20 @@
               <p class="dish__desc">Подаются со сметаной и сливочным маслом</p>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_11v03-08-2024_20-38-02-1.jpg" alt="Вареники с картошкой" loading="lazy" data-ph="photo_11v03-08-2024_20-38-02-1.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вареники с картошкой</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
               <p class="dish__desc">Подаются со сметаной и сливочным маслом</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg" alt="Вареники с картошкой и трюфелем" loading="lazy" data-ph="vareenikud-truhvila-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вареники с картошкой и трюфелем</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">10,00 €</span></div>
               <p class="dish__desc">Подаются со сметаной и сливочным маслом</p><p class="dish__meta">Новинка</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
         </ul>
@@ -155,7 +172,7 @@
       <section class="menu-cat" id="supy">
         <h3 class="menu-cat__title">Супы</h3>
         <ul class="dishes">
-          <li class="dish">
+          <li class="dish" data-diet="gf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_45v04-08-2024_16-12-05-1.jpg" alt="Борщ" loading="lazy" data-ph="photo_45v04-08-2024_16-12-05-1.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Борщ</h4></div>
@@ -164,9 +181,10 @@
                 <li><span class="dish__size">Маленькая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></li>
                 <li><span class="dish__size">Большая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></li>
               </ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--gf">Без глютена</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="gf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/v_DSC1292.jpg" alt="Солянка сборная" loading="lazy" data-ph="v_DSC1292.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Солянка сборная</h4></div>
@@ -175,6 +193,7 @@
                 <li><span class="dish__size">Маленькая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></li>
                 <li><span class="dish__size">Большая порция</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">6,50 €</span></li>
               </ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--gf">Без глютена</li></ul>
             </div>
           </li>
         </ul>
@@ -212,11 +231,12 @@
       <section class="menu-cat" id="pogreb">
         <h3 class="menu-cat__title">Соленья из погреба</h3>
         <ul class="dishes">
-          <li class="dish">
+          <li class="dish" data-diet="veg vegan gf lf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/09/letcho-web.jpg" alt="Лечо" loading="lazy" data-ph="letcho-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Лечо</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
               
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--vegan">Веганское</li><li class="diet__tag diet__tag--gf">Без глютена</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
         </ul>
@@ -224,11 +244,12 @@
       <section class="menu-cat" id="deti">
         <h3 class="menu-cat__title">Детское меню</h3>
         <ul class="dishes">
-          <li class="dish">
+          <li class="dish" data-diet="lf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_8v03-08-2024_20-37-52.jpg" alt="Куриные наггетсы" loading="lazy" data-ph="photo_8v03-08-2024_20-37-52.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Куриные наггетсы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
               <p class="dish__desc">Подаются с картофелем фри и свежими овощами</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
         </ul>
@@ -236,70 +257,73 @@
       <section class="menu-cat" id="deserty">
         <h3 class="menu-cat__title">Десерты</h3>
         <ul class="dishes">
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/kirsi-kook-web.jpg" alt="Вишнёвый торт" loading="lazy" data-ph="kirsi-kook-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вишнёвый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,40 €</span></div>
               
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/pistaatsia-kook-web.jpg" alt="Фисташковый торт" loading="lazy" data-ph="pistaatsia-kook-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Фисташковый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,00 €</span></div>
-              
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg gf">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_25v04-08-2024_16-11-44.jpg" alt="Мороженое" loading="lazy" data-ph="photo_25v04-08-2024_16-11-44.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Мороженое</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,50 €</span></div>
               <p class="dish__desc">Подаётся с карамельным соусом</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--gf">Без глютена</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2025/07/tsitrusi-magustoit-web.jpg" alt="Тыквенно-цитрусовый десерт" loading="lazy" data-ph="tsitrusi-magustoit-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Тыквенно-цитрусовый десерт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
-              
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
-          <li class="dish">
+          <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_7@03-08-2024_20-37-52-web.jpg" alt="Сладкий орешек" loading="lazy" data-ph="photo_7@03-08-2024_20-37-52-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Сладкий орешек</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div>
               <p class="dish__desc">С варёной сгущёнкой</p>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
             </div>
           </li>
         </ul>
         <p class="price-list__label">Также</p>
         <ul class="price-list">
-          <li><div class="dish__top"><span class="price-list__name">Шарик мороженого</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Карамельный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Варенье</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Мёд из одуванчиков</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div></li>
+          <li data-diet="veg gf"><div class="dish__top"><span class="price-list__name">Шарик мороженого</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
+          <li data-diet="veg gf"><div class="dish__top"><span class="price-list__name">Карамельный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Варенье</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li data-diet="veg gf lf"><div class="dish__top"><span class="price-list__name">Мёд из одуванчиков</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div></li>
         </ul>
       </section>
       <section class="menu-cat" id="sousy">
         <h3 class="menu-cat__title">Соусы и добавки</h3>
         <ul class="price-list price-list--cols">
-          <li><div class="dish__top"><span class="price-list__name">Томатный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Белый соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div><p class="price-list__desc">Сметана, майонез, укроп</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Домашняя горчица</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Сметана</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Томатный соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div></li>
+          <li data-diet="veg gf"><div class="dish__top"><span class="price-list__name">Белый соус</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div><p class="price-list__desc">Сметана, майонез, укроп</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Домашняя горчица</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
+          <li data-diet="veg gf"><div class="dish__top"><span class="price-list__name">Сметана</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,00 €</span></div></li>
         </ul>
       </section>
       <section class="menu-cat" id="napitki">
         <h3 class="menu-cat__title">Напитки</h3>
         <ul class="price-list price-list--cols">
-          <li><div class="dish__top"><span class="price-list__name">Coca-Cola</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,00 €</span></div><p class="price-list__desc">Обычная или диетическая, 0,5 л</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Вода</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Газированная или негазированная, 0,5 л</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Сок</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div><p class="price-list__desc">Апельсиновый, мультифрукт, яблочный, клюквенный или томатный, 0,25 л</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Чай</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Чайник чая</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">6,00 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной, 0,8 л</p></li>
-          <li><div class="dish__top"><span class="price-list__name">Эспрессо</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Кофе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,80 €</span></div></li>
-          <li><div class="dish__top"><span class="price-list__name">Кофе гляссе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,80 €</span></div></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Coca-Cola</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,00 €</span></div><p class="price-list__desc">Обычная или диетическая, 0,5 л</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Вода</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Газированная или негазированная, 0,5 л</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Сок</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,00 €</span></div><p class="price-list__desc">Апельсиновый, мультифрукт, яблочный, клюквенный или томатный, 0,25 л</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Чай</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Чайник чая</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">6,00 €</span></div><p class="price-list__desc">Чёрный, зелёный, травяной, 0,8 л</p></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Эспрессо</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,50 €</span></div></li>
+          <li data-diet="veg vegan gf lf"><div class="dish__top"><span class="price-list__name">Кофе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">2,80 €</span></div></li>
+          <li data-diet="veg gf"><div class="dish__top"><span class="price-list__name">Кофе гляссе</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">3,80 €</span></div></li>
         </ul>
       </section>
       </div>
@@ -355,6 +379,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261107-10"></script>
+<script src="./js/main.js?v=20261107-11"></script>
 </body>
 </html>

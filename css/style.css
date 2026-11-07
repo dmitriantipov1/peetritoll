@@ -1109,6 +1109,26 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .dish__meta { margin-top: 6px; font-weight: 600; font-size: 13px; letter-spacing: .06em; color: var(--c-grey); }
 .dish__tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border: 1px solid var(--c-gold); color: var(--c-gold-text); }
 
+/* Отметки блюд (вегетарианское, без лактозы…) и фильтр по ним в меню */
+.diet { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; list-style: none; }
+.diet__tag { padding: 1px 8px; border: 1px solid var(--c-gold); border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1.5; color: var(--c-gold-text); background: rgba(203,170,88,.10); }
+.diet__tag--spicy { border-color: var(--c-red); color: var(--c-red); background: rgba(153,49,34,.07); }
+.diet-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-1); }
+.diet-filter__label { margin: 0 var(--s-1) 0 0; font-weight: 600; color: var(--c-grey); }
+.diet-filter__btn[aria-pressed="true"] { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-brown); }
+.diet-filter__btn[aria-pressed="true"]::before { content: "✓ "; }
+.diet-filter__reset { padding: 0; border: 0; background: none; font: inherit; color: var(--c-gold-text); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.diet-filter__reset[hidden] { display: none; }
+.diet-filter > .diet-filter__reset { margin-left: var(--s-1); }
+.diet-note { margin: 0 0 var(--s-4); font-size: 14px; color: var(--c-grey); }
+.diet-empty { margin: var(--s-3) 0; padding: var(--s-3); border: 1px dashed var(--c-gold); text-align: center; }
+.diet-empty[hidden] { display: none; }
+.menu-root [data-diet-hidden] { display: none !important; }
+.chip.is-dim { opacity: .4; }
+@media (max-width: 640px) {
+  .diet-filter__label { flex-basis: 100%; }
+}
+
 /* Миниатюра в меню открывает фото крупно (окно .lightbox ниже) */
 .menu-root .dish__img { cursor: zoom-in; }
 .menu-root .dish__img.is-missing { cursor: default; }

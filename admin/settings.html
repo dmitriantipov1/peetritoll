@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/style.css?v=20261107-15">
-  <link rel="stylesheet" href="./admin.css?v=20261107>
+  <link rel="stylesheet" href="../css/style.css?v=20261107-16">
+  <link rel="stylesheet" href="./admin.css?v=20261107-2">
 </head>
 <body class="adm-body">
 
@@ -208,6 +208,19 @@
           </div>
         </section>
 
+        <section class="adm-panel" aria-labelledby="p-diet-t" id="p-diet">
+          <h2 class="adm-panel__title" id="p-diet-t" style="margin-bottom:14px">Отметки блюд</h2>
+          <ul class="adm-diet-list">
+            <li><span>Вегетарианское</span><small>9 блюд</small><span class="adm-langs"><span class="adm-lang adm-lang--ok">ET</span><span class="adm-lang adm-lang--ok">EN</span><span class="adm-lang adm-lang--ok">RU</span></span></li>
+            <li><span>Веганское</span><small>2 блюда</small><span class="adm-langs"><span class="adm-lang adm-lang--ok">ET</span><span class="adm-lang adm-lang--ok">EN</span><span class="adm-lang adm-lang--ok">RU</span></span></li>
+            <li><span>Без глютена</span><small>4 блюда</small><span class="adm-langs"><span class="adm-lang adm-lang--ok">ET</span><span class="adm-lang adm-lang--ok">EN</span><span class="adm-lang adm-lang--ok">RU</span></span></li>
+            <li><span>Без лактозы</span><small>4 блюда</small><span class="adm-langs"><span class="adm-lang adm-lang--ok">ET</span><span class="adm-lang adm-lang--ok">EN</span><span class="adm-lang adm-lang--ok">RU</span></span></li>
+            <li><span>Острое</span><small>1 блюдо</small><span class="adm-langs"><span class="adm-lang adm-lang--ok">ET</span><span class="adm-lang adm-lang--missing">EN</span><span class="adm-lang adm-lang--ok">RU</span></span></li>
+          </ul>
+          <button class="btn btn--sm" type="button" style="margin-top:12px">Добавить отметку</button>
+          <span class="adm-note" style="display:block;margin-top:8px">Отметки показываются на карточках блюд и в фильтре меню. Ставит их кухня: за аллергены отвечает ресторан</span>
+        </section>
+
         <section class="adm-panel" aria-labelledby="p-langs">
           <h2 class="adm-panel__title" id="p-langs" style="margin-bottom:14px">Языки</h2>
           <dl class="adm-facts">
@@ -217,7 +230,7 @@
           <div class="field" style="margin-top:14px">
             <label for="l-def">Язык по умолчанию</label>
             <select id="l-def"><option selected>Эстонский</option><option>Английский</option><option>Русский</option></select>
-            <span class="adm-q">Определять ли язык по браузеру гостя — вопрос</span>
+            <span class="adm-note">Язык браузера учитываем только при первом входе на главную, на внутренних страницах — никогда</span>
           </div>
         </section>
 

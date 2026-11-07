@@ -80,7 +80,7 @@ if (lightbox) {
   }
 
   function open(thumb) {
-    list = [...thumbs].filter((t) => !t.classList.contains('is-missing'));
+    list = [...thumbs].filter((t) => !t.classList.contains('is-missing') && !t.closest('[data-diet-hidden]'));
     if (!list.includes(thumb)) return;
     show(list.indexOf(thumb));
     lightbox.classList.toggle('is-single', list.length < 2);
@@ -525,3 +525,47 @@ document.querySelectorAll('[data-request]').forEach((requestForm) => {
     requestForm.scrollIntoView();
   });
 });
+
+// Фильтр меню по отметкам: можно выбрать несколько, показываем блюда, у которых есть все выбранные.
+// Пустые разделы прячем, их кнопки в строке разделов приглушаем.
+const dietFilter = document.querySelector('[data-diet-filter]');
+if (dietFilter) {
+  const btns = [...dietFilter.querySelectorAll('[data-diet-tag]')];
+  const root = document.querySelector('.menu-root');
+  const items = [...root.querySelectorAll('.dishes > li, .price-list > li')];
+  const empty = document.querySelector('[data-diet-empty]');
+  const resetTop = dietFilter.querySelector('[data-diet-reset]');
+
+  const apply = () => {
+    const on = btns.filter((b) => b.getAttribute('aria-pressed') === 'true').map((b) => b.dataset.dietTag);
+    items.forEach((li) => {
+      const tags = (li.dataset.diet || '').split(' ');
+      li.toggleAttribute('data-diet-hidden', !on.every((t) => tags.includes(t)));
+    });
+    root.querySelectorAll('.dishes, .price-list').forEach((ul) => {
+      const none = !ul.querySelector(':scope > li:not([data-diet-hidden])');
+      ul.toggleAttribute('data-diet-hidden', none);
+      const label = ul.previousElementSibling;
+      if (label && label.classList.contains('price-list__label')) label.toggleAttribute('data-diet-hidden', none);
+    });
+    let shown = 0;
+    root.querySelectorAll('.menu-cat').forEach((cat) => {
+      const none = !cat.querySelector('.dishes > li:not([data-diet-hidden]), .price-list > li:not([data-diet-hidden])');
+      cat.toggleAttribute('data-diet-hidden', none);
+      if (!none) shown++;
+      const chip = document.querySelector(`.chip[href="#${cat.id}"]`);
+      if (chip) chip.classList.toggle('is-dim', none);
+    });
+    empty.hidden = shown > 0;
+    resetTop.hidden = on.length === 0;
+  };
+
+  btns.forEach((b) => b.addEventListener('click', () => {
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    apply();
+  }));
+  document.querySelectorAll('[data-diet-reset]').forEach((r) => r.addEventListener('click', () => {
+    btns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    apply();
+  }));
+}
