@@ -152,6 +152,9 @@ document.querySelectorAll('[data-filter-group]').forEach((group) => {
       });
     });
   });
+  // Ссылка сразу на категорию: shop.html#books
+  const fromHash = group.querySelector('[data-filter="' + location.hash.slice(1) + '"]');
+  if (location.hash && fromHash) fromHash.click();
 });
 
 // Переключатель вариантов блоков на elements.html.

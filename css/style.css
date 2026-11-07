@@ -183,7 +183,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 .nav__list {
   display: flex;
-  gap: clamp(16px, 2.2vw, 36px);
+  gap: clamp(14px, 1.9vw, 36px);
   list-style: none;
 }
 
@@ -191,9 +191,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   display: block;
   padding: 6px 0;
   font-family: var(--f-deco);
-  font-size: 19px;
+  /* семь пунктов должны влезать в строку до 1181 px, где включается бургер */
+  font-size: clamp(16px, 1.32vw, 19px);
   letter-spacing: .12em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--c-light);
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -452,6 +454,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   gap: var(--s-3);
   margin-top: clamp(40px, 5vw, 64px);
 }
+.cta-row__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 
 /* ---------- 02 Выставка ---------- */
 .exhibition {

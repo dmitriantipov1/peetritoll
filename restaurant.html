@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ресторан — Tavern Peetri Toll</title>
+  <meta name="description" content="Таверна «Петровская Таможня» в Палдиски: исторические залы, домашняя кухня, банкеты, галерея и отзывы гостей.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css?v=20261107-2">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link is-current" href="./restaurant.html" aria-current="page">Ресторан</a></li>
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / Ресторан</p>
+      <h1 class="page-hero__title">Ресторан</h1>
+      <p class="page-hero__lead">Домашняя сытная кухня в здании царской таможни</p>
+    </div>
+  </section>
+
+  <!-- ============ 01 ЗАЛЫ ============ -->
+  <section class="section section--bg1" id="zaly">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Ресторан и банкетные залы</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Залы и события</h2>
+      </header>
+
+      <div class="intro">
+        <div class="intro__text">
+          <h3 class="intro__title">Вкусная еда, историческая атмосфера и залы для любых мероприятий</h3>
+          <p>Таверна «Петровская Таможня» — это не просто ресторан с богатой историей и аутентичной кухней, но и пространство для праздников, деловых встреч и отдыха в кругу семьи, где исторический шарм соседствует с современным комфортом.</p>
+        </div>
+        <div class="intro__aside">
+          <ul class="formats">
+            <li><b>Торжества и праздники:</b> банкеты, свадьбы, юбилеи, выпускные и детские дни рождения.</li>
+            <li><b>Деловые мероприятия:</b> корпоративы, конференции, презентации, семинары и закрытые приёмы.</li>
+            <li><b>Аренда помещения:</b> гибкие варианты бронирования отдельных залов для фотосессий, мастер-классов, лекций и закрытых частных встреч.</li>
+            <li><b>Туристические группы:</b> сытные групповые обеды и экскурсионные программы для больших туристических групп.</li>
+          </ul>
+        </div>
+      </div>
+
+      <ul class="halls">
+        <li class="hall">
+          <div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div>
+          <h4 class="hall__title">Три исторических зала на первом этаже</h4>
+          <p class="hall__text">Аутентичная атмосфера старинной таверны для повседневного отдыха с друзьями, семейных трапез и приятной остановки во время путешествий по полуострову.</p>
+        </li>
+        <li class="hall">
+          <div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале на втором этаже" loading="lazy" data-ph="banquet-hall.jpg"></div>
+          <h4 class="hall__title">Оружейный зал второго этажа</h4>
+          <p class="hall__text">Просторное мансардное пространство с уникальной коллекцией исторического холодного оружия. Идеальное место для ваших торжеств, корпоративов и презентаций.</p>
+        </li>
+        <li class="hall">
+          <div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div>
+          <h4 class="hall__title">Летняя терраса</h4>
+          <p class="hall__text">Уютное пространство на свежем воздухе. Подходит для неспешного отдыха в тёплый сезон или аренды под праздники с возможностью приготовить свои блюда на гриле.</p>
+        </li>
+      </ul>
+
+
+      <div class="cta-row">
+        <p class="quote">Старинный уют, щедрый стол<br><span class="quote__indent">и неповторимая атмосфера</span></p>
+        <a class="btn btn--red" href="./banquet.html">Аренда банкетного зала</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 МЕНЮ ============ -->
+  <section class="section section--bg2" id="menyu">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Кухня таверны</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Меню</h2>
+        <a class="section-head__more" href="./menu.html">Всё меню</a>
+      </header>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Домашняя кухня по-таможенному</h3>
+          <p>Пельмени и вареники, борщ и солянка, котлеты по-домашнему и по-киевски, соленья из нашего погреба и домашние десерты.</p>
+          <dl class="facts">
+            <div class="facts__row"><dt>Часы</dt><dd>Пн — чт 11:00 — 18:00, пт — вс 11:00 — 19:00</dd></div>
+            <div class="facts__row"><dt>Порции</dt><dd>У супов маленькая и большая, цена для каждой</dd></div>
+            <div class="facts__row"><dt>Банкеты</dt><dd>Отдельное банкетное меню с расчётом на странице <a href="./banquet.html">банкетного зала</a></dd></div>
+            <div class="facts__row"><dt>Аллергены</dt><dd>Расскажет обслуживающий персонал</dd></div>
+          </dl>
+          <a class="btn" href="./menu.html">Открыть меню</a>
+        </div>
+
+        <figure class="story__media">
+          <div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню таверны" loading="lazy" data-ph="dish-01.jpg"></div>
+          <figcaption class="quote story__quote">домашняя сытная кухня<br><span class="quote__indent">в исторической атмосфере</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 ГАЛЕРЕЯ ============ -->
+  <section class="section section--bg4" id="galereya">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Фотоархив</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Галерея</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
+      </div>
+      <div class="chips" data-filter-group="restaurant-gallery" role="group" aria-label="Категории галереи">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
+        <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
+        <button class="chip" type="button" data-filter="food" aria-pressed="false">Наши блюда</button>
+        <button class="chip" type="button" data-filter="banquets" aria-pressed="false">Банкеты и фуршеты</button>
+        <button class="chip" type="button" data-filter="events" aria-pressed="false">Мероприятия и гости</button>
+      </div>
+      <ul class="gallery" id="restaurant-gallery">
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале" loading="lazy" data-ph="banquet-hall.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 04 ОТЗЫВЫ ============ -->
+  <section class="section section--bg1" id="otzyvy">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Отзывы гостей</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Что говорят наши гости</h2>
+      </header>
+      <ul class="grid-2">
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
+      </ul>
+
+      <div class="cta-row">
+        <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
+        <div class="cta-row__actions">
+          <a class="btn" href="./menu.html">Меню</a>
+          <a class="btn btn--red" href="#">Забронировать стол</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="https://www.facebook.com/TavernPeetriToll" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="#">TripAdvisor</a></li>
+        <li><a href="#">Foursquare</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js?v=20261107"></script>
+</body>
+</html>

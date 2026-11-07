@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261106-15">
+  <link rel="stylesheet" href="./css/style.css?v=20261107-2">
 </head>
 <body>
 
@@ -23,6 +23,7 @@
 
     <nav class="nav" id="nav" aria-label="Главное меню">
       <ul class="nav__list">
+        <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
         <li><a class="nav__link is-current" href="./about.html" aria-current="page">О нас</a></li>
         <li><a class="nav__link" href="./menu.html">Меню</a></li>
         <li><a class="nav__link" href="./museum.html">Музей</a></li>
@@ -136,43 +137,13 @@
     </div>
   </section>
 
-  <!-- ============ 04 ГАЛЕРЕЯ ============ -->
-  <section class="section section--bg4" id="galereya">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Фотоархив</p>
-        <h2 class="section-head__title"><span class="section-head__num">04</span> Галерея</h2>
-      </header>
 
-      <div class="intro intro--single">
-        <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
-      </div>
-      <div class="chips" data-filter-group="about-gallery" role="group" aria-label="Категории галереи">
-        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
-        <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
-        <button class="chip" type="button" data-filter="food" aria-pressed="false">Наши блюда</button>
-        <button class="chip" type="button" data-filter="banquets" aria-pressed="false">Банкеты и фуршеты</button>
-        <button class="chip" type="button" data-filter="events" aria-pressed="false">Мероприятия и гости</button>
-      </div>
-      <ul class="gallery" id="about-gallery">
-        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
-        <li data-cat="interior"><div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div></li>
-        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
-        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
-        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале" loading="lazy" data-ph="banquet-hall.jpg"></div></li>
-        <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
-        <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
-        <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ 05 НОВОСТИ ============ -->
-  <section class="section section--bg1" id="novosti">
+  <!-- ============ 04 НОВОСТИ ============ -->
+  <section class="section section--bg2" id="novosti">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Актуальное</p>
-        <h2 class="section-head__title"><span class="section-head__num">05</span> Новости</h2>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Новости</h2>
         <a class="section-head__more" href="#">Все новости</a>
       </header>
       <ul class="grid-3 news">
@@ -183,12 +154,12 @@
     </div>
   </section>
 
-  <!-- ============ 06 ПАРТНЁРЫ ============ -->
-  <section class="section section--bg2" id="partnery">
+  <!-- ============ 05 ПАРТНЁРЫ ============ -->
+  <section class="section section--bg1" id="partnery">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Сообщество и развитие края</p>
-        <h2 class="section-head__title"><span class="section-head__num">06</span> Развиваем регион вместе</h2>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Развиваем регион вместе</h2>
       </header>
       <div class="intro">
         <div class="intro__text">
@@ -206,27 +177,14 @@
         <li>AS Alexela</li>
         <li>AS Derevaat</li>
       </ul>
-    </div>
-  </section>
-
-  <!-- ============ 07 ОТЗЫВЫ ============ -->
-  <section class="section section--bg1" id="otzyvy">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Отзывы гостей</p>
-        <h2 class="section-head__title"><span class="section-head__num">07</span> Что говорят наши гости</h2>
-      </header>
-      <ul class="grid-2">
-        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
-        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
-      </ul>
 
       <div class="cta-row">
         <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
-        <a class="btn btn--red" href="#">Забронировать стол</a>
+        <a class="btn btn--red" href="./restaurant.html">О ресторане</a>
       </div>
     </div>
   </section>
+
 
 </main>
 
@@ -254,6 +212,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261106-5"></script>
+<script src="./js/main.js?v=20261107"></script>
 </body>
 </html>
