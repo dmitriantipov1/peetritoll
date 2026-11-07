@@ -385,7 +385,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   border: 1px solid var(--c-gold);
   pointer-events: none;
 }
-.product .photo__frame::after,
 .menu--v3 .dish__img::after { content: none; }
 
 /* Заглушка, если картинка ещё не выгружена */
@@ -624,6 +623,34 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .events__poster { position: relative; aspect-ratio: 3 / 4; background: rgba(60, 31, 12, .08); }
 .events__poster img { width: 100%; height: 100%; object-fit: cover; }
 
+/* Мероприятия по очереди: выделенное событие и его афиша меняются вместе (js/main.js, data-rotate).
+   Афиши лежат стопкой поверх друг друга в рамке 3:4 и плавно сменяют друг друга */
+[data-rotate] .events__poster { overflow: hidden; cursor: zoom-in; }
+[data-rotate] .events__poster:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
+[data-rotate] .events__poster img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0;
+  transition: opacity .8s ease;
+}
+[data-rotate] .events__poster img.is-active { opacity: 1; }
+[data-rotate] .event {
+  position: relative;
+  padding-inline: var(--s-2);
+  opacity: .55;
+  transition: opacity .6s ease;
+  cursor: default;
+}
+[data-rotate] .event.is-active { opacity: 1; box-shadow: inset 3px 0 0 var(--c-red); }
+.event__progress {
+  position: absolute; left: 0; bottom: -1px;
+  width: 0; height: 2px;
+  background: var(--c-gold);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-rotate] .events__poster img, [data-rotate] .event { transition: none; }
+}
+
 .events-empty {
   padding: var(--s-5) var(--s-3);
   border: 1px dashed rgba(111,108,108,.5);
@@ -719,6 +746,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .photo__frame img,
   .card__img img,
   .events__poster img { height: auto; object-fit: initial; }
+  /* Афиши стопкой: высоту задаёт текущая, остальные лежат поверх неё */
+  [data-rotate] .events__poster img.is-active { position: relative; height: auto; object-fit: initial; }
 
   /* Заглушка, пока файла нет, чтобы блок не схлопнулся */
   .is-missing { min-height: 220px; }
@@ -978,13 +1007,55 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .shop-bar .chips { margin: 0; }
 .cart-link { font-family: var(--f-deco); font-size: 18px; color: var(--c-red); text-decoration: none; white-space: nowrap; }
 
-.product { display: flex; flex-direction: column; }
-.product .photo__frame { aspect-ratio: 1; margin-bottom: var(--s-2); }
-.product__cat { font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
-.product__name { font-family: var(--f-head); font-weight: 700; font-size: 19px; line-height: 1.3; margin: 4px 0; }
-.product__opt { font-size: 15px; color: #4d4842; margin-bottom: var(--s-1); }
-.product__price { font-family: var(--f-deco); font-size: 22px; color: var(--c-red); margin-bottom: var(--s-2); }
-.product .btn { margin-top: auto; align-self: flex-start; }
+/* Карточка товара: фото целиком на светлом поле, текст, внизу полоса с ценой и кнопкой.
+   Название и описание обрезаются по строкам и держат место — длинный текст не меняет высоту карточки */
+.products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); list-style: none; }
+.product {
+  display: flex; flex-direction: column;
+  background: var(--bg-2);
+  border: 1px solid rgba(111,108,108,.22);
+}
+.product[hidden] { display: none; }
+.product__img {
+  position: relative;
+  aspect-ratio: 1;
+  padding: var(--s-3);
+  overflow: hidden; /* иначе высокая обложка раздвигает квадрат */
+}
+.product__img img { width: 100%; height: 100%; object-fit: contain; }
+.product__body { flex: 1; padding: 0 var(--s-3) var(--s-3); }
+.product__cat {
+  font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-grey);
+}
+.product__name,
+.product__desc {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.product__name {
+  --lh: 1.3;
+  margin: 8px 0 6px;
+  font-family: var(--f-body); font-weight: 400; font-size: 20px; line-height: var(--lh);
+  min-height: calc(2em * var(--lh));
+}
+.product__desc {
+  --lh: 1.45;
+  font-family: var(--f-head); font-style: italic; font-size: 16px; line-height: var(--lh);
+  color: #4d4842;
+  height: calc(2em * var(--lh));
+}
+.product__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-2);
+  padding: 12px var(--s-3);
+  background: var(--bg-1);
+  border-top: 1px solid rgba(111,108,108,.22);
+}
+.product__price { font-family: var(--f-deco); font-size: 22px; color: var(--c-red); white-space: nowrap; }
+.product__foot .btn { white-space: nowrap; }
+@media (max-width: 1180px) { .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .products { grid-template-columns: 1fr; } }
 
 /* =========================================================
    МЕНЮ: 5 вариантов карточек блюд
@@ -1060,6 +1131,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lightbox__nav--prev { left: -64px; }
 .lightbox__nav--next { right: -64px; }
 .lightbox.is-single .lightbox__nav { display: none; }
+/* Афиша мероприятия крупно — окно уже, по вертикальной картинке */
+.lightbox--poster { width: min(620px, calc(100vw - 32px)); }
+.lightbox--poster .lightbox__img { max-height: calc(100vh - 200px); }
 
 /* Стрелки по бокам не помещаются — ставим их на фото */
 @media (max-width: 1024px) {
@@ -1142,8 +1216,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .story, .story--reverse { grid-template-columns: 1fr; }
   .story--reverse .story__media { order: 0; }
   /* Здесь кадры фиксированные — это сетки-превью, а не «главные» фото */
-  .gallery .photo__frame, .product .photo__frame { aspect-ratio: 1; }
-  .gallery .photo__frame img, .product .photo__frame img { height: 100%; object-fit: cover; }
+  .gallery .photo__frame { aspect-ratio: 1; }
+  .gallery .photo__frame img { height: 100%; object-fit: cover; }
 }
 
 @media (max-width: 640px) {
@@ -1187,10 +1261,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .card__meta { font-size: 14px; color: var(--c-grey); margin-bottom: 6px; }
 .card__desc { font-size: 15px; color: #4d4842; margin-bottom: var(--s-2); }
 .cards--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
-.product--book .photo__frame img { object-fit: contain; padding: 12px; }
 @media (max-width: 1180px) { .cards--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 1024px) { .cards--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 860px) { .product--book .photo__frame img { object-fit: contain; } }
 /* Цена и кнопка прижаты к низу карточки, чтобы ряд выровнялся */
 .card__price { margin-top: auto; padding-top: var(--s-1); }
 .card .btn { margin-top: 0; }
@@ -1292,6 +1364,33 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   font-family: var(--f-deco); font-size: 30px; color: var(--c-red);
 }
 .lunch-hero__price span { font-family: var(--f-body); font-size: 15px; color: var(--c-grey); }
+.lunch-items { list-style: none; }
+.lunch-course .dish__top { margin-top: 2px; }
+.lunch-course .dish__dots { display: block; }
+.lunch-course .dish__price { margin-left: 0; font-size: 21px; }
+.lunch-hero__price { flex-wrap: wrap; }
+.lunch-hero__price .lunch-hero__combo { flex: 1 1 260px; font-family: var(--f-head); font-weight: 700; font-size: 16px; color: var(--c-ink); }
+.lunch-hero__price s { font-family: var(--f-body); font-size: 16px; color: var(--c-grey); }
+.lunch-hero[hidden] { display: none; }
+.section--bg2 .lunch-hero { background: var(--bg-1); }
+.lunch-note { margin-top: var(--s-3); font-size: 15px; color: var(--c-grey); }
+.lunch-link {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-4); padding: var(--s-2) var(--s-3);
+  background: var(--bg-2); border-left: 3px solid var(--c-gold);
+}
+.lunch-link__text { font-size: 16px; }
+.lunch-link__text b { font-family: var(--f-head); font-weight: 700; }
+.lunch-day .lunch-hero__date { margin-bottom: var(--s-1); }
+.lunch-day[hidden] { display: none; }
+.bq-form .tabs { margin-bottom: var(--s-3); }
+.bq-how-get { border: 0; padding: 0; margin: 0; }
+.bq-how-get legend { margin-bottom: 6px; font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
+.bq-how-get label { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+.bq-how-get label { min-height: 48px; color: var(--c-ink); font-family: var(--f-body); font-weight: 400; }
+.bq-how-get input { width: 18px; min-height: 0; height: 18px; padding: 0; flex: none; accent-color: var(--c-red); }
+.bq-how-get { flex-direction: row; flex-wrap: wrap; column-gap: var(--s-3); }
+.bq-how-get legend { width: 100%; }
 
 .lunch-week { width: 100%; border-collapse: collapse; }
 .lunch-week th, .lunch-week td { padding: var(--s-2); border-bottom: 1px solid rgba(111,108,108,.3); text-align: left; vertical-align: top; }

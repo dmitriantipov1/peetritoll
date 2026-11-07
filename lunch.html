@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Меню дня — Tavern Peetri Toll</title>
+  <meta name="description" content="Меню дня в таверне «Петровская Таможня»: суп и горячее в будни, предзаказ обеда на сегодня и завтра.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css?v=20261107-13">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
+        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li><a class="nav__link is-current" href="./menu.html">Меню</a></li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / <a href="./menu.html">Меню</a> / Меню дня</p>
+      <h1 class="page-hero__title">Меню дня</h1>
+      <p class="page-hero__lead">Суп и горячее в будни с 12:00 до 15:00 — можно заказать заранее</p>
+    </div>
+  </section>
+
+  <!-- ============ 01 МЕНЮ ДНЯ ============ -->
+  <!-- Страница и кнопка на неё в «Меню» скрываются из админки: «Дневное меню» → «Показывать меню дня на сайте» -->
+  <section class="section section--bg2" id="menyu-dnya">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Обеды в будни, 12:00 — 15:00</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Меню дня</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">Каждый день новый суп и горячее</h3>
+        <p>Можно взять только суп или только горячее — цена у каждого блюда своя. Обед целиком, с напитком, выходит дешевле. Закажите заранее — к вашему приходу всё будет готово, оплата на месте.</p>
+      </div>
+
+      <!-- Калькулятор считает только выбранный день; отправки нет, после «Отправить» показываем ответ -->
+      <form class="bq-form" data-calc data-request onsubmit="return false">
+        <h3 class="bq-step"><span class="bq-step__num">1</span> День и блюда</h3>
+        <div class="tabs" role="tablist" aria-label="Дни недели" data-today>
+          <button class="tabs__btn is-active" type="button" role="tab" id="lunch-tab-mon" aria-selected="true" aria-controls="lunch-mon" data-weekday="1">Пн</button>
+          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-tue" aria-selected="false" aria-controls="lunch-tue" tabindex="-1" data-weekday="2">Вт</button>
+          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-wed" aria-selected="false" aria-controls="lunch-wed" tabindex="-1" data-weekday="3">Ср</button>
+          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-thu" aria-selected="false" aria-controls="lunch-thu" tabindex="-1" data-weekday="4">Чт</button>
+          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-fri" aria-selected="false" aria-controls="lunch-fri" tabindex="-1" data-weekday="5">Пт</button>
+        </div>
+        <div class="calc-two">
+          <div>
+            <div class="lunch-day" id="lunch-mon" role="tabpanel" aria-labelledby="lunch-tab-mon">
+              <p class="lunch-hero__date">Понедельник · 9 ноября</p>
+              <div class="calc-row" data-dish="mon-soup" data-price="4.00">
+                <div><p class="calc-row__name">Грибной крем-суп</p><p class="calc-row__price">Суп · 4,00 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Грибной крем-суп">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Грибной крем-суп">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Грибной крем-суп">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="mon-hot" data-price="7.50">
+                <div><p class="calc-row__name">Куриное филе с картофелем</p><p class="calc-row__price">Горячее · 7,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Куриное филе с картофелем">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Куриное филе с картофелем">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Куриное филе с картофелем">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="mon-lunch" data-price="9.50">
+                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+            </div>
+            <div class="lunch-day" id="lunch-tue" role="tabpanel" aria-labelledby="lunch-tab-tue" hidden>
+              <p class="lunch-hero__date">Вторник · 10 ноября</p>
+              <div class="calc-row" data-dish="tue-soup" data-price="4.00">
+                <div><p class="calc-row__name">Щи из квашеной капусты</p><p class="calc-row__price">Суп · 4,00 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Щи из квашеной капусты">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Щи из квашеной капусты">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Щи из квашеной капусты">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="tue-hot" data-price="7.50">
+                <div><p class="calc-row__name">Пельмени домашние со сметаной</p><p class="calc-row__price">Горячее · 7,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Пельмени домашние со сметаной">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Пельмени домашние со сметаной">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Пельмени домашние со сметаной">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="tue-lunch" data-price="9.50">
+                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+            </div>
+            <div class="lunch-day" id="lunch-wed" role="tabpanel" aria-labelledby="lunch-tab-wed" hidden>
+              <p class="lunch-hero__date">Среда · 11 ноября</p>
+              <div class="calc-row" data-dish="wed-soup" data-price="4.50">
+                <div><p class="calc-row__name">Уха из балтийской рыбы</p><p class="calc-row__price">Суп · 4,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Уха из балтийской рыбы">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Уха из балтийской рыбы">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Уха из балтийской рыбы">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="wed-hot" data-price="8.50">
+                <div><p class="calc-row__name">Треска с овощами на пару</p><p class="calc-row__price">Горячее · 8,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Треска с овощами на пару">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Треска с овощами на пару">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Треска с овощами на пару">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="wed-lunch" data-price="10.50">
+                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 10,50 € · вместо 13,00 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+            </div>
+            <div class="lunch-day" id="lunch-thu" role="tabpanel" aria-labelledby="lunch-tab-thu" hidden>
+              <p class="lunch-hero__date">Четверг · 12 ноября</p>
+              <div class="calc-row" data-dish="thu-soup" data-price="4.00">
+                <div><p class="calc-row__name">Гороховый с копчёностями</p><p class="calc-row__price">Суп · 4,00 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Гороховый с копчёностями">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Гороховый с копчёностями">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Гороховый с копчёностями">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="thu-hot" data-price="7.50">
+                <div><p class="calc-row__name">Жаркое по-таможенному в горшочке</p><p class="calc-row__price">Горячее · 7,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Жаркое по-таможенному в горшочке">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Жаркое по-таможенному в горшочке">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Жаркое по-таможенному в горшочке">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="thu-lunch" data-price="9.50">
+                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+            </div>
+            <div class="lunch-day" id="lunch-fri" role="tabpanel" aria-labelledby="lunch-tab-fri" hidden>
+              <p class="lunch-hero__date">Пятница · 13 ноября</p>
+              <div class="calc-row" data-dish="fri-soup" data-price="4.50">
+                <div><p class="calc-row__name">Солянка сборная мясная</p><p class="calc-row__price">Суп · 4,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Солянка сборная мясная">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Солянка сборная мясная">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Солянка сборная мясная">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="fri-hot" data-price="7.50">
+                <div><p class="calc-row__name">Свиная отбивная с тушёной капустой</p><p class="calc-row__price">Горячее · 7,50 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Свиная отбивная с тушёной капустой">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Свиная отбивная с тушёной капустой">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Свиная отбивная с тушёной капустой">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+              <div class="calc-row" data-dish="fri-lunch" data-price="9.50">
+                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 12,00 €</p></div>
+                <div class="calc-step">
+                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
+                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
+                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
+                </div>
+                <p class="calc-row__sum" data-sum>—</p>
+              </div>
+            </div>
+          </div>
+          <aside class="calc-side">
+            <p class="calc-side__title">Ваш предзаказ</p>
+            <ul class="calc-chosen" data-chosen><li class="calc-chosen__empty">Пока ничего не выбрано</li></ul>
+            <p class="calc-side__total"><span>Итого к оплате на месте</span> <span data-total>0,00 €</span></p>
+            <p class="calc-side__note">Обеды подаём в будни с 12:00 до 15:00.</p>
+            <p class="calc-side__act"><a class="btn btn--sm" href="#l-contacts">Дальше: контакты</a></p>
+          </aside>
+        </div>
+
+        <h3 class="bq-step" id="l-contacts"><span class="bq-step__num">2</span> Контакты и время</h3>
+        <div class="form bq-contacts">
+          <div class="field"><label for="l-name">Имя</label><input id="l-name" type="text" autocomplete="name"></div>
+          <div class="field"><label for="l-phone">Телефон</label><input id="l-phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="l-time">Время</label>
+            <select id="l-time"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option></select>
+          </div>
+          <fieldset class="field bq-how-get">
+            <legend>Как заберёте</legend>
+            <label><input type="radio" name="l-where" checked> Пообедаю на месте</label>
+            <label><input type="radio" name="l-where"> Заберу с собой</label>
+          </fieldset>
+          <div class="field form__full"><label for="l-msg">Комментарий</label><textarea id="l-msg" placeholder="Например, без лука или два прибора"></textarea></div>
+          <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="#">политике конфиденциальности</a></span></label>
+          <div class="form__full bq-send">
+            <button class="btn btn--red" type="submit">Отправить предзаказ</button>
+            <p class="form__note">Оплата на месте. Мы подтвердим предзаказ по телефону.</p>
+          </div>
+        </div>
+      </form>
+
+      <div class="bq-done" data-request-done hidden tabindex="-1">
+        <p class="quote">Предзаказ принят</p>
+        <h3 class="intro__title">Обед будет готов к вашему приходу</h3>
+        <p>Мы позвоним, если что-то изменится. Оплата на месте.</p>
+        <p class="form__note">Эскиз: предзаказ никуда не отправлен.</p>
+        <div class="bq-done__actions">
+          <a class="btn" href="./menu.html">Основное меню</a>
+          <button class="btn btn--red" type="button" data-request-again>Изменить предзаказ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll</p>
+      <ul class="social">
+        <li><a href="https://www.facebook.com/TavernPeetriToll" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="#">TripAdvisor</a></li>
+        <li><a href="#">Foursquare</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js?v=20261107-8"></script>
+</body>
+</html>

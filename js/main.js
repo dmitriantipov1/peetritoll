@@ -33,7 +33,7 @@ document.querySelectorAll('.lang__btn').forEach((btn, _, all) => {
 
 // Заглушки для картинок, которые ещё не положили в /images
 function markMissing(img) {
-  const box = img.closest('.photo__frame, .card__img, .events__poster, .dish__img');
+  const box = img.closest('.photo__frame, .card__img, .product__img, .events__poster, .dish__img');
   if (box) {
     box.classList.add('is-missing');
     box.dataset.ph = img.dataset.ph;
@@ -108,6 +108,110 @@ if (lightbox) {
   });
 }
 
+// Мероприятия по очереди: выделяется одно событие, вместе с ним плавно меняется его афиша.
+// Интервал — data-interval в секундах (в админке «Настройки сайта»). Наведение или фокус
+// на событии ставит смену на паузу и показывает его афишу. При «уменьшить движение» — без автосмены.
+document.querySelectorAll('[data-rotate]').forEach((box) => {
+  const items = [...box.querySelectorAll('.event')];
+  const posters = [...box.querySelectorAll('.events__poster img')];
+  if (!items.length) return;
+  const seconds = Number(box.dataset.interval) || 10;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 0;
+  let timer = null;
+
+  function show(i, run) {
+    current = i;
+    items.forEach((item, k) => {
+      item.classList.toggle('is-active', k === i);
+      // Полоска под событием показывает, сколько осталось до следующего
+      const bar = item.querySelector('.event__progress');
+      if (!bar) return;
+      bar.style.transition = 'none';
+      bar.style.width = '0';
+      if (k === i && run) {
+        bar.getBoundingClientRect();
+        bar.style.transition = 'width ' + seconds + 's linear';
+        bar.style.width = '100%';
+      }
+    });
+    const poster = Number(items[i].dataset.poster);
+    posters.forEach((img, k) => img.classList.toggle('is-active', k === poster));
+  }
+
+  function play() {
+    clearTimeout(timer);
+    if (still || items.length < 2) return;
+    show(current, true);
+    timer = setTimeout(() => {
+      current = (current + 1) % items.length;
+      play();
+    }, seconds * 1000);
+  }
+
+  function pause(i) {
+    clearTimeout(timer);
+    show(i, false);
+  }
+
+  items.forEach((item, i) => {
+    item.addEventListener('mouseenter', () => pause(i));
+    item.addEventListener('focusin', () => pause(i));
+  });
+  box.querySelector('.events__list').addEventListener('mouseleave', play);
+  box.addEventListener('focusout', (e) => {
+    // Фокус ушёл в окно с афишей — смена должна стоять, пока его не закроют
+    if (posterBox && posterBox.open) return;
+    if (!box.contains(e.relatedTarget)) play();
+  });
+
+  // Клик по афише — открыть её крупно; пока окно открыто, смена стоит
+  const figure = box.querySelector('.events__poster');
+  if (figure) {
+    figure.tabIndex = 0;
+    figure.setAttribute('role', 'button');
+    figure.setAttribute('aria-label', 'Открыть афишу крупно');
+    const open = () => {
+      const item = items[current];
+      const img = posters[Number(item.dataset.poster)];
+      pause(current);
+      openPoster(img, item, play);
+    };
+    figure.addEventListener('click', open);
+    figure.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  }
+
+  show(0, false);
+  play();
+});
+
+// Окно с афишей крупно: одно на страницу, создаётся при первом открытии.
+// Закрывается кликом мимо афиши или Esc, как фото блюда в меню
+let posterBox = null;
+function openPoster(img, item, onClose) {
+  if (!posterBox) {
+    posterBox = document.createElement('dialog');
+    posterBox.className = 'lightbox lightbox--poster';
+    posterBox.setAttribute('aria-labelledby', 'poster-name');
+    posterBox.innerHTML = '<figure class="lightbox__figure"><div class="lightbox__frame"><img class="lightbox__img" src="" alt=""></div>'
+      + '<figcaption class="lightbox__caption"><p class="lightbox__name" id="poster-name"></p><p class="lightbox__desc"></p></figcaption></figure>';
+    document.body.appendChild(posterBox);
+    posterBox.addEventListener('click', (e) => { if (e.target === posterBox) posterBox.close(); });
+  }
+  const meta = item.querySelector('.event__meta');
+  const big = posterBox.querySelector('.lightbox__img');
+  big.src = img.currentSrc || img.src;
+  big.alt = img.alt;
+  posterBox.querySelector('.lightbox__name').textContent = item.querySelector('.event__title').textContent;
+  posterBox.querySelector('.lightbox__desc').textContent = meta
+    ? [...meta.childNodes].map((n) => n.textContent.trim()).filter(Boolean).join(' · ')
+    : '';
+  posterBox.onclose = onClose;
+  posterBox.showModal();
+}
+
 // Вкладки «Предстоящие / Архив».
 // Каждая группа .tabs живёт отдельно — на странице их может быть несколько.
 document.querySelectorAll('.tabs').forEach((group) => {
@@ -123,6 +227,12 @@ document.querySelectorAll('.tabs').forEach((group) => {
       const panel = document.getElementById(t.getAttribute('aria-controls'));
       if (panel) panel.hidden = !active;
     });
+  }
+
+  // Меню дня: сразу открыть вкладку сегодняшнего дня (в выходные остаётся понедельник)
+  if (group.hasAttribute('data-today')) {
+    const today = group.querySelector('[data-weekday="' + new Date().getDay() + '"]');
+    if (today) selectTab(today);
   }
 
   tabs.forEach((tab, i) => {
@@ -212,7 +322,8 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
   show(fromHash() || buttons[0].dataset.variant, false);
 });
 
-// Калькулятор банкета на elements.html и banquet.html.
+// Калькулятор банкета на elements.html и banquet.html, группового меню на group.html,
+// предзаказа обеда на menu.html.
 // Считает прямо в браузере — отправки нет, это по-прежнему эскиз.
 document.querySelectorAll('[data-calc]').forEach((calc) => {
   const rows = calc.querySelectorAll('.calc-row');
@@ -247,6 +358,8 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
     const picked = [];
     const pickedKeys = [];
     rows.forEach((row) => {
+      // Меню дня: в расчёт идёт только открытая вкладка-день, остальные дни не считаем
+      if (row.closest('[role="tabpanel"][hidden]')) return;
       const q = qty(row);
       total += q * Number(row.dataset.price);
       if (q) {
@@ -301,6 +414,8 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   }
 
   calc.addEventListener('click', (e) => {
+    // Переключили день в меню дня — пересчитать по новой вкладке
+    if (e.target.closest('[role="tab"]')) { recalc(); return; }
     const btn = e.target.closest('[data-step]');
     if (btn) {
       const row = btn.closest('.calc-row');
@@ -340,19 +455,19 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   recalc();
 });
 
-// Запрос на банкет (banquet.html): отправки нет, показываем гостю ответ, который он увидит.
-// Важно, что это запрос, а не бронь, — так и написано в ответе.
-const banquetForm = document.querySelector('[data-banquet]');
-if (banquetForm) {
-  const done = document.querySelector('[data-banquet-done]');
-  banquetForm.addEventListener('submit', () => {
-    banquetForm.hidden = true;
+// Запрос на банкет и заказ для группы (banquet.html, group.html): отправки нет,
+// показываем гостю ответ, который он увидит. Важно, что это запрос, а не бронь, — так и написано в ответе.
+const requestForm = document.querySelector('[data-request]');
+if (requestForm) {
+  const done = document.querySelector('[data-request-done]');
+  requestForm.addEventListener('submit', () => {
+    requestForm.hidden = true;
     done.hidden = false;
     done.focus();
   });
-  done.querySelector('[data-banquet-again]').addEventListener('click', () => {
+  done.querySelector('[data-request-again]').addEventListener('click', () => {
     done.hidden = true;
-    banquetForm.hidden = false;
-    banquetForm.scrollIntoView();
+    requestForm.hidden = false;
+    requestForm.scrollIntoView();
   });
 }

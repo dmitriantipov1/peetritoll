@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261107-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261107-13">
 </head>
 <body>
 
@@ -170,9 +170,9 @@
         <button class="tabs__btn" type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" tabindex="-1">Архив</button>
       </div>
 
-      <div class="events" id="panel-upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
+      <div class="events" data-rotate data-interval="10" id="panel-upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
         <ul class="events__list">
-          <li class="event">
+          <li class="event" data-poster="0">
             <p class="event__date"><span class="event__day">18</span> октября</p>
             <div class="event__body">
               <p class="event__type">Концерт</p>
@@ -180,18 +180,20 @@
               <p class="event__desc">Анна Дытына (вокал), Александр Пелёвин (гитара)</p>
               <p class="event__meta">Начало в 18:00 <span>Цена 15 €</span></p>
             </div>
+            <span class="event__progress" aria-hidden="true"></span>
             <a class="btn btn--sm event__btn" href="#">Записаться</a>
           </li>
-          <li class="event">
+          <li class="event" data-poster="1">
             <p class="event__date"><span class="event__day">18</span> октября</p>
             <div class="event__body">
               <p class="event__type">Экскурсия</p>
               <h4 class="event__title">Экскурсия с гидом по выставке «Холодное оружие со всего света»</h4>
               <p class="event__meta">Цена 15 € <span>30 минут</span></p>
             </div>
+            <span class="event__progress" aria-hidden="true"></span>
             <a class="btn btn--sm event__btn" href="#">Записаться</a>
           </li>
-          <li class="event">
+          <li class="event" data-poster="2">
             <p class="event__date"><span class="event__day">Сб</span> каждую</p>
             <div class="event__body">
               <p class="event__type">Экскурсия</p>
@@ -199,39 +201,45 @@
               <p class="event__desc">Прогулка по дому от подвала до мансарды</p>
               <p class="event__meta">Цена 18 € <span>дети до 12 бесплатно</span></p>
             </div>
+            <span class="event__progress" aria-hidden="true"></span>
             <a class="btn btn--sm event__btn" href="#">Записаться</a>
           </li>
         </ul>
 
         <figure class="events__poster">
-          <img src="./images/event-poster.jpg" alt="Афиша концерта 18.10.2026 в 18:00" loading="lazy" data-ph="event-poster.jpg">
+          <img class="is-active" src="./images/event-poster.jpg" alt="Афиша концерта «Песни из любимых кинофильмов», 18 октября, 18:00" loading="lazy" data-ph="event-poster.jpg">
+          <img src="./images/weapons-1.jpg" alt="Клинки из коллекции выставки «Холодное оружие со всего света»" loading="lazy" data-ph="weapons-1.jpg">
+          <img src="./images/restaurant-house.jpg" alt="Здание старой таможни — экскурсия «Тайны старой таможни»" loading="lazy" data-ph="restaurant-house.jpg">
         </figure>
       </div>
 
-      <div class="events" id="panel-archive" role="tabpanel" aria-labelledby="tab-archive" hidden>
+      <div class="events" data-rotate data-interval="10" id="panel-archive" role="tabpanel" aria-labelledby="tab-archive" hidden>
         <ul class="events__list">
-          <li class="event">
+          <li class="event" data-poster="0">
             <p class="event__date"><span class="event__day">16</span> мая</p>
             <div class="event__body">
               <p class="event__type">Праздник</p>
               <h4 class="event__title">Ночь музеев</h4>
               <p class="event__meta">18:00 — 23:00 <span>Вход свободный</span></p>
             </div>
+            <span class="event__progress" aria-hidden="true"></span>
             <a class="btn btn--sm event__btn" href="#">Фотоотчёт</a>
           </li>
-          <li class="event">
+          <li class="event" data-poster="1">
             <p class="event__date"><span class="event__day">7</span> марта</p>
             <div class="event__body">
               <p class="event__type">Литературный вечер</p>
               <h4 class="event__title">Вечер Галины Малютиной</h4>
               <p class="event__meta">19:00 <span>Цена 15 €</span></p>
             </div>
+            <span class="event__progress" aria-hidden="true"></span>
             <a class="btn btn--sm event__btn" href="#">Фотоотчёт</a>
           </li>
         </ul>
 
         <figure class="events__poster">
-          <img src="./images/weapons-3.jpg" alt="Фото из архива мероприятий" loading="lazy" data-ph="weapons-3.jpg">
+          <img class="is-active" src="./images/weapons-2.jpg" alt="Выставочный зал на втором этаже — Ночь музеев" loading="lazy" data-ph="weapons-2.jpg">
+          <img src="./images/restaurant-hall.jpg" alt="Зал таверны — вечер Галины Малютиной" loading="lazy" data-ph="restaurant-hall.jpg">
         </figure>
       </div>
     </div>
@@ -272,52 +280,67 @@
         <h2 class="section-head__title"><span class="section-head__num">06</span> Книги, которые мы издаём</h2>
         <a class="section-head__more" href="./shop.html">Все книги</a>
       </header>
-      <ul class="cards cards--5">
-          <li class="card">
-            <div class="card__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
-            <h4 class="card__title">Байки из-за барной стойки</h4>
-            <p class="card__author">Галина Малютина</p>
-            <p class="card__meta">2022 · 144 стр.</p>
-            <p class="card__desc">Юмористические рассказы о реальных историях в таверне, которая в 1989–2010 годах была сауна-баром «Садко».</p>
-            <p class="card__price">10,00 €</p>
+      <ul class="products">
+        <li class="product">
+          <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+          <div class="product__body">
+            <p class="product__cat">Галина Малютина</p>
+            <h3 class="product__name">Байки из-за барной стойки</h3>
+            <p class="product__desc">Юмористические рассказы о реальных историях в таверне, которая в 1989–2010 годах была сауна-баром «Садко».</p>
+          </div>
+          <div class="product__foot">
+            <p class="product__price">10,00 €</p>
             <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/bajki-iz-za-barnoj-stojki" target="_blank" rel="noopener">Купить</a>
-          </li>
-          <li class="card">
-            <div class="card__img"><img src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt="Обложка книги «Былой Палдиски и его люди»" loading="lazy" data-ph="byloj-paldiski-i-ego-ludi"></div>
-            <h4 class="card__title">Былой Палдиски и его люди</h4>
-            <p class="card__author">Йосеф Кац</p>
-            <p class="card__meta">2022 · 152 стр.</p>
-            <p class="card__desc">Три столетия города через биографии людей, которые его строили, лечили и учили. Иллюстрации Андрея Кириллова.</p>
-            <p class="card__price">12,00 €</p>
+          </div>
+        </li>
+        <li class="product">
+          <div class="product__img"><img src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt="Обложка книги «Былой Палдиски и его люди»" loading="lazy" data-ph="byloj-paldiski-i-ego-ludi"></div>
+          <div class="product__body">
+            <p class="product__cat">Йосеф Кац</p>
+            <h3 class="product__name">Былой Палдиски и его люди</h3>
+            <p class="product__desc">Три столетия города через биографии людей, которые его строили, лечили и учили. Иллюстрации Андрея Кириллова.</p>
+          </div>
+          <div class="product__foot">
+            <p class="product__price">12,00 €</p>
             <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/byloj-paldiski-i-ego-ludi" target="_blank" rel="noopener">Купить</a>
-          </li>
-          <li class="card">
-            <div class="card__img"><img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги «Мой родной Палдиски»" loading="lazy" data-ph="moj-rodnoj-paldiski"></div>
-            <h4 class="card__title">Мой родной Палдиски</h4>
-            <p class="card__author">Пауль Лаан</p>
-            <p class="card__meta">2022 · 28 стр.</p>
-            <p class="card__desc">Довоенный Палдиски в воспоминаниях сына начальника таможни, с фотографиями из семейного архива.</p>
-            <p class="card__price">15,00 €</p>
+          </div>
+        </li>
+        <li class="product">
+          <div class="product__img"><img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги «Мой родной Палдиски»" loading="lazy" data-ph="moj-rodnoj-paldiski"></div>
+          <div class="product__body">
+            <p class="product__cat">Пауль Лаан</p>
+            <h3 class="product__name">Мой родной Палдиски</h3>
+            <p class="product__desc">Довоенный Палдиски в воспоминаниях сына начальника таможни, с фотографиями из семейного архива.</p>
+          </div>
+          <div class="product__foot">
+            <p class="product__price">15,00 €</p>
             <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/moj-rodnoj-paldiski" target="_blank" rel="noopener">Купить</a>
-          </li>
-          <li class="card">
-            <div class="card__img"><img src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt="Обложка книги «Lood baarileti tagant»" loading="lazy" data-ph="lood-baarileti-tagant"></div>
-            <h4 class="card__title">Lood baarileti tagant</h4>
-            <p class="card__author">Galina Maljutina</p>
-            <p class="card__meta">2023 · 144 стр. <span class="dish__tag">на эстонском</span></p>
-            <p class="card__desc">Издание на эстонском языке: юмористические рассказы о 1989–2010 годах.</p>
-            <p class="card__price">10,00 €</p>
+          </div>
+        </li>
+        <li class="product">
+          <div class="product__img"><img src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt="Обложка книги «Lood baarileti tagant»" loading="lazy" data-ph="lood-baarileti-tagant"></div>
+          <div class="product__body">
+            <p class="product__cat">Galina Maljutina</p>
+            <h3 class="product__name">Lood baarileti tagant</h3>
+            <p class="product__desc">Издание на эстонском языке: юмористические рассказы о 1989–2010 годах.</p>
+          </div>
+          <div class="product__foot">
+            <p class="product__price">10,00 €</p>
             <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/lood-baarileti-tagant" target="_blank" rel="noopener">Купить</a>
-          </li>
-          <li class="card">
-            <div class="card__img"><img src="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" alt="Обложка книги «Kodulinn Paldiski»" loading="lazy" data-ph="kodulinn-paldiski"></div>
-            <h4 class="card__title">Kodulinn Paldiski</h4>
-            <p class="card__author">Paul Laan</p>
-            <p class="card__meta">2022 · 28 стр.</p>
-            <p class="card__desc">Брошюра по воспоминаниям Пауля Лаана о жизни в Палдиски в 1930-х годах.</p>
-            <p class="card__price">15,00 €</p>
+          </div>
+        </li>
+        <li class="product">
+          <div class="product__img"><img src="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" alt="Обложка книги «Kodulinn Paldiski»" loading="lazy" data-ph="kodulinn-paldiski"></div>
+          <div class="product__body">
+            <p class="product__cat">Paul Laan</p>
+            <h3 class="product__name">Kodulinn Paldiski</h3>
+            <p class="product__desc">Брошюра по воспоминаниям Пауля Лаана о жизни в Палдиски в 1930-х годах.</p>
+          </div>
+          <div class="product__foot">
+            <p class="product__price">15,00 €</p>
             <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/kodulinn-paldiski" target="_blank" rel="noopener">Купить</a>
-          </li>
+          </div>
+        </li>
       </ul>
     </div>
   </section>
@@ -373,6 +396,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261107"></script>
+<script src="./js/main.js?v=20261107-8"></script>
 </body>
 </html>

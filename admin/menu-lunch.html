@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/style.css?v=20261107-2">
-  <link rel="stylesheet" href="./admin.css?v=20261031-9">
+  <link rel="stylesheet" href="../css/style.css?v=20261107-13">
+  <link rel="stylesheet" href="./admin.css?v=20261107">
 </head>
 <body class="adm-body">
 
@@ -96,7 +96,7 @@
         <h1 class="adm-top__title">Меню<span class="adm-mock">данные — пример</span></h1>
       </div>
       <div class="adm-top__actions">
-        <a class="adm-top__site" href="../elements.html#lunch" target="_blank" rel="noopener">Дневное меню на сайте</a>
+        <a class="adm-top__site" href="../lunch.html" target="_blank" rel="noopener">Меню дня на сайте</a>
         <a class="btn btn--sm" href="#">Скопировать прошлую неделю</a>
         <a class="btn btn--solid btn--sm" href="#">Сохранить</a>
       </div>
@@ -106,6 +106,7 @@
       <li><a href="./menu.html">Основное<small>37 блюд</small></a></li>
       <li><a href="./menu-lunch.html" aria-current="page">Дневное<small>неделя</small></a></li>
       <li><a href="./menu-banquet.html">Банкетное<small>8 блюд · 3 сета</small></a></li>
+      <li><a href="./menu-group.html">Групповое<small>11 блюд</small></a></li>
     </ul>
 
     <div class="adm-stack">
@@ -116,15 +117,17 @@
               <h2 class="adm-week-nav__title" id="p-week">27–31 октября</h2>
               <a href="#" aria-label="Следующая неделя">→</a>
             </div>
-            <p class="adm-panel__hint">Текущая неделя · следующую можно заполнить заранее</p>
+            <p class="adm-panel__hint">Суп и горячее продаются и по отдельности · обед целиком обычно дешевле суммы</p>
           </div>
           <table class="adm-calc adm-week">
             <thead>
               <tr>
                 <th scope="col">День</th>
                 <th scope="col">Суп</th>
+                <th scope="col" class="num">Суп, €</th>
                 <th scope="col">Горячее</th>
-                <th scope="col" class="num">Цена</th>
+                <th scope="col" class="num">Горячее, €</th>
+                <th scope="col" class="num">Обед целиком, €</th>
                 <th scope="col">Предзаказы</th>
               </tr>
             </thead>
@@ -132,41 +135,51 @@
           <tr class="is-past">
             <td class="adm-week__day"><b>Понедельник</b><small>27.10 · прошёл</small></td>
             <td><label class="adm-vh" for="s-27.10">Суп, понедельник</label><input id="s-27.10" type="text" value="Грибной крем-суп"></td>
+            <td class="num"><label class="adm-vh" for="sp-27.10">Цена супа, понедельник</label><input class="adm-week__price" id="sp-27.10" type="text" value="4,00 €"></td>
             <td><label class="adm-vh" for="h-27.10">Горячее, понедельник</label><input id="h-27.10" type="text" value="Куриное филе с картофелем"></td>
-            <td class="num"><label class="adm-vh" for="p-27.10">Цена, понедельник</label><input class="adm-week__price" id="p-27.10" type="text" value="9,50 €"></td>
+            <td class="num"><label class="adm-vh" for="hp-27.10">Цена горячего, понедельник</label><input class="adm-week__price" id="hp-27.10" type="text" value="7,50 €"></td>
+            <td class="num"><label class="adm-vh" for="p-27.10">Цена обеда целиком, понедельник</label><input class="adm-week__price" id="p-27.10" type="text" value="9,50 €"></td>
             <td class="adm-pre"><a href="./index.html">3 предзаказа</a></td>
           </tr>
           <tr class="is-past">
             <td class="adm-week__day"><b>Вторник</b><small>28.10 · прошёл</small></td>
             <td><label class="adm-vh" for="s-28.10">Суп, вторник</label><input id="s-28.10" type="text" value="Щи из квашеной капусты"></td>
+            <td class="num"><label class="adm-vh" for="sp-28.10">Цена супа, вторник</label><input class="adm-week__price" id="sp-28.10" type="text" value="4,00 €"></td>
             <td><label class="adm-vh" for="h-28.10">Горячее, вторник</label><input id="h-28.10" type="text" value="Пельмени домашние со сметаной"></td>
-            <td class="num"><label class="adm-vh" for="p-28.10">Цена, вторник</label><input class="adm-week__price" id="p-28.10" type="text" value="9,50 €"></td>
+            <td class="num"><label class="adm-vh" for="hp-28.10">Цена горячего, вторник</label><input class="adm-week__price" id="hp-28.10" type="text" value="7,50 €"></td>
+            <td class="num"><label class="adm-vh" for="p-28.10">Цена обеда целиком, вторник</label><input class="adm-week__price" id="p-28.10" type="text" value="9,50 €"></td>
             <td class="adm-pre"><a href="./index.html">2 предзаказа</a></td>
           </tr>
           <tr class="is-past">
             <td class="adm-week__day"><b>Среда</b><small>29.10 · прошёл</small></td>
             <td><label class="adm-vh" for="s-29.10">Суп, среда</label><input id="s-29.10" type="text" value="Уха из балтийской рыбы"></td>
+            <td class="num"><label class="adm-vh" for="sp-29.10">Цена супа, среда</label><input class="adm-week__price" id="sp-29.10" type="text" value="4,50 €"></td>
             <td><label class="adm-vh" for="h-29.10">Горячее, среда</label><input id="h-29.10" type="text" value="Треска с овощами на пару"></td>
-            <td class="num"><label class="adm-vh" for="p-29.10">Цена, среда</label><input class="adm-week__price" id="p-29.10" type="text" value="10,50 €"></td>
+            <td class="num"><label class="adm-vh" for="hp-29.10">Цена горячего, среда</label><input class="adm-week__price" id="hp-29.10" type="text" value="8,50 €"></td>
+            <td class="num"><label class="adm-vh" for="p-29.10">Цена обеда целиком, среда</label><input class="adm-week__price" id="p-29.10" type="text" value="10,50 €"></td>
             <td class="adm-pre"><span style="color:#4d4842">нет</span></td>
           </tr>
           <tr class="is-past">
             <td class="adm-week__day"><b>Четверг</b><small>30.10 · прошёл</small></td>
             <td><label class="adm-vh" for="s-30.10">Суп, четверг</label><input id="s-30.10" type="text" value="Гороховый с копчёностями"></td>
+            <td class="num"><label class="adm-vh" for="sp-30.10">Цена супа, четверг</label><input class="adm-week__price" id="sp-30.10" type="text" value="4,00 €"></td>
             <td><label class="adm-vh" for="h-30.10">Горячее, четверг</label><input id="h-30.10" type="text" value="Жаркое по-таможенному в горшочке"></td>
-            <td class="num"><label class="adm-vh" for="p-30.10">Цена, четверг</label><input class="adm-week__price" id="p-30.10" type="text" value="9,50 €"></td>
+            <td class="num"><label class="adm-vh" for="hp-30.10">Цена горячего, четверг</label><input class="adm-week__price" id="hp-30.10" type="text" value="7,50 €"></td>
+            <td class="num"><label class="adm-vh" for="p-30.10">Цена обеда целиком, четверг</label><input class="adm-week__price" id="p-30.10" type="text" value="9,50 €"></td>
             <td class="adm-pre"><a href="./index.html">1 предзаказ</a></td>
           </tr>
           <tr class="is-today">
             <td class="adm-week__day"><b>Пятница</b><small>31.10 · сегодня</small></td>
             <td><label class="adm-vh" for="s-31.10">Суп, пятница</label><input id="s-31.10" type="text" value="Солянка сборная мясная"></td>
+            <td class="num"><label class="adm-vh" for="sp-31.10">Цена супа, пятница</label><input class="adm-week__price" id="sp-31.10" type="text" value="4,50 €"></td>
             <td><label class="adm-vh" for="h-31.10">Горячее, пятница</label><input id="h-31.10" type="text" value="Свиная отбивная с тушёной капустой"></td>
-            <td class="num"><label class="adm-vh" for="p-31.10">Цена, пятница</label><input class="adm-week__price" id="p-31.10" type="text" value="9,50 €"></td>
+            <td class="num"><label class="adm-vh" for="hp-31.10">Цена горячего, пятница</label><input class="adm-week__price" id="hp-31.10" type="text" value="7,50 €"></td>
+            <td class="num"><label class="adm-vh" for="p-31.10">Цена обеда целиком, пятница</label><input class="adm-week__price" id="p-31.10" type="text" value="9,50 €"></td>
             <td class="adm-pre"><a href="./index.html">2 предзаказа</a></td>
           </tr>
           <tr class="is-closed">
             <td class="adm-week__day"><b>Сб — Вс</b><small>01–02.11</small></td>
-            <td colspan="4">Дневного меню нет: обеды подаём в будни</td>
+            <td colspan="6">Дневного меню нет: обеды подаём в будни</td>
           </tr>
             </tbody>
           </table>
@@ -177,11 +190,15 @@
           <h2 class="adm-panel__title" id="p-lunch-set" style="margin-bottom:14px">Настройки</h2>
           <form class="adm-stack" style="gap:16px">
             <div class="field">
+              <label class="adm-switch"><input type="checkbox" checked aria-describedby="l-show-hint"><span class="adm-switch__track"></span>Показывать меню дня на сайте</label>
+              <p class="adm-panel__hint" id="l-show-hint">Выключите на время отпуска или праздников — пропадут страница «Меню дня» с предзаказом и кнопка на неё в «Меню». Меню недели сохранится. Тот же переключатель — в «Настройках сайта».</p>
+            </div>
+            <div class="field">
               <label for="l-hours">Часы подачи</label>
               <input id="l-hours" type="text" value="12:00 — 15:00">
             </div>
             <div class="field">
-              <label for="l-in">В обед входит</label>
+              <label for="l-in">Входит в обед целиком</label>
               <input id="l-in" type="text" value="Суп, горячее, морс или компот">
             </div>
             <div class="field">
@@ -196,6 +213,7 @@
           <ul class="adm-facts" style="list-style:none">
             <li style="padding:10px 0;border-bottom:1px solid var(--adm-line);font-size:15px">Меню заводится на неделю вперёд, по дням.</li>
             <li style="padding:10px 0;border-bottom:1px solid var(--adm-line);font-size:15px">Дневное меню не связано с основным: блюда пишутся текстом.</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--adm-line);font-size:15px">У супа и горячего своя цена — их берут и по отдельности. Цена обеда целиком показывается на сайте вместе с суммой по отдельности, зачёркнутой.</li>
             <li style="padding:10px 0;border-bottom:1px solid var(--adm-line);font-size:15px">Предзаказы приходят в «Заявки» с типом «Обед», оплата на месте.</li>
           </ul>
         </section>

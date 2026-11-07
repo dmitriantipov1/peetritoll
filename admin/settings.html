@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/style.css?v=20261107-2">
-  <link rel="stylesheet" href="./admin.css?v=20261031-9">
+  <link rel="stylesheet" href="../css/style.css?v=20261107-13">
+  <link rel="stylesheet" href="./admin.css?v=20261107">
 </head>
 <body class="adm-body">
 
@@ -120,7 +120,7 @@
             <div><label class="adm-switch"><input type="checkbox" checked aria-label="Основное меню: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
           </li>
           <li class="is-sub">
-            <div><b>Дневное меню и предзаказ обедов</b><small><code>/lunch</code> · Будни, 11:00–15:00</small></div>
+            <div><b>Дневное меню и предзаказ обедов</b><small><code>/lunch</code> · кнопка в «Меню» · будни, 12:00–15:00</small></div>
             <div><span class="adm-loc"><button type="button" aria-pressed="true" title="ET: показан" aria-label="Дневное меню и предзаказ обедов: в эстонской версии — показан">ET</button><button type="button" aria-pressed="true" title="EN: показан" aria-label="Дневное меню и предзаказ обедов: в английской версии — показан">EN</button><button type="button" aria-pressed="true" title="RU: показан" aria-label="Дневное меню и предзаказ обедов: в русской версии — показан">RU</button></span></div>
             <div><label class="adm-switch"><input type="checkbox" checked aria-label="Дневное меню и предзаказ обедов: показывать на сайте"><span class="adm-switch__track"></span>На сайте</label></div>
           </li>
@@ -189,6 +189,22 @@
               <span class="adm-note">Подключён 21.10.2026 · каждая заявка отдельным сообщением</span>
             </div>
             <button class="btn btn--sm" type="button">Отправить пробное уведомление</button>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="p-events-rot">
+          <h2 class="adm-panel__title" id="p-events-rot" style="margin-bottom:14px">Мероприятия и афиши</h2>
+          <div class="adm-stack" style="gap:16px">
+            <div class="field">
+              <label for="e-interval">Смена мероприятия и афиши, секунд</label>
+              <input id="e-interval" type="number" min="3" max="60" value="10">
+              <span class="adm-note">В блоке «Мероприятия» на главной и в «Музее» события выделяются по очереди, вместе с ними меняется афиша. Наведение мышью ставит смену на паузу</span>
+            </div>
+            <div class="field">
+              <label for="e-default">Афиша по умолчанию</label>
+              <input id="e-default" type="text" value="event-default.jpg" readonly>
+              <span class="adm-note">Для мероприятий без своей афиши</span>
+            </div>
           </div>
         </section>
 

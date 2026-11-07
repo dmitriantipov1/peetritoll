@@ -693,7 +693,8 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
   color: var(--c-ink);
 }
 .adm-week td input:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
-.adm-week .adm-week__price { width: 96px; text-align: right; }
+.adm-week .adm-week__price { width: 76px; text-align: right; }
+.adm-week td:has(> input:not(.adm-week__price)) { min-width: 200px; }
 .adm-week__day b { display: block; font-weight: 600; }
 .adm-week__day small { font-size: 13px; color: #4d4842; }
 .adm-week tr.is-today td { background: rgba(203, 170, 88, .14); }
