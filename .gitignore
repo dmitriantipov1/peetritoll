@@ -6,3 +6,12 @@
 
 # Мусор macOS
 .DS_Store
+
+# Приложение (app/): зависимости, сборка, секреты — не в репозиторий
+app/node_modules/
+app/.nuxt/
+app/.output/
+app/.data/
+app/.env
+app/.env.*
+!app/.env.example
