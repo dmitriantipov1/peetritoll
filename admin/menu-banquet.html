@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/style.css?v=20261107-14">
-  <link rel="stylesheet" href="./admin.css?v=20261107">
+  <link rel="stylesheet" href="../css/style.css?v=20261107-15">
+  <link rel="stylesheet" href="./admin.css?v=20261107>
 </head>
 <body class="adm-body">
 
@@ -234,12 +234,13 @@
           <h2 class="adm-panel__title" id="p-calc-set" style="margin-bottom:14px">Калькулятор на сайте</h2>
           <form class="adm-stack" style="gap:16px">
             <div class="field">
-              <label for="c-min">Минимум гостей</label>
-              <input id="c-min" type="text" value="[уточнить у заказчицы]">
+              <label for="c-min">Вместимость зала, гостей</label>
+              <div class="adm-inline"><input id="c-min" type="number" value="10" aria-label="От"><span>—</span><input id="c-max" type="number" value="40" aria-label="До"></div>
+              <span class="adm-note">Зал можно расширять — поменяйте цифры, и калькулятор с формой сразу их учтут</span>
             </div>
             <div class="field">
               <label for="c-days">Запрос не позже чем за</label>
-              <input id="c-days" type="text" value="[уточнить] дней до события">
+              <input id="c-days" type="text" value="3 дня до события">
             </div>
             <div class="field">
               <label for="c-hint">Подсказка гостю</label>

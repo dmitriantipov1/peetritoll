@@ -508,11 +508,12 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   recalc();
 });
 
-// Запрос на банкет и заказ для группы (banquet.html, group.html): отправки нет,
+// Заявки с ответом гостю (банкет, группа, обед, бронь стола, запись на мероприятие): отправки нет,
 // показываем гостю ответ, который он увидит. Важно, что это запрос, а не бронь, — так и написано в ответе.
-const requestForm = document.querySelector('[data-request]');
-if (requestForm) {
-  const done = document.querySelector('[data-request-done]');
+document.querySelectorAll('[data-request]').forEach((requestForm) => {
+  // Ответ лежит рядом с формой — в том же блоке
+  const done = requestForm.parentElement.querySelector('[data-request-done]');
+  if (!done) return;
   requestForm.addEventListener('submit', () => {
     requestForm.hidden = true;
     done.hidden = false;
@@ -523,4 +524,4 @@ if (requestForm) {
     requestForm.hidden = false;
     requestForm.scrollIntoView();
   });
-}
+});

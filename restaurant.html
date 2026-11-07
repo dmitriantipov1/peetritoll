@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261107-14">
+  <link rel="stylesheet" href="./css/style.css?v=20261107-15">
 </head>
 <body>
 
@@ -140,12 +140,63 @@
     </div>
   </section>
 
-  <!-- ============ 03 ГАЛЕРЕЯ ============ -->
+  <!-- ============ 03 БРОНЬ СТОЛА ============ -->
+  <section class="section section--bg1" id="bron">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Столик на вечер или обед</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Забронировать стол</h2>
+      </header>
+
+      <div class="story">
+        <div class="story__text">
+          <h3 class="intro__title">Оставьте заявку — мы перезвоним и подтвердим</h3>
+          <p>Бронь бесплатная. Подберём столик под ваш повод: у камина, у окна или в отдельном зале. Если планы изменятся, просто позвоните.</p>
+          <dl class="facts">
+            <div class="facts__row"><dt>Часы</dt><dd>Пн — чт 11:00 — 18:00, пт — вс 11:00 — 19:00</dd></div>
+            <div class="facts__row"><dt>Телефон</dt><dd><a href="tel:+37253423425">+372 53 423 425</a></dd></div>
+            <div class="facts__row"><dt>Праздник</dt><dd>Для большой компании — <a href="./banquet.html">банкетный зал</a> с расчётом меню</dd></div>
+            <div class="facts__row"><dt>Группа</dt><dd>Обед для экскурсии — <a href="./group.html">групповое меню</a></dd></div>
+          </dl>
+        </div>
+
+        <div class="story__media">
+          <div class="bk-card">
+            <h3 class="bk-card__title">Забронировать стол</h3>
+            <form class="form" data-request onsubmit="return false">
+              <div class="field"><label for="t-name">Имя</label><input id="t-name" type="text" autocomplete="name"></div>
+              <div class="field"><label for="t-phone">Телефон</label><input id="t-phone" type="tel" autocomplete="tel"></div>
+              <div class="field"><label for="t-date">Дата</label><input id="t-date" type="date"></div>
+              <div class="field"><label for="t-time">Время</label>
+                <select id="t-time"><option>11:00</option><option>11:30</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option><option>18:00</option></select></div>
+              <div class="field"><label for="t-ppl">Количество гостей</label><input id="t-ppl" type="number" min="1" value="2"></div>
+              <div class="field"><label for="t-occ">Повод</label>
+                <select id="t-occ"><option>Просто поужинать</option><option>День рождения</option><option>Семейный обед</option><option>Деловая встреча</option><option>Другое</option></select></div>
+              <div class="field form__full"><label for="t-msg">Пожелания</label><textarea id="t-msg" rows="3" placeholder="Столик у окна, детский стул, аллергии"></textarea></div>
+              <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+              <div class="form__full bq-send">
+                <button class="btn btn--red" type="submit">Забронировать</button>
+                <p class="form__note">Это заявка: стол закреплён, когда мы подтвердим по телефону.</p>
+              </div>
+            </form>
+            <div class="bk-done" data-request-done hidden tabindex="-1">
+              <p class="quote">Заявка принята</p>
+              <p>Мы позвоним, чтобы подтвердить бронь. Пока не подтвердили, стол не закреплён.</p>
+              <p class="form__note">Эскиз: заявка никуда не отправлена.</p>
+              <p><button class="btn btn--sm" type="button" data-request-again>Изменить заявку</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 ГАЛЕРЕЯ ============ -->
   <section class="section section--bg4" id="galereya">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Фотоархив</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Галерея</h2>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Галерея</h2>
       </header>
 
       <div class="intro intro--single">
@@ -171,12 +222,12 @@
     </div>
   </section>
 
-  <!-- ============ 04 ОТЗЫВЫ ============ -->
+  <!-- ============ 05 ОТЗЫВЫ ============ -->
   <section class="section section--bg1" id="otzyvy">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Отзывы гостей</p>
-        <h2 class="section-head__title"><span class="section-head__num">04</span> Что говорят наши гости</h2>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Что говорят наши гости</h2>
       </header>
       <ul class="grid-2">
         <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
@@ -187,7 +238,7 @@
         <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
         <div class="cta-row__actions">
           <a class="btn" href="./menu.html">Меню</a>
-          <a class="btn btn--red" href="#">Забронировать стол</a>
+          <a class="btn btn--red" href="#bron">Забронировать стол</a>
         </div>
       </div>
     </div>
@@ -209,7 +260,7 @@
 
   <div class="footer__bottom">
     <div class="container footer__bottom-inner">
-      <p>© 2026 Tavern Peetri Toll</p>
+      <p>© 2026 Tavern Peetri Toll · <a href="./privacy.html">Конфиденциальность</a> · <a href="./cookies.html">Cookies</a></p>
       <ul class="social">
         <li><a href="https://www.facebook.com/TavernPeetriToll" target="_blank" rel="noopener">Facebook</a></li>
         <li><a href="#">TripAdvisor</a></li>
@@ -219,6 +270,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261107-9"></script>
+<script src="./js/main.js?v=20261107-10"></script>
 </body>
 </html>

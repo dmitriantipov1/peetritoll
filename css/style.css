@@ -957,6 +957,26 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .news .photo__frame { aspect-ratio: 3 / 2; margin-bottom: var(--s-2); }
 .news__date { font-weight: 600; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
 .news__title { font-family: var(--f-head); font-weight: 700; font-size: 20px; margin: 4px 0 8px; }
+.news-card__link { display: block; color: inherit; text-decoration: none; }
+.news-card__link img { transition: transform .3s; }
+.news-card__link:hover img { transform: scale(1.04); }
+.news-card__link:hover .news__title { color: var(--c-red); }
+.news-card[hidden] { display: none; }
+/* Подпись только для экранных чтецов */
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.news-sub { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.news-sub input { min-height: 52px; min-width: 260px; padding: 10px 14px; border: 1px solid rgba(111,108,108,.5); background: var(--bg-1); font: 16px var(--f-body); }
+
+/* ---------- Новость ---------- */
+.article { max-width: 760px; }
+.article > p { margin-bottom: var(--s-3); }
+.article .lead { margin-bottom: var(--s-4); }
+.article__figure { margin: var(--s-4) 0; }
+.article__figure .photo__frame { aspect-ratio: 3 / 2; }
+.article__h { font-family: var(--f-head); font-weight: 400; font-size: clamp(24px, 2.6vw, 30px); margin: var(--s-4) 0 var(--s-2); }
+.article__quote { margin: var(--s-4) 0; padding-left: var(--s-3); border-left: 3px solid var(--c-gold); }
+.article__gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--s-3) 0 var(--s-4); }
+.article__back { margin-top: var(--s-4); }
 
 /* ---------- Партнёры ---------- */
 .partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-2); list-style: none; }
@@ -1343,6 +1363,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .bk-card { max-width: 760px; padding: var(--s-4); background: var(--bg-2); border: 1px solid rgba(111,108,108,.3); }
 .bk-card__title { font-family: var(--f-head); font-weight: 400; font-size: 28px; margin-bottom: var(--s-3); }
+.bk-card .form[hidden], .bk-done[hidden] { display: none; }
+.bk-done .quote { margin-bottom: var(--s-1); }
+.event-page__poster { max-width: 520px; margin-left: auto; }
+.bk-done p { margin-bottom: var(--s-2); }
+.section--bg2 .bk-card { background: var(--bg-1); }
 
 .bk-steps { max-width: 760px; }
 .bk-steps__rail { display: flex; gap: var(--s-2); margin-bottom: var(--s-4); list-style: none; }
