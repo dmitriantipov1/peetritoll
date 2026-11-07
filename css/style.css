@@ -947,7 +947,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 /* ---------- Галерея ---------- */
 .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-2); list-style: none; }
-.gallery .photo__frame { aspect-ratio: 1; }
+.gallery .photo__frame { aspect-ratio: 1; cursor: zoom-in; }
+.gallery .photo__frame.is-missing { cursor: default; }
+.gallery .photo__frame img { transition: transform .3s; }
+.gallery .photo__frame:hover img { transform: scale(1.04); }
+.gallery .photo__frame:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
 
 /* ---------- Новости ---------- */
 .news .photo__frame { aspect-ratio: 3 / 2; margin-bottom: var(--s-2); }

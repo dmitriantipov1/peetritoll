@@ -187,6 +187,59 @@ document.querySelectorAll('[data-rotate]').forEach((box) => {
   play();
 });
 
+// Галерея: клик по фото открывает его крупно. Стрелки листают фото, видимые
+// в текущем фильтре; закрывается кликом мимо фото или Esc
+document.querySelectorAll('.gallery').forEach((gallery) => {
+  const frames = [...gallery.querySelectorAll('.photo__frame')];
+  let box = null;
+  let list = [];
+  let current = 0;
+
+  function show(i) {
+    current = (i + list.length) % list.length;
+    const img = list[current].querySelector('img');
+    box.querySelector('.lightbox__img').src = img.currentSrc || img.src;
+    box.querySelector('.lightbox__img').alt = img.alt;
+    box.querySelector('.lightbox__name').textContent = img.alt;
+  }
+
+  function open(frame) {
+    if (!box) {
+      box = document.createElement('dialog');
+      box.className = 'lightbox';
+      box.setAttribute('aria-label', 'Фото из галереи');
+      box.innerHTML = '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>'
+        + '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>'
+        + '<figure class="lightbox__figure"><div class="lightbox__frame"><img class="lightbox__img" src="" alt=""></div>'
+        + '<figcaption class="lightbox__caption"><p class="lightbox__name"></p></figcaption></figure>';
+      document.body.appendChild(box);
+      box.querySelector('.lightbox__nav--prev').addEventListener('click', () => show(current - 1));
+      box.querySelector('.lightbox__nav--next').addEventListener('click', () => show(current + 1));
+      box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowRight') show(current + 1);
+      });
+    }
+    list = frames.filter((f) => !f.closest('[hidden]') && !f.classList.contains('is-missing'));
+    if (!list.includes(frame)) return;
+    box.classList.toggle('is-single', list.length < 2);
+    show(list.indexOf(frame));
+    box.showModal();
+  }
+
+  frames.forEach((frame) => {
+    const img = frame.querySelector('img');
+    frame.tabIndex = 0;
+    frame.setAttribute('role', 'button');
+    frame.setAttribute('aria-label', 'Открыть фото: ' + (img ? img.alt : ''));
+    frame.addEventListener('click', () => open(frame));
+    frame.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(frame); }
+    });
+  });
+});
+
 // Окно с афишей крупно: одно на страницу, создаётся при первом открытии.
 // Закрывается кликом мимо афиши или Esc, как фото блюда в меню
 let posterBox = null;
