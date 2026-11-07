@@ -140,12 +140,63 @@
     </div>
   </section>
 
-  <!-- ============ 03 БРОНЬ СТОЛА ============ -->
-  <section class="section section--bg1" id="bron">
+  <!-- ============ 03 ГАЛЕРЕЯ ============ -->
+  <section class="section section--bg4" id="galereya">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Фотоархив</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Галерея</h2>
+      </header>
+
+      <div class="intro intro--single">
+        <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
+      </div>
+      <div class="chips" data-filter-group="restaurant-gallery" role="group" aria-label="Категории галереи">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
+        <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
+        <button class="chip" type="button" data-filter="food" aria-pressed="false">Наши блюда</button>
+        <button class="chip" type="button" data-filter="banquets" aria-pressed="false">Банкеты и фуршеты</button>
+        <button class="chip" type="button" data-filter="events" aria-pressed="false">Мероприятия и гости</button>
+      </div>
+      <ul class="gallery" id="restaurant-gallery">
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
+        <li data-cat="interior"><div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
+        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале" loading="lazy" data-ph="banquet-hall.jpg"></div></li>
+        <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
+        <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 04 ОТЗЫВЫ ============ -->
+  <section class="section section--bg1" id="otzyvy">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Отзывы гостей</p>
+        <h2 class="section-head__title"><span class="section-head__num">04</span> Что говорят наши гости</h2>
+      </header>
+      <ul class="grid-2">
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
+        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
+      </ul>
+
+      <div class="cta-row">
+        <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
+        <a class="btn btn--red" href="#bron">Забронировать стол</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 БРОНЬ СТОЛА ============ -->
+  <!-- Последним разделом: сначала гость знакомится с рестораном, потом бронирует -->
+  <section class="section section--bg2" id="bron">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Столик на вечер или обед</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Забронировать стол</h2>
+        <h2 class="section-head__title"><span class="section-head__num">05</span> Забронировать стол</h2>
       </header>
 
       <div class="story">
@@ -186,59 +237,6 @@
               <p><button class="btn btn--sm" type="button" data-request-again>Изменить заявку</button></p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 04 ГАЛЕРЕЯ ============ -->
-  <section class="section section--bg4" id="galereya">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Фотоархив</p>
-        <h2 class="section-head__title"><span class="section-head__num">04</span> Галерея</h2>
-      </header>
-
-      <div class="intro intro--single">
-        <h3 class="intro__title">В объективе «Петровской Таможни»</h3>
-      </div>
-      <div class="chips" data-filter-group="restaurant-gallery" role="group" aria-label="Категории галереи">
-        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
-        <button class="chip" type="button" data-filter="interior" aria-pressed="false">Интерьер и экстерьер</button>
-        <button class="chip" type="button" data-filter="food" aria-pressed="false">Наши блюда</button>
-        <button class="chip" type="button" data-filter="banquets" aria-pressed="false">Банкеты и фуршеты</button>
-        <button class="chip" type="button" data-filter="events" aria-pressed="false">Мероприятия и гости</button>
-      </div>
-      <ul class="gallery" id="restaurant-gallery">
-        <li data-cat="interior"><div class="photo__frame"><img src="./images/restaurant-hall.jpg" alt="Зал первого этажа" loading="lazy" data-ph="restaurant-hall.jpg"></div></li>
-        <li data-cat="interior"><div class="photo__frame"><img src="./images/terrace.jpg" alt="Летняя терраса" loading="lazy" data-ph="terrace.jpg"></div></li>
-        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-01.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-01.jpg"></div></li>
-        <li data-cat="food"><div class="photo__frame"><img src="./images/dish-02.jpg" alt="Блюдо из меню" loading="lazy" data-ph="dish-02.jpg"></div></li>
-        <li data-cat="banquets"><div class="photo__frame"><img src="./images/banquet-hall.jpg" alt="Накрытые столы в оружейном зале" loading="lazy" data-ph="banquet-hall.jpg"></div></li>
-        <li data-cat="banquets"><div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Зал второго этажа" loading="lazy" data-ph="weapons-2.jpg"></div></li>
-        <li data-cat="events"><div class="photo__frame"><img src="./images/event-poster.jpg" alt="Афиша концерта" loading="lazy" data-ph="event-poster.jpg"></div></li>
-        <li data-cat="events"><div class="photo__frame"><img src="./images/pakri-express.jpg" alt="Поездка на Pakri Express" loading="lazy" data-ph="pakri-express.jpg"></div></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ 05 ОТЗЫВЫ ============ -->
-  <section class="section section--bg1" id="otzyvy">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Отзывы гостей</p>
-        <h2 class="section-head__title"><span class="section-head__num">05</span> Что говорят наши гости</h2>
-      </header>
-      <ul class="grid-2">
-        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Потрясающее место с невероятной энергетикой! Очень сытная и вкусная кухня, а второй этаж с выставкой оружия и фильмом — это отдельный восторг.»</p><p class="review__source">TripAdvisor</p></li>
-        <li class="review"><p class="review__stars" aria-label="5 из 5">★★★★★</p><p class="review__text">«Настоящий семейный уют. Чувствуется, с какой любовью хозяева относятся к каждому предмету и к каждому гостю.»</p><p class="review__source">Google Reviews</p></li>
-      </ul>
-
-      <div class="cta-row">
-        <p class="quote">Ждём вас в гостях<br><span class="quote__indent">в старинном доме у моря</span></p>
-        <div class="cta-row__actions">
-          <a class="btn" href="./menu.html">Меню</a>
-          <a class="btn btn--red" href="#bron">Забронировать стол</a>
         </div>
       </div>
     </div>
