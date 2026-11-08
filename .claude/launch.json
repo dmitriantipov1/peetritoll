@@ -16,7 +16,7 @@
     {
       "name": "peetritoll-docker",
       "runtimeExecutable": "docker",
-      "runtimeArgs": ["compose", "--project-directory", "app", "-f", "app/docker-compose.yml", "up", "--build"],
+      "runtimeArgs": ["compose", "--project-directory", "app", "-f", "app/docker-compose.yml", "up", "--build", "-V"],
       "port": 3000
     }
   ]

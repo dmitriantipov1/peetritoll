@@ -7,6 +7,9 @@ defineProps<{
   crumb?: string
   lead?: string
 }>()
+
+const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -14,7 +17,7 @@ defineProps<{
     <img class="hero__bg" :src="image" alt="" />
     <div class="container page-hero__content">
       <p class="page-hero__crumb">
-        <NuxtLink to="/">Главная</NuxtLink>
+        <NuxtLink :to="localePath('/')">{{ t('nav.home') }}</NuxtLink>
         <template v-if="crumb"> / {{ crumb }}</template>
       </p>
       <h1 class="page-hero__title">{{ title }}</h1>

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxtjs/i18n'],
 
   // Дизайн из прототипа. admin.css тоже глобальный: его правила с префиксом adm-
   // и включаются классом adm-body, который ставит макет админки.
@@ -10,7 +10,6 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: { lang: 'ru' },
       meta: [
         // Убрать только перед запуском, как и в прототипе
         { name: 'robots', content: 'noindex' },
@@ -24,6 +23,30 @@ export default defineNuxtConfig({
         },
       ],
     },
+  },
+
+  // Языки (5.1 в требованиях): у всех публичных страниц префикс /et, /en, /ru,
+  // адрес после префикса один для всех языков (/et/menu, /en/menu, /ru/menu).
+  // Админка — без префикса: в её страницах defineI18nRoute(false).
+  i18n: {
+    strategy: 'prefix',
+    defaultLocale: 'et',
+    locales: [
+      // label — подпись на кнопке переключателя, как в прототипе
+      { code: 'et', language: 'et', name: 'Eesti', label: 'EE', file: 'et.json' },
+      { code: 'en', language: 'en', name: 'English', label: 'EN', file: 'en.json' },
+      { code: 'ru', language: 'ru', name: 'Русский', label: 'RU', file: 'ru.json' },
+    ],
+    // Язык браузера смотрим только на «/»: туда, где он есть среди наших, иначе /et/.
+    // Перенаправление 302 (по умолчанию). Выбор гостя запоминаем в cookie.
+    detectBrowserLanguage: {
+      redirectOn: 'root',
+      useCookie: true,
+      cookieKey: 'i18n_lang',
+      fallbackLocale: 'et',
+    },
+    // Абсолютные адреса для hreflang и canonical: NUXT_PUBLIC_I18N_BASE_URL
+    baseUrl: '',
   },
 
   // Значения подставляются из переменных окружения NUXT_*:

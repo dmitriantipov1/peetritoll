@@ -3,7 +3,9 @@
 // Разметка и классы — из прототипа (admin/index.html). Desktop first, как и там.
 import { adminNav } from '~/utils/admin-nav'
 
+// Админка на одном языке, без префикса /et, /en, /ru (5.1)
 useHead({
+  htmlAttrs: { lang: 'ru' },
   bodyAttrs: { class: 'adm-body' },
   meta: [{ name: 'viewport', content: 'width=1280' }],
 })

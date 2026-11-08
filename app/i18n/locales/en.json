@@ -1,0 +1,23 @@
+{
+  "nav": {
+    "home": "Home",
+    "main": "Main menu",
+    "restaurant": "Restaurant",
+    "about": "About",
+    "menu": "Menu",
+    "museum": "Museum",
+    "services": "Services",
+    "contacts": "Contacts",
+    "shop": "Shop",
+    "open": "Open menu",
+    "close": "Close menu",
+    "language": "Language",
+    "logo": "Peetri Toll — home"
+  },
+  "footer": {
+    "hours": "Open: Mon–Thu 11:00–18:00, Fri–Sun 11:00–19:00",
+    "address": "Mere 10, Paldiski 76805",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
+  }
+}

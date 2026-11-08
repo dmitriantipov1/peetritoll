@@ -2,20 +2,27 @@
 // Шапка сайта: логотип, меню, переключатель языков, бургер на узких экранах.
 // Разметка и классы — из прототипа (index.html), поведение бургера — из js/main.js.
 
-// Адреса временные: языковые префиксы и адреса страниц на каждом языке — шаг 0.5 (5.1).
-const items = [
-  { to: '/restaurant', label: 'Ресторан' },
-  { to: '/about', label: 'О нас' },
-  { to: '/menu', label: 'Меню' },
-  { to: '/museum', label: 'Музей' },
-  { to: '/services', label: 'Услуги' },
-  { to: '/contacts', label: 'Контакты' },
-  { to: '/shop', label: 'Магазин' },
-]
+const { t, locale, locales } = useI18n()
+const localePath = useLocalePath()
+const switchLocalePath = useSwitchLocalePath()
 
-// Переключатель пока только визуальный, как в прототипе. Настоящий — шаг 0.5.
-const langs = ['EE', 'EN', 'RU']
-const lang = ref('RU')
+// Адрес страницы один для всех языков, префикс языка добавляет localePath (5.1)
+const items = computed(() =>
+  ['restaurant', 'about', 'menu', 'museum', 'services', 'contacts', 'shop'].map((key) => ({
+    to: localePath(`/${key}`),
+    label: t(`nav.${key}`),
+  })),
+)
+
+// Переключатель ведёт на эту же страницу на другом языке
+const langs = computed(() =>
+  locales.value.map((l) => ({
+    code: l.code,
+    label: String(l.label ?? l.code),
+    name: l.name,
+    to: switchLocalePath(l.code),
+  })),
+)
 
 const open = ref(false)
 const route = useRoute()
@@ -47,11 +54,11 @@ onBeforeUnmount(() => {
 <template>
   <header id="top" class="header">
     <div class="container header__inner">
-      <NuxtLink class="header__logo" to="/" aria-label="Peetri Toll — на главную">
+      <NuxtLink class="header__logo" :to="localePath('/')" :aria-label="t('nav.logo')">
         <img src="/images/logo.svg" alt="Peetri Toll" width="109" height="57" />
       </NuxtLink>
 
-      <nav id="nav" class="nav" :class="{ 'is-open': open }" aria-label="Главное меню">
+      <nav id="nav" class="nav" :class="{ 'is-open': open }" :aria-label="t('nav.main')">
         <ul class="nav__list">
           <li v-for="item in items" :key="item.to">
             <NuxtLink class="nav__link" active-class="is-current" :to="item.to">
@@ -61,24 +68,26 @@ onBeforeUnmount(() => {
         </ul>
       </nav>
 
-      <div class="lang" role="group" aria-label="Язык">
-        <button
-          v-for="code in langs"
-          :key="code"
+      <div class="lang" role="group" :aria-label="t('nav.language')">
+        <NuxtLink
+          v-for="lang in langs"
+          :key="lang.code"
           class="lang__btn"
-          :class="{ 'is-active': code === lang }"
-          type="button"
-          :aria-pressed="code === lang"
-          @click="lang = code"
+          :class="{ 'is-active': lang.code === locale }"
+          :to="lang.to"
+          :hreflang="lang.code"
+          :lang="lang.code"
+          :title="lang.name"
+          :aria-current="lang.code === locale ? 'true' : undefined"
         >
-          {{ code }}
-        </button>
+          {{ lang.label }}
+        </NuxtLink>
       </div>
 
       <button
         class="burger"
         type="button"
-        :aria-label="open ? 'Закрыть меню' : 'Открыть меню'"
+        :aria-label="open ? t('nav.close') : t('nav.open')"
         :aria-expanded="open"
         aria-controls="nav"
         @click="open = !open"

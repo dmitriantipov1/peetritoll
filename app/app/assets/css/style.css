@@ -218,6 +218,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   cursor: pointer;
 }
 .lang__btn.is-active { background: var(--c-gold); color: var(--c-brown); }
+/* Приложение: переключатель — ссылки на ту же страницу на другом языке, а не кнопки */
+a.lang__btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 
 .burger {
   display: none;
