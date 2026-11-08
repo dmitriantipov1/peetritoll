@@ -6,6 +6,18 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4322"],
       "port": 4322
+    },
+    {
+      "name": "peetritoll-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "app", "run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "peetritoll-docker",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "--project-directory", "app", "-f", "app/docker-compose.yml", "up", "--build"],
+      "port": 3000
     }
   ]
 }

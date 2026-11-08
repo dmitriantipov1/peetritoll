@@ -1,0 +1,9 @@
+# Образ для локальной разработки: nuxt dev с горячей перезагрузкой.
+# Исходники монтируются томом из docker-compose.yml, здесь только зависимости.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts
+EXPOSE 3000
+# Сначала применяем миграции, потом запускаем сервер разработки
+CMD ["sh", "-c", "npm run db:migrate && npx nuxt dev --host 0.0.0.0"]
