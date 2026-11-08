@@ -1,7 +1,9 @@
 <script setup lang="ts">
 // Временная стартовая страница админки: проверка макета (шаг 0.4).
 // Список заявок — срез «Заявки и лиды» (6.1, шаг 1.6).
-definePageMeta({ layout: 'admin' })
+import { requestSections } from '~/utils/admin-nav'
+
+definePageMeta({ layout: 'admin', access: requestSections })
 // Админка — без языкового префикса (5.1). Нужно в каждой странице admin/.
 defineI18nRoute(false)
 useHead({ title: 'Заявки — админка Peetri Toll' })

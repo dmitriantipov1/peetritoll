@@ -42,6 +42,34 @@ npm run dev
   к существующей странице, на несуществующую ссылка останется без него
 - страницы админки — без префикса: в каждой `defineI18nRoute(false)`
 
+## Вход в админку
+
+- роли: админ (всё, включая владельцев), владелец (всё, включая сотрудников), сотрудник
+  (только выданные разделы) — `shared/access.ts`, решение в 5.2 требований
+- регистрации нет; админа и владельца создаёт команда (приложение запущено),
+  `role` — `owner` или `admin`:
+
+  ```bash
+  docker compose exec app npx nuxi task run users:create \
+    --payload '{"email":"olga@peetritoll.ee","name":"Ольга Петрова","role":"owner","password":"не короче 10 символов"}'
+  ```
+
+- если единственный владелец или админ потерял пароль — новый командой; старые сессии закрываются:
+
+  ```bash
+  docker compose exec app npx nuxi task run users:reset-password \
+    --payload '{"email":"olga@peetritoll.ee","password":"новый пароль"}'
+  ```
+
+- сотрудников заводит владелец в разделе «Сотрудники» (срез 1.5); там же сброс пароля ссылкой
+- сессия — зашифрованная cookie `pt_admin` (nuxt-auth-utils), 12 часов,
+  с «Запомнить меня» — 30 дней; ключ — `NUXT_APP_SECRET` (`.env.example`)
+- страницы админки: `definePageMeta({ layout: 'admin', access: [...разделы] })`,
+  без входа ведут на `/admin/login`, без прав — 403 (`app/middleware/admin.global.ts`)
+- запросы `/api/admin/**` — только для вошедших; права на раздел обработчик проверяет сам:
+  `await requireAccess(event, 'menu', 'edit')` (`server/utils/auth.ts`)
+- 5 неудачных попыток входа за 15 минут — вход с этого адреса на эту почту закрыт на 15 минут
+
 ## База
 
 - схема — `server/db/schema.ts`

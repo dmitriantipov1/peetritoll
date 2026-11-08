@@ -1,7 +1,9 @@
 <script setup lang="ts">
 // Макет админки: боковое меню слева, содержимое справа.
 // Разметка и классы — из прототипа (admin/index.html). Desktop first, как и там.
+// Сюда попадает только вошедший сотрудник: это проверяет middleware/admin.global.ts.
 import { adminNav } from '~/utils/admin-nav'
+import { roles } from '#shared/access'
 
 // Админка на одном языке, без префикса /et, /en, /ru (5.1)
 useHead({
@@ -9,18 +11,36 @@ useHead({
   bodyAttrs: { class: 'adm-body' },
   meta: [{ name: 'viewport', content: 'width=1280' }],
 })
+
+const { user, canAny, logout } = useAdminUser()
+
+// Раздела без доступа сотрудник не видит в меню; пустую группу тоже не показываем
+const nav = computed(() =>
+  adminNav
+    .map((group) => ({ ...group, items: group.items.filter((item) => canAny(item.access)) }))
+    .filter((group) => group.items.length > 0),
+)
+
+const initials = computed(() =>
+  (user.value?.name ?? '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]!.toUpperCase())
+    .join(''),
+)
 </script>
 
 <template>
   <div class="adm">
     <aside class="adm-side">
-      <NuxtLink class="adm-side__brand" to="/admin" aria-label="Админка Peetri Toll — заявки">
+      <NuxtLink class="adm-side__brand" to="/admin" aria-label="Админка Peetri Toll — главная">
         <img src="/images/logo.svg" alt="" width="109" height="57" />
         <span>Админка</span>
       </NuxtLink>
 
       <nav class="adm-nav" aria-label="Разделы админки">
-        <div v-for="group in adminNav" :key="group.title" class="adm-nav__group">
+        <div v-for="group in nav" :key="group.title" class="adm-nav__group">
           <p class="adm-nav__title">{{ group.title }}</p>
           <ul>
             <li v-for="item in group.items" :key="item.to">
@@ -34,11 +54,13 @@ useHead({
         </div>
       </nav>
 
-      <!-- Пользователь — заглушка до входа в админку (шаг 0.6) -->
-      <div class="adm-side__user">
-        <span class="adm-avatar" aria-hidden="true">ОП</span>
-        <div><b>Ольга Петрова</b><span>Владелец</span></div>
-        <a href="#">Выйти</a>
+      <div v-if="user" class="adm-side__user">
+        <span class="adm-avatar" aria-hidden="true">{{ initials }}</span>
+        <div>
+          <b>{{ user.name }}</b>
+          <span>{{ roles[user.role] }}</span>
+        </div>
+        <button type="button" @click="logout">Выйти</button>
       </div>
     </aside>
 

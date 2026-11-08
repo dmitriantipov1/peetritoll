@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/i18n'],
+  modules: ['@nuxt/eslint', '@nuxtjs/i18n', 'nuxt-auth-utils'],
 
   // Дизайн из прототипа. admin.css тоже глобальный: его правила с префиксом adm-
   // и включаются классом adm-body, который ставит макет админки.
@@ -51,8 +51,20 @@ export default defineNuxtConfig({
 
   // Значения подставляются из переменных окружения NUXT_*:
   // NUXT_DATABASE_URL → runtimeConfig.databaseUrl
+  // NUXT_APP_SECRET → секрет приложения, из него шифруется cookie сессии админки
   runtimeConfig: {
     databaseUrl: '',
+    session: {
+      name: 'pt_admin',
+      // Без «Запомнить меня» — 12 часов (рабочий день); с ним — 30 дней (server/api/auth/login.post.ts)
+      maxAge: 60 * 60 * 12,
+      cookie: { sameSite: 'lax' },
+    },
+  },
+
+  // Серверные задачи: создание владельца (server/tasks/users/create-owner.ts)
+  nitro: {
+    experimental: { tasks: true },
   },
 
   typescript: {

@@ -110,6 +110,9 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-side__user div span { color: var(--adm-side-muted); }
 .adm-side__user a { margin-left: auto; color: var(--adm-side-muted); font-size: 13px; }
 .adm-side__user a:hover { color: var(--c-gold); }
+/* Приложение: «Выйти» — кнопка (POST-запрос), выглядит как ссылка прототипа */
+.adm-side__user button { margin-left: auto; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; color: var(--adm-side-muted); text-decoration: underline; cursor: pointer; }
+.adm-side__user button:hover { color: var(--c-gold); }
 
 .adm-main { padding: 28px 40px 56px; min-width: 0; }
 
