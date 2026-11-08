@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Банкетное или групповое меню — каталог для калькулятора на сайте (7.1).
-// Разметка — из прототипа (admin/menu-banquet.html). Сеты банкета — следующим слоем.
+// Разметка — из прототипа (admin/menu-banquet.html). Сеты банкета — components/AdminBanquetSets.vue.
 import { VueDraggable } from 'vue-draggable-plus'
 import {
   catalogTitles,
@@ -181,6 +181,14 @@ async function saveSettings() {
 
     <div v-if="data && settings" class="adm-layout">
       <div class="adm-stack">
+        <AdminBanquetSets
+          v-if="data.sets"
+          :sets="data.sets"
+          :categories="data.categories"
+          :can-edit="canEdit"
+          @saved="refresh()"
+        />
+
         <section class="adm-panel" aria-labelledby="p-cat" style="padding-bottom: 8px">
           <div class="adm-panel__head">
             <h2 id="p-cat" class="adm-panel__title">Блюда для калькулятора</h2>

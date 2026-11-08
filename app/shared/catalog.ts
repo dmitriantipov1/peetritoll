@@ -65,10 +65,31 @@ export const defaultGroupSettings: GroupSettings = {
   hint: { ru: 'Выберите блюда для группы — посчитаем ориентировочную сумму.' },
 }
 
+// ---------- Сеты банкета ----------
+
+export const banquetTiers = ['basic', 'middle', 'premium'] as const
+export type BanquetTier = (typeof banquetTiers)[number]
+
+/** Ступень видна гостю отдельно от названия: по «Купеческому» не понять, что дороже */
+export const banquetTierTitles: Record<BanquetTier, string> = {
+  basic: 'Базовый',
+  middle: 'Средний',
+  premium: 'Премиум',
+}
+
+export interface AdminBanquetSet {
+  tier: BanquetTier
+  names: Localized<string>
+  /** Блюда по порядку; цена сета на гостя = сумма их цен за порцию */
+  dishIds: number[]
+}
+
 export interface AdminCatalog {
   kind: CatalogKind
   categories: AdminCatalogCategory[]
   settings: BanquetSettings | GroupSettings
+  /** Только у банкетного меню: всегда три ступени */
+  sets?: AdminBanquetSet[]
 }
 
 // ---------- Проверка ----------
@@ -113,3 +134,12 @@ export const groupSettingsSchema = z.object({
     .max(24 * 60),
   hint,
 })
+
+export const banquetSetInputSchema = z.object({
+  names: z.partialRecord(z.enum(contentLocales), z.string().trim().max(100)),
+  dishIds: z
+    .array(z.number().int().positive())
+    .max(50)
+    .refine((ids) => new Set(ids).size === ids.length, 'Блюдо в сете повторяется'),
+})
+export type BanquetSetInput = z.infer<typeof banquetSetInputSchema>

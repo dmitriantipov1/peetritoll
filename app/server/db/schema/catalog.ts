@@ -1,6 +1,6 @@
 // Каталоги для калькуляторов: банкетное и групповое меню (7.1). Свои блюда и цены за порцию,
 // с основным меню не связаны. Устроены одинаково, различаются полем kind.
-// Сеты банкета — отдельным слоем; настройки калькуляторов — в settings (banquet, group).
+// Сеты банкета — внизу файла; настройки калькуляторов — в settings (banquet, group).
 import {
   boolean,
   check,
@@ -14,7 +14,7 @@ import {
 } from 'drizzle-orm/pg-core'
 import { relations, sql } from 'drizzle-orm'
 import type { ContentLocale } from '../../../shared/locales'
-import type { CatalogKind } from '../../../shared/catalog'
+import type { BanquetTier, CatalogKind } from '../../../shared/catalog'
 import { users } from './users'
 
 const timestamps = {
@@ -123,3 +123,38 @@ export const catalogDishTranslationsRelations = relations(catalogDishTranslation
     references: [catalogDishes.id],
   }),
 }))
+
+// ---------- Сеты банкета (7.1) ----------
+// Три ступени — базовый, средний, премиум. У ступени название («Таможенный») и состав из блюд
+// банкетного каталога; цена сета не хранится — считается из цен блюд, чтобы не устаревала.
+// Сет без блюд на сайте не показываем.
+
+export const banquetSetTranslations = pgTable(
+  'banquet_set_translations',
+  {
+    tier: text('tier').$type<BanquetTier>().notNull(),
+    locale: text('locale').$type<ContentLocale>().notNull(),
+    name: text('name').notNull(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.tier, t.locale] }),
+    check('banquet_set_translations_tier', sql`${t.tier} in ('basic', 'middle', 'premium')`),
+    check('banquet_set_translations_locale', sql`${t.locale} in ('et', 'en', 'ru')`),
+  ],
+)
+
+export const banquetSetDishes = pgTable(
+  'banquet_set_dishes',
+  {
+    tier: text('tier').$type<BanquetTier>().notNull(),
+    // Удалили блюдо из каталога — оно уходит и из сетов
+    dishId: integer('dish_id')
+      .notNull()
+      .references(() => catalogDishes.id, { onDelete: 'cascade' }),
+    sort: integer('sort').notNull().default(0),
+  },
+  (t) => [
+    primaryKey({ columns: [t.tier, t.dishId] }),
+    check('banquet_set_dishes_tier', sql`${t.tier} in ('basic', 'middle', 'premium')`),
+  ],
+)

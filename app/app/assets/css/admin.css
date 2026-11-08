@@ -730,6 +730,9 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-set__price b { font-family: var(--f-deco); font-weight: 400; font-size: 22px; color: var(--c-red); }
 .adm-set__edit { margin-top: auto; padding-top: 10px; font-size: 14px; }
 .adm-set__edit a { color: var(--c-gold-text); }
+/* Приложение: выбор блюд в сет — по категориям, компактно */
+.adm-set__pick { border: 0; padding: 0; margin: 0; }
+.adm-set__pick .adm-check { margin-top: 6px; font-size: 13px; }
 
 /* Редактор: вкладки языков */
 .adm-lang-tabs { display: flex; gap: 6px; margin-bottom: 18px; }

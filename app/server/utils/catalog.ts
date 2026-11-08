@@ -1,7 +1,9 @@
 // Каталоги банкетного и группового меню: чтение, категории, блюда, настройки калькуляторов.
 // Доступно в серверном коде без импорта.
-import { and, asc, count, eq, max } from 'drizzle-orm'
+import { and, asc, count, eq, inArray, max } from 'drizzle-orm'
 import {
+  banquetSetDishes,
+  banquetSetTranslations,
   catalogCategories,
   catalogCategoryTranslations,
   catalogDishes,
@@ -9,12 +11,16 @@ import {
 } from '../db/schema'
 import {
   banquetSettingsSchema,
+  banquetTiers,
   catalogKinds,
   defaultBanquetSettings,
   defaultGroupSettings,
   groupSettingsSchema,
   type AdminCatalog,
+  type AdminBanquetSet,
   type AdminCatalogDish,
+  type BanquetSetInput,
+  type BanquetTier,
   type BanquetSettings,
   type CatalogDishInput,
   type CatalogKind,
@@ -101,7 +107,55 @@ export async function loadCatalog(kind: CatalogKind): Promise<AdminCatalog> {
       })),
     })),
     settings: await readCatalogSettings(kind),
+    ...(kind === 'banquet' ? { sets: await loadBanquetSets() } : {}),
   }
+}
+
+// ---------- Сеты банкета ----------
+
+export function tierParam(event: Parameters<typeof getRouterParam>[0]): BanquetTier {
+  const tier = getRouterParam(event, 'tier')
+  if (!banquetTiers.includes(tier as BanquetTier)) {
+    throw createError({ statusCode: 404, message: 'Нет такого сета' })
+  }
+  return tier as BanquetTier
+}
+
+/** Всегда три ступени — даже если сет ещё не заполняли */
+async function loadBanquetSets(): Promise<AdminBanquetSet[]> {
+  const db = useDb()
+  const names = await db.select().from(banquetSetTranslations)
+  const items = await db.select().from(banquetSetDishes).orderBy(asc(banquetSetDishes.sort))
+  return banquetTiers.map((tier) => ({
+    tier,
+    names: byLocale(names.filter((n) => n.tier === tier)),
+    dishIds: items.filter((i) => i.tier === tier).map((i) => i.dishId),
+  }))
+}
+
+/** Сохранить сет: название и состав. Блюда — только из банкетного каталога */
+export async function saveBanquetSet(tier: BanquetTier, input: BanquetSetInput) {
+  await useDb().transaction(async (tx) => {
+    if (input.dishIds.length) {
+      const found = await tx
+        .select({ id: catalogDishes.id })
+        .from(catalogDishes)
+        .innerJoin(catalogCategories, eq(catalogCategories.id, catalogDishes.categoryId))
+        .where(and(inArray(catalogDishes.id, input.dishIds), eq(catalogCategories.kind, 'banquet')))
+      if (found.length !== input.dishIds.length) {
+        throw createError({ statusCode: 400, message: 'В сете блюдо не из банкетного меню' })
+      }
+    }
+    await tx.delete(banquetSetTranslations).where(eq(banquetSetTranslations.tier, tier))
+    const rows = nameRows(input.names).map((r) => ({ ...r, tier }))
+    if (rows.length) await tx.insert(banquetSetTranslations).values(rows)
+    await tx.delete(banquetSetDishes).where(eq(banquetSetDishes.tier, tier))
+    if (input.dishIds.length) {
+      await tx
+        .insert(banquetSetDishes)
+        .values(input.dishIds.map((dishId, sort) => ({ tier, dishId, sort })))
+    }
+  })
 }
 
 /** Категория нужного каталога; чужая или несуществующая — 400 */
