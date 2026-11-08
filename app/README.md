@@ -40,6 +40,18 @@ npm run dev
 ## Проверки
 
 ```bash
-npm run lint
-npm run typecheck
+npm run lint           # ESLint: ошибки и подозрительный код
+npm run format:check   # Prettier: оформление
+npm run typecheck      # TypeScript
 ```
+
+Исправить автоматически: `npm run lint:fix` и `npm run format`.
+
+- ESLint — базовые рекомендованные правила для JS, TypeScript и Vue (`@nuxt/eslint`),
+  правила оформления выключены (`eslint-config-prettier`): ими занимается Prettier.
+- Prettier — настройки по умолчанию, кроме трёх: без точек с запятой, одинарные кавычки,
+  строка до 100 символов (`.prettierrc.json`).
+- Стили в `app/assets/css` Prettier не трогает: они перенесены из прототипа как есть
+  и сверяются с ним построчно (`.prettierignore`).
+- WebStorm: Settings → Languages & Frameworks → JavaScript → Prettier → «Automatic Prettier
+  configuration» и «Run on save»; ESLint там же, «Automatic ESLint configuration».

@@ -1,0 +1,11 @@
+# Сгенерированное и чужое
+.nuxt
+.output
+.data
+node_modules
+package-lock.json
+server/db/migrations
+
+# Стили перенесены из прототипа как есть (короткие правила в одну строку).
+# Не форматируем, чтобы их можно было построчно сверять с css/style.css прототипа.
+app/assets/css
