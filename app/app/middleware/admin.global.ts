@@ -27,6 +27,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
       const target = firstAllowedPath(canAny)
       if (target !== '/admin') return navigateTo(target)
     }
-    throw createError({ statusCode: 403, statusMessage: 'Нет доступа к разделу', fatal: true })
+    throw createError({ statusCode: 403, message: 'Нет доступа к разделу', fatal: true })
   }
 })

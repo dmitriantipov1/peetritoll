@@ -29,11 +29,11 @@ async function submit() {
     const inAdmin = next === '/admin' || next.startsWith('/admin/')
     await navigateTo(inAdmin ? next : firstAllowedPath(canAny))
   } catch (e) {
-    // Текст ошибки берём из тела ответа: в строке статуса HTTP кириллица не передаётся
-    const { statusCode, data } = e as { statusCode?: number; data?: { statusMessage?: string } }
-    const known = statusCode === 400 || statusCode === 401 || statusCode === 429
+    const status = (e as { statusCode?: number }).statusCode
+    const fallback = 'Не удалось войти. Попробуйте ещё раз.'
+    // Свои тексты — только на понятные случаи; на сбой сервера — общий
     error.value =
-      known && data?.statusMessage ? data.statusMessage : 'Не удалось войти. Попробуйте ещё раз.'
+      status === 400 || status === 401 || status === 429 ? apiErrorMessage(e, fallback) : fallback
   } finally {
     sending.value = false
   }

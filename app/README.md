@@ -68,6 +68,10 @@ npm run dev
   без входа ведут на `/admin/login`, без прав — 403 (`app/middleware/admin.global.ts`)
 - запросы `/api/admin/**` — только для вошедших; права на раздел обработчик проверяет сам:
   `await requireAccess(event, 'menu', 'edit')` (`server/utils/auth.ts`)
+- данные от браузера проверяет схема zod — одна на сервер и форму (`shared/menu.ts`),
+  на сервере `readBodyWith(event, схема)` (`server/utils/validate.ts`)
+- текст ошибки для человека — в `message`, не в `statusMessage`: там кириллица портится;
+  в браузере его достаёт `apiErrorMessage(e, 'запасной текст')` (`app/utils/api-error.ts`)
 - 5 неудачных попыток входа за 15 минут — вход с этого адреса на эту почту закрыт на 15 минут
 
 ## База

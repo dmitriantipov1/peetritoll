@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const remember = body?.remember === true
 
   if (!email || !password) {
-    throw createError({ statusCode: 400, statusMessage: 'Введите почту и пароль' })
+    throw createError({ statusCode: 400, message: 'Введите почту и пароль' })
   }
 
   const ip = getRequestIP(event) ?? 'unknown'
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   if (wait > 0) {
     throw createError({
       statusCode: 429,
-      statusMessage: `Слишком много попыток. Попробуйте через ${wait} мин.`,
+      message: `Слишком много попыток. Попробуйте через ${wait} мин.`,
     })
   }
 
@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
   if (!user || !ok) {
     registerLoginFail(ip, email)
     // Одинаковый ответ для «нет такой почты», «неверный пароль» и «отключён»
-    throw createError({ statusCode: 401, statusMessage: 'Неверная почта или пароль' })
+    throw createError({ statusCode: 401, message: 'Неверная почта или пароль' })
   }
 
   resetLoginFails(ip, email)

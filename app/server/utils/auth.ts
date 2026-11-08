@@ -39,7 +39,7 @@ export async function getAdminUser(event: H3Event): Promise<UserRow | null> {
 /** То же, но без входа — ответ 401. */
 export async function requireAdminUser(event: H3Event): Promise<UserRow> {
   const user = await getAdminUser(event)
-  if (!user) throw createError({ statusCode: 401, statusMessage: 'Нужно войти в админку' })
+  if (!user) throw createError({ statusCode: 401, message: 'Нужно войти в админку' })
   return user
 }
 
@@ -51,7 +51,7 @@ export async function requireAccess(
 ): Promise<UserRow> {
   const user = await requireAdminUser(event)
   if (!allows(accessTo(user.role, user.permissions, section), needed)) {
-    throw createError({ statusCode: 403, statusMessage: 'Нет доступа к разделу' })
+    throw createError({ statusCode: 403, message: 'Нет доступа к разделу' })
   }
   return user
 }
