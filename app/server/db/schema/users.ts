@@ -1,10 +1,6 @@
-// Схема базы. Каждая таблица описывается здесь, миграции генерирует drizzle-kit:
-//   npm run db:generate  — SQL-миграция из изменений схемы (папка server/db/migrations)
-//   npm run db:migrate   — применить миграции к базе
-//
-// Импорты — относительные: схему читает и drizzle-kit, вне Nuxt, алиасов он не знает.
+// Сотрудники админки. Общие правила схемы — в index.ts.
 import { boolean, jsonb, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
-import type { Permissions, Role } from '../../shared/access'
+import type { Permissions, Role } from '../../../shared/access'
 
 // Сотрудники, которые входят в админку (5.2). Роли и разделы — shared/access.ts.
 // Учётную запись не удаляют, а отключают (isActive): имя остаётся в истории заявок.

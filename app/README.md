@@ -72,7 +72,12 @@ npm run dev
 
 ## База
 
-- схема — `server/db/schema.ts`
+- схема — `server/db/schema/`, по файлу на область (`users.ts`, `menu.ts`), собирается в `index.ts`
+- тексты на трёх языках — таблицы `*_translations`, строка на язык; какой показать —
+  `pickTranslation` в `shared/locales.ts` (язык страницы → эстонский → любой имеющийся)
+- деньги — целым числом в центах (`price_cents`)
+- начальное наполнение основного меню из прототипа (только в пустую базу):
+  `docker compose exec app npx nuxi task run seed:menu`; данные — `server/db/seed/menu.json`
 - `npm run db:generate` — SQL-миграция из изменений схемы (`server/db/migrations`)
 - `npm run db:migrate` — применить миграции
 - `npm run db:studio` — просмотр базы в браузере
