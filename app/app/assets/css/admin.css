@@ -762,6 +762,10 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 /* Приложение: место под фото, пока его нет, и подсветка, когда над областью тащат файл */
 .adm-upload__empty { display: grid; place-items: center; width: 220px; height: auto; aspect-ratio: 4 / 3; }
 .adm-upload__drop.is-over { border-color: var(--c-gold-dark); background: rgba(203, 170, 88, .12); }
+/* Приложение: загрузка в узкой колонке (афиша в настройках) — картинка над областью загрузки */
+.adm-upload--compact { grid-template-columns: minmax(0, 1fr); }
+.adm-upload--compact img, .adm-upload--compact .adm-upload__empty { width: 100%; }
+.adm-upload--compact .adm-upload__drop { min-height: 0; }
 .adm-upload__drop {
   display: grid;
   place-items: center;

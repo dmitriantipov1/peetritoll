@@ -19,8 +19,21 @@ type Tx = Parameters<Parameters<Db['transaction']>[0]>[0]
 
 export const LUNCH_SETTINGS_KEY = 'lunch'
 
-export function readLunchSettings(): Promise<LunchSettings> {
-  return readSetting(LUNCH_SETTINGS_KEY, lunchSettingsSchema, defaultLunchSettings)
+/**
+ * Настройки меню дня. «Показывать на сайте» живёт в разделах сайта (settings.sections.lunch):
+ * тот же переключатель есть в «Настройках сайта» — источник один.
+ */
+export async function readLunchSettings(): Promise<LunchSettings> {
+  const stored = await readSetting(LUNCH_SETTINGS_KEY, lunchSettingsSchema, defaultLunchSettings)
+  const sections = await readSections()
+  return { ...stored, visible: sections.lunch.enabled }
+}
+
+export async function saveLunchSettings(value: LunchSettings, userId: number) {
+  const { visible, ...rest } = value
+  await writeSetting(LUNCH_SETTINGS_KEY, rest, userId)
+  await setSectionEnabled('lunch', visible, userId)
+  return await readLunchSettings()
 }
 
 /**

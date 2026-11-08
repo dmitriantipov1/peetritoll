@@ -8,7 +8,12 @@ const image = defineModel<MediaImage | null>('image', { required: true })
 /** Старая ссылка на картинку (со старого сайта) — показываем, пока не заменили */
 const legacy = defineModel<string | null>('legacy', { default: null })
 
-const props = defineProps<{ disabled?: boolean; alt: string }>()
+const props = defineProps<{
+  disabled?: boolean
+  alt: string
+  /** Узкая колонка: картинка над областью загрузки, а не слева */
+  compact?: boolean
+}>()
 
 const input = ref<HTMLInputElement>()
 const uploading = ref(false)
@@ -47,7 +52,7 @@ function clear() {
 
 <template>
   <div>
-    <div class="adm-upload">
+    <div class="adm-upload" :class="{ 'adm-upload--compact': compact }">
       <img v-if="preview" :src="preview" :srcset="image?.srcset" sizes="220px" :alt="alt" />
       <span v-else class="adm-thumb--empty adm-upload__empty">нет фото</span>
 
@@ -73,9 +78,11 @@ function clear() {
             Убрать фото
           </button>
         </template>
+        <!-- Скрыто через hidden, а не adm-vh: внутри .field стиль «input на всю ширину»
+             перебивал визуальное скрытие и давал горизонтальный скролл. Открывает «Выбрать файл» -->
         <input
           ref="input"
-          class="adm-vh"
+          hidden
           type="file"
           accept="image/jpeg,image/png,image/webp"
           :disabled="disabled"
