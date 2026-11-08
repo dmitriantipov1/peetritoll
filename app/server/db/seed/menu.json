@@ -1,5 +1,5 @@
 {
-  "_note": "Начальное наполнение основного меню (задача seed:menu). Блюда, цены и фото — из прототипа menu.html, то есть с русской версии peetritoll.ee; переводов блюд на эстонский и английский пока нет. Названия категорий и отметок на ET и EN — черновик разработчика. Отметки блюд (diet) — пример из прототипа, настоящие ставит кухня (7.1): в боевую базу их не переносить.",
+  "_note": "Начальное наполнение основного меню (задача seed:menu). Блюда, цены и фото — из прототипа menu.html, то есть с русской версии peetritoll.ee; переводов блюд на эстонский и английский пока нет. Названия категорий и обоих справочников отметок на ET и EN — черновик разработчика. Отметки блюд (diet) — пример из прототипа, настоящие ставит кухня (7.1): в боевую базу их не переносить.",
   "dietTags": [
     {
       "key": "veg",
@@ -42,6 +42,24 @@
       }
     }
   ],
+  "labels": [
+    {
+      "key": "new",
+      "names": {
+        "ru": "Новинка",
+        "et": "Uus",
+        "en": "New"
+      }
+    },
+    {
+      "key": "kids",
+      "names": {
+        "ru": "Детское",
+        "et": "Lastele",
+        "en": "For kids"
+      }
+    }
+  ],
   "categories": [
     {
       "slug": "starters",
@@ -57,13 +75,13 @@
             "description": "Подаются с белым соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_48v04-08-2024_16-12-05.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 560
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -71,13 +89,13 @@
             "description": null
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 800
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -85,13 +103,13 @@
             "description": "Подаётся с томатным соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_41v04-08-2024_16-11-53.jpg",
-          "isNew": false,
           "diet": ["veg", "vegan", "lf"],
           "portions": [
             {
               "priceCents": 500
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -99,13 +117,13 @@
             "description": "Подаются с кисло-сладким соусом чили"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_44v04-08-2024_16-12-05.jpg",
-          "isNew": false,
           "diet": ["spicy", "lf"],
           "portions": [
             {
               "priceCents": 750
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -113,13 +131,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 550
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -137,13 +155,13 @@
             "description": "Подаются со сметаной и сливочным маслом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_46v04-08-2024_16-12-05-1.jpg",
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 800
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -151,13 +169,13 @@
             "description": "Подаются со сметаной и сливочным маслом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_11v03-08-2024_20-38-02-1.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 800
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -165,13 +183,13 @@
             "description": "Подаются со сметаной и сливочным маслом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg",
-          "isNew": true,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 1000
             }
-          ]
+          ],
+          "labels": ["new"]
         }
       ]
     },
@@ -189,7 +207,6 @@
             "description": "Подаётся со сметаной"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_45v04-08-2024_16-12-05-1.jpg",
-          "isNew": false,
           "diet": ["gf"],
           "portions": [
             {
@@ -204,7 +221,8 @@
                 "ru": "Большая порция"
               }
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -212,7 +230,6 @@
             "description": "Подаётся со сметаной, оливками и лимоном"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/v_DSC1292.jpg",
-          "isNew": false,
           "diet": ["gf"],
           "portions": [
             {
@@ -227,7 +244,8 @@
                 "ru": "Большая порция"
               }
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -245,13 +263,13 @@
             "description": "Подаётся с запечённым картофелем, салатом и соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_12v03-08-2024_20-38-02.jpg",
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 850
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -259,13 +277,13 @@
             "description": "Подаётся с запечённым картофелем, салатом и соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_5v03-08-2024_20-37-52.jpg",
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 1150
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -273,13 +291,13 @@
             "description": "Подаётся с запечённым картофелем, салатом и соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/a3bac925-6a32-49cb-8f40-63f43eef332e-web.jpg",
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 1100
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -287,13 +305,13 @@
             "description": "Подаются со сметаной"
           },
           "photo": null,
-          "isNew": false,
           "diet": [],
           "portions": [
             {
               "priceCents": 700
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -311,13 +329,13 @@
             "description": null
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/09/letcho-web.jpg",
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 400
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -335,13 +353,13 @@
             "description": "Подаются с картофелем фри и свежими овощами"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_8v03-08-2024_20-37-52.jpg",
-          "isNew": false,
           "diet": ["lf"],
           "portions": [
             {
               "priceCents": 800
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -359,13 +377,13 @@
             "description": null
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/kirsi-kook-web.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 540
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -373,13 +391,13 @@
             "description": null
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/pistaatsia-kook-web.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 700
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -387,13 +405,13 @@
             "description": "Подаётся с карамельным соусом"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_25v04-08-2024_16-11-44.jpg",
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 450
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -401,13 +419,13 @@
             "description": null
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2025/07/tsitrusi-magustoit-web.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 400
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -415,13 +433,13 @@
             "description": "С варёной сгущёнкой"
           },
           "photo": "https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_7@03-08-2024_20-37-52-web.jpg",
-          "isNew": false,
           "diet": ["veg"],
           "portions": [
             {
               "priceCents": 150
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -429,13 +447,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 150
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -443,13 +461,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 100
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -457,13 +475,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 100
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -471,13 +489,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf", "lf"],
           "portions": [
             {
               "priceCents": 200
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -495,13 +513,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 150
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -509,13 +527,13 @@
             "description": "Сметана, майонез, укроп"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 150
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -523,13 +541,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 100
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -537,13 +555,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 100
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     },
@@ -561,13 +579,13 @@
             "description": "Обычная или диетическая, 0,5 л"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 300
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -575,13 +593,13 @@
             "description": "Газированная или негазированная, 0,5 л"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 250
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -589,13 +607,13 @@
             "description": "Апельсиновый, мультифрукт, яблочный, клюквенный или томатный, 0,25 л"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 200
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -603,13 +621,13 @@
             "description": "Чёрный, зелёный, травяной"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 250
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -617,13 +635,13 @@
             "description": "Чёрный, зелёный, травяной, 0,8 л"
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 600
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -631,13 +649,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 250
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -645,13 +663,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "vegan", "gf", "lf"],
           "portions": [
             {
               "priceCents": 280
             }
-          ]
+          ],
+          "labels": []
         },
         {
           "ru": {
@@ -659,13 +677,13 @@
             "description": null
           },
           "photo": null,
-          "isNew": false,
           "diet": ["veg", "gf"],
           "portions": [
             {
               "priceCents": 380
             }
-          ]
+          ],
+          "labels": []
         }
       ]
     }

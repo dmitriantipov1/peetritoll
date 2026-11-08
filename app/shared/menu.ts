@@ -5,11 +5,16 @@ import { contentLocales, type ContentLocale } from './locales'
 
 export type Localized<T> = Partial<Record<ContentLocale, T>>
 
-export interface AdminDietTag {
+/** Отметка из справочника: «Без лактозы» (для гостей) или «Новинка» (служебная) */
+export interface AdminMark {
   id: number
   key: string
   names: Localized<string>
 }
+
+// Два справочника отметок (7.1): для гостей — с фильтром в меню, служебные — только значок
+export const markKinds = ['diet', 'labels'] as const
+export type MarkKind = (typeof markKinds)[number]
 
 export interface AdminPortion {
   id: number
@@ -23,11 +28,10 @@ export interface AdminDish {
   sort: number
   photo: string | null
   isVisible: boolean
-  isNew: boolean
-  isKids: boolean
   translations: Localized<{ name: string; description: string | null }>
   portions: AdminPortion[]
   dietTagIds: number[]
+  labelIds: number[]
 }
 
 export interface AdminDishDetails extends AdminDish {
@@ -46,7 +50,8 @@ export interface AdminMenuCategory {
 
 export interface AdminMenu {
   categories: AdminMenuCategory[]
-  dietTags: AdminDietTag[]
+  dietTags: AdminMark[]
+  labels: AdminMark[]
 }
 
 // ---------- Сохранение блюда ----------
@@ -65,8 +70,6 @@ export const dishInputSchema = z
       .url({ protocol: /^https?$/, error: 'Ссылка на фото должна начинаться с http' })
       .nullable(),
     isVisible: z.boolean(),
-    isNew: z.boolean(),
-    isKids: z.boolean(),
     // Перевод на язык — название и описание; язык без названия не сохраняем
     translations: z.partialRecord(z.enum(contentLocales), translation),
     portions: z
@@ -79,6 +82,7 @@ export const dishInputSchema = z
       .min(1, 'Нужна хотя бы одна цена')
       .max(10),
     dietTagIds: z.array(z.number().int().positive()).max(50),
+    labelIds: z.array(z.number().int().positive()).max(50),
   })
   .refine((dish) => Object.values(dish.translations).some((t) => t?.name), {
     message: 'Нужно название хотя бы на одном языке',
@@ -94,3 +98,19 @@ export const dishInputSchema = z
   )
 
 export type DishInput = z.infer<typeof dishInputSchema>
+
+// ---------- Категории и отметки ----------
+
+/** Название на трёх языках; хотя бы одно должно быть */
+const namesSchema = z
+  .partialRecord(z.enum(contentLocales), text(100))
+  .refine((names) => Object.values(names).some(Boolean), 'Нужно название хотя бы на одном языке')
+
+export const categoryInputSchema = z.object({
+  names: namesSchema,
+  isVisible: z.boolean(),
+})
+export type CategoryInput = z.infer<typeof categoryInputSchema>
+
+export const markInputSchema = z.object({ names: namesSchema })
+export type MarkInput = z.infer<typeof markInputSchema>

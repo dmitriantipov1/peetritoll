@@ -3,6 +3,8 @@ import { asc, eq, inArray, max } from 'drizzle-orm'
 import {
   dietTags,
   dishDietTags,
+  dishDishLabels,
+  dishLabels,
   dishes,
   dishPortions,
   dishPortionTranslations,
@@ -27,6 +29,7 @@ const dishWith = {
   translations: true as const,
   portions: { with: { translations: true as const }, orderBy: [asc(dishPortions.sort)] },
   dietTags: true as const,
+  labels: true as const,
 }
 
 type DishRow = NonNullable<Awaited<ReturnType<typeof findDishRow>>>
@@ -45,8 +48,6 @@ function toAdminDish(row: Omit<DishRow, 'updatedByUser'>): AdminDish {
     sort: row.sort,
     photo: row.photo,
     isVisible: row.isVisible,
-    isNew: row.isNew,
-    isKids: row.isKids,
     translations: byLocale(row.translations, (t) => ({ name: t.name, description: t.description })),
     portions: row.portions.map((p) => ({
       id: p.id,
@@ -54,6 +55,7 @@ function toAdminDish(row: Omit<DishRow, 'updatedByUser'>): AdminDish {
       labels: byLocale(p.translations, (t) => t.label),
     })),
     dietTagIds: row.dietTags.map((t) => t.tagId),
+    labelIds: row.labels.map((l) => l.labelId),
   }
 }
 
@@ -68,7 +70,11 @@ export async function loadAdminMenu(): Promise<AdminMenu> {
     },
   })
   const tags = await db.query.dietTags.findMany({
-    orderBy: (t, { asc }) => [asc(t.sort), asc(t.id)],
+    orderBy: [asc(dietTags.sort), asc(dietTags.id)],
+    with: { translations: true },
+  })
+  const labels = await db.query.dishLabels.findMany({
+    orderBy: [asc(dishLabels.sort), asc(dishLabels.id)],
     with: { translations: true },
   })
 
@@ -85,6 +91,11 @@ export async function loadAdminMenu(): Promise<AdminMenu> {
       id: t.id,
       key: t.key,
       names: byLocale(t.translations, (tr) => tr.name),
+    })),
+    labels: labels.map((l) => ({
+      id: l.id,
+      key: l.key,
+      names: byLocale(l.translations, (tr) => tr.name),
     })),
   }
 }
@@ -134,8 +145,6 @@ export async function saveDish(dishId: number | null, input: DishInput, userId: 
       categoryId: input.categoryId,
       photo: input.photo,
       isVisible: input.isVisible,
-      isNew: input.isNew,
-      isKids: input.isKids,
       updatedBy: userId,
     }
 
@@ -198,6 +207,17 @@ export async function saveDish(dishId: number | null, input: DishInput, userId: 
         .where(inArray(dietTags.id, input.dietTagIds))
       if (known.length) {
         await tx.insert(dishDietTags).values(known.map((t) => ({ dishId: id, tagId: t.id })))
+      }
+    }
+
+    await tx.delete(dishDishLabels).where(eq(dishDishLabels.dishId, id))
+    if (input.labelIds.length) {
+      const known = await tx
+        .select({ id: dishLabels.id })
+        .from(dishLabels)
+        .where(inArray(dishLabels.id, input.labelIds))
+      if (known.length) {
+        await tx.insert(dishDishLabels).values(known.map((l) => ({ dishId: id, labelId: l.id })))
       }
     }
 

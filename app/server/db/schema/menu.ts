@@ -71,9 +71,6 @@ export const dishes = pgTable(
     // Адрес фото. Пока — ссылки на старый сайт, как в прототипе; загрузка — слоем «Фото»
     photo: text('photo'),
     isVisible: boolean('is_visible').notNull().default(true),
-    // Служебные отметки из админки прототипа: «Новинка», «Детское»
-    isNew: boolean('is_new').notNull().default(false),
-    isKids: boolean('is_kids').notNull().default(false),
     // Кто менял последним — «изменено 12.04.2026, Ольга Петрова» в карточке блюда
     updatedBy: integer('updated_by').references(() => users.id, { onDelete: 'set null' }),
     ...timestamps,
@@ -172,6 +169,45 @@ export const dishDietTags = pgTable(
   (t) => [primaryKey({ columns: [t.dishId, t.tagId] })],
 )
 
+// ---------- Отметки (служебные значки) ----------
+// «Новинка», «Детское»… — значок на карточке блюда, без фильтра. Справочник пополняется в админке.
+
+export const dishLabels = pgTable('dish_labels', {
+  id: serial('id').primaryKey(),
+  // Код для стилей значка: new, kids; у добавленных в админке — из названия
+  key: text('key').notNull().unique(),
+  sort: integer('sort').notNull().default(0),
+  ...timestamps,
+})
+
+export const dishLabelTranslations = pgTable(
+  'dish_label_translations',
+  {
+    labelId: integer('label_id')
+      .notNull()
+      .references(() => dishLabels.id, { onDelete: 'cascade' }),
+    locale: locale(),
+    name: text('name').notNull(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.labelId, t.locale] }),
+    localeCheck('dish_label_translations_locale', t.locale),
+  ],
+)
+
+export const dishDishLabels = pgTable(
+  'dish_dish_labels',
+  {
+    dishId: integer('dish_id')
+      .notNull()
+      .references(() => dishes.id, { onDelete: 'cascade' }),
+    labelId: integer('label_id')
+      .notNull()
+      .references(() => dishLabels.id, { onDelete: 'cascade' }),
+  },
+  (t) => [primaryKey({ columns: [t.dishId, t.labelId] })],
+)
+
 // ---------- Связи для запросов с вложенными данными (db.query…findMany({ with })) ----------
 
 export const menuCategoriesRelations = relations(menuCategories, ({ many }) => ({
@@ -191,6 +227,7 @@ export const dishesRelations = relations(dishes, ({ one, many }) => ({
   translations: many(dishTranslations),
   portions: many(dishPortions),
   dietTags: many(dishDietTags),
+  labels: many(dishDishLabels),
   updatedByUser: one(users, { fields: [dishes.updatedBy], references: [users.id] }),
 }))
 
@@ -222,4 +259,18 @@ export const dietTagTranslationsRelations = relations(dietTagTranslations, ({ on
 export const dishDietTagsRelations = relations(dishDietTags, ({ one }) => ({
   dish: one(dishes, { fields: [dishDietTags.dishId], references: [dishes.id] }),
   tag: one(dietTags, { fields: [dishDietTags.tagId], references: [dietTags.id] }),
+}))
+
+export const dishLabelsRelations = relations(dishLabels, ({ many }) => ({
+  translations: many(dishLabelTranslations),
+  dishes: many(dishDishLabels),
+}))
+
+export const dishLabelTranslationsRelations = relations(dishLabelTranslations, ({ one }) => ({
+  label: one(dishLabels, { fields: [dishLabelTranslations.labelId], references: [dishLabels.id] }),
+}))
+
+export const dishDishLabelsRelations = relations(dishDishLabels, ({ one }) => ({
+  dish: one(dishes, { fields: [dishDishLabels.dishId], references: [dishes.id] }),
+  label: one(dishLabels, { fields: [dishDishLabels.labelId], references: [dishLabels.id] }),
 }))

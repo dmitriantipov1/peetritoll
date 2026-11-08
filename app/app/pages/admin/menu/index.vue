@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // Основное меню в админке: категории и блюда. Разметка и классы — из прототипа (admin/menu.html).
-// Порядок перетаскиванием и правка категорий — следующим слоем.
+// Категории и отметки — pages/admin/menu/setup.vue. Порядок перетаскиванием — следующим слоем.
 import type { AdminDish, AdminMenu } from '#shared/menu'
 import { contentLocales, pickTranslation } from '#shared/locales'
 import { formatPrice } from '#shared/money'
+import { dishWords, plural } from '#shared/plural'
 
 definePageMeta({ layout: 'admin', access: ['menu'] })
 defineI18nRoute(false)
@@ -41,6 +42,9 @@ function price(dish: AdminDish) {
 const tagNames = computed(
   () => new Map((menu.value?.dietTags ?? []).map((t) => [t.id, localized(t.names)])),
 )
+const labelNames = computed(
+  () => new Map((menu.value?.labels ?? []).map((l) => [l.id, localized(l.names)])),
+)
 
 const dishCount = computed(() =>
   (menu.value?.categories ?? []).reduce((sum, c) => sum + c.dishes.length, 0),
@@ -69,13 +73,7 @@ const categories = computed(() =>
     .filter((category) => category.shown.length > 0 || (!search.value && show.value === 'all')),
 )
 
-function dishWord(n: number) {
-  const mod10 = n % 10
-  const mod100 = n % 100
-  if (mod10 === 1 && mod100 !== 11) return 'блюдо'
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'блюда'
-  return 'блюд'
-}
+const dishWord = (n: number) => plural(n, dishWords)
 
 // ---------- «На сайте» прямо в списке ----------
 
@@ -105,9 +103,10 @@ async function toggleVisible(dish: AdminDish) {
         <h1 class="adm-top__title">Меню</h1>
       </div>
       <div class="adm-top__actions">
-        <NuxtLink v-if="canEdit" class="btn btn--solid btn--sm" to="/admin/menu/new"
-          >Блюдо</NuxtLink
-        >
+        <NuxtLink class="btn btn--sm" to="/admin/menu/setup">Категории и отметки</NuxtLink>
+        <NuxtLink v-if="canEdit" class="btn btn--solid btn--sm" to="/admin/menu/new">
+          Добавить блюдо
+        </NuxtLink>
       </div>
     </header>
 
@@ -168,7 +167,9 @@ async function toggleVisible(dish: AdminDish) {
                   <span class="adm-cat-row__count">
                     {{ category.dishes.length }} {{ dishWord(category.dishes.length) }}
                   </span>
+                  <span v-if="!category.isVisible" class="adm-label">Скрыта на сайте</span>
                   <span v-if="canEdit" class="adm-cat-row__links">
+                    <NuxtLink to="/admin/menu/setup#categories">Переименовать</NuxtLink>
                     <NuxtLink :to="{ path: '/admin/menu/new', query: { category: category.id } }">
                       + Блюдо в категорию
                     </NuxtLink>
@@ -189,8 +190,9 @@ async function toggleVisible(dish: AdminDish) {
                 <NuxtLink class="adm-dish__name" :to="`/admin/menu/${dish.id}`">
                   {{ dishText(dish)?.name }}
                 </NuxtLink>
-                <span v-if="dish.isNew" class="adm-label">Новинка</span>
-                <span v-if="dish.isKids" class="adm-label">Детское</span>
+                <span v-for="labelId in dish.labelIds" :key="`l${labelId}`" class="adm-label">
+                  {{ labelNames.get(labelId) }}
+                </span>
                 <span v-for="tagId in dish.dietTagIds" :key="tagId" class="adm-diet">
                   {{ tagNames.get(tagId) }}
                 </span>

@@ -783,6 +783,11 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-icon-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 .adm-icon-btn:hover { border-color: var(--c-red); color: var(--c-red); }
 .adm-link-btn { padding: 0; border: 0; background: none; font: 600 14px var(--f-body); color: var(--c-gold-text); text-decoration: underline; cursor: pointer; }
+/* Приложение: недоступное действие — например, «Удалить» у непустой категории */
+.adm-link-btn:disabled { opacity: .4; cursor: not-allowed; }
+/* Приложение: главное действие в строке таблицы — «Сохранить», «Добавить» — заметнее остальных ссылок */
+.adm-link-btn--strong { font-weight: 700; font-size: 15px; }
+.adm-row-actions { display: flex; align-items: center; gap: 18px; }
 .adm-danger { color: var(--c-red); }
 .adm-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
 .adm-week th:first-child { width: 150px; }

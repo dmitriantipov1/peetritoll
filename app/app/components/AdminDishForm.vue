@@ -29,8 +29,6 @@ function initialState() {
     categoryId: d?.categoryId ?? props.categoryId ?? props.menu.categories[0]?.id ?? 0,
     photo: d?.photo ?? '',
     isVisible: d?.isVisible ?? true,
-    isNew: d?.isNew ?? false,
-    isKids: d?.isKids ?? false,
     translations: Object.fromEntries(
       contentLocales.map((l) => [
         l,
@@ -51,6 +49,7 @@ function initialState() {
       >,
     })),
     dietTagIds: [...(d?.dietTagIds ?? [])],
+    labelIds: [...(d?.labelIds ?? [])],
   }
 }
 
@@ -92,8 +91,6 @@ function toInput(): DishInput | null {
     categoryId: form.categoryId,
     photo: form.photo.trim() || null,
     isVisible: form.isVisible,
-    isNew: form.isNew,
-    isKids: form.isKids,
     // Язык без названия не сохраняем — на сайте для него покажем эстонский
     translations: Object.fromEntries(
       contentLocales
@@ -113,6 +110,7 @@ function toInput(): DishInput | null {
       ),
     })),
     dietTagIds: form.dietTagIds,
+    labelIds: form.labelIds,
   }
 }
 
@@ -334,11 +332,14 @@ const updatedText = computed(() => {
               </div>
               <fieldset style="border: 0; padding: 0; margin: 0">
                 <legend class="adm-legend-title">Отметки</legend>
-                <label class="adm-check" style="margin-top: 0">
-                  <input v-model="form.isNew" type="checkbox" /> Новинка
-                </label>
-                <label class="adm-check" style="margin-top: 8px">
-                  <input v-model="form.isKids" type="checkbox" /> Детское
+                <label
+                  v-for="(label, i) in menu.labels"
+                  :key="label.id"
+                  class="adm-check"
+                  :style="{ marginTop: i ? '8px' : '0' }"
+                >
+                  <input v-model="form.labelIds" type="checkbox" :value="label.id" />
+                  {{ localized(label.names) }}
                 </label>
               </fieldset>
               <fieldset style="border: 0; padding: 0; margin: 0">
@@ -353,7 +354,8 @@ const updatedText = computed(() => {
                   {{ localized(tag.names) }}
                 </label>
                 <span class="adm-note" style="display: block; margin-top: 8px">
-                  Видны на карточке блюда, по ним гости фильтруют меню
+                  Видны на карточке блюда, по ним гости фильтруют меню. Список —
+                  <NuxtLink to="/admin/menu/setup#marks">«Категории и отметки»</NuxtLink>
                 </span>
               </fieldset>
             </div>

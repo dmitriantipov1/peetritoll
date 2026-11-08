@@ -4,12 +4,16 @@
 //
 // Запуск при работающем приложении:
 //   docker compose exec app npx nuxi task run seed:menu
+import { eq } from 'drizzle-orm'
 import data from '../../db/seed/menu.json'
 import {
   dietTags,
   dietTagTranslations,
   dishDietTags,
+  dishDishLabels,
   dishes,
+  dishLabels,
+  dishLabelTranslations,
   dishPortions,
   dishPortionTranslations,
   dishTranslations,
@@ -23,13 +27,14 @@ type Localized<T> = Partial<Record<ContentLocale, T>>
 interface SeedDish {
   ru: { name: string; description: string | null }
   photo: string | null
-  isNew: boolean
   diet: string[]
+  labels: string[]
   portions: { priceCents: number; labels?: Localized<string> }[]
 }
 
 interface SeedMenu {
   dietTags: { key: string; names: Localized<string> }[]
+  labels: { key: string; names: Localized<string> }[]
   categories: { slug: string; names: Localized<string>; dishes: SeedDish[] }[]
 }
 
@@ -50,13 +55,33 @@ export default defineTask({
       const existing = await tx.select({ id: menuCategories.id }).from(menuCategories).limit(1)
       if (existing.length) return { result: 'Меню уже заполнено — ничего не делаю' }
 
+      // Справочники отметок: что уже есть (например, «Новинка» из миграции 0004) — не трогаем
       const tagIds = new Map<string, number>()
       for (const [sort, tag] of menu.dietTags.entries()) {
+        const [found] = await tx.select().from(dietTags).where(eq(dietTags.key, tag.key))
+        if (found) {
+          tagIds.set(tag.key, found.id)
+          continue
+        }
         const [row] = await tx.insert(dietTags).values({ key: tag.key, sort }).returning()
         tagIds.set(tag.key, row!.id)
         await tx
           .insert(dietTagTranslations)
           .values(rows(tag.names).map(([locale, name]) => ({ tagId: row!.id, locale, name })))
+      }
+
+      const labelIds = new Map<string, number>()
+      for (const [sort, label] of menu.labels.entries()) {
+        const [found] = await tx.select().from(dishLabels).where(eq(dishLabels.key, label.key))
+        if (found) {
+          labelIds.set(label.key, found.id)
+          continue
+        }
+        const [row] = await tx.insert(dishLabels).values({ key: label.key, sort }).returning()
+        labelIds.set(label.key, row!.id)
+        await tx
+          .insert(dishLabelTranslations)
+          .values(rows(label.names).map(([locale, name]) => ({ labelId: row!.id, locale, name })))
       }
 
       let dishCount = 0
@@ -74,7 +99,7 @@ export default defineTask({
         for (const [sort, dish] of category.dishes.entries()) {
           const [row] = await tx
             .insert(dishes)
-            .values({ categoryId: cat!.id, sort, photo: dish.photo, isNew: dish.isNew })
+            .values({ categoryId: cat!.id, sort, photo: dish.photo })
             .returning()
           await tx.insert(dishTranslations).values({ dishId: row!.id, locale: 'ru', ...dish.ru })
 
@@ -95,12 +120,18 @@ export default defineTask({
           if (tags.length) {
             await tx.insert(dishDietTags).values(tags.map((tagId) => ({ dishId: row!.id, tagId })))
           }
+          const marks = dish.labels.map((key) => labelIds.get(key)).filter((id) => id !== undefined)
+          if (marks.length) {
+            await tx
+              .insert(dishDishLabels)
+              .values(marks.map((labelId) => ({ dishId: row!.id, labelId })))
+          }
           dishCount++
         }
       }
 
       return {
-        result: `Меню заполнено: ${menu.categories.length} категорий, ${dishCount} блюд, ${menu.dietTags.length} отметок`,
+        result: `Меню заполнено: ${menu.categories.length} категорий, ${dishCount} блюд, ${menu.dietTags.length} отметок для гостей, ${menu.labels.length} отметок`,
       }
     })
   },
