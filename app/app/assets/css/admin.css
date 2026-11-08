@@ -795,6 +795,9 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-row-actions { display: flex; align-items: center; gap: 18px; }
 .adm-danger { color: var(--c-red); }
 .adm-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+/* Приложение: список «Как это работает» — в прототипе стили были прописаны в разметке */
+.adm-help { list-style: none; margin: 0; padding: 0; }
+.adm-help li { padding: 10px 0; border-bottom: 1px solid var(--adm-line); font-size: 15px; }
 .adm-week th:first-child { width: 150px; }
 .adm-week th:nth-child(4) { width: 120px; }
 .adm-week th:last-child { width: 130px; }

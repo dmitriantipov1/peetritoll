@@ -7,12 +7,14 @@ import type { AdminDish, AdminMenu, AdminMenuCategory } from '#shared/menu'
 import { contentLocales, pickTranslation } from '#shared/locales'
 import { dishWords, plural } from '#shared/plural'
 
-definePageMeta({ layout: 'admin', access: ['menu'] })
+// Пускаем и с правом только на дневное меню — сразу уводим на его вкладку
+definePageMeta({ layout: 'admin', access: ['menu', 'menu.lunch'] })
 defineI18nRoute(false)
 useHead({ title: 'Меню — админка Peetri Toll' })
 
 const { can } = useAdminUser()
 const canEdit = computed(() => can('menu', 'edit'))
+if (!can('menu')) await navigateTo('/admin/menu/lunch', { replace: true })
 
 // deep: переключатель «На сайте» меняет поле блюда внутри данных — экран должен это видеть
 // (в Nuxt 4 данные useFetch по умолчанию следят только за заменой целиком)
@@ -120,17 +122,7 @@ async function toggleVisible(dish: AdminDish) {
       </div>
     </header>
 
-    <ul class="adm-tabs" aria-label="Виды меню">
-      <li>
-        <NuxtLink to="/admin/menu" aria-current="page">
-          Основное<small>{{ dishCount }} {{ dishWord(dishCount) }}</small>
-        </NuxtLink>
-      </li>
-      <!-- Появятся своими срезами (6.1) -->
-      <li><span class="adm-tabs__soon" title="Будет позже">Дневное</span></li>
-      <li><span class="adm-tabs__soon" title="Будет позже">Банкетное</span></li>
-      <li><span class="adm-tabs__soon" title="Будет позже">Групповое</span></li>
-    </ul>
+    <AdminMenuTabs current="main" :main-note="`${dishCount} ${dishWord(dishCount)}`" />
 
     <p v-if="error" class="adm-alert" role="alert">
       {{ apiErrorMessage(error, 'Не удалось загрузить меню.') }}

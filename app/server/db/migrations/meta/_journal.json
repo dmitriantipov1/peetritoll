@@ -43,6 +43,13 @@
       "when": 1794135326443,
       "tag": "0005_media",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794143794456,
+      "tag": "0006_lunch_and_settings",
+      "breakpoints": true
     }
   ]
 }

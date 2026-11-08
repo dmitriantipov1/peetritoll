@@ -8,3 +8,5 @@
 export * from './users'
 export * from './menu'
 export * from './media'
+export * from './lunch'
+export * from './settings'
