@@ -1,11 +1,26 @@
-// Порядок категорий, блюд в категории и отметок (поле sort). Доступно без импорта.
+// Порядок категорий, блюд в категории и отметок (поле sort), в том числе банкетного
+// и группового каталогов. Доступно без импорта.
 import { eq, type SQL } from 'drizzle-orm'
-import { dietTags, dishes, dishLabels, menuCategories } from '../db/schema'
+import {
+  catalogCategories,
+  catalogDishes,
+  dietTags,
+  dishes,
+  dishLabels,
+  menuCategories,
+} from '../db/schema'
 import type { MarkKind } from '#shared/menu'
+import type { CatalogKind } from '#shared/catalog'
 
 type Db = ReturnType<typeof useDb>
 type Tx = Parameters<Parameters<Db['transaction']>[0]>[0]
-type Sortable = typeof menuCategories | typeof dishes | typeof dietTags | typeof dishLabels
+type Sortable =
+  | typeof menuCategories
+  | typeof dishes
+  | typeof dietTags
+  | typeof dishLabels
+  | typeof catalogCategories
+  | typeof catalogDishes
 
 /**
  * Записать порядок: ids — все записи списка в новой последовательности.
@@ -37,3 +52,9 @@ export const orderDishes = (categoryId: number, ids: number[]) =>
 
 export const orderMarks = (kind: MarkKind, ids: number[]) =>
   applyOrder(kind === 'diet' ? dietTags : dishLabels, ids)
+
+export const orderCatalogCategories = (kind: CatalogKind, ids: number[]) =>
+  applyOrder(catalogCategories, ids, eq(catalogCategories.kind, kind))
+
+export const orderCatalogDishes = (categoryId: number, ids: number[]) =>
+  applyOrder(catalogDishes, ids, eq(catalogDishes.categoryId, categoryId))

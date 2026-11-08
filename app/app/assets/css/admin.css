@@ -583,8 +583,6 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-tabs a:hover { color: var(--c-ink); }
 .adm-tabs a[aria-current="page"] { border-color: var(--c-gold-dark); color: var(--c-ink); }
 .adm-tabs small { margin-left: 6px; font-family: var(--f-body); font-size: 13px; color: var(--c-grey); }
-/* Приложение: вкладка меню, которого ещё нет в приложении (дневное, банкетное, групповое) */
-.adm-tabs__soon { display: block; padding: 10px 0 12px; font-family: var(--f-deco); font-size: 18px; letter-spacing: .06em; color: var(--c-grey); cursor: default; }
 
 /* Переключатель вкл/выкл */
 .adm-switch { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; white-space: nowrap; }

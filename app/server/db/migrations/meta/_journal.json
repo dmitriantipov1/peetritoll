@@ -50,6 +50,13 @@
       "when": 1794143794456,
       "tag": "0006_lunch_and_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794144382318,
+      "tag": "0007_catalogs",
+      "breakpoints": true
     }
   ]
 }
