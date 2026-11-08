@@ -24,6 +24,7 @@
     "nuxt-auth-utils": "^0.6.2",
     "postgres": "^4.1.0",
     "vue": "^3.5.44",
+    "vue-draggable-plus": "^0.6.1",
     "vue-router": "^5.4.0",
     "zod": "^4.6.7"
   },

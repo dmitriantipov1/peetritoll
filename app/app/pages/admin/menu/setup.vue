@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Категории и отметки основного меню (7.1): правка на месте, по строке на запись.
-// Порядок перетаскиванием — следующим слоем.
+// Порядок — перетаскиванием за ⋮⋮, сохраняется сразу.
+import { VueDraggable } from 'vue-draggable-plus'
 import type { AdminMenu, Localized, MarkKind } from '#shared/menu'
 
 definePageMeta({ layout: 'admin', access: ['menu'] })
@@ -10,7 +11,8 @@ useHead({ title: 'Категории и отметки — админка Peetri
 const { can } = useAdminUser()
 const canEdit = computed(() => can('menu', 'edit'))
 
-const { data: menu, error, refresh } = await useFetch<AdminMenu>('/api/admin/menu')
+// deep: перетаскивание переставляет списки внутри данных — экран должен это видеть
+const { data: menu, error, refresh } = await useFetch<AdminMenu>('/api/admin/menu', { deep: true })
 
 // Сколько блюд с каждой отметкой
 const usage = computed(() => {
@@ -76,6 +78,21 @@ function removeMark(kind: MarkKind, id: number, name: string, used: number, done
   run(() => $fetch<unknown>(`/api/admin/menu/marks/${kind}/${id}`, { method: 'DELETE' }), done)
 }
 
+// ---------- Порядок ----------
+
+const orderError = ref('')
+
+/** Список уже переставлен на экране (v-model) — сохраняем новый порядок */
+async function saveOrder(url: string, ids: number[]) {
+  orderError.value = ''
+  try {
+    await $fetch<unknown>(url, { method: 'PUT', body: { ids } })
+  } catch (e) {
+    orderError.value = apiErrorMessage(e, 'Не удалось сохранить порядок. Попробуйте ещё раз.')
+    await refresh() // вернуть порядок, который на самом деле в базе
+  }
+}
+
 const firstName = (names: Localized<string>) => names.ru || names.et || names.en || ''
 
 const markPanels = computed(() => [
@@ -84,7 +101,7 @@ const markPanels = computed(() => [
     anchor: 'marks',
     title: 'Отметки для гостей',
     hint: 'Видны на карточке блюда, по ним гости фильтруют меню: вегетарианское, без лактозы…',
-    items: menu.value?.dietTags ?? [],
+    list: 'dietTags' as const,
     usage: usage.value.diet,
   },
   {
@@ -92,7 +109,7 @@ const markPanels = computed(() => [
     anchor: 'labels',
     title: 'Отметки',
     hint: 'Значок на карточке блюда, без фильтра: новинка, детское…',
-    items: menu.value?.labels ?? [],
+    list: 'labels' as const,
     usage: usage.value.labels,
   },
 ])
@@ -114,6 +131,7 @@ const markPanels = computed(() => [
       {{ apiErrorMessage(error, 'Не удалось загрузить меню.') }}
     </p>
     <p v-if="!canEdit" class="adm-alert" role="note">У вас право только смотреть меню.</p>
+    <p v-if="orderError" class="adm-alert" role="alert">{{ orderError }}</p>
 
     <div v-if="menu" class="adm-stack">
       <section id="categories" class="adm-panel" aria-labelledby="p-cats">
@@ -125,6 +143,7 @@ const markPanels = computed(() => [
           <table class="adm-table">
             <thead>
               <tr>
+                <th scope="col"><span class="adm-vh">Порядок</span></th>
                 <th scope="col">ET</th>
                 <th scope="col">EN</th>
                 <th scope="col">RU</th>
@@ -133,11 +152,24 @@ const markPanels = computed(() => [
                 <th scope="col"><span class="adm-vh">Действия</span></th>
               </tr>
             </thead>
-            <tbody>
+            <VueDraggable
+              v-model="menu.categories"
+              tag="tbody"
+              handle=".adm-drag"
+              :animation="150"
+              :disabled="!canEdit"
+              @end="
+                saveOrder(
+                  '/api/admin/menu/categories/order',
+                  menu.categories.map((c) => c.id),
+                )
+              "
+            >
               <AdminNamesRow
                 v-for="c in menu.categories"
                 :id="c.id"
                 :key="c.id"
+                :draggable="canEdit"
                 :names="c.names"
                 :is-visible="c.isVisible"
                 with-visibility
@@ -147,8 +179,10 @@ const markPanels = computed(() => [
                 @save="(p, done) => saveCategory(c.id, p, done)"
                 @remove="(done) => removeCategory(c.id, firstName(c.names), done)"
               />
+            </VueDraggable>
+            <!-- Новая строка — отдельно: её не перетащить, пока не сохранена -->
+            <tbody v-if="adding.category">
               <AdminNamesRow
-                v-if="adding.category"
                 :id="null"
                 :names="{}"
                 with-visibility
@@ -181,6 +215,7 @@ const markPanels = computed(() => [
           <table class="adm-table">
             <thead>
               <tr>
+                <th scope="col"><span class="adm-vh">Порядок</span></th>
                 <th scope="col">ET</th>
                 <th scope="col">EN</th>
                 <th scope="col">RU</th>
@@ -188,11 +223,24 @@ const markPanels = computed(() => [
                 <th scope="col"><span class="adm-vh">Действия</span></th>
               </tr>
             </thead>
-            <tbody>
+            <VueDraggable
+              v-model="menu[panel.list]"
+              tag="tbody"
+              handle=".adm-drag"
+              :animation="150"
+              :disabled="!canEdit"
+              @end="
+                saveOrder(
+                  `/api/admin/menu/marks/${panel.kind}/order`,
+                  menu[panel.list].map((m) => m.id),
+                )
+              "
+            >
               <AdminNamesRow
-                v-for="m in panel.items"
+                v-for="m in menu[panel.list]"
                 :id="m.id"
                 :key="m.id"
+                :draggable="canEdit"
                 :names="m.names"
                 :count="panel.usage.get(m.id) ?? 0"
                 :can-edit="canEdit"
@@ -208,8 +256,9 @@ const markPanels = computed(() => [
                     )
                 "
               />
+            </VueDraggable>
+            <tbody v-if="adding[panel.kind]">
               <AdminNamesRow
-                v-if="adding[panel.kind]"
                 :id="null"
                 :names="{}"
                 :can-edit="canEdit"

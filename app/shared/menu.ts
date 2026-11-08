@@ -114,3 +114,15 @@ export type CategoryInput = z.infer<typeof categoryInputSchema>
 
 export const markInputSchema = z.object({ names: namesSchema })
 export type MarkInput = z.infer<typeof markInputSchema>
+
+// ---------- Порядок ----------
+
+/** Новый порядок: все номера списка, без повторов, в нужной последовательности */
+export const orderInputSchema = z.object({
+  ids: z
+    .array(z.number().int().positive())
+    .min(1)
+    .max(500)
+    .refine((ids) => new Set(ids).size === ids.length, 'Номера в списке повторяются'),
+})
+export type OrderInput = z.infer<typeof orderInputSchema>

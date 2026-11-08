@@ -17,6 +17,8 @@ const props = withDefaults(
     canEdit: boolean
     /** Почему нельзя удалить — текст подсказки; пусто — можно */
     deleteBlocked?: string
+    /** Показать значок ⋮⋮ — за него строку перетаскивают */
+    draggable?: boolean
   }>(),
   // Не переданное логическое свойство Vue считает false — новая категория была бы скрытой
   { isVisible: true, count: 0, deleteBlocked: '' },
@@ -75,6 +77,11 @@ function remove() {
 
 <template>
   <tr :class="{ 'adm-row--hidden': withVisibility && !visible }">
+    <td>
+      <span v-if="draggable" class="adm-drag" title="Перетащите, чтобы поменять порядок">
+        <AdminDragIcon />
+      </span>
+    </td>
     <td v-for="l in contentLocales" :key="l">
       <div class="field">
         <label class="adm-vh" :for="`n-${id ?? 'new'}-${l}`">{{ l.toUpperCase() }}</label>

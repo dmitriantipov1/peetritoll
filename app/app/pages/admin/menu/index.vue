@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // Основное меню в админке: категории и блюда. Разметка и классы — из прототипа (admin/menu.html).
-// Категории и отметки — pages/admin/menu/setup.vue. Порядок перетаскиванием — следующим слоем.
-import type { AdminDish, AdminMenu } from '#shared/menu'
+// Категории и отметки — pages/admin/menu/setup.vue. Строка блюда — components/AdminDishRow.vue.
+// Порядок блюд — перетаскиванием за ⋮⋮ внутри категории; в другую категорию — в карточке блюда.
+import { VueDraggable } from 'vue-draggable-plus'
+import type { AdminDish, AdminMenu, AdminMenuCategory } from '#shared/menu'
 import { contentLocales, pickTranslation } from '#shared/locales'
-import { formatPrice } from '#shared/money'
 import { dishWords, plural } from '#shared/plural'
 
 definePageMeta({ layout: 'admin', access: ['menu'] })
@@ -20,23 +21,9 @@ const { data: menu, error, refresh } = await useFetch<AdminMenu>('/api/admin/men
 // Админка на русском: показываем русский текст, нет его — эстонский, потом любой
 const ADMIN_LOCALE = 'ru'
 
-function dishText(dish: AdminDish) {
-  const rows = contentLocales.flatMap((locale) => {
-    const t = dish.translations[locale]
-    return t ? [{ locale, ...t }] : []
-  })
-  return pickTranslation(rows, ADMIN_LOCALE)
-}
-
 function localized(values: Partial<Record<string, string>>) {
   const rows = Object.entries(values).map(([locale, text]) => ({ locale, text: text ?? '' }))
   return pickTranslation(rows, ADMIN_LOCALE)?.text ?? ''
-}
-
-function price(dish: AdminDish) {
-  if (dish.portions.length === 1) return formatPrice(dish.portions[0]!.priceCents)
-  // Несколько порций: «4,00 / 5,00 €»
-  return `${dish.portions.map((p) => formatPrice(p.priceCents).replace(' €', '')).join(' / ')} €`
 }
 
 const tagNames = computed(
@@ -67,17 +54,40 @@ function matches(dish: AdminDish) {
   return true
 }
 
+const filtering = computed(() => !!search.value.trim() || show.value !== 'all')
+
+/** Блюда категории с учётом поиска и фильтра */
+function shown(category: AdminMenuCategory) {
+  return filtering.value ? category.dishes.filter(matches) : category.dishes
+}
+
+// Категории без подходящих блюд при поиске прячем; без поиска показываем все, даже пустые
 const categories = computed(() =>
-  (menu.value?.categories ?? [])
-    .map((category) => ({ ...category, shown: category.dishes.filter(matches) }))
-    .filter((category) => category.shown.length > 0 || (!search.value && show.value === 'all')),
+  (menu.value?.categories ?? []).filter((c) => !filtering.value || shown(c).length > 0),
 )
 
 const dishWord = (n: number) => plural(n, dishWords)
 
-// ---------- «На сайте» прямо в списке ----------
+// ---------- «На сайте» прямо в списке и порядок ----------
 
 const toggleError = ref('')
+
+// Перетаскивать можно без поиска и фильтра: в неполном списке порядок неоднозначен
+const canReorder = computed(() => canEdit.value && !filtering.value)
+
+/** Блюда уже переставлены на экране (v-model) — сохраняем новый порядок */
+async function saveOrder(category: AdminMenuCategory) {
+  toggleError.value = ''
+  try {
+    await $fetch<unknown>(`/api/admin/menu/categories/${category.id}/dishes-order`, {
+      method: 'PUT',
+      body: { ids: category.dishes.map((d) => d.id) },
+    })
+  } catch (e) {
+    toggleError.value = apiErrorMessage(e, 'Не удалось сохранить порядок. Попробуйте ещё раз.')
+    await refresh() // вернуть порядок, который на самом деле в базе
+  }
+}
 
 async function toggleVisible(dish: AdminDish) {
   const next = !dish.isVisible
@@ -145,12 +155,19 @@ async function toggleVisible(dish: AdminDish) {
           <option value="untranslated">Без перевода</option>
           <option value="nophoto">Без фото</option>
         </select>
+        <p v-if="canEdit" class="adm-toolbar__note">
+          <template v-if="filtering">Порядок можно менять, когда поиск и фильтр выключены</template>
+          <template v-else>
+            Порядок блюд — перетаскиванием за <span class="adm-drag"><AdminDragIcon /></span>
+          </template>
+        </p>
       </div>
 
       <div class="adm-table-wrap">
         <table class="adm-table">
           <thead>
             <tr>
+              <th scope="col"><span class="adm-vh">Порядок</span></th>
               <th scope="col">Фото</th>
               <th scope="col">Блюдо</th>
               <th scope="col" class="num">Цена</th>
@@ -159,75 +176,47 @@ async function toggleVisible(dish: AdminDish) {
               <th scope="col"><span class="adm-vh">Изменить</span></th>
             </tr>
           </thead>
-          <tbody v-for="category in categories" :key="category.id">
-            <tr class="adm-cat-row">
-              <td colspan="6">
-                <div class="adm-cat-row__inner">
-                  <span class="adm-cat-row__name">{{ localized(category.names) }}</span>
-                  <span class="adm-cat-row__count">
-                    {{ category.dishes.length }} {{ dishWord(category.dishes.length) }}
-                  </span>
-                  <span v-if="!category.isVisible" class="adm-label">Скрыта на сайте</span>
-                  <span v-if="canEdit" class="adm-cat-row__links">
-                    <NuxtLink to="/admin/menu/setup#categories">Переименовать</NuxtLink>
-                    <NuxtLink :to="{ path: '/admin/menu/new', query: { category: category.id } }">
-                      + Блюдо в категорию
-                    </NuxtLink>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              v-for="dish in category.shown"
-              :key="dish.id"
-              :class="{ 'adm-row--hidden': !dish.isVisible }"
+          <template v-for="category in categories" :key="category.id">
+            <tbody>
+              <tr class="adm-cat-row">
+                <td colspan="7">
+                  <div class="adm-cat-row__inner">
+                    <span class="adm-cat-row__name">{{ localized(category.names) }}</span>
+                    <span class="adm-cat-row__count">
+                      {{ category.dishes.length }} {{ dishWord(category.dishes.length) }}
+                    </span>
+                    <span v-if="!category.isVisible" class="adm-label">Скрыта на сайте</span>
+                    <span v-if="canEdit" class="adm-cat-row__links">
+                      <NuxtLink to="/admin/menu/setup#categories">Переименовать</NuxtLink>
+                      <NuxtLink :to="{ path: '/admin/menu/new', query: { category: category.id } }">
+                        + Блюдо в категорию
+                      </NuxtLink>
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <!-- Блюда — отдельным tbody: перетаскивание переставляет только их -->
+            <VueDraggable
+              v-model="category.dishes"
+              tag="tbody"
+              handle=".adm-drag"
+              :animation="150"
+              :disabled="!canReorder"
+              @end="saveOrder(category)"
             >
-              <td>
-                <img v-if="dish.photo" class="adm-thumb" :src="dish.photo" alt="" loading="lazy" />
-                <span v-else class="adm-thumb--empty">нет фото</span>
-              </td>
-              <td>
-                <NuxtLink class="adm-dish__name" :to="`/admin/menu/${dish.id}`">
-                  {{ dishText(dish)?.name }}
-                </NuxtLink>
-                <span v-for="labelId in dish.labelIds" :key="`l${labelId}`" class="adm-label">
-                  {{ labelNames.get(labelId) }}
-                </span>
-                <span v-for="tagId in dish.dietTagIds" :key="tagId" class="adm-diet">
-                  {{ tagNames.get(tagId) }}
-                </span>
-                <small v-if="dishText(dish)?.description">{{ dishText(dish)?.description }}</small>
-              </td>
-              <td class="num">
-                <span class="adm-price">{{ price(dish) }}</span>
-              </td>
-              <td>
-                <AdminLangBadges :has="(locale) => !!dish.translations[locale]" />
-              </td>
-              <td>
-                <label class="adm-switch">
-                  <input
-                    type="checkbox"
-                    :checked="dish.isVisible"
-                    :disabled="!canEdit"
-                    :aria-label="`Показывать на сайте: ${dishText(dish)?.name}`"
-                    @change="toggleVisible(dish)"
-                  />
-                  <span class="adm-switch__track" />
-                  {{ dish.isVisible ? 'На сайте' : 'Скрыто' }}
-                </label>
-              </td>
-              <td>
-                <NuxtLink
-                  class="adm-open"
-                  :to="`/admin/menu/${dish.id}`"
-                  :aria-label="`${canEdit ? 'Изменить' : 'Открыть'}: ${dishText(dish)?.name}`"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
-                </NuxtLink>
-              </td>
-            </tr>
-          </tbody>
+              <AdminDishRow
+                v-for="dish in shown(category)"
+                :key="dish.id"
+                :dish="dish"
+                :can-edit="canEdit"
+                :draggable="canReorder"
+                :label-names="labelNames"
+                :tag-names="tagNames"
+                @toggle="toggleVisible(dish)"
+              />
+            </VueDraggable>
+          </template>
         </table>
       </div>
       <p v-if="!categories.length" class="adm-note" style="margin-top: 16px">Ничего не нашлось.</p>
