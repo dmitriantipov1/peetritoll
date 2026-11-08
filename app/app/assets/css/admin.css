@@ -864,6 +864,8 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-switch-list .adm-switch .adm-switch__track { order: 2; }
 .adm-note { font-size: 14px; color: #4d4842; }
 .adm-q { color: var(--c-red); font-size: 13px; }
+/* Приложение: три числовых поля в ряд, выровнены по низу — подписи разной длины их не сдвигают */
+.adm-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 20px; align-items: end; margin-top: 20px; }
 
 /* =========================================================
    Товары
