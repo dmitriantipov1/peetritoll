@@ -20,6 +20,8 @@ docker compose up
 - проверка, что приложение и база живы: http://localhost:3000/api/health
 - миграции применяются сами при старте контейнера `app`
 - после смены зависимостей: `docker compose up --build -V`
+- после создания новой папки (например, `server/middleware`) сервер в контейнере её
+  не замечает: `docker compose restart app`
 
 ## Запуск на машине, база в Docker
 
