@@ -43,3 +43,45 @@ export function mondayOf(date: string): string {
 export function shortDate(date: string): string {
   return `${date.slice(8, 10)}.${date.slice(5, 7)}`
 }
+
+/** «09.11.2026» */
+export function fullDate(date: string): string {
+  return `${date.slice(8, 10)}.${date.slice(5, 7)}.${date.slice(0, 4)}`
+}
+
+/** Момент времени → «2026-11-03T09:00» по Таллину — для поля <input type="datetime-local"> */
+export function toTallinnLocal(moment: Date): string {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: TIMEZONE,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    })
+      .formatToParts(moment)
+      .map((p) => [p.type, p.value]),
+  )
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`
+}
+
+export function isLocalDateTime(value: unknown): value is string {
+  return (
+    typeof value === 'string' &&
+    /^\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):[0-5]\d$/.test(value) &&
+    isDateString(value.slice(0, 10))
+  )
+}
+
+/**
+ * «2026-11-03T09:00» по Таллину → момент времени. Смещение пояса берём на эту дату:
+ * летом +3, зимой +2. Час, которого нет при переводе часов, сдвинется на час — для даты
+ * публикации это не важно.
+ */
+export function fromTallinnLocal(local: string): Date {
+  const asUtc = new Date(`${local}:00Z`)
+  const shown = new Date(`${toTallinnLocal(asUtc)}:00Z`)
+  return new Date(asUtc.getTime() - (shown.getTime() - asUtc.getTime()))
+}
