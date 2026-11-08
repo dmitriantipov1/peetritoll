@@ -24,6 +24,11 @@ const text = computed(() => {
   return pickTranslation(rows, 'ru')
 })
 
+// Превью: маленькая версия загруженного фото, иначе старая ссылка
+const thumb = computed(() =>
+  props.dish.photo ? props.dish.photo.srcset.split(' ')[0] : props.dish.legacyPhoto,
+)
+
 const price = computed(() => {
   const { portions } = props.dish
   if (portions.length === 1) return formatPrice(portions[0]!.priceCents)
@@ -40,7 +45,7 @@ const price = computed(() => {
       </span>
     </td>
     <td>
-      <img v-if="dish.photo" class="adm-thumb" :src="dish.photo" alt="" loading="lazy" />
+      <img v-if="thumb" class="adm-thumb" :src="thumb" alt="" loading="lazy" />
       <span v-else class="adm-thumb--empty">нет фото</span>
     </td>
     <td>

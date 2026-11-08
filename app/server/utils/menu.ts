@@ -9,10 +9,12 @@ import {
   dishPortions,
   dishPortionTranslations,
   dishTranslations,
+  media,
   menuCategories,
 } from '../db/schema'
 import type { AdminDish, AdminMenu, DishInput, Localized } from '#shared/menu'
 import type { ContentLocale } from '#shared/locales'
+import { toMediaImage } from '#shared/media'
 
 type Db = ReturnType<typeof useDb>
 type Tx = Parameters<Parameters<Db['transaction']>[0]>[0]
@@ -30,6 +32,7 @@ const dishWith = {
   portions: { with: { translations: true as const }, orderBy: [asc(dishPortions.sort)] },
   dietTags: true as const,
   labels: true as const,
+  photoMedia: true as const,
 }
 
 type DishRow = NonNullable<Awaited<ReturnType<typeof findDishRow>>>
@@ -46,7 +49,8 @@ function toAdminDish(row: Omit<DishRow, 'updatedByUser'>): AdminDish {
     id: row.id,
     categoryId: row.categoryId,
     sort: row.sort,
-    photo: row.photo,
+    photo: row.photoMedia ? toMediaImage(row.photoMedia) : null,
+    legacyPhoto: row.photo,
     isVisible: row.isVisible,
     translations: byLocale(row.translations, (t) => ({ name: t.name, description: t.description })),
     portions: row.portions.map((p) => ({
@@ -141,9 +145,20 @@ export async function saveDish(dishId: number | null, input: DishInput, userId: 
       .where(eq(menuCategories.id, input.categoryId))
     if (!category) throw createError({ statusCode: 400, message: 'Нет такой категории' })
 
+    if (input.photoId) {
+      const [found] = await tx
+        .select({ id: media.id })
+        .from(media)
+        .where(eq(media.id, input.photoId))
+      if (!found)
+        throw createError({ statusCode: 400, message: 'Фото не найдено — загрузите заново' })
+    }
+
     const fields = {
       categoryId: input.categoryId,
-      photo: input.photo,
+      photoId: input.photoId,
+      // Загрузили новое фото — старая ссылка больше не нужна
+      photo: input.photoId ? null : input.legacyPhoto,
       isVisible: input.isVisible,
       updatedBy: userId,
     }

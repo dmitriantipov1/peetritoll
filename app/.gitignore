@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# Загруженные картинки (локальный запуск без Docker)
+storage/

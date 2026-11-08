@@ -54,6 +54,8 @@ export default defineNuxtConfig({
   // NUXT_APP_SECRET → секрет приложения, из него шифруется cookie сессии админки
   runtimeConfig: {
     databaseUrl: '',
+    // NUXT_UPLOADS_DIR → папка с загруженными картинками (в Docker — том uploads)
+    uploadsDir: './storage/uploads',
     session: {
       name: 'pt_admin',
       // Без «Запомнить меня» — 12 часов (рабочий день); с ним — 30 дней (server/api/auth/login.post.ts)

@@ -32,6 +32,8 @@ services:
       - '127.0.0.1:3000:3000'
     volumes:
       - .:/app
+      # Загруженные картинки — в своём томе: переживают пересборку, копируются отдельно от кода
+      - uploads:/app/storage/uploads
       # node_modules из образа, не с машины. После смены зависимостей:
       # docker compose up --build -V
       - /app/node_modules
@@ -41,3 +43,4 @@ services:
 
 volumes:
   pgdata:
+  uploads:

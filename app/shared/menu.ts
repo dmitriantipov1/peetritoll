@@ -2,6 +2,7 @@
 // Схема проверки (zod) одна на сервер и форму — правила не разъезжаются.
 import { z } from 'zod'
 import { contentLocales, type ContentLocale } from './locales'
+import type { MediaImage } from './media'
 
 export type Localized<T> = Partial<Record<ContentLocale, T>>
 
@@ -26,7 +27,10 @@ export interface AdminDish {
   id: number
   categoryId: number
   sort: number
-  photo: string | null
+  /** Загруженное фото */
+  photo: MediaImage | null
+  /** Старое: ссылка на фото со старого сайта, пока его не перенесли в загруженные */
+  legacyPhoto: string | null
   isVisible: boolean
   translations: Localized<{ name: string; description: string | null }>
   portions: AdminPortion[]
@@ -66,9 +70,9 @@ const translation = z.object({
 export const dishInputSchema = z
   .object({
     categoryId: z.number().int().positive(),
-    photo: z
-      .url({ protocol: /^https?$/, error: 'Ссылка на фото должна начинаться с http' })
-      .nullable(),
+    photoId: z.uuid().nullable(),
+    // Старую ссылку можно только оставить или убрать; новое фото — загрузкой (photoId)
+    legacyPhoto: z.url({ protocol: /^https?$/ }).nullable(),
     isVisible: z.boolean(),
     // Перевод на язык — название и описание; язык без названия не сохраняем
     translations: z.partialRecord(z.enum(contentLocales), translation),

@@ -758,6 +758,9 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
   align-items: center;
 }
 .adm-upload img { width: 220px; aspect-ratio: 4 / 3; object-fit: cover; }
+/* Приложение: место под фото, пока его нет, и подсветка, когда над областью тащат файл */
+.adm-upload__empty { display: grid; place-items: center; width: 220px; height: auto; aspect-ratio: 4 / 3; }
+.adm-upload__drop.is-over { border-color: var(--c-gold-dark); background: rgba(203, 170, 88, .12); }
 .adm-upload__drop {
   display: grid;
   place-items: center;

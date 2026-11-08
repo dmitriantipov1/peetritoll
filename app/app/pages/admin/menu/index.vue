@@ -50,7 +50,7 @@ function matches(dish: AdminDish) {
   }
   if (show.value === 'hidden') return !dish.isVisible
   if (show.value === 'untranslated') return contentLocales.some((l) => !dish.translations[l])
-  if (show.value === 'nophoto') return !dish.photo
+  if (show.value === 'nophoto') return !dish.photo && !dish.legacyPhoto
   return true
 }
 

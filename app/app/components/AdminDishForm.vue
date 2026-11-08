@@ -27,7 +27,8 @@ function initialState() {
   const d = props.dish
   return {
     categoryId: d?.categoryId ?? props.categoryId ?? props.menu.categories[0]?.id ?? 0,
-    photo: d?.photo ?? '',
+    photo: d?.photo ?? null,
+    legacyPhoto: d?.legacyPhoto ?? null,
     isVisible: d?.isVisible ?? true,
     translations: Object.fromEntries(
       contentLocales.map((l) => [
@@ -89,7 +90,8 @@ function toInput(): DishInput | null {
   }
   return {
     categoryId: form.categoryId,
-    photo: form.photo.trim() || null,
+    photoId: form.photo?.id ?? null,
+    legacyPhoto: form.legacyPhoto,
     isVisible: form.isVisible,
     // Язык без названия не сохраняем — на сайте для него покажем эстонский
     translations: Object.fromEntries(
@@ -300,16 +302,14 @@ const updatedText = computed(() => {
           <section class="adm-panel" aria-labelledby="p-photo">
             <div class="adm-panel__head">
               <h2 id="p-photo" class="adm-panel__title">Фото</h2>
-              <p class="adm-panel__hint">Пока ссылкой; загрузка файлов — следующим слоем</p>
+              <p class="adm-panel__hint">JPG, PNG или WebP, лучше от 1200 px по длинной стороне</p>
             </div>
-            <div class="adm-upload">
-              <img v-if="form.photo" :src="form.photo" alt="Текущее фото блюда" />
-              <div class="field" style="flex: 1">
-                <label for="d-photo">Ссылка на фото</label>
-                <input id="d-photo" v-model="form.photo" type="url" placeholder="https://…" />
-              </div>
-            </div>
-            <p v-if="issues.photo" class="adm-note adm-danger">{{ issues.photo }}</p>
+            <AdminImageUpload
+              v-model:image="form.photo"
+              v-model:legacy="form.legacyPhoto"
+              :disabled="!canEdit"
+              alt="Фото блюда"
+            />
           </section>
         </div>
 

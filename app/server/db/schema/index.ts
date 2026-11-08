@@ -7,3 +7,4 @@
 // Тексты на трёх языках — в таблицах «*_translations» (shared/locales.ts).
 export * from './users'
 export * from './menu'
+export * from './media'

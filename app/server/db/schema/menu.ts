@@ -13,10 +13,12 @@ import {
   serial,
   text,
   timestamp,
+  uuid,
 } from 'drizzle-orm/pg-core'
 import { relations, sql } from 'drizzle-orm'
 import type { ContentLocale } from '../../../shared/locales'
 import { users } from './users'
+import { media } from './media'
 
 // Колонка языка: только et, en, ru — проверяет сама база
 const locale = () => text('locale').$type<ContentLocale>().notNull()
@@ -68,7 +70,10 @@ export const dishes = pgTable(
       .notNull()
       .references(() => menuCategories.id, { onDelete: 'restrict' }),
     sort: integer('sort').notNull().default(0),
-    // Адрес фото. Пока — ссылки на старый сайт, как в прототипе; загрузка — слоем «Фото»
+    // Фото блюда — загруженная картинка (media)
+    photoId: uuid('photo_id').references(() => media.id, { onDelete: 'set null' }),
+    // Старое: ссылка на фото со старого сайта, как в прототипе. Задача media:import-dish-photos
+    // переносит их в media; когда перенесены везде — колонку убрать (6.2)
     photo: text('photo'),
     isVisible: boolean('is_visible').notNull().default(true),
     // Кто менял последним — «изменено 12.04.2026, Ольга Петрова» в карточке блюда
@@ -229,6 +234,7 @@ export const dishesRelations = relations(dishes, ({ one, many }) => ({
   dietTags: many(dishDietTags),
   labels: many(dishDishLabels),
   updatedByUser: one(users, { fields: [dishes.updatedBy], references: [users.id] }),
+  photoMedia: one(media, { fields: [dishes.photoId], references: [media.id] }),
 }))
 
 export const dishTranslationsRelations = relations(dishTranslations, ({ one }) => ({
