@@ -1180,3 +1180,9 @@ button.adm-lang--missing { border: 1px dashed var(--c-red); }
 button.adm-lang--off { border: 1px solid rgba(111, 108, 108, .45); }
 button.adm-lang.adm-lang--ok { background: var(--c-brown); }
 button.adm-lang:hover { outline: 2px solid var(--c-gold); outline-offset: 1px; }
+
+/* Приложение: галерея — фото выбирается кнопкой, загрузка — полоса под сеткой */
+.adm-photo__pick { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.adm-photo__pick:focus-visible { outline: 3px solid var(--c-gold); outline-offset: -3px; }
+.adm-gallery-drop { min-height: 120px; margin-top: 14px; padding: 18px; }
+.adm-gallery-drop.is-over { border-color: var(--c-gold-dark); background: rgba(203, 170, 88, .15); }

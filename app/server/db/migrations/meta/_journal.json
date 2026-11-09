@@ -71,6 +71,13 @@
       "when": 1794147843391,
       "tag": "0009_materials",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794150184657,
+      "tag": "0010_gallery",
+      "breakpoints": true
     }
   ]
 }
