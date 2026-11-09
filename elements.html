@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261109-11">
+  <link rel="stylesheet" href="./css/style.css?v=20261109-12">
 </head>
 <body>
 
@@ -951,6 +951,7 @@
             <button class="chip" type="button" aria-pressed="false" data-variant="6" data-desc="Витрина с фоном у всей карточки, как у вариантов 1 и 3: всё по центру, цена золотом, карточка на светлом поле.">6. Витрина с фоном</button>
             <button class="chip" type="button" aria-pressed="false" data-variant="7" data-desc="Как вариант 3, но описание в одну строку: под коротким описанием больше нет пустого места.">7. Макет, описание в строку</button>
             <button class="chip" type="button" aria-pressed="false" data-variant="8" data-desc="Как вариант 7, но текст идёт плотно, без пустой строки под коротким названием, светлая карточка, низ с ценой — бежевая полоса.">8. Плотно, в ваших цветах</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="9" data-desc="Не вариант, а пример: что происходит с рядом карточек, когда текст разной длины. Пустое место появляется всегда — вопрос только где: карточки разной высоты, пробел над ценой или пробел внутри текста.">9. Почему появляется пустое место</button>
           </div>
           <p class="variant-panel__desc"></p>
         </div>
@@ -1006,6 +1007,224 @@
             </div>
           </li>
           </ul>
+          <div class="prod-cases">
+            <div class="prod-case prod-case--tight">
+              <h3 class="prod-case__title">1. Всё плотно, низ не прижат</h3>
+              <p class="prod-case__note">Текст идёт без пустот, но цена и кнопка встают сразу под текстом. Карточка с длинным названием выше соседних — ряд получается неровным снизу.</p>
+              <ul class="products">
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Сувениры</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
+                  <p class="product__desc">Рисунок Андрея Кириллова</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">4 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Антиквариат</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
+                  <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">120 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Фото и карты</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
+                  <p class="product__desc">Отпечаток 8×12 см</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">от 5 €</p>
+                  <a class="btn btn--sm" href="#">Выбрать</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Байки из-за барной стойки" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+                <div class="product__body">
+                  <p class="product__cat">Книги</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
+                  <p class="product__desc">Галина Малютина · 2022 · 144 стр. Истории, которые рассказывают за стойкой таверны.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">10,00 €</p>
+                  <a class="btn btn--sm" href="#">Купить</a>
+                </div>
+              </li>
+              </ul>
+            </div>
+            <div class="prod-case">
+              <h3 class="prod-case__title">2. Описание в одну строку, низ выровнен (вариант 8)</h3>
+              <p class="prod-case__note">Карточки одной высоты, текст плотно. У карточек с коротким названием над ценой остаётся пустая строка.</p>
+              <ul class="products">
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Сувениры</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
+                  <p class="product__desc">Рисунок Андрея Кириллова</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">4 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Антиквариат</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
+                  <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">120 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Фото и карты</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
+                  <p class="product__desc">Отпечаток 8×12 см</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">от 5 €</p>
+                  <a class="btn btn--sm" href="#">Выбрать</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Байки из-за барной стойки" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+                <div class="product__body">
+                  <p class="product__cat">Книги</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
+                  <p class="product__desc">Галина Малютина · 2022 · 144 стр. Истории, которые рассказывают за стойкой таверны.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">10,00 €</p>
+                  <a class="btn btn--sm" href="#">Купить</a>
+                </div>
+              </li>
+              </ul>
+            </div>
+            <div class="prod-case prod-case--desc2">
+              <h3 class="prod-case__title">3. Описание до двух строк, низ выровнен</h3>
+              <p class="prod-case__note">То же, но описание может занять две строки. Пустое место над ценой больше: до двух строк в карточке с самым коротким текстом.</p>
+              <ul class="products">
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Сувениры</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
+                  <p class="product__desc">Рисунок Андрея Кириллова</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">4 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Антиквариат</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
+                  <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">120 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Фото и карты</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
+                  <p class="product__desc">Отпечаток 8×12 см</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">от 5 €</p>
+                  <a class="btn btn--sm" href="#">Выбрать</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Байки из-за барной стойки" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+                <div class="product__body">
+                  <p class="product__cat">Книги</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
+                  <p class="product__desc">Галина Малютина · 2022 · 144 стр. Истории, которые рассказывают за стойкой таверны.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">10,00 €</p>
+                  <a class="btn btn--sm" href="#">Купить</a>
+                </div>
+              </li>
+              </ul>
+            </div>
+            <div class="prod-case prod-case--desc2 prod-case--reserve">
+              <h3 class="prod-case__title">4. Описание до двух строк, место под текст зарезервировано (как варианты 3 и 7)</h3>
+              <p class="prod-case__note">Название и описание в соседних карточках стоят на одной высоте. Но пустота остаётся внутри текста — под коротким названием и под коротким описанием.</p>
+              <ul class="products">
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Сувениры</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
+                  <p class="product__desc">Рисунок Андрея Кириллова</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">4 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Антиквариат</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
+                  <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">120 €</p>
+                  <a class="btn btn--sm" href="#">В корзину</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
+                <div class="product__body">
+                  <p class="product__cat">Фото и карты</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
+                  <p class="product__desc">Отпечаток 8×12 см</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">от 5 €</p>
+                  <a class="btn btn--sm" href="#">Выбрать</a>
+                </div>
+              </li>
+              <li class="product">
+                <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Байки из-за барной стойки" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+                <div class="product__body">
+                  <p class="product__cat">Книги</p>
+                  <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
+                  <p class="product__desc">Галина Малютина · 2022 · 144 стр. Истории, которые рассказывают за стойкой таверны.</p>
+                </div>
+                <div class="product__foot">
+                  <p class="product__price">10,00 €</p>
+                  <a class="btn btn--sm" href="#">Купить</a>
+                </div>
+              </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </div>

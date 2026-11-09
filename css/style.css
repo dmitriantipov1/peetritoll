@@ -1201,17 +1201,32 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* 8. Как 7, но плотно и в цветах заказчицы (09.11.2026): у названия нет запаса под вторую строку,
    свободное место уходит вниз, над полосой с ценой — полосы в ряду всё равно на одной высоте.
    Карточка rgba(250,247,242), низ с ценой rgba(244,239,230) */
-.prod-demo.prod--v8 { background: #FAF7F2; }
-.prod--v8 .product { background: #FAF7F2; border-color: #E4DAC9; }
-.prod--v8 .product__cat { font-weight: 700; font-size: 12px; letter-spacing: .1em; line-height: 1.2; }
-.prod--v8 .product__name { --lh: 1.3; margin: 7px 0 5px; min-height: 0; font-weight: 500; font-size: 18px; }
-.prod--v8 .product__desc { --lh: 1.4; font-size: 15px; height: auto; }
+.prod-demo:is(.prod--v8, .prod--v9) { background: #FAF7F2; }
+:is(.prod--v8, .prod--v9) .product { background: #FAF7F2; border-color: #E4DAC9; }
+:is(.prod--v8, .prod--v9) .product__cat { font-weight: 700; font-size: 12px; letter-spacing: .1em; line-height: 1.2; }
+:is(.prod--v8, .prod--v9) .product__name { --lh: 1.3; margin: 7px 0 5px; min-height: 0; font-weight: 500; font-size: 18px; }
+:is(.prod--v8, .prod--v9) .product__desc { --lh: 1.4; font-size: 15px; height: auto; }
 /* Одна строка до самого края: line-clamp переносит по словам и оставляет пустоту («Рисунок Андрея…»),
    а text-overflow режет посреди слова, но строка заполнена («Рисунок Андрея Кирил…») */
-.prod--v8 .product__desc { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-.prod--v8 .product__foot { background: #F4EFE6; border-top-color: #E4DAC9; }
-.prod--v8 .product__price { font-family: var(--f-body); font-weight: 700; font-size: 17px; letter-spacing: .06em; color: var(--c-ink); }
-.prod--v8 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; letter-spacing: .1em; }
+:is(.prod--v8, .prod--v9) .product__desc { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+:is(.prod--v8, .prod--v9) .product__foot { background: #F4EFE6; border-top-color: #E4DAC9; }
+:is(.prod--v8, .prod--v9) .product__price { font-family: var(--f-body); font-weight: 700; font-size: 17px; letter-spacing: .06em; color: var(--c-ink); }
+:is(.prod--v8, .prod--v9) .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; letter-spacing: .1em; }
+
+/* 9. Не вариант, а наглядный пример (09.11.2026): что будет с рядом карточек варианта 8
+   при разной длине текста. Четыре случая друг под другом, у каждого подпись */
+.prod-cases { display: none; }
+.prod--v9 > .products { display: none; }
+.prod--v9 .prod-cases { display: grid; gap: var(--s-5); }
+.prod-case__title { font-family: var(--f-head); font-size: 20px; color: var(--c-ink); }
+.prod-case__note { max-width: 70ch; margin: 6px 0 var(--s-2); font-size: 15px; color: #4d4842; }
+/* Всё плотно и низ не прижат: карточки в ряду разной высоты */
+.prod-case--tight .products { align-items: start; }
+/* Описание до двух строк */
+.prod-case--desc2 .product__desc { display: -webkit-box; -webkit-line-clamp: 2; white-space: normal; }
+/* Под название и описание всегда место на две строки: низ ровный, пустота внутри текста */
+.prod-case--reserve .product__name { min-height: calc(2em * var(--lh)); }
+.prod-case--reserve .product__desc { height: calc(2em * var(--lh)); }
 
 @media (max-width: 1180px) { .prod-demo .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 860px) { .prod-demo .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prod-demo { padding: var(--s-3) var(--s-2); } }
