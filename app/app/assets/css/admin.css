@@ -1186,3 +1186,8 @@ button.adm-lang:hover { outline: 2px solid var(--c-gold); outline-offset: 1px; }
 .adm-photo__pick:focus-visible { outline: 3px solid var(--c-gold); outline-offset: -3px; }
 .adm-gallery-drop { min-height: 120px; margin-top: 14px; padding: 18px; }
 .adm-gallery-drop.is-over { border-color: var(--c-gold-dark); background: rgba(203, 170, 88, .15); }
+
+/* Группа полей, которую выключают целиком (карточка сотрудника только для чтения) */
+.adm-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+/* Карточка сотрудника: «Всё „смотрит“ · Снять всё» в шапке панели прав — в строку */
+.adm-staff-quick { display: flex; gap: 16px; }

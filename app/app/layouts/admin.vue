@@ -21,14 +21,7 @@ const nav = computed(() =>
     .filter((group) => group.items.length > 0),
 )
 
-const initials = computed(() =>
-  (user.value?.name ?? '')
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0]!.toUpperCase())
-    .join(''),
-)
+const userInitials = computed(() => initials(user.value?.name ?? ''))
 </script>
 
 <template>
@@ -55,7 +48,7 @@ const initials = computed(() =>
       </nav>
 
       <div v-if="user" class="adm-side__user">
-        <span class="adm-avatar" aria-hidden="true">{{ initials }}</span>
+        <span class="adm-avatar" aria-hidden="true">{{ userInitials }}</span>
         <div>
           <b>{{ user.name }}</b>
           <span>{{ roles[user.role] }}</span>

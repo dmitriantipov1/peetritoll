@@ -67,6 +67,17 @@ export function toTallinnLocal(moment: Date): string {
   return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`
 }
 
+/** Когда было, по Таллину: «сегодня, 09:12», «вчера, 16:05», «29.10, 10:31», «02.09.2025, 10:31» */
+export function momentLabel(moment: Date, now = new Date()): string {
+  const local = toTallinnLocal(moment)
+  const date = local.slice(0, 10)
+  const time = local.slice(11)
+  const today = todayInTallinn(now)
+  if (date === today) return `сегодня, ${time}`
+  if (date === addDays(today, -1)) return `вчера, ${time}`
+  return `${date.slice(0, 4) === today.slice(0, 4) ? shortDate(date) : fullDate(date)}, ${time}`
+}
+
 export function isLocalDateTime(value: unknown): value is string {
   return (
     typeof value === 'string' &&
