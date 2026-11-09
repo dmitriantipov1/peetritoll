@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261109">
+  <link rel="stylesheet" href="./css/style.css?v=20261109-6">
 </head>
 <body>
 
@@ -56,33 +56,87 @@
     </div>
   </section>
 
-  <!-- ============ 01 МЕНЮ ДНЯ ============ -->
-  <!-- Страница и кнопка на неё в «Меню» скрываются из админки: «Дневное меню» → «Показывать меню дня на сайте» -->
+  <!-- ============ 01 МЕНЮ НА НЕДЕЛЮ ============ -->
+  <!-- Вариант 3 с elements.html — «Таблица на неделю» (выбор заказчицы).
+       Страница и кнопка на неё в «Меню» скрываются из админки: «Дневное меню» → «Показывать меню дня на сайте» -->
   <section class="section section--bg2" id="menyu-dnya">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Обеды в будни, 12:00 — 15:00</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Меню дня</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Меню на неделю</h2>
+        <a class="section-head__more" href="#predzakaz">Заказать заранее</a>
       </header>
 
       <div class="intro intro--single">
         <h3 class="intro__title">Каждый день новый суп и горячее</h3>
-        <p>Можно взять только суп или только горячее — цена у каждого блюда своя. Обед целиком, с напитком, выходит дешевле. Закажите заранее — к вашему приходу всё будет готово, оплата на месте.</p>
+        <p>Можно взять только суп или только горячее — цена у каждого блюда своя. Обед целиком — суп, горячее, морс или компот — выходит дешевле. Закажите заранее, и к вашему приходу всё будет готово, оплата на месте.</p>
       </div>
 
-      <!-- Калькулятор считает только выбранный день; отправки нет, после «Отправить» показываем ответ -->
+      <!-- Сегодняшний день подсвечивается. На телефоне таблица раскладывается по дням столбиком -->
+      <table class="lunch-week lunch-week--full" data-lunch-week>
+        <caption class="lunch-week__caption">Неделя 9 — 13 ноября</caption>
+        <thead>
+          <tr><th scope="col">День</th><th scope="col">Суп</th><th scope="col">Горячее</th><th scope="col">Обед целиком</th></tr>
+        </thead>
+        <tbody>
+          <tr data-weekday="1">
+            <th scope="row">Понедельник<span class="lunch-week__date">9 ноября</span></th>
+            <td data-label="Суп"><span>Грибной крем-суп<span class="lunch-week__price">4,00 €</span></span></td>
+            <td data-label="Горячее"><span>Куриное филе с картофелем<span class="lunch-week__price">7,50 €</span></span></td>
+            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+          </tr>
+          <tr data-weekday="2">
+            <th scope="row">Вторник<span class="lunch-week__date">10 ноября</span></th>
+            <td data-label="Суп"><span>Щи из квашеной капусты<span class="lunch-week__price">4,00 €</span></span></td>
+            <td data-label="Горячее"><span>Пельмени домашние со сметаной<span class="lunch-week__price">7,50 €</span></span></td>
+            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+          </tr>
+          <tr data-weekday="3">
+            <th scope="row">Среда<span class="lunch-week__date">11 ноября</span></th>
+            <td data-label="Суп"><span>Уха из балтийской рыбы<span class="lunch-week__price">4,50 €</span></span></td>
+            <td data-label="Горячее"><span>Треска с овощами на пару<span class="lunch-week__price">8,50 €</span></span></td>
+            <td data-label="Обед целиком"><span>10,50 €<s>13,00 €</s></span></td>
+          </tr>
+          <tr data-weekday="4">
+            <th scope="row">Четверг<span class="lunch-week__date">12 ноября</span></th>
+            <td data-label="Суп"><span>Гороховый с копчёностями<span class="lunch-week__price">4,00 €</span></span></td>
+            <td data-label="Горячее"><span>Жаркое по-таможенному в горшочке<span class="lunch-week__price">7,50 €</span></span></td>
+            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+          </tr>
+          <tr data-weekday="5">
+            <th scope="row">Пятница<span class="lunch-week__date">13 ноября</span></th>
+            <td data-label="Суп"><span>Солянка сборная мясная<span class="lunch-week__price">4,50 €</span></span></td>
+            <td data-label="Горячее"><span>Свиная отбивная с тушёной капустой<span class="lunch-week__price">7,50 €</span></span></td>
+            <td data-label="Обед целиком"><span>9,50 €<s>12,00 €</s></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 02 ПРЕДЗАКАЗ ============ -->
+  <section class="section section--bg1" id="predzakaz">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">На сегодня или на завтра</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Предзаказ обеда</h2>
+      </header>
+
+      <!-- Заказать можно только на сегодня и на завтра (в пятницу — только на сегодня, в выходные — на понедельник):
+           лишние дни JS прячет. Калькулятор считает только выбранный день; отправки нет, после «Отправить» показываем ответ -->
       <form class="bq-form" data-calc data-request onsubmit="return false">
         <h3 class="bq-step"><span class="bq-step__num">1</span> День и блюда</h3>
-        <div class="tabs" role="tablist" aria-label="Дни недели" data-today>
-          <button class="tabs__btn is-active" type="button" role="tab" id="lunch-tab-mon" aria-selected="true" aria-controls="lunch-mon" data-weekday="1">Пн</button>
-          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-tue" aria-selected="false" aria-controls="lunch-tue" tabindex="-1" data-weekday="2">Вт</button>
-          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-wed" aria-selected="false" aria-controls="lunch-wed" tabindex="-1" data-weekday="3">Ср</button>
-          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-thu" aria-selected="false" aria-controls="lunch-thu" tabindex="-1" data-weekday="4">Чт</button>
-          <button class="tabs__btn" type="button" role="tab" id="lunch-tab-fri" aria-selected="false" aria-controls="lunch-fri" tabindex="-1" data-weekday="5">Пт</button>
-        </div>
+        <fieldset class="chips lunch-pick" data-lunch-pick>
+          <legend class="visually-hidden">День предзаказа</legend>
+          <label class="chip"><input type="radio" name="l-day" value="1" checked>Понедельник, 9 ноября<span class="lunch-pick__when"></span></label>
+          <label class="chip"><input type="radio" name="l-day" value="2">Вторник, 10 ноября<span class="lunch-pick__when"></span></label>
+          <label class="chip"><input type="radio" name="l-day" value="3">Среда, 11 ноября<span class="lunch-pick__when"></span></label>
+          <label class="chip"><input type="radio" name="l-day" value="4">Четверг, 12 ноября<span class="lunch-pick__when"></span></label>
+          <label class="chip"><input type="radio" name="l-day" value="5">Пятница, 13 ноября<span class="lunch-pick__when"></span></label>
+        </fieldset>
         <div class="calc-two">
           <div>
-            <div class="lunch-day" id="lunch-mon" role="tabpanel" aria-labelledby="lunch-tab-mon">
+            <div class="lunch-day" id="lunch-mon" data-weekday="1">
               <p class="lunch-hero__date">Понедельник · 9 ноября</p>
               <div class="calc-row" data-dish="mon-soup" data-price="4.00">
                 <div><p class="calc-row__name">Грибной крем-суп</p><p class="calc-row__price">Суп · 4,00 €</p></div>
@@ -112,7 +166,7 @@
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
             </div>
-            <div class="lunch-day" id="lunch-tue" role="tabpanel" aria-labelledby="lunch-tab-tue" hidden>
+            <div class="lunch-day" id="lunch-tue" data-weekday="2" hidden>
               <p class="lunch-hero__date">Вторник · 10 ноября</p>
               <div class="calc-row" data-dish="tue-soup" data-price="4.00">
                 <div><p class="calc-row__name">Щи из квашеной капусты</p><p class="calc-row__price">Суп · 4,00 €</p></div>
@@ -142,7 +196,7 @@
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
             </div>
-            <div class="lunch-day" id="lunch-wed" role="tabpanel" aria-labelledby="lunch-tab-wed" hidden>
+            <div class="lunch-day" id="lunch-wed" data-weekday="3" hidden>
               <p class="lunch-hero__date">Среда · 11 ноября</p>
               <div class="calc-row" data-dish="wed-soup" data-price="4.50">
                 <div><p class="calc-row__name">Уха из балтийской рыбы</p><p class="calc-row__price">Суп · 4,50 €</p></div>
@@ -172,7 +226,7 @@
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
             </div>
-            <div class="lunch-day" id="lunch-thu" role="tabpanel" aria-labelledby="lunch-tab-thu" hidden>
+            <div class="lunch-day" id="lunch-thu" data-weekday="4" hidden>
               <p class="lunch-hero__date">Четверг · 12 ноября</p>
               <div class="calc-row" data-dish="thu-soup" data-price="4.00">
                 <div><p class="calc-row__name">Гороховый с копчёностями</p><p class="calc-row__price">Суп · 4,00 €</p></div>
@@ -202,7 +256,7 @@
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
             </div>
-            <div class="lunch-day" id="lunch-fri" role="tabpanel" aria-labelledby="lunch-tab-fri" hidden>
+            <div class="lunch-day" id="lunch-fri" data-weekday="5" hidden>
               <p class="lunch-hero__date">Пятница · 13 ноября</p>
               <div class="calc-row" data-dish="fri-soup" data-price="4.50">
                 <div><p class="calc-row__name">Солянка сборная мясная</p><p class="calc-row__price">Суп · 4,50 €</p></div>
@@ -235,6 +289,7 @@
           </div>
           <aside class="calc-side">
             <p class="calc-side__title">Ваш предзаказ</p>
+            <p class="calc-side__day" data-lunch-day-label>Понедельник, 9 ноября</p>
             <ul class="calc-chosen" data-chosen><li class="calc-chosen__empty">Пока ничего не выбрано</li></ul>
             <p class="calc-side__total"><span>Итого к оплате на месте</span> <span data-total>0,00 €</span></p>
             <p class="calc-side__note">Обеды подаём в будни с 12:00 до 15:00.</p>
@@ -302,6 +357,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261109"></script>
+<script src="./js/main.js?v=20261109-2"></script>
 </body>
 </html>

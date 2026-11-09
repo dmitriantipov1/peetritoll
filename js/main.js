@@ -376,7 +376,7 @@ document.querySelectorAll('[data-variants]').forEach((group) => {
 });
 
 // Калькулятор банкета на elements.html и banquet.html, группового меню на group.html,
-// предзаказа обеда на menu.html.
+// предзаказа обеда на lunch.html.
 // Считает прямо в браузере — отправки нет, это по-прежнему эскиз.
 document.querySelectorAll('[data-calc]').forEach((calc) => {
   const rows = calc.querySelectorAll('.calc-row');
@@ -411,8 +411,8 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
     const picked = [];
     const pickedKeys = [];
     rows.forEach((row) => {
-      // Меню дня: в расчёт идёт только открытая вкладка-день, остальные дни не считаем
-      if (row.closest('[role="tabpanel"][hidden]')) return;
+      // Меню дня: в расчёт идёт только выбранный день, остальные дни не считаем
+      if (row.closest('[role="tabpanel"][hidden], .lunch-day[hidden]')) return;
       const q = qty(row);
       total += q * Number(row.dataset.price);
       if (q) {
@@ -584,4 +584,46 @@ document.querySelectorAll('.pdp-gallery').forEach((gallery) => {
     main.addEventListener('error', () => markMissing(main), { once: true });
     main.src = img.getAttribute('src');
   }));
+});
+
+// Меню дня (lunch.html): в таблице недели подсвечен сегодняшний день.
+// Предзаказ — только на сегодня и на завтра: в пятницу только сегодня, в выходные — понедельник
+// (на сайте в выходные предзаказа не будет; в эскизе понедельник, чтобы было что показать)
+document.querySelectorAll('[data-lunch-week]').forEach((table) => {
+  const row = table.querySelector('tr[data-weekday="' + new Date().getDay() + '"]');
+  if (!row) return;
+  row.classList.add('is-today');
+  const mark = document.createElement('span');
+  mark.className = 'lunch-week__today';
+  mark.textContent = 'Сегодня';
+  row.querySelector('th').appendChild(mark);
+});
+
+document.querySelectorAll('[data-lunch-pick]').forEach((pick) => {
+  const form = pick.closest('form');
+  const label = form.querySelector('[data-lunch-day-label]');
+  const radios = [...pick.querySelectorAll('input[type="radio"]')];
+  const today = new Date().getDay();
+  let open = [today, today + 1].filter((n) => n >= 1 && n <= 5);
+  if (!open.length) open = [1];
+
+  radios.forEach((r) => {
+    const n = Number(r.value);
+    const chip = r.closest('label');
+    chip.hidden = !open.includes(n);
+    chip.querySelector('.lunch-pick__when').textContent = n === today ? 'сегодня' : n === today + 1 ? 'завтра' : '';
+  });
+
+  function show() {
+    const checked = radios.find((r) => r.checked);
+    radios.forEach((r) => r.closest('label').classList.toggle('is-active', r === checked));
+    form.querySelectorAll('.lunch-day').forEach((day) => { day.hidden = day.dataset.weekday !== checked.value; });
+    if (label) label.textContent = checked.closest('label').firstChild.nextSibling.textContent.trim();
+    // калькулятор пересчитывает по событию input — теперь уже по новому дню
+    form.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  radios.find((r) => Number(r.value) === open[0]).checked = true;
+  pick.addEventListener('change', show);
+  show();
 });

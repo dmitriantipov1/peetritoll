@@ -1056,6 +1056,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   overflow: hidden; /* иначе высокая обложка раздвигает квадрат */
 }
 .product__img img { width: 100%; height: 100%; object-fit: contain; }
+/* Наведение на карточку — товар чуть приближается, как фото в галерее. Поле вокруг не растёт:
+   .product__img обрезает лишнее (overflow: hidden) */
+.product .product__img img { transition: transform .35s ease; }
+.product:hover .product__img img { transform: scale(1.05); }
+@media (prefers-reduced-motion: reduce) { .product .product__img img { transition: none; } .product:hover .product__img img { transform: none; } }
 .product__body { flex: 1; padding: 0 var(--s-3) var(--s-3); }
 .product__cat {
   font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
@@ -1167,6 +1172,31 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .prod--v5 .product__foot { justify-content: center; gap: var(--s-3); padding: 0 0 var(--s-1); background: none; border-top: 0; }
 .prod--v5 .product__price { font-family: var(--f-head); font-weight: 700; font-size: 19px; color: var(--c-gold-text); }
 .prod--v5 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; }
+
+/* 6. Витрина с фоном у всей карточки (просьба заказчицы 09.11.2026): как 5, но карточка на светлом поле, как в 1 и 3 */
+.prod--v6 .product { background: none; border: 0; text-align: center; }
+.prod--v6 .product__img { background: var(--bg-2); border: 1px solid rgba(111,108,108,.18); margin-bottom: var(--s-2); }
+.prod--v6 .product__body { padding: 0 var(--s-1) var(--s-2); }
+.prod--v6 .product__name { font-family: var(--f-head); font-size: 19px; margin: 7px 0; }
+.prod--v6 .product__desc { font-size: 15px; }
+.prod--v6 .product__foot { justify-content: center; gap: var(--s-3); padding: 0 0 var(--s-1); background: none; border-top: 0; }
+.prod--v6 .product__price { font-family: var(--f-head); font-weight: 700; font-size: 19px; color: var(--c-gold-text); }
+.prod--v6 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; }
+
+.prod-demo.prod--v6 { background: #FAF7F2; }
+.prod--v6 .product { background: var(--bg-2); border: 1px solid rgba(111,108,108,.22); }
+.prod--v6 .product__img { margin-bottom: 0; background: none; border: 0; }
+.prod--v6 .product__body { padding: 0 var(--s-3) var(--s-2); }
+.prod--v6 .product__foot { padding: 0 var(--s-3) var(--s-3); }
+
+/* 7. Как 3, но описание в одну строку (просьба заказчицы 09.11.2026): нет пустого места под коротким описанием */
+.prod-demo.prod--v7 { background: #FAF7F2; }
+.prod--v7 .product__cat { font-weight: 700; font-size: 12px; letter-spacing: .1em; line-height: 1.2; }
+.prod--v7 .product__name { --lh: 1.3; margin: 7px 0; font-weight: 500; font-size: 18px; }
+.prod--v7 .product__desc { --lh: 1.4; font-size: 15px; }
+.prod--v7 .product__price { font-family: var(--f-body); font-weight: 700; font-size: 17px; letter-spacing: .06em; color: var(--c-ink); }
+.prod--v7 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; letter-spacing: .1em; }
+.prod--v7 .product__desc { -webkit-line-clamp: 1; height: calc(1em * var(--lh)); }
 
 @media (max-width: 1180px) { .prod-demo .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 860px) { .prod-demo .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prod-demo { padding: var(--s-3) var(--s-2); } }
@@ -1537,6 +1567,52 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lunch-week th { font-family: var(--f-head); font-size: 15px; color: var(--c-gold-text); white-space: nowrap; }
 .lunch-week td:last-child { font-family: var(--f-deco); font-size: 19px; color: var(--c-red); white-space: nowrap; text-align: right; }
 
+/* Меню на неделю на lunch.html (вариант 3, выбор заказчицы 07.11.2026): у супа и горячего
+   своя цена, в последнем столбце — обед целиком и зачёркнутая цена по отдельности.
+   Сегодняшняя строка подсвечена. До 640 px строки становятся карточками дня */
+.lunch-week--full { background: var(--bg-1); }
+.lunch-week__caption { padding-bottom: var(--s-2); caption-side: top; text-align: left; font-family: var(--f-deco); font-size: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--c-gold-dark); }
+.lunch-week--full thead th { padding-block: 12px; font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); border-bottom: 2px solid var(--c-gold); }
+.lunch-week--full thead th:last-child { text-align: right; }
+.lunch-week--full tbody th { width: 17%; font-family: var(--f-head); font-weight: 700; font-size: 18px; color: var(--c-ink); white-space: normal; }
+.lunch-week--full td { font-size: 17px; }
+.lunch-week__date, .lunch-week__price { display: block; margin-top: 2px; }
+.lunch-week__date { font-family: var(--f-body); font-weight: 400; font-size: 14px; color: var(--c-grey); white-space: nowrap; }
+.lunch-week__price { font-family: var(--f-deco); font-size: 17px; color: var(--c-red); }
+.lunch-week--full td:last-child { width: 16%; font-size: 22px; }
+.lunch-week--full td:last-child s { display: block; font-family: var(--f-body); font-size: 14px; color: var(--c-grey); }
+.lunch-week--full tr.is-today { background: rgba(203,170,88,.18); box-shadow: inset 4px 0 0 var(--c-red); }
+.lunch-week__today { display: inline-block; margin-top: 6px; padding: 2px 8px; background: var(--c-red); color: var(--bg-2); font-family: var(--f-body); font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+
+/* Выбор дня в предзаказе: радиокнопки в виде чипов */
+.lunch-pick { border: 0; padding: 0; margin-bottom: var(--s-3); }
+.lunch-pick .chip { position: relative; gap: 8px; }
+.lunch-pick input { position: absolute; opacity: 0; pointer-events: none; }
+.lunch-pick .chip:has(input:focus-visible) { outline: 2px solid var(--c-red); outline-offset: 2px; }
+.lunch-pick .chip[hidden] { display: none; }
+.lunch-pick__when { font-family: var(--f-body); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.lunch-pick__when:empty { display: none; }
+.calc-side__day { margin: -4px 0 var(--s-2); font-family: var(--f-head); font-style: italic; color: var(--c-grey); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 640px) {
+  .lunch-week--full, .lunch-week--full tbody, .lunch-week--full tr, .lunch-week--full th, .lunch-week--full td { display: block; width: auto; }
+  .lunch-week--full thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .lunch-week.lunch-week--full { min-width: 0; background: none; } /* перебивает min-width таблицы с elements.html ниже */
+  .lunch-week__caption { display: block; }
+  .lunch-week--full tbody tr { margin-bottom: var(--s-2); padding: var(--s-2); background: var(--bg-1); border-top: 3px solid var(--c-gold); }
+  .lunch-week.lunch-week--full tbody th, .lunch-week.lunch-week--full td { padding: 8px 0; font-size: 17px; }
+  .lunch-week.lunch-week--full tbody th { border-bottom: 0; }
+  .lunch-week--full td { display: grid; grid-template-columns: 124px 1fr; gap: var(--s-1); }
+  .lunch-week.lunch-week--full td:last-child { font-size: 22px; }
+  .lunch-week--full td::before { content: attr(data-label); font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--c-grey); padding-top: 3px; }
+  .lunch-week--full td:last-child { text-align: left; border-bottom: 0; }
+  .lunch-week--full td:last-child s { display: inline; margin-left: 8px; }
+  .lunch-week--full tr.is-today { box-shadow: none; border-top-color: var(--c-red); }
+  .lunch-week__date { display: inline; margin-left: 8px; }
+  .lunch-week__today { margin: 0 0 0 8px; }
+}
+
 /* ---------- 5. Радиогиды ---------- */
 .radio-bar {
   display: grid; grid-template-columns: 180px 1fr auto; gap: var(--s-3); align-items: center;
@@ -1712,6 +1788,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .bq-form .calc-two .calc-side__total span:first-child,
   .bq-form .calc-two .calc-side__note { color: var(--bg-2); opacity: .8; }
   .bq-form .calc-two .calc-side__note { flex-basis: 100%; margin: 0; }
+  .bq-form .calc-two .calc-side__day { flex-basis: 100%; margin: 0; color: var(--c-gold); }
   .bq-form .calc-two .calc-side__total [data-total] { color: var(--c-gold); }
   .bq-form .calc-two .calc-side__act { flex-basis: 100%; margin: 4px 0 0; }
   .bq-form .calc-two .calc-side__act .btn { width: 100%; border-color: var(--c-gold); color: var(--c-gold); }
