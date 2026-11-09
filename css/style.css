@@ -1040,6 +1040,15 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   border: 1px solid rgba(111,108,108,.22);
 }
 .product[hidden] { display: none; }
+/* Вся карточка ведёт на страницу товара: ссылка в названии растянута на карточку,
+   кнопка покупки лежит поверх неё и работает сама по себе */
+.product { position: relative; }
+.product__link { color: inherit; text-decoration: none; }
+.product__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.product__link:focus-visible { outline: none; }
+.product:has(.product__link:focus-visible) { outline: 2px solid var(--c-red); outline-offset: 2px; }
+.product:hover .product__name { color: var(--c-red); }
+.product__foot .btn { position: relative; z-index: 2; }
 .product__img {
   position: relative;
   aspect-ratio: 1;
@@ -1080,6 +1089,88 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 1180px) { .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 860px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .products { grid-template-columns: 1fr; } }
+
+/* Страница товара (product.html) — шаблон, 09.11.2026.
+   Слева фото с миниатюрами, справа цена, покупка и характеристики, ниже — описание.
+   Фото товара без золотой рамки, как в карточках */
+.page-hero--short { min-height: 320px; }
+.pdp {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas: "gallery info" "about info";
+  gap: var(--s-4) var(--gap);
+  align-items: start;
+}
+.pdp-gallery { grid-area: gallery; }
+.pdp-gallery__main { aspect-ratio: 1; background: var(--bg-2); border: 1px solid rgba(111,108,108,.22); }
+.pdp-gallery__thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-1); margin-top: var(--s-1); list-style: none; }
+.pdp-gallery__thumb { display: block; width: 100%; padding: 0; border: 1px solid rgba(111,108,108,.22); background: var(--bg-2); cursor: pointer; }
+.pdp-gallery__thumb .product__img { display: block; padding: 6px; min-height: 0; } /* у заглушки на телефоне своя min-height */
+.pdp-gallery__thumb .product__img.is-missing::before { content: ""; }
+.pdp-gallery__thumb[aria-current="true"] { border-color: var(--c-red); }
+.pdp-gallery__thumb:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+.pdp__info { grid-area: info; }
+.pdp__title { margin: 8px 0 var(--s-2); font-family: var(--f-head); font-weight: 500; font-size: clamp(28px, 3vw, 38px); line-height: 1.2; }
+.pdp__lead { font-family: var(--f-head); font-style: italic; font-size: 18px; color: #4d4842; }
+.pdp__buy {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-3);
+  margin: var(--s-3) 0; padding: var(--s-3) 0;
+  border-top: 1px solid rgba(111,108,108,.35); border-bottom: 1px solid rgba(111,108,108,.35);
+}
+.pdp__price { font-family: var(--f-deco); font-size: 34px; color: var(--c-red); }
+.pdp__stock { flex: 1; font-weight: 600; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-grey); }
+.pdp__note { margin-top: var(--s-3); }
+.pdp__about { grid-area: about; }
+.pdp__subtitle { margin-bottom: var(--s-2); font-family: var(--f-head); font-weight: 700; font-size: 22px; }
+@media (max-width: 860px) {
+  .pdp { grid-template-columns: 1fr; grid-template-areas: "gallery" "info" "about"; }
+  .page-hero--short { min-height: 260px; }
+}
+@media (max-width: 560px) { .pdp__buy .btn { width: 100%; } }
+
+/* Варианты карточки товара на elements.html (#product-v1…v5), 09.11.2026.
+   Без модификатора (вариант 2) — текущая карточка. Выбранный вариант потом
+   переносится в основные правила .product и применяется везде */
+.prod-demo { padding: var(--s-4) var(--s-3); background: var(--bg-1); }
+.prod-demo .products { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* 1. Ровно по макету заказчицы: мелкие шрифты, цена Source Sans, кнопка 84×30, фон #FAF7F2 */
+.prod-demo.prod--v1 { background: #FAF7F2; }
+.prod--v1 .product__cat { font-weight: 700; font-size: 11px; letter-spacing: .1em; line-height: 1.2; }
+.prod--v1 .product__name { --lh: 1.3; margin: 7px 0; font-weight: 500; font-size: 15px; }
+.prod--v1 .product__desc { --lh: 1.4; font-size: 12px; }
+.prod--v1 .product__price { font-family: var(--f-body); font-weight: 700; font-size: 13px; letter-spacing: .1em; color: #000; }
+.prod--v1 .product__foot .btn { min-height: 30px; padding: 0 14px; font-size: 13px; letter-spacing: .1em; }
+
+/* 3. Стиль заказчицы, но крупнее: те же шрифты и начертания, читаемые размеры */
+.prod-demo.prod--v3 { background: #FAF7F2; }
+.prod--v3 .product__cat { font-weight: 700; font-size: 12px; letter-spacing: .1em; line-height: 1.2; }
+.prod--v3 .product__name { --lh: 1.3; margin: 7px 0; font-weight: 500; font-size: 18px; }
+.prod--v3 .product__desc { --lh: 1.4; font-size: 15px; }
+.prod--v3 .product__price { font-family: var(--f-body); font-weight: 700; font-size: 17px; letter-spacing: .06em; color: var(--c-ink); }
+.prod--v3 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; letter-spacing: .1em; }
+
+/* 4. Без нижней полосы: цена в тексте, кнопка во всю ширину карточки */
+.prod--v4 .product__body { display: flex; flex-direction: column; }
+.prod--v4 .product__name { font-weight: 500; font-size: 18px; margin: 7px 0; }
+.prod--v4 .product__desc { font-size: 15px; }
+.prod--v4 .product__foot { flex-direction: column; align-items: stretch; gap: 12px; padding: 0 var(--s-3) var(--s-3); background: none; border-top: 0; }
+.prod--v4 .product__price { font-size: 24px; }
+.prod--v4 .product__foot .btn { width: 100%; min-height: 40px; font-size: 16px; }
+
+/* 5. Витрина: без рамки и фона, всё по центру, фото на светлом поле */
+.prod--v5 .product { background: none; border: 0; text-align: center; }
+.prod--v5 .product__img { background: var(--bg-2); border: 1px solid rgba(111,108,108,.18); margin-bottom: var(--s-2); }
+.prod--v5 .product__body { padding: 0 var(--s-1) var(--s-2); }
+.prod--v5 .product__name { font-family: var(--f-head); font-size: 19px; margin: 7px 0; }
+.prod--v5 .product__desc { font-size: 15px; }
+.prod--v5 .product__foot { justify-content: center; gap: var(--s-3); padding: 0 0 var(--s-1); background: none; border-top: 0; }
+.prod--v5 .product__price { font-family: var(--f-head); font-weight: 700; font-size: 19px; color: var(--c-gold-text); }
+.prod--v5 .product__foot .btn { min-height: 38px; padding: 0 16px; font-size: 15px; }
+
+@media (max-width: 1180px) { .prod-demo .products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .prod-demo .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prod-demo { padding: var(--s-3) var(--s-2); } }
+@media (max-width: 560px) { .prod-demo .products { grid-template-columns: 1fr; } }
 
 /* =========================================================
    МЕНЮ: 5 вариантов карточек блюд

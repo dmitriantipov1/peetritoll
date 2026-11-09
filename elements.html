@@ -9,9 +9,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261107-16">
+  <link rel="stylesheet" href="./css/style.css?v=20261109">
 </head>
 <body>
 
@@ -74,6 +74,7 @@
         <li><a class="chip" href="#banket">Калькулятор банкета</a></li>
         <li><a class="chip" href="#radio">Радиогиды</a></li>
         <li><a class="chip" href="#dish">Карточки блюд</a></li>
+        <li><a class="chip" href="#product">Карточки товаров</a></li>
       </ul>
 
       <!-- ============ 1. МЕРОПРИЯТИЯ ============ -->
@@ -928,6 +929,82 @@
         </section>
         </div>
       </section>
+
+      <!-- ============ 7. КАРТОЧКИ ТОВАРОВ ============ -->
+      <section class="variant-group" id="product" data-variants="product">
+        <div class="variant-group__head">
+          <p class="variant-group__num">Блок 07 · «Магазин», главная, «Музей»</p>
+          <h2 class="variant-group__title">Карточки товаров</h2>
+          <p class="variant-group__why">Как выглядит товар в каталоге. Та же карточка стоит
+            в блоке «Магазин» на главной и в разделе «Книги» на странице музея, поэтому
+            выбранный вид поменяется везде сразу. Клик по карточке открывает страницу товара.</p>
+        </div>
+
+        <div class="variant-panel">
+          <p class="variant-panel__label">Выберите вид карточки товара</p>
+          <div class="chips" role="group" aria-label="Варианты карточек товаров">
+            <button class="chip" type="button" aria-pressed="false" data-variant="1" data-desc="Точно по вашему макету: категория 11 px, название 15 px, описание 12 px, цена 13 px, кнопка 84×30, светлый фон. Аккуратно, но мелкий текст трудно читать, особенно на телефоне и людям постарше.">1. Как в макете</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="2" data-desc="Карточка, которая сейчас стоит на сайте: крупное название, цена фирменным шрифтом Kurale красным, обычная кнопка.">2. Как сейчас</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="3" data-desc="Ваш макет — те же шрифты, начертания, отступы и светлый фон, — но текст и кнопка крупнее, чтобы легко читалось.">3. Макет, но крупнее</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="4" data-desc="Без нижней полосы: цена под описанием, кнопка во всю ширину карточки. В кнопку проще попасть пальцем на телефоне.">4. Кнопка во всю ширину</button>
+            <button class="chip" type="button" aria-pressed="false" data-variant="5" data-desc="Как витрина музейной лавки: без рамки вокруг карточки, всё по центру, цена золотом. Самый лёгкий и спокойный вариант.">5. Витрина</button>
+          </div>
+          <p class="variant-panel__desc"></p>
+        </div>
+
+        <div class="prod-demo prod--v1" data-v-class="prod--v">
+          <ul class="products">
+        <li class="product">
+            <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
+            <div class="product__body">
+              <p class="product__cat">Книги</p>
+              <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
+              <p class="product__desc">Галина Малютина · 2022 · 144 стр.</p>
+            </div>
+            <div class="product__foot">
+              <p class="product__price">10,00 €</p>
+              <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/bajki-iz-za-barnoj-stojki" target="_blank" rel="noopener">Купить</a>
+            </div>
+          </li>
+        <li class="product">
+            <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
+            <div class="product__body">
+              <p class="product__cat">Антиквариат</p>
+              <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
+              <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+            </div>
+            <div class="product__foot">
+              <p class="product__price">120 €</p>
+              <a class="btn btn--sm" href="#">В корзину</a>
+            </div>
+          </li>
+        <li class="product">
+            <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
+            <div class="product__body">
+              <p class="product__cat">Фото и карты</p>
+              <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
+              <p class="product__desc">Отпечаток 8×12 см · цифровая копия</p>
+            </div>
+            <div class="product__foot">
+              <p class="product__price">от 5 €</p>
+              <a class="btn btn--sm" href="#">Выбрать</a>
+            </div>
+          </li>
+        <li class="product">
+            <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
+            <div class="product__body">
+              <p class="product__cat">Сувениры</p>
+              <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
+              <p class="product__desc">Рисунок Андрея Кириллова</p>
+            </div>
+            <div class="product__foot">
+              <p class="product__price">4 €</p>
+              <a class="btn btn--sm" href="#">В корзину</a>
+            </div>
+          </li>
+          </ul>
+        </div>
+      </section>
     </div>
   </section>
 </main>
@@ -956,6 +1033,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261107-11"></script>
+<script src="./js/main.js?v=20261109"></script>
 </body>
 </html>

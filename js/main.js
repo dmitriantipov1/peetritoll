@@ -569,3 +569,19 @@ if (dietFilter) {
     apply();
   }));
 }
+
+// Страница товара: миниатюры меняют большое фото
+document.querySelectorAll('.pdp-gallery').forEach((gallery) => {
+  const main = gallery.querySelector('.pdp-gallery__main img');
+  const box = main.closest('.product__img');
+  const thumbs = gallery.querySelectorAll('.pdp-gallery__thumb');
+  thumbs.forEach((thumb) => thumb.addEventListener('click', () => {
+    const img = thumb.querySelector('img');
+    thumbs.forEach((t) => t.setAttribute('aria-current', String(t === thumb)));
+    box.classList.remove('is-missing');
+    main.alt = img.alt;
+    main.dataset.ph = img.dataset.ph;
+    main.addEventListener('error', () => markMissing(main), { once: true });
+    main.src = img.getAttribute('src');
+  }));
+});
