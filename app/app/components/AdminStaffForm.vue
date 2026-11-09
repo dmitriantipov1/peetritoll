@@ -13,10 +13,22 @@ import {
   type Section,
 } from '#shared/access'
 import { fullDate, momentLabel, toTallinnLocal } from '#shared/dates'
-import { assignableRoles, canManage, type AdminStaff, type StaffInput } from '#shared/staff'
+import {
+  assignableRoles,
+  canManage,
+  staffStatus,
+  type AdminStaff,
+  type IssuedPasswordLink,
+  type StaffInput,
+} from '#shared/staff'
 
 const props = defineProps<{ staff: AdminStaff | null }>()
-const emit = defineEmits<{ saved: [staff: AdminStaff] }>()
+const emit = defineEmits<{
+  /** Сохранили форму — карточка покажет «Сохранено» */
+  saved: [staff: AdminStaff]
+  /** Поменялось что-то помимо формы (выдали ссылку) — просто обновить карточку */
+  updated: [staff: AdminStaff]
+}>()
 
 const { user: me, can, refresh } = useAdminUser()
 
@@ -152,17 +164,62 @@ async function setActive(on: boolean) {
   }
 }
 
+// ---------- Ссылка «задать пароль» ----------
+
+const canIssueLink = computed(
+  () => !!props.staff && editable.value && !self.value && props.staff.isActive,
+)
+const linkButton = computed(() => {
+  const s = props.staff
+  if (!s) return ''
+  if (s.hasPassword) return 'Ссылка для нового пароля'
+  return s.passwordLink ? 'Выдать новую ссылку' : 'Получить ссылку-приглашение'
+})
+const issued = ref<IssuedPasswordLink | null>(null)
+const issuing = ref(false)
+const copied = ref(false)
+
+async function issueLink() {
+  const s = props.staff
+  if (!s) return
+  if (
+    s.hasPassword &&
+    !confirm(
+      `Выдать ссылку для нового пароля: ${s.name}? Прежний пароль сразу перестанет действовать, ` +
+        'открытые сессии закроются. Войти можно будет, когда сотрудник задаст новый пароль по ссылке.',
+    )
+  )
+    return
+  error.value = ''
+  issuing.value = true
+  copied.value = false
+  try {
+    issued.value = await $fetch<IssuedPasswordLink>(`/api/admin/staff/${s.id}/password-link`, {
+      method: 'POST',
+    })
+    emit('updated', await $fetch<AdminStaff>(`/api/admin/staff/${s.id}`))
+  } catch (e) {
+    error.value = apiErrorMessage(e, 'Не удалось выдать ссылку. Попробуйте ещё раз.')
+  } finally {
+    issuing.value = false
+  }
+}
+
+async function copyLink() {
+  if (!issued.value) return
+  try {
+    await navigator.clipboard.writeText(issued.value.url)
+    copied.value = true
+  } catch {
+    // Без доступа к буферу — ссылка выделена в поле, её можно скопировать руками
+  }
+}
+
 // ---------- Подписи ----------
 
 const title = computed(() => props.staff?.name || form.name.trim() || 'Новый сотрудник')
 
-const status = computed(() => {
-  const s = props.staff
-  if (!s) return null
-  if (!s.isActive) return { label: 'Отключён', cls: 'adm-status--archive' }
-  if (!s.hasPassword) return { label: 'Приглашён', cls: 'adm-status--planned' }
-  return { label: 'Активен', cls: 'adm-status--done' }
-})
+const status = computed(() => (props.staff ? staffStatus(props.staff) : null))
 
 const meta = computed(() => {
   const s = props.staff
@@ -305,8 +362,12 @@ const readOnlyNote = computed(() => {
             <div>
               <dt>Пароль</dt>
               <dd>
-                <template v-if="staff.passwordChangedAt">
+                <template v-if="staff.hasPassword && staff.passwordChangedAt">
                   Задан {{ fullDate(toTallinnLocal(new Date(staff.passwordChangedAt))) }}
+                </template>
+                <template v-else-if="staff.lastLoginAt && staff.passwordChangedAt">
+                  Сброшен {{ fullDate(toTallinnLocal(new Date(staff.passwordChangedAt))) }} — ждём
+                  новый
                 </template>
                 <template v-else>Ещё не задан</template>
               </dd>
@@ -318,9 +379,45 @@ const readOnlyNote = computed(() => {
               </dd>
             </div>
           </dl>
+
+          <p v-if="staff?.passwordLink && !issued" class="adm-note" style="margin-top: 10px">
+            Ссылка
+            {{ staff.passwordLink.kind === 'invite' ? 'приглашения' : 'для нового пароля' }} выдана
+            {{ momentLabel(new Date(staff.passwordLink.createdAt)) }}, действует до
+            {{ momentLabel(new Date(staff.passwordLink.expiresAt)) }}. Потеряли — выдайте новую,
+            старая перестанет действовать.
+          </p>
+
+          <div v-if="issued" class="adm-link-box" role="status">
+            <label for="u-link">
+              {{ issued.kind === 'invite' ? 'Ссылка-приглашение' : 'Ссылка для нового пароля' }}
+            </label>
+            <div class="adm-link-box__row">
+              <input
+                id="u-link"
+                :value="issued.url"
+                type="text"
+                readonly
+                @focus="($event.target as HTMLInputElement).select()"
+              />
+              <button class="btn btn--sm" type="button" @click="copyLink">
+                {{ copied ? 'Скопировано' : 'Копировать' }}
+              </button>
+            </div>
+            <p class="adm-note">
+              Действует до {{ momentLabel(new Date(issued.expiresAt)) }}, один раз. Передайте её
+              сотруднику сами — почты пока нет. Больше ссылку не покажем: в базе её нет.
+            </p>
+          </div>
+
+          <div v-if="canIssueLink" class="adm-actions" style="margin-top: 12px">
+            <button class="btn btn--sm" type="button" :disabled="issuing" @click="issueLink">
+              {{ issuing ? 'Выдаём…' : linkButton }}
+            </button>
+          </div>
           <p class="adm-note" style="margin-top: 10px">
             Пароль сотрудника никто не видит и не задаёт за него: он задаёт его сам по ссылке.
-            Ссылки «пригласить» и «новый пароль» — в следующем обновлении.
+            <template v-if="!staff">Ссылку-приглашение выдадите здесь после создания.</template>
           </p>
         </section>
 

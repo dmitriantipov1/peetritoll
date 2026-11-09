@@ -28,6 +28,50 @@ export interface AdminStaffRow {
 /** Карточка сотрудника */
 export interface AdminStaff extends AdminStaffRow {
   passwordChangedAt: string | null
+  /** Выданная и ещё действующая ссылка «задать пароль» — без самой ссылки, её видно один раз */
+  passwordLink: { kind: PasswordLinkKind; createdAt: string; expiresAt: string } | null
+}
+
+// ---------- Ссылки «задать пароль» (5.2) ----------
+
+/** invite — первый пароль нового сотрудника, reset — новый вместо прежнего */
+export type PasswordLinkKind = 'invite' | 'reset'
+
+/** Сколько живёт ссылка. Почты пока нет, ссылку передают сами — поэтому не час, как в письме */
+export const passwordLinkHours: Record<PasswordLinkKind, number> = {
+  invite: 24 * 7,
+  reset: 24,
+}
+
+/** Ответ на «выдать ссылку»: сама ссылка — только здесь, в базе её нет */
+export interface IssuedPasswordLink {
+  url: string
+  kind: PasswordLinkKind
+  expiresAt: string
+}
+
+/** Что видит человек, открывший ссылку */
+export interface PasswordLinkInfo {
+  name: string
+  email: string
+  kind: PasswordLinkKind
+}
+
+export const setPasswordSchema = z.object({
+  token: z.string().min(20).max(200),
+  password: z.string(),
+})
+
+/** Статус в списке и карточке */
+export function staffStatus(s: AdminStaffRow): { label: string; cls: string } {
+  if (!s.isActive) return { label: 'Отключён', cls: 'adm-status--archive' }
+  if (!s.hasPassword) {
+    // Ни разу не входил — приглашён; входил, а пароля нет — пароль сброшен ссылкой
+    return s.lastLoginAt
+      ? { label: 'Ждёт новый пароль', cls: 'adm-status--planned' }
+      : { label: 'Приглашён', cls: 'adm-status--planned' }
+  }
+  return { label: 'Активен', cls: 'adm-status--done' }
 }
 
 /**

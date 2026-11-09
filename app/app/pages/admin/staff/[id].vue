@@ -29,6 +29,6 @@ function onSaved(value: AdminStaff) {
       </p>
     </template>
     <p v-if="saved" class="adm-alert" role="status">Сохранено.</p>
-    <AdminStaffForm v-if="staff" :staff="staff" @saved="onSaved" />
+    <AdminStaffForm v-if="staff" :staff="staff" @saved="onSaved" @updated="staff = $event" />
   </div>
 </template>

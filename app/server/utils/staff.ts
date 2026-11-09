@@ -26,10 +26,6 @@ function toStaffRow(row: UserRow): AdminStaffRow {
   }
 }
 
-function toStaff(row: UserRow): AdminStaff {
-  return { ...toStaffRow(row), passwordChangedAt: row.passwordChangedAt?.toISOString() ?? null }
-}
-
 /** Все учётные записи: сначала действующие, внутри — админы, владельцы, сотрудники, по имени */
 export async function loadStaffList(): Promise<AdminStaffRow[]> {
   const rows = await useDb().select().from(users).orderBy(asc(users.name))
@@ -50,7 +46,12 @@ async function findUser(id: number): Promise<UserRow> {
 }
 
 export async function loadStaff(id: number): Promise<AdminStaff> {
-  return toStaff(await findUser(id))
+  const row = await findUser(id)
+  return {
+    ...toStaffRow(row),
+    passwordChangedAt: row.passwordChangedAt?.toISOString() ?? null,
+    passwordLink: await activePasswordLink(row.id),
+  }
 }
 
 function forbid(message: string): never {
@@ -75,7 +76,7 @@ async function ensureEmailFree(email: string, exceptId?: number) {
 
 /**
  * Новый сотрудник. Без пароля: войти он сможет, когда задаст пароль по ссылке-приглашению
- * (следующий слой). До тех пор в списке он «Приглашён».
+ * (server/utils/password-links.ts). До тех пор в списке он «Приглашён».
  */
 export async function createStaff(actor: UserRow, input: StaffInput): Promise<number> {
   if (!assignableRoles(actor.role).includes(input.role)) {

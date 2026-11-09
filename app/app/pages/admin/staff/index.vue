@@ -3,7 +3,7 @@
 // Разметка и классы — из прототипа (admin/staff.html). Раздел видят только админ и владелец.
 import { hasFullAccess, roles, sectionKeys, sections } from '#shared/access'
 import { momentLabel } from '#shared/dates'
-import type { AdminStaffRow } from '#shared/staff'
+import { staffStatus, type AdminStaffRow } from '#shared/staff'
 
 definePageMeta({ layout: 'admin', access: ['staff'] })
 defineI18nRoute(false)
@@ -19,12 +19,6 @@ function accessList(u: AdminStaffRow) {
   return sectionKeys
     .filter((s) => u.permissions[s] && u.permissions[s] !== 'none')
     .map((s) => ({ key: s, label: sections[s].label, edit: u.permissions[s] === 'edit' }))
-}
-
-function status(u: AdminStaffRow) {
-  if (!u.isActive) return { label: 'Отключён', cls: 'adm-status--archive' }
-  if (!u.hasPassword) return { label: 'Приглашён', cls: 'adm-status--planned' }
-  return { label: 'Активен', cls: 'adm-status--done' }
 }
 </script>
 
@@ -110,7 +104,9 @@ function status(u: AdminStaffRow) {
                 <small v-else>ещё не входил</small>
               </td>
               <td>
-                <span class="adm-status" :class="status(u).cls">{{ status(u).label }}</span>
+                <span class="adm-status" :class="staffStatus(u).cls">{{
+                  staffStatus(u).label
+                }}</span>
               </td>
               <td>
                 <NuxtLink

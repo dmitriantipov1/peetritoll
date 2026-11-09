@@ -3,9 +3,12 @@
 import { firstAllowedPath } from '~/utils/admin-nav'
 
 const LOGIN = '/admin/login'
+// «Задать пароль» по ссылке — без входа: пропуском служит сама ссылка
+const SET_PASSWORD = '/admin/password'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (to.path !== '/admin' && !to.path.startsWith('/admin/')) return
+  if (to.path === SET_PASSWORD) return
 
   const { user, refresh, canAny } = useAdminUser()
   // Сотрудник уже известен — не спрашиваем сервер на каждом переходе внутри админки

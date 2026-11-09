@@ -1191,3 +1191,8 @@ button.adm-lang:hover { outline: 2px solid var(--c-gold); outline-offset: 1px; }
 .adm-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 /* Карточка сотрудника: «Всё „смотрит“ · Снять всё» в шапке панели прав — в строку */
 .adm-staff-quick { display: flex; gap: 16px; }
+/* Выданная ссылка «задать пароль»: поле со ссылкой и «Копировать» */
+.adm-link-box { display: grid; gap: 8px; margin-top: 14px; padding: 12px; border: 1px solid var(--c-gold); background: rgba(203, 170, 88, .12); }
+.adm-link-box label { font-family: var(--f-head); font-weight: 700; font-size: 13px; color: var(--c-grey); }
+.adm-link-box__row { display: flex; gap: 8px; }
+.adm-link-box__row input { flex: 1; min-width: 0; font-size: 13px; }
