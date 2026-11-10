@@ -18,6 +18,8 @@
   --bg-1: #EDE5D8;
   --bg-2: #F4EFE6;
   --bg-4: #E4DAC9;
+  /* Фон разделов с карточками товаров — цвет самой карточки (просьба заказчицы 11.11.2026) */
+  --bg-shop: #FAF7F2;
 
   /* Шрифты */
   --f-deco:  "Kurale", Georgia, serif;          /* меню, кнопки, герой */
@@ -314,6 +316,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .section--bg1 { background: var(--bg-1); }
 .section--bg2 { background: var(--bg-2); }
 .section--bg4 { background: var(--bg-4); }
+/* Разделы с товарами: фон как у карточки и вокруг фото — товары лежат на одном светлом поле */
+.section--shop { background: var(--bg-shop); }
 
 /* Section heading: крошка, номер + заголовок, ссылка справа, линия */
 .section-head {
