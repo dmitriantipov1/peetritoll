@@ -495,6 +495,23 @@ const source = computed(() => {
           <section class="adm-panel" aria-labelledby="p-info">
             <h2 id="p-info" class="adm-panel__title" style="margin-bottom: 14px">Сведения</h2>
             <dl class="adm-facts">
+              <div v-if="request.lead">
+                <dt>Контакт в лидах</dt>
+                <dd>
+                  <NuxtLink v-if="can('leads')" :to="`/admin/leads/${request.lead.id}`">
+                    {{ request.lead.name }}
+                  </NuxtLink>
+                  <template v-else>{{ request.lead.name }}</template>
+                  ·
+                  {{
+                    request.lead.events > 1
+                      ? `${request.lead.events} ${plural(request.lead.events, ['обращение', 'обращения', 'обращений'])} с ${fullDate(request.lead.since.slice(0, 10))}`
+                      : 'новый контакт'
+                  }}
+                  <br />
+                  <span v-for="t in request.lead.tags" :key="t" class="adm-tag">{{ t }}</span>
+                </dd>
+              </div>
               <div>
                 <dt>Рассылка</dt>
                 <dd>

@@ -242,13 +242,15 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
         createdBy: opts.userId ?? null,
         updatedBy: opts.userId ?? null,
       })
-      .returning({ id: requests.id })
+      .returning()
     await tx.insert(requestHistory).values({
       requestId: row!.id,
       kind: 'created',
       userId: opts.userId ?? null,
       at: now,
     })
+    // Контакт в лидах (8.2) — в той же транзакции: заявка без контакта не остаётся
+    await linkRequestToLead(tx, row!)
     return row!.id
   })
 }
@@ -352,7 +354,7 @@ export function requireRequestAccess(user: UserRow, type: RequestType, needed: '
 }
 
 /** «День рождения · 8 блюд · ≈ 956 €» — подробности одной строкой для списка */
-function summaryOf(row: RequestRow): string {
+export function requestSummary(row: RequestRow): string {
   const parts: string[] = []
   const d = row.details
   const calc = row.calc
@@ -403,7 +405,7 @@ function toRow(row: RequestRow): AdminRequestRow {
     phone: row.phone,
     email: row.email,
     topic: row.details.type === 'tour' ? row.details.topic : null,
-    summary: summaryOf(row),
+    summary: requestSummary(row),
     totalCents: row.calc?.totalCents ?? null,
   }
 }
@@ -478,6 +480,7 @@ export async function loadRequest(id: number, user: UserRow): Promise<AdminReque
     policyVersion: row.policyVersion,
     marketingOptIn: row.marketingOptIn,
     createdByName: row.createdBy ? (names.get(row.createdBy) ?? null) : null,
+    lead: await leadForRequest(row.leadId),
     updatedAt: row.updatedAt.toISOString(),
     history: history.map(({ item, userName }) => ({
       id: item.id,

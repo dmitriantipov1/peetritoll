@@ -370,6 +370,8 @@ export interface AdminRequest extends AdminRequestRow {
   policyVersion: string | null
   marketingOptIn: boolean
   createdByName: string | null
+  /** Контакт в лидах: имя, сколько обращений, с какого времени, автотеги */
+  lead: { id: number; name: string; events: number; since: string; tags: string[] } | null
   updatedAt: string
   /** Сначала новые */
   history: AdminRequestHistoryItem[]

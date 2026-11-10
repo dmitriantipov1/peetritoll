@@ -26,6 +26,7 @@ import type {
   RequestType,
 } from '../../../shared/requests'
 import { users } from './users'
+import { leads } from './leads'
 
 export const requests = pgTable(
   'requests',
@@ -65,6 +66,9 @@ export const requests = pgTable(
     // Галочка «согласен на рассылку» в форме — отдельно от согласия на обработку (8.2)
     marketingOptIn: boolean('marketing_opt_in').notNull().default(false),
 
+    // Контакт в лидах (8.2): одна запись на человека, заявки — его события
+    leadId: integer('lead_id').references(() => leads.id, { onDelete: 'set null' }),
+
     createdBy: integer('created_by').references(() => users.id, { onDelete: 'set null' }),
     updatedBy: integer('updated_by').references(() => users.id, { onDelete: 'set null' }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -77,6 +81,7 @@ export const requests = pgTable(
     index('requests_status_created').on(t.status, t.createdAt),
     index('requests_type_created').on(t.type, t.createdAt),
     index('requests_visit_date').on(t.visitDate),
+    index('requests_lead').on(t.leadId),
     check(
       'requests_type',
       sql`${t.type} in ('table', 'banquet', 'group', 'lunch', 'tour', 'event')`,
