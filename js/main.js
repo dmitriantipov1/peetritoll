@@ -530,7 +530,10 @@ document.querySelectorAll('[data-request]').forEach((requestForm) => {
 // Пустые разделы прячем, их кнопки в строке разделов приглушаем.
 const dietFilter = document.querySelector('[data-diet-filter]');
 if (dietFilter) {
+  // Ограничения (data-diet-tag): можно несколько, блюдо должно подходить под все.
+  // Подборки (data-diet-pick: новинки, сезонное): одна за раз, вместе с ограничениями
   const btns = [...dietFilter.querySelectorAll('[data-diet-tag]')];
+  const picks = [...dietFilter.querySelectorAll('[data-diet-pick]')];
   const root = document.querySelector('.menu-root');
   const items = [...root.querySelectorAll('.dishes > li, .price-list > li')];
   const empty = document.querySelector('[data-diet-empty]');
@@ -538,9 +541,11 @@ if (dietFilter) {
 
   const apply = () => {
     const on = btns.filter((b) => b.getAttribute('aria-pressed') === 'true').map((b) => b.dataset.dietTag);
+    const pick = picks.find((b) => b.getAttribute('aria-pressed') === 'true');
     items.forEach((li) => {
       const tags = (li.dataset.diet || '').split(' ');
-      li.toggleAttribute('data-diet-hidden', !on.every((t) => tags.includes(t)));
+      const inPick = !pick || (li.dataset.pick || '').split(' ').includes(pick.dataset.dietPick);
+      li.toggleAttribute('data-diet-hidden', !on.every((t) => tags.includes(t)) || !inPick);
     });
     root.querySelectorAll('.dishes, .price-list').forEach((ul) => {
       const none = !ul.querySelector(':scope > li:not([data-diet-hidden])');
@@ -557,15 +562,20 @@ if (dietFilter) {
       if (chip) chip.classList.toggle('is-dim', none);
     });
     empty.hidden = shown > 0;
-    resetTop.hidden = on.length === 0;
+    resetTop.hidden = on.length === 0 && !pick;
   };
 
   btns.forEach((b) => b.addEventListener('click', () => {
     b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
     apply();
   }));
+  picks.forEach((b) => b.addEventListener('click', () => {
+    const turnOn = b.getAttribute('aria-pressed') !== 'true';
+    picks.forEach((p) => p.setAttribute('aria-pressed', String(p === b && turnOn)));
+    apply();
+  }));
   document.querySelectorAll('[data-diet-reset]').forEach((r) => r.addEventListener('click', () => {
-    btns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    btns.concat(picks).forEach((b) => b.setAttribute('aria-pressed', 'false'));
     apply();
   }));
 }

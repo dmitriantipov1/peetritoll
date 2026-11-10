@@ -108,6 +108,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   line-height: 1.35;
   color: var(--c-gold-dark);
 }
+/* Цитата длиннее обычной (про аллергены внизу меню) — мельче, чтобы не растянулась на пол-экрана */
+.quote--gold { max-width: 32em; font-size: clamp(18px, 1.8vw, 24px); }
 /* Вторая строка цитаты со сдвигом вправо, как в макете */
 .quote__indent { padding-left: 2.6em; }
 
@@ -1289,6 +1291,13 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .diet-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-1); }
 .diet-filter__label { margin: 0 var(--s-1) 0 0; font-weight: 600; color: var(--c-grey); }
 .diet-filter__btn[aria-pressed="true"] { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-brown); }
+/* Фильтр меню — две группы в ряд (11.11.2026): ограничения | подборки. Кнопки скруглённые и меньше
+   разделов меню; пояснение — в title (наведение) и строкой .diet-legend (на телефоне наведения нет) */
+.diet-filter__group { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.diet-filter__sep { align-self: stretch; width: 1px; min-height: 28px; background: rgba(111,108,108,.4); }
+.diet-filter .diet-filter__btn { padding: 4px 14px; border-radius: 999px; font-size: 14px; }
+.diet-legend { margin: 0 0 var(--s-3); font-size: 14px; color: var(--c-grey); }
+@media (max-width: 640px) { .diet-filter__sep { display: none; } }
 .diet-filter__btn[aria-pressed="true"]::before { content: "✓ "; }
 .diet-filter__reset { padding: 0; border: 0; background: none; font: inherit; color: var(--c-gold-text); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .diet-filter__reset[hidden] { display: none; }
@@ -1348,6 +1357,20 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lightbox__nav--prev { left: -64px; }
 .lightbox__nav--next { right: -64px; }
 .lightbox.is-single .lightbox__nav { display: none; }
+/* Фото блюда крупно (11.11.2026): все фото одного размера — кадр 3:2, фото заполняет его без тёмных
+   полос по бокам; название с пояснением слева, цена справа. Стрелки крупнее и по центру фото,
+   на телефоне — внизу, вплотную к золотой рамке изнутри. Размер окна — чтобы кадр 3:2 влез по высоте.
+   Окно — контейнер (cqw): от его ширины считается высота кадра, а от неё — где стрелки */
+.lightbox--dish { width: min(880px, calc(100vw - 32px), calc((100vh - 230px) * 1.5)); container-type: inline-size; }
+.lightbox--dish .lightbox__frame { aspect-ratio: 3 / 2; }
+.lightbox--dish .lightbox__img { height: 100%; max-height: none; object-fit: cover; }
+.lightbox--dish .lightbox__nav {
+  top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) / 3);
+  translate: 0 -50%;
+  width: 56px; height: 56px; font-size: 40px;
+}
+.lightbox--dish .lightbox__title { flex: 1 1 260px; }
+.lightbox--dish .lightbox__desc { margin-top: 4px; }
 /* Афиша мероприятия крупно — окно уже, по вертикальной картинке */
 .lightbox--poster { width: min(620px, calc(100vw - 32px)); }
 .lightbox--poster .lightbox__img { max-height: calc(100vh - 200px); }
@@ -1361,6 +1384,16 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 640px) {
   .lightbox__img { max-height: 55vh; }
   .lightbox__nav { width: 44px; height: 44px; font-size: 28px; }
+}
+/* Телефон: стрелки фото блюда — внизу кадра, вплотную к золотой рамке изнутри (она на 12px от края) */
+@media (max-width: 640px) {
+  .lightbox--dish .lightbox__nav {
+    top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) * 2 / 3 - 13px - 44px);
+    translate: none;
+    width: 44px; height: 44px; font-size: 32px;
+  }
+  .lightbox--dish .lightbox__nav--prev { left: calc(var(--s-2) + 13px); }
+  .lightbox--dish .lightbox__nav--next { right: calc(var(--s-2) + 13px); }
 }
 
 /* Порции разного размера, у каждой своя цена: у супов маленькая и большая */

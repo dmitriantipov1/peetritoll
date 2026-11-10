@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Меню — Tavern Peetri Toll</title>
+  <title>Роспись кушаньям — Tavern Peetri Toll</title>
   <meta name="description" content="Меню ресторана «Петровская Таможня» в Палдиски: домашняя сытная кухня в исторической атмосфере.">
   <meta name="robots" content="noindex">
 
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261111">
+  <link rel="stylesheet" href="./css/style.css?v=20261111-2">
 </head>
 <body>
 
@@ -51,18 +51,18 @@
     <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
     <div class="container page-hero__content">
       <p class="page-hero__crumb"><a href="./index.html">Главная</a> / Меню</p>
-      <h1 class="page-hero__title">Меню</h1>
-      <p class="page-hero__lead">Домашняя сытная кухня в исторической атмосфере</p>
+      <h1 class="page-hero__title">Роспись кушаньям</h1>
+      <p class="page-hero__lead">Традиционные угощения и любимые блюда под историческими сводами царской таможни</p>
     </div>
   </section>
 
-  <!-- ============ 01 МЕНЮ РЕСТОРАНА ============ -->
+  <!-- ============ 01 РОСПИСЬ КУШАНЬЯМ ============ -->
   <section class="section section--bg1" id="menyu">
     <div class="container">
 
       <header class="section-head">
-        <p class="section-head__crumb">Кухня таверны</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Меню ресторана</h2>
+        <p class="section-head__crumb">Меню ресторана</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Роспись кушаньям</h2>
       </header>
 
       <div class="intro intro--single">
@@ -70,11 +70,6 @@
         <p>Пельмени и вареники, супы, горячие блюда, соленья из нашего погреба и домашние десерты. У супов две порции, маленькая и большая, — цена указана для каждой.</p>
       </div>
 
-      <!-- Скрывается вместе со страницей меню дня из админки -->
-      <div class="lunch-link">
-        <p class="lunch-link__text"><b>Меню дня</b> в будни с 12:00 до 15:00 — суп и горячее, можно заказать заранее</p>
-        <a class="btn btn--sm" href="./lunch.html">Меню дня</a>
-      </div>
 
       <ul class="chips" aria-label="Разделы меню">
         <li><a class="chip" href="#zakuski">Закуски</a></li>
@@ -88,17 +83,24 @@
         <li><a class="chip" href="#napitki">Напитки</a></li>
       </ul>
 
-      <div class="diet-filter" role="group" aria-label="Фильтр по отметкам" data-diet-filter>
-        <p class="diet-filter__label">Показать только:</p>
-        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="veg">Вегетарианское</button>
-        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="vegan">Веганское</button>
-        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="gf">Без глютена</button>
-        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="lf">Без лактозы</button>
-        <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="spicy">Острое</button>
+      <!-- Фильтр — две группы (11.11.2026): ограничения (можно несколько, блюдо подходит под все)
+           и подборки (одна за раз). Пояснение — при наведении и строкой под фильтром: на телефоне наведения нет -->
+      <div class="diet-filter" role="group" aria-label="Фильтр меню" data-diet-filter>
+        <div class="diet-filter__group" role="group" aria-label="Ограничения">
+          <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="veg" title="Вегетарианские блюда">Без мяса</button>
+          <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="gf" title="Блюда без глютена">Без глютена</button>
+          <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="lf" title="Блюда без лактозы">Без лактозы</button>
+          <button class="chip diet-filter__btn" type="button" aria-pressed="false" data-diet-tag="vegan" title="Веганские блюда">Постное</button>
+        </div>
+        <span class="diet-filter__sep" aria-hidden="true"></span>
+        <div class="diet-filter__group" role="group" aria-label="Подборки">
+          <button class="chip diet-filter__btn diet-filter__btn--pick" type="button" aria-pressed="false" data-diet-pick="new" title="Новые блюда в меню">Новинки</button>
+          <button class="chip diet-filter__btn diet-filter__btn--pick" type="button" aria-pressed="false" data-diet-pick="season" title="Блюда этого сезона">Сезонное</button>
+        </div>
         <button class="diet-filter__reset" type="button" data-diet-reset hidden>Сбросить</button>
       </div>
-      <p class="diet-empty" data-diet-empty hidden>Нет блюд со всеми выбранными отметками. Уберите одну из отметок или <button type="button" class="diet-filter__reset" data-diet-reset>сбросьте фильтр</button>.</p>
-      <p class="diet-note">Отметки — подсказка. Об аллергенах точно расскажет официант.</p>
+      <p class="diet-legend">Без мяса — вегетарианские блюда · Постное — веганские блюда</p>
+      <p class="diet-empty" data-diet-empty hidden>Таких блюд сейчас нет. Уберите одну из отметок или <button type="button" class="diet-filter__reset" data-diet-reset>сбросьте фильтр</button>.</p>
 
       <div class="menu-root menu--v3">
       <section class="menu-cat" id="zakuski">
@@ -109,14 +111,14 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,60 €</span></div>
               <p class="dish__desc">Подаются с белым соусом</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/photo_17v03-08-2024_20-38-03.jpg" alt="Чесночные хлебцы с помидорами и сыром" loading="lazy" data-ph="photo_17v03-08-2024_20-38-03.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Чесночные хлебцы с помидорами и сыром</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg vegan lf">
@@ -124,7 +126,7 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Картофель фри</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,00 €</span></div>
               <p class="dish__desc">Подаётся с томатным соусом</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--vegan">Веганское</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li><li class="diet__tag diet__tag--vegan">Постное</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="spicy lf">
@@ -156,15 +158,15 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вареники с картошкой</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">8,00 €</span></div>
               <p class="dish__desc">Подаются со сметаной и сливочным маслом</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
-          <li class="dish" data-diet="veg">
+          <li class="dish" data-diet="veg" data-pick="new">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2026/04/vareenikud-truhvila-web.jpg" alt="Вареники с картошкой и трюфелем" loading="lazy" data-ph="vareenikud-truhvila-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вареники с картошкой и трюфелем</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">10,00 €</span></div>
               <p class="dish__desc">Подаются со сметаной и сливочным маслом</p><p class="dish__meta">Новинка</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
         </ul>
@@ -236,7 +238,7 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Лечо</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
               
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--vegan">Веганское</li><li class="diet__tag diet__tag--gf">Без глютена</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li><li class="diet__tag diet__tag--vegan">Постное</li><li class="diet__tag diet__tag--gf">Без глютена</li><li class="diet__tag diet__tag--lf">Без лактозы</li></ul>
             </div>
           </li>
         </ul>
@@ -262,14 +264,14 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Вишнёвый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">5,40 €</span></div>
               
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2024/08/pistaatsia-kook-web.jpg" alt="Фисташковый торт" loading="lazy" data-ph="pistaatsia-kook-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Фисташковый торт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">7,00 €</span></div>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg gf">
@@ -277,14 +279,14 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Мороженое</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,50 €</span></div>
               <p class="dish__desc">Подаётся с карамельным соусом</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li><li class="diet__tag diet__tag--gf">Без глютена</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li><li class="diet__tag diet__tag--gf">Без глютена</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg">
             <div class="dish__img"><img src="https://peetritoll.ee/cms/wp-content/uploads/2025/07/tsitrusi-magustoit-web.jpg" alt="Тыквенно-цитрусовый десерт" loading="lazy" data-ph="tsitrusi-magustoit-web.jpg"></div>
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Тыквенно-цитрусовый десерт</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">4,00 €</span></div>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
           <li class="dish" data-diet="veg">
@@ -292,7 +294,7 @@
             <div class="dish__body">
               <div class="dish__top"><h4 class="dish__name">Сладкий орешек</h4><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">1,50 €</span></div>
               <p class="dish__desc">С варёной сгущёнкой</p>
-              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Вегетарианское</li></ul>
+              <ul class="diet" aria-label="Отметки"><li class="diet__tag diet__tag--veg">Без мяса</li></ul>
             </div>
           </li>
         </ul>
@@ -328,27 +330,29 @@
       </section>
       </div>
 
-      <p class="note">Об аллергенах вам расскажет обслуживающий персонал. Банкетное меню составляем индивидуально.</p>
-
+      <!-- Текст про аллергены — золотом, как цитата (11.11.2026). ET: Allergeenide kohta lisateabe saamiseks
+           pöörduge palun teenindava personaali poole. EN: Please speak to our staff if you have any questions about allergens -->
       <div class="cta-row">
-        <p class="quote">Старинный уют, щедрый стол<br><span class="quote__indent">и неповторимая атмосфера</span></p>
+        <p class="quote quote--gold">За дополнительной информацией об аллергенах просьба обращаться к обслуживающему персоналу</p>
         <a class="btn btn--red" href="./restaurant.html#bron">Забронировать стол</a>
       </div>
     </div>
   </section>
 
   <!-- Фото блюда крупно. Открывается кликом по миниатюре, закрывается кликом мимо фото или Esc. Наполняет js/main.js -->
-  <dialog class="lightbox" aria-labelledby="lightbox-name">
+  <dialog class="lightbox lightbox--dish" aria-labelledby="lightbox-name">
     <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее блюдо">‹</button>
     <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее блюдо">›</button>
     <figure class="lightbox__figure">
       <div class="lightbox__frame"><img class="lightbox__img" src="" alt=""></div>
       <figcaption class="lightbox__caption">
         <div class="lightbox__head">
-          <p class="lightbox__name" id="lightbox-name"></p>
+          <div class="lightbox__title">
+            <p class="lightbox__name" id="lightbox-name"></p>
+            <p class="lightbox__desc"></p>
+          </div>
           <div class="lightbox__price"></div>
         </div>
-        <p class="lightbox__desc"></p>
       </figcaption>
     </figure>
   </dialog>
@@ -379,6 +383,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261109-2"></script>
+<script src="./js/main.js?v=20261111"></script>
 </body>
 </html>
