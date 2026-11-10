@@ -136,6 +136,18 @@ npm run dev
   сервер чистит его по белому списку (`server/utils/rich-text.ts`, sanitize-html),
   картинки в тексте — только загруженные к нам (`/uploads/…`)
 
+## Заявки
+
+- одна таблица `requests` на все виды: `table`, `banquet`, `group`, `lunch`, `tour`, `event`
+  (`server/db/schema/requests.ts`); номера с 1001. Общее — колонками, своё у вида — `details`,
+  расчёт банкета, группы, обеда — снимком цен в `calc`, «как пришла» — `original`
+- проверка данных из формы и правки — `shared/requests.ts` (`requestInputSchema`, `requestPatchSchema`),
+  одна для форм сайта и админки; какое право открывает вид — `requestSection`
+- `createRequest`, `setRequestStatus`, `updateRequest` — `server/utils/requests.ts`; цены считает сервер,
+  с сайта без согласия на обработку заявку не принимает (8.1), каждое действие — строка в `request_history`
+- тестовые заявки (почты `*@peetritoll.test`, от имени тестового админа):
+  `docker compose exec app npx nuxi task run seed:requests`. Новую задачу dev-сервер видит после перезапуска
+
 ## Галерея
 
 - `gallery_categories` и `gallery_photos` с переводами (название категории, подпись фото — она же alt);
