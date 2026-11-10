@@ -3,7 +3,7 @@
 //
 // Цены считает сервер по каталогу и меню дня: цифрам из браузера не верим.
 // Сроки (предзаказ на сегодня, за сколько дней банкет) проверят формы сайта — шаг 2.
-import { eq, inArray } from 'drizzle-orm'
+import { desc, eq, inArray } from 'drizzle-orm'
 import {
   catalogDishes,
   lunchDays,
@@ -11,11 +11,27 @@ import {
   materials,
   requestHistory,
   requests,
+  users,
   type RequestRow,
+  type UserRow,
 } from '../db/schema'
 import type { Localized } from '#shared/menu'
+import { accessTo, allows } from '#shared/access'
+import { formatPrice } from '#shared/money'
+import { dishWords, plural } from '#shared/plural'
 import {
   PRIVACY_POLICY_VERSION,
+  banquetOccasionNames,
+  lunchModeNames,
+  requestSection,
+  requestTypes,
+  ruFirst,
+  tableOccasionNames,
+  tourTopicNames,
+  type AdminRequest,
+  type AdminRequestRow,
+  type RequestSave,
+  type RequestType,
   lunchFullNames,
   type RequestCalc,
   type RequestCalcLine,
@@ -245,27 +261,6 @@ async function lockRequest(tx: Tx, id: number): Promise<RequestRow> {
   return row
 }
 
-/** Сменить статус. Тот же статус — ничего не пишем */
-export async function setRequestStatus(
-  id: number,
-  status: RequestStatus,
-  userId: number,
-  note?: string | null,
-) {
-  await useDb().transaction(async (tx) => {
-    const row = await lockRequest(tx, id)
-    if (row.status === status) return
-    await tx.update(requests).set({ status, updatedBy: userId }).where(eq(requests.id, id))
-    await tx.insert(requestHistory).values({
-      requestId: id,
-      kind: 'status',
-      changes: [{ field: 'status', from: row.status, to: status }],
-      note: note ?? null,
-      userId,
-    })
-  })
-}
-
 const patchFields = [
   'visitDate',
   'visitTime',
@@ -277,38 +272,220 @@ const patchFields = [
 ] as const
 
 /**
- * Поправить визит, контакты, заметку. В историю — что было и что стало
- * («Время 18:30 → 18:00»). Заметку персонала в историю пишем без текста: она длинная и своя.
+ * Сохранить карточку одним действием: поля и статус. В историю — до двух строк:
+ * что изменили («Время 18:30 → 18:00») и смену статуса. Заметку персонала пишем без текста:
+ * она длинная и своя. Ничего не поменялось — ничего не пишем. Возвращает, было ли что сохранить.
  */
+export async function saveRequest(id: number, input: RequestSave, userId: number) {
+  return await useDb().transaction(async (tx) => {
+    const row = await lockRequest(tx, id)
+    const changes: RequestChange[] = []
+    const set: Partial<typeof requests.$inferInsert> = {}
+    for (const field of patchFields) {
+      if (!(field in input)) continue
+      const to = input[field] ?? null
+      const from = row[field] ?? null
+      if (to === from) continue
+      ;(set as Record<string, unknown>)[field] = to
+      changes.push(field === 'staffNote' ? { field, from: null, to: null } : { field, from, to })
+    }
+    const statusChanged = !!input.status && input.status !== row.status
+    if (statusChanged) set.status = input.status
+    if (!changes.length && !statusChanged) return false
+
+    await tx
+      .update(requests)
+      .set({ ...set, updatedBy: userId })
+      .where(eq(requests.id, id))
+    const note = input.note ?? null
+    if (changes.length) {
+      await tx
+        .insert(requestHistory)
+        .values({ requestId: id, kind: 'changed', changes, note, userId })
+    }
+    if (statusChanged) {
+      await tx.insert(requestHistory).values({
+        requestId: id,
+        kind: 'status',
+        changes: [{ field: 'status', from: row.status, to: input.status! }],
+        // Пояснение — к изменению полей, если оно было, иначе к статусу
+        note: changes.length ? null : note,
+        userId,
+      })
+    }
+    return true
+  })
+}
+
+export async function setRequestStatus(
+  id: number,
+  status: RequestStatus,
+  userId: number,
+  note?: string | null,
+) {
+  return await saveRequest(id, { status, note: note ?? null }, userId)
+}
+
 export async function updateRequest(
   id: number,
   patch: RequestPatch,
   userId: number,
   note?: string | null,
 ) {
-  await useDb().transaction(async (tx) => {
-    const row = await lockRequest(tx, id)
-    const changes: RequestChange[] = []
-    const set: Partial<typeof requests.$inferInsert> = {}
-    for (const field of patchFields) {
-      if (!(field in patch)) continue
-      const to = patch[field] ?? null
-      const from = row[field] ?? null
-      if (to === from) continue
-      ;(set as Record<string, unknown>)[field] = to
-      changes.push(field === 'staffNote' ? { field, from: null, to: null } : { field, from, to })
+  return await saveRequest(id, { ...patch, note: note ?? null }, userId)
+}
+
+// ---------- Для админки ----------
+
+/** Какие виды заявок сотрудник видит (или правит) — по правам разделов */
+export function requestTypesFor(user: UserRow, needed: 'view' | 'edit' = 'view'): RequestType[] {
+  return requestTypes.filter((t) =>
+    allows(accessTo(user.role, user.permissions, requestSection[t]), needed),
+  )
+}
+
+/** Проверка прав на заявку этого вида. Без прав — 403 */
+export function requireRequestAccess(user: UserRow, type: RequestType, needed: 'view' | 'edit') {
+  if (!requestTypesFor(user, needed).includes(type)) {
+    throw createError({ statusCode: 403, message: 'Нет доступа к заявкам этого вида' })
+  }
+}
+
+/** «День рождения · 8 блюд · ≈ 956 €» — подробности одной строкой для списка */
+function summaryOf(row: RequestRow): string {
+  const parts: string[] = []
+  const d = row.details
+  const calc = row.calc
+  const dishes = () => {
+    if (!calc?.lines.length) return
+    parts.push(`${calc.lines.length} ${plural(calc.lines.length, dishWords)}`)
+    parts.push(`≈ ${formatPrice(calc.totalCents)}`)
+  }
+  switch (d.type) {
+    case 'table':
+      if (d.occasion && d.occasion !== 'dinner') parts.push(tableOccasionNames[d.occasion])
+      break
+    case 'banquet':
+      if (d.occasion) parts.push(banquetOccasionNames[d.occasion])
+      dishes()
+      break
+    case 'group':
+      if (d.agency) parts.push(d.agency)
+      dishes()
+      break
+    case 'lunch':
+      for (const l of calc?.lines ?? []) parts.push(`${ruFirst(l.names)} × ${l.qty}`)
+      parts.push(lunchModeNames[d.mode].toLowerCase())
+      break
+    case 'tour':
+      parts.push(tourTopicNames[d.topic])
+      break
+    case 'event':
+      parts.push(ruFirst(d.title))
+      break
+  }
+  // У брони стола подробностей нет — показываем пожелание гостя
+  if (!parts.length && row.comment) parts.push(`«${row.comment}»`)
+  return parts.join(' · ')
+}
+
+function toRow(row: RequestRow): AdminRequestRow {
+  return {
+    id: row.id,
+    type: row.type,
+    status: row.status,
+    source: row.source,
+    createdAt: row.createdAt.toISOString(),
+    visitDate: row.visitDate,
+    visitTime: row.visitTime,
+    guests: row.guests,
+    name: row.name,
+    phone: row.phone,
+    email: row.email,
+    topic: row.details.type === 'tour' ? row.details.topic : null,
+    summary: summaryOf(row),
+    totalCents: row.calc?.totalCents ?? null,
+  }
+}
+
+/** Заявки видов, к которым у сотрудника есть доступ, — сначала новые */
+export async function loadRequestList(user: UserRow): Promise<AdminRequestRow[]> {
+  const types = requestTypesFor(user)
+  if (!types.length) return []
+  const rows = await useDb()
+    .select()
+    .from(requests)
+    .where(inArray(requests.type, types))
+    .orderBy(desc(requests.createdAt))
+  return rows.map(toRow)
+}
+
+/** Карточка заявки с историей и ценами каталога сейчас — чтобы видеть, что подорожало */
+export async function loadRequest(id: number, user: UserRow): Promise<AdminRequest> {
+  const [row] = await useDb().select().from(requests).where(eq(requests.id, id)).limit(1)
+  if (!row) throw createError({ statusCode: 404, message: 'Заявка не найдена' })
+  requireRequestAccess(user, row.type, 'view')
+
+  const history = await useDb()
+    .select({ item: requestHistory, userName: users.name })
+    .from(requestHistory)
+    .leftJoin(users, eq(users.id, requestHistory.userId))
+    .where(eq(requestHistory.requestId, id))
+    .orderBy(desc(requestHistory.at), desc(requestHistory.id))
+
+  const names = new Map<number, string>()
+  const userIds = [row.createdBy].filter((v): v is number => !!v)
+  if (userIds.length) {
+    for (const u of await useDb()
+      .select({ id: users.id, name: users.name })
+      .from(users)
+      .where(inArray(users.id, userIds)))
+      names.set(u.id, u.name)
+  }
+
+  let calc: AdminRequest['calc'] = null
+  if (row.calc) {
+    const dishIds = row.calc.lines.flatMap((l) => (l.ref.kind === 'catalog' ? [l.ref.dishId] : []))
+    const now = new Map(
+      dishIds.length
+        ? (
+            await useDb()
+              .select({ id: catalogDishes.id, priceCents: catalogDishes.priceCents })
+              .from(catalogDishes)
+              .where(inArray(catalogDishes.id, dishIds))
+          ).map((d) => [d.id, d.priceCents])
+        : [],
+    )
+    calc = {
+      ...row.calc,
+      lines: row.calc.lines.map((l) => ({
+        ...l,
+        // У обеда цена своя на каждый день — сравнивать не с чем
+        nowCents: l.ref.kind === 'catalog' ? (now.get(l.ref.dishId) ?? null) : l.priceCents,
+      })),
     }
-    if (!changes.length) return
-    await tx
-      .update(requests)
-      .set({ ...set, updatedBy: userId })
-      .where(eq(requests.id, id))
-    await tx.insert(requestHistory).values({
-      requestId: id,
-      kind: 'changed',
-      changes,
-      note: note ?? null,
-      userId,
-    })
-  })
+  }
+
+  return {
+    ...toRow(row),
+    locale: row.locale,
+    comment: row.comment,
+    staffNote: row.staffNote,
+    details: row.details,
+    calc,
+    original: row.original,
+    consentAt: row.consentAt?.toISOString() ?? null,
+    policyVersion: row.policyVersion,
+    marketingOptIn: row.marketingOptIn,
+    createdByName: row.createdBy ? (names.get(row.createdBy) ?? null) : null,
+    updatedAt: row.updatedAt.toISOString(),
+    history: history.map(({ item, userName }) => ({
+      id: item.id,
+      kind: item.kind,
+      changes: item.changes,
+      note: item.note,
+      at: item.at.toISOString(),
+      userName,
+    })),
+  }
 }

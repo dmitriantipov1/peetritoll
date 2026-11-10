@@ -306,3 +306,107 @@ export const requestFieldNames: Record<string, string> = {
   email: 'E-mail',
   staffNote: 'Заметка',
 }
+
+/** Сохранение карточки: правка полей, статус и пояснение одним действием */
+export const requestSaveSchema = requestPatchSchema.extend({
+  status: z.enum(requestStatuses).optional(),
+  // «по звонку гостя» — пойдёт в историю рядом с изменением
+  note: z
+    .string()
+    .trim()
+    .max(300)
+    .transform((v) => v || null)
+    .nullable()
+    .optional(),
+})
+
+export type RequestSave = z.infer<typeof requestSaveSchema>
+
+// ---------- Что видит админка ----------
+
+/** Строка списка заявок */
+export interface AdminRequestRow {
+  id: number
+  type: RequestType
+  status: RequestStatus
+  source: RequestSource
+  createdAt: string
+  visitDate: string | null
+  visitTime: string | null
+  guests: number | null
+  name: string
+  phone: string
+  email: string | null
+  /** Тема экскурсии — для вкладок «Экскурсии / Pakri Express / Радиогиды» */
+  topic: TourTopic | null
+  /** «День рождения · 8 блюд · ≈ 956 €», «Обед дня × 2 · самовывоз», «Если можно, у камина» */
+  summary: string
+  totalCents: number | null
+}
+
+/** Строка расчёта в карточке: плюс цена в каталоге сейчас (null — блюда уже нет) */
+export interface AdminRequestCalcLine extends RequestCalcLine {
+  nowCents: number | null
+}
+
+export interface AdminRequestHistoryItem {
+  id: number
+  kind: RequestHistoryKind
+  changes: RequestChange[]
+  note: string | null
+  at: string
+  userName: string | null
+}
+
+/** Карточка заявки */
+export interface AdminRequest extends AdminRequestRow {
+  locale: 'et' | 'en' | 'ru'
+  comment: string | null
+  staffNote: string | null
+  details: RequestDetails
+  calc: (Omit<RequestCalc, 'lines'> & { lines: AdminRequestCalcLine[] }) | null
+  original: RequestOriginal
+  consentAt: string | null
+  policyVersion: string | null
+  marketingOptIn: boolean
+  createdByName: string | null
+  updatedAt: string
+  /** Сначала новые */
+  history: AdminRequestHistoryItem[]
+}
+
+/** Текст для админки: русский, иначе эстонский, иначе любой */
+export function ruFirst(names: Localized<string> | null | undefined): string {
+  if (!names) return ''
+  return names.ru ?? names.et ?? Object.values(names)[0] ?? ''
+}
+
+/** Вкладки списка: виды, а экскурсии — ещё по теме */
+export const requestTabs = [
+  { key: 'table', label: 'Бронь стола', type: 'table' },
+  { key: 'banquet', label: 'Банкет', type: 'banquet' },
+  { key: 'group', label: 'Группа', type: 'group' },
+  { key: 'lunch', label: 'Обеды', type: 'lunch' },
+  {
+    key: 'tour',
+    label: 'Экскурсии',
+    type: 'tour',
+    topics: ['exhibition', 'secrets', 'guide', 'other'],
+  },
+  { key: 'pakri', label: 'Pakri Express', type: 'tour', topics: ['pakri'] },
+  { key: 'radioguides', label: 'Радиогиды', type: 'tour', topics: ['radioguides'] },
+  { key: 'event', label: 'Мероприятия', type: 'event' },
+] as const satisfies readonly {
+  key: string
+  label: string
+  type: RequestType
+  topics?: readonly TourTopic[]
+}[]
+
+export type RequestTabKey = (typeof requestTabs)[number]['key']
+
+export function inTab(row: Pick<AdminRequestRow, 'type' | 'topic'>, key: RequestTabKey): boolean {
+  const tab = requestTabs.find((t) => t.key === key)!
+  if (tab.type !== row.type) return false
+  return !('topics' in tab) || (tab.topics as readonly string[]).includes(row.topic ?? '')
+}
