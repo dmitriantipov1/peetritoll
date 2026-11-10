@@ -154,6 +154,37 @@ npm run dev
 - тестовые заявки (почты `*@peetritoll.test`, от имени тестового админа):
   `docker compose exec app npx nuxi task run seed:requests`. Новую задачу dev-сервер видит после перезапуска
 
+## Уведомления
+
+- о каждой новой заявке — письмо на «почту для заявок» из «Настроек сайта» (Reply-To — почта гостя,
+  ответ уйдёт ему) и сообщение в канал Telegram, если бот настроен (5.4). К банкету и группе — Excel
+  с расчётом и пустыми колонками для ответа (7.1). Код — `server/utils/request-notify.ts`,
+  письмо — `mailer.ts` (nodemailer, SMTP), Telegram — `telegram.ts` (Bot API), Excel — `request-excel.ts`
+- отправка после сохранения заявки: если письмо не ушло, заявка остаётся, в её истории — причина
+- в разработке письма ловит **Mailpit** из `docker-compose.yml`: все письма — на http://localhost:8025,
+  наружу ничего не уходит; хранит последние 500 в томе `mailpit`
+- проверить письмо и Telegram одной заявкой: `curl -X POST localhost:3000/_nitro/tasks/seed:requests -d '{"payload":{"force":true,"one":true}}'`
+  (бронь стола на `@peetritoll.test`). В разработке Nuxt сам читает `app/.env` — после правки
+  `.env` достаточно `docker compose restart app`
+- на боевом сервере — настоящий SMTP в `.env`: `NUXT_SMTP_HOST`, `NUXT_SMTP_PORT`, `NUXT_SMTP_USER`,
+  `NUXT_SMTP_PASS`, `NUXT_SMTP_FROM` (см. `.env.example`)
+
+### Бот Telegram и канал для заявок
+
+1. В Telegram открыть **@BotFather** → `/newbot` → имя («Peetri Toll — заявки») и адрес бота,
+   который кончается на `bot` (например, `peetritoll_requests_bot`). BotFather пришлёт **токен**
+   вида `123456789:AA…` — это пароль бота: только в `.env`, не в чат и не в репозиторий.
+2. Создать канал: меню → «Создать канал» → название «Peetri Toll — заявки», тип **частный**.
+3. Добавить бота администратором канала: канал → «Администраторы» → «Добавить администратора» →
+   найти бота по адресу → оставить право **«Публикация сообщений»**, остальные можно снять.
+4. Узнать номер канала: написать в канал любое сообщение и открыть в браузере
+   `https://api.telegram.org/bot<ТОКЕН>/getUpdates` — в ответе `"channel_post"` → `"chat"` → `"id"`,
+   число вида `-1001234567890` (с минусом). Если пусто — отправить в канал ещё одно сообщение и обновить.
+5. В `app/.env`: `NUXT_TELEGRAM_BOT_TOKEN=…` и `NUXT_TELEGRAM_CHAT_ID=-100…`,
+   затем `docker compose up -d` (контейнер перечитает `.env`).
+6. Заказчицу и сотрудников — подписчиками канала (по ссылке-приглашению из настроек канала).
+7. Токен утёк — в @BotFather `/revoke`, новый токен — в `.env`.
+
 ## Лиды
 
 - `leads` и `lead_tags` (`server/db/schema/leads.ts`), у заявки — `lead_id`. Правила — `shared/leads.ts`

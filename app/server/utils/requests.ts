@@ -174,6 +174,8 @@ export interface CreateRequestOptions {
   userId?: number
   /** Галочка согласия на обработку в форме (8.1). С сайта без неё заявку не принимаем */
   consent?: boolean
+  /** Отправить письмо и Telegram (5.4). По умолчанию — да */
+  notify?: boolean
 }
 
 /** Новая заявка: снимок цен, согласие, запись «поступила» в историю. Возвращает номер */
@@ -219,7 +221,7 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
   }
 
   const now = new Date()
-  return await useDb().transaction(async (tx) => {
+  const id = await useDb().transaction(async (tx) => {
     const [row] = await tx
       .insert(requests)
       .values({
@@ -253,6 +255,9 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
     await linkRequestToLead(tx, row!)
     return row!.id
   })
+  // Письмо и Telegram — после сохранения: сбой отправки заявку не теряет (5.4)
+  if (opts.notify !== false) await notifyNewRequest(id)
+  return id
 }
 
 // ---------- Статус и правка ----------
@@ -353,8 +358,12 @@ export function requireRequestAccess(user: UserRow, type: RequestType, needed: '
   }
 }
 
-/** «День рождения · 8 блюд · ≈ 956 €» — подробности одной строкой для списка */
-export function requestSummary(row: RequestRow): string {
+/**
+ * «День рождения · 8 блюд · ≈ 956 €» — подробности одной строкой.
+ * withComment — у брони стола своих подробностей нет, в списке вместо них показываем пожелание гостя.
+ * В письме и Telegram комментарий идёт отдельной строкой, там его не дублируем.
+ */
+export function requestSummary(row: RequestRow, withComment = true): string {
   const parts: string[] = []
   const d = row.details
   const calc = row.calc
@@ -387,7 +396,7 @@ export function requestSummary(row: RequestRow): string {
       break
   }
   // У брони стола подробностей нет — показываем пожелание гостя
-  if (!parts.length && row.comment) parts.push(`«${row.comment}»`)
+  if (withComment && !parts.length && row.comment) parts.push(`«${row.comment}»`)
   return parts.join(' · ')
 }
 

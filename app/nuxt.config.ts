@@ -56,6 +56,21 @@ export default defineNuxtConfig({
     databaseUrl: '',
     // NUXT_UPLOADS_DIR → папка с загруженными картинками (в Docker — том uploads)
     uploadsDir: './storage/uploads',
+    // Отправка писем (nodemailer, SMTP). NUXT_SMTP_HOST, NUXT_SMTP_PORT, NUXT_SMTP_USER, NUXT_SMTP_PASS,
+    // NUXT_SMTP_FROM. В разработке — Mailpit из docker-compose.yml; без хоста письма не отправляются
+    smtp: {
+      host: '',
+      port: 587,
+      user: '',
+      pass: '',
+      from: 'Peetri Toll <noreply@peetritoll.ee>',
+    },
+    // Уведомления о заявках в канал Telegram (5.4): NUXT_TELEGRAM_BOT_TOKEN, NUXT_TELEGRAM_CHAT_ID.
+    // Пусто — Telegram пропускаем, письмо уходит всё равно
+    telegram: {
+      botToken: '',
+      chatId: '',
+    },
     session: {
       name: 'pt_admin',
       // Без «Запомнить меня» — 12 часов (рабочий день); с ним — 30 дней (server/api/auth/login.post.ts)

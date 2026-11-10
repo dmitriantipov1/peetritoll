@@ -1,6 +1,8 @@
 # Локальная разработка: docker compose up
 #   db  — PostgreSQL, данные в томе pgdata (переживают перезапуск)
 #   app — Nuxt в режиме разработки, http://localhost:3000
+#   mailpit — ловушка писем: всё, что отправляет приложение, видно на http://localhost:8025,
+#             наружу письма не уходят
 # Перед первым запуском: cp .env.example .env
 name: peetritoll
 
@@ -28,6 +30,9 @@ services:
       dockerfile: Dockerfile.dev
     environment:
       NUXT_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # Письма — в Mailpit. На боевом сервере здесь будет настоящий SMTP (.env)
+      NUXT_SMTP_HOST: mailpit
+      NUXT_SMTP_PORT: '1025'
     ports:
       - '127.0.0.1:3000:3000'
     volumes:
@@ -40,7 +45,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      mailpit:
+        condition: service_started
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    environment:
+      # Письма — в файле на томе: переживают перезапуск. Хранит последние 500
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: '500'
+    volumes:
+      - mailpit:/data
+    ports:
+      # веб-интерфейс со всеми пойманными письмами; SMTP (1025) — только внутри Docker
+      - '127.0.0.1:8025:8025'
 
 volumes:
   pgdata:
   uploads:
+  mailpit:

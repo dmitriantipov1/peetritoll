@@ -225,7 +225,7 @@ function historyText(item: AdminRequestHistoryItem): string {
     case 'created':
       return r.source === 'site' ? 'Заявка с сайта' : 'Заявка внесена вручную'
     case 'notified':
-      return 'Уведомление'
+      return item.note ?? 'Уведомление'
     default:
       return ''
   }
@@ -434,7 +434,9 @@ const source = computed(() => {
                     </template>
                   </template>
                   <template v-else>{{ historyText(h) }}</template>
-                  <small v-if="h.userName || h.note || h.kind === 'created'">
+                  <small
+                    v-if="h.kind !== 'notified' && (h.userName || h.note || h.kind === 'created')"
+                  >
                     {{
                       [
                         h.userName,
