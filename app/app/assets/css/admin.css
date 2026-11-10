@@ -1196,3 +1196,19 @@ button.adm-lang:hover { outline: 2px solid var(--c-gold); outline-offset: 1px; }
 .adm-link-box label { font-family: var(--f-head); font-weight: 700; font-size: 13px; color: var(--c-grey); }
 .adm-link-box__row { display: flex; gap: 8px; }
 .adm-link-box__row input { flex: 1; min-width: 0; font-size: 13px; }
+
+/* Карточка товара: фото сеткой (первое — обложка), характеристики строками, таблица вариантов */
+.adm-pphotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.adm-pphotos__item { position: relative; margin: 0; aspect-ratio: 1; border: 1px solid var(--adm-line); background: var(--bg-1); cursor: grab; }
+.adm-pphotos__item img { width: 100%; height: 100%; object-fit: contain; }
+.adm-pphotos__item b { position: absolute; top: 6px; left: 6px; padding: 1px 8px; background: var(--c-brown); color: var(--bg-2); font-size: 12px; }
+.adm-pphotos__item button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border: 0; background: rgba(60, 31, 12, .75); color: var(--bg-2); font-size: 16px; line-height: 1; cursor: pointer; }
+.adm-fact-row { display: grid; grid-template-columns: 180px minmax(0, 1fr) 24px; gap: 8px; align-items: center; margin-bottom: 8px; }
+.adm-vtable input[type="text"], .adm-vtable input[type="number"], .adm-vtable select { min-height: 36px; padding: 4px 8px; font-size: 14px; }
+.adm-vtable td { vertical-align: middle; padding-left: 6px; padding-right: 6px; }
+.adm-vtable input[type="text"] { width: 100%; min-width: 90px; }
+.adm-vtable select { max-width: 150px; }
+/* Широкая таблица не залезает под правую колонку — прокручивается внутри своей панели */
+.adm-scroll-x { overflow-x: auto; }
+/* Панель в колонке не шире колонки: широкая таблица внутри прокручивается, а не раздвигает панель */
+.adm-stack > .adm-panel { min-width: 0; }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Товары (7.3, 8.5): список с языками показа кликом, категории, доставка.
-// Разметка и классы — из прототипа (admin/products.html). Карточка товара — следующий слой.
+// Разметка и классы — из прототипа (admin/products.html). Карточка — pages/admin/products/[id].vue.
 import { VueDraggable } from 'vue-draggable-plus'
 import { contentLocales, type ContentLocale } from '#shared/locales'
 import type { Localized } from '#shared/menu'
@@ -271,6 +271,11 @@ const statusClass: Record<ProductState, string> = {
         >
           Доставка
         </button>
+        <NuxtLink v-if="canEdit" class="btn btn--solid btn--sm" to="/admin/products/new">
+          <svg class="adm-ico" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" /></svg
+          >Товар
+        </NuxtLink>
       </div>
     </header>
 
@@ -485,7 +490,9 @@ const statusClass: Record<ProductState, string> = {
                 <span v-else class="adm-thumb adm-thumb--empty" aria-hidden="true" />
               </td>
               <td>
-                <span class="adm-dish__name">{{ p.name }}</span>
+                <NuxtLink class="adm-dish__name" :to="`/admin/products/${p.id}`">{{
+                  p.name
+                }}</NuxtLink>
                 <small>{{
                   [categoryName(p.categoryId), p.lead].filter(Boolean).join(' · ')
                 }}</small>

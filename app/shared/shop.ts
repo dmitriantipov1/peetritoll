@@ -111,3 +111,124 @@ export interface AdminShop {
 export const productLocalesSchema = z.object({ locales: z.array(z.enum(contentLocales)).max(3) })
 
 export { categoryInputSchema as shopCategoryInputSchema, orderInputSchema } from './menu'
+
+// ---------- Карточка товара ----------
+
+export interface AdminProductTranslation {
+  name: string
+  slug: string
+  lead: string
+  description: string
+  facts: ProductFact[]
+}
+
+/** Загруженный файл цифрового варианта на одном языке */
+export interface AdminProductFile {
+  id: number
+  filename: string
+  size: number
+  mime: string
+  uploadedAt: string
+}
+
+export interface AdminProductVariant {
+  id: number
+  kind: VariantKind
+  priceCents: number
+  stock: number | null
+  delivery: DeliveryMode | null
+  isAvailable: boolean
+  labels: Localized<string>
+  files: Localized<AdminProductFile>
+}
+
+export interface AdminProduct {
+  id: number
+  categoryId: number
+  state: ProductState
+  locales: ContentLocale[]
+  translations: Localized<AdminProductTranslation>
+  photos: MediaImage[]
+  variants: AdminProductVariant[]
+  createdAt: string
+  updatedAt: string
+  updatedByName: string | null
+}
+
+const optionalText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max, `Не длиннее ${max} символов`)
+    .transform((v) => v || null)
+    .nullable()
+
+const productTranslationSchema = z.object({
+  name: z.string().trim().min(1, 'Укажите название').max(200, 'Название слишком длинное'),
+  slug: z
+    .string()
+    .trim()
+    .min(1, 'Укажите адрес')
+    .max(80)
+    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Адрес — латиница, цифры и дефисы'),
+  lead: optionalText(300),
+  description: optionalText(5000),
+  facts: z
+    .array(
+      z.object({
+        label: z.string().trim().min(1, 'У характеристики нужно название').max(60),
+        value: z.string().trim().min(1, 'У характеристики нужно значение').max(200),
+      }),
+    )
+    .max(20),
+})
+
+const variantInputSchema = z
+  .object({
+    /** null — новый вариант */
+    id: z.number().int().positive().nullable(),
+    kind: z.enum(variantKinds),
+    priceCents: cents,
+    stock: z.number().int().min(0).max(100_000).nullable(),
+    delivery: z.enum(deliveryModes).nullable(),
+    isAvailable: z.boolean(),
+    labels: z.partialRecord(z.enum(contentLocales), z.string().trim().max(100)),
+  })
+  // Способ получения — только у физического; у цифрового остаток не считаем
+  .transform((v) =>
+    v.kind === 'digital'
+      ? { ...v, delivery: null, stock: null }
+      : { ...v, delivery: v.delivery ?? ('shipping' as const) },
+  )
+
+export const productInputSchema = z.object({
+  categoryId: z.number().int().positive(),
+  state: z.enum(productStates),
+  locales: z.array(z.enum(contentLocales)).max(3),
+  translations: z
+    .partialRecord(z.enum(contentLocales), productTranslationSchema)
+    .refine((t) => Object.keys(t).length > 0, 'Нужно название хотя бы на одном языке'),
+  /** Фото по порядку: первое — обложка */
+  photoIds: z.array(z.uuid()).max(20, 'Не больше 20 фото'),
+  variants: z.array(variantInputSchema).min(1, 'Нужен хотя бы один вариант').max(20),
+})
+
+export type ProductInput = z.infer<typeof productInputSchema>
+/** То, что отправляет форма, — до разбора сервером */
+export type ProductInputBody = z.input<typeof productInputSchema>
+
+/** Файлы цифровых товаров: что принимаем и до какого размера (7.4) */
+export const productFileTypes: Record<string, string> = {
+  pdf: 'application/pdf',
+  epub: 'application/epub+zip',
+  mp3: 'audio/mpeg',
+  m4a: 'audio/mp4',
+  m4b: 'audio/mp4',
+  zip: 'application/zip',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  tif: 'image/tiff',
+  tiff: 'image/tiff',
+}
+export const MAX_PRODUCT_FILE_MB = 500

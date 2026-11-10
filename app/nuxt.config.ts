@@ -56,6 +56,8 @@ export default defineNuxtConfig({
     databaseUrl: '',
     // NUXT_UPLOADS_DIR → папка с загруженными картинками (в Docker — том uploads)
     uploadsDir: './storage/uploads',
+    // NUXT_FILES_DIR → закрытая папка файлов цифровых товаров (в Docker — том files), наружу не раздаётся
+    filesDir: './storage/files',
     // Отправка писем (nodemailer, SMTP). NUXT_SMTP_HOST, NUXT_SMTP_PORT, NUXT_SMTP_USER, NUXT_SMTP_PASS,
     // NUXT_SMTP_FROM. В разработке — Mailpit из docker-compose.yml; без хоста письма не отправляются
     smtp: {
