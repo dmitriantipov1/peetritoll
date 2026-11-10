@@ -4,6 +4,9 @@
 // Вариант — то, что кладут в корзину: «Печатная книга» и «PDF», «Отпечаток» и «Цифровая копия».
 // У простого товара один вариант без подписи. Цена и остаток — у варианта.
 import { z } from 'zod'
+import { contentLocales, type ContentLocale } from './locales'
+import type { Localized } from './menu'
+import type { MediaImage } from './media'
 
 export const productStates = ['draft', 'published', 'archived'] as const
 export type ProductState = (typeof productStates)[number]
@@ -58,3 +61,53 @@ export const shopSettingsSchema = z.object({
   deliveryEstoniaCents: cents,
   deliveryEuCents: cents,
 })
+
+// ---------- Что видит админка ----------
+
+/** Категория в админке: названия на трёх языках, сколько в ней товаров */
+export interface AdminShopCategory {
+  id: number
+  slug: string
+  names: Localized<string>
+  isVisible: boolean
+  products: number
+}
+
+/** Строка списка товаров */
+export interface AdminProductRow {
+  id: number
+  /** Русское название, иначе эстонское, иначе любое */
+  name: string
+  lead: string | null
+  categoryId: number
+  state: ProductState
+  /** Где показывать (8.5) */
+  locales: ContentLocale[]
+  /** На каких языках есть перевод (название) */
+  translated: ContentLocale[]
+  cover: MediaImage | null
+  /** Виды вариантов: физический, цифровой или оба */
+  kinds: VariantKind[]
+  /** Языки, на которых загружены файлы цифровых вариантов */
+  fileLocales: ContentLocale[]
+  variants: number
+  /** Самая низкая и самая высокая цена — «от N €», если вариантов несколько */
+  minPriceCents: number | null
+  maxPriceCents: number | null
+  /** Сколько штук всего; null — у какого-то варианта остаток не считаем */
+  stock: number | null
+  /** Только самовывоз у всех физических вариантов */
+  pickupOnly: boolean
+}
+
+export interface AdminShop {
+  products: AdminProductRow[]
+  categories: AdminShopCategory[]
+  settings: ShopSettings
+  /** Раздел «Магазин» включён в настройках сайта */
+  shopEnabled: boolean
+}
+
+export const productLocalesSchema = z.object({ locales: z.array(z.enum(contentLocales)).max(3) })
+
+export { categoryInputSchema as shopCategoryInputSchema, orderInputSchema } from './menu'

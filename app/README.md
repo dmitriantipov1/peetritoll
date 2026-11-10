@@ -46,6 +46,7 @@ docker compose up
 | `/admin`                                   | заявки: сводка, вкладки по видам, статус, дата визита, поиск                            |
 | `/admin/requests/:id`                      | карточка заявки: визит, расчёт, гость, история, статус                                  |
 | `/admin/leads`, `/admin/leads/:id`         | лиды: контакты из заявок, теги, события, рассылка, возможные дубли                      |
+| `/admin/products`                          | товары: категории, языки показа кликом, категории магазина, цены доставки               |
 | `/api/health`                              | приложение и база живы                                                                  |
 
 Остальные пункты меню админки и ссылки в шапке сайта ведут на ещё не созданные страницы.
@@ -162,6 +163,9 @@ npm run dev
   остаток, получение, подпись) → файлы цифрового варианта по языкам (`product_files`, закрытая папка)
 - начальный каталог из прототипа (только в пустой магазин):
   `docker compose exec app npx nuxi task run seed:shop`; данные — `server/db/seed/shop.json`
+- API админки: `GET /api/admin/shop` (товары, категории, настройки, раздел), `PATCH /api/admin/products/:id/locales`,
+  категории — `/api/admin/shop/categories` (POST, PUT/DELETE `:id`, PUT `order`), `PUT /api/admin/shop/settings`,
+  `PUT /api/admin/shop/section`; право — раздел «Товары» (`products`)
 - заказы — с корзиной и оплатой SumUp (этап 4)
 
 ## Уведомления
