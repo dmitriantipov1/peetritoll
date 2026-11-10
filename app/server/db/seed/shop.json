@@ -1,0 +1,365 @@
+{
+  "_note": "Каталог магазина из прототипа (shop.html, 10.11.2026). Книги и цены книг — настоящие, из SumUp-магазина; цены вариантов фото и картины (кроме показанных в прототипе) и остаток «1» у антиквариата — пример. Фото: у книг — обложки SumUp, у остального — имя картинки из images/ прототипа, перенесём с карточкой товара.",
+  "categories": [
+    {
+      "slug": "books",
+      "names": {
+        "et": "Raamatud",
+        "en": "Books",
+        "ru": "Книги"
+      }
+    },
+    {
+      "slug": "audioguides",
+      "names": {
+        "et": "Audiogiidid",
+        "en": "Audio guides",
+        "ru": "Аудиогиды"
+      }
+    },
+    {
+      "slug": "antique",
+      "names": {
+        "et": "Antiik",
+        "en": "Antiques",
+        "ru": "Антиквариат"
+      }
+    },
+    {
+      "slug": "photos",
+      "names": {
+        "et": "Fotod ja kaardid",
+        "en": "Photos and maps",
+        "ru": "Фото и карты"
+      }
+    },
+    {
+      "slug": "art",
+      "names": {
+        "et": "Maalid ja postkaardid",
+        "en": "Paintings and postcards",
+        "ru": "Картины и открытки"
+      }
+    },
+    {
+      "slug": "souvenirs",
+      "names": {
+        "et": "Suveniirid",
+        "en": "Souvenirs",
+        "ru": "Сувениры"
+      }
+    }
+  ],
+  "products": [
+    {
+      "category": "books",
+      "locales": ["et", "ru"],
+      "names": {
+        "ru": "Байки из-за барной стойки"
+      },
+      "lead": {
+        "ru": "Галина Малютина · 2022 · 144 стр."
+      },
+      "photo": "https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 1000,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "books",
+      "locales": ["et", "ru"],
+      "names": {
+        "ru": "Былой Палдиски и его люди"
+      },
+      "lead": {
+        "ru": "Йосеф Кац · 2022 · 152 стр."
+      },
+      "photo": "https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 1200,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "books",
+      "locales": ["et", "ru"],
+      "names": {
+        "ru": "Мой родной Палдиски"
+      },
+      "lead": {
+        "ru": "Пауль Лаан · 2022 · 28 стр."
+      },
+      "photo": "https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 1500,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "books",
+      "locales": ["et", "ru"],
+      "names": {
+        "et": "Lood baarileti tagant",
+        "ru": "Lood baarileti tagant"
+      },
+      "lead": {
+        "et": "Galina Maljutina · 2023 · 144 lk",
+        "ru": "Galina Maljutina · 2023 · 144 стр. · на эстонском"
+      },
+      "photo": "https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 1000,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "books",
+      "locales": ["et", "ru"],
+      "names": {
+        "et": "Kodulinn Paldiski",
+        "ru": "Kodulinn Paldiski"
+      },
+      "lead": {
+        "et": "Paul Laan · 2022 · 28 lk",
+        "ru": "Paul Laan · 2022 · 28 стр."
+      },
+      "photo": "https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 1500,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "antique",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Медный самовар, начало XX века"
+      },
+      "lead": {
+        "ru": "Один экземпляр"
+      },
+      "description": {
+        "ru": "Медный самовар начала XX века, около 5 литров. Клейма читаются, кран и конфорка родные."
+      },
+      "facts": {
+        "ru": [
+          {
+            "label": "Объём",
+            "value": "около 5 л"
+          },
+          {
+            "label": "Материал",
+            "value": "медь"
+          }
+        ]
+      },
+      "photo": "shop-01.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 12000,
+          "delivery": "pickup",
+          "stock": 1,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "antique",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Морской компас"
+      },
+      "lead": {
+        "ru": "Один экземпляр"
+      },
+      "photo": "shop-02.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 8500,
+          "delivery": "pickup",
+          "stock": 1,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "antique",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Набор старинных ключей"
+      },
+      "lead": {
+        "ru": "Один экземпляр"
+      },
+      "photo": "shop-03.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 3500,
+          "delivery": "pickup",
+          "stock": 1,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "photos",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Рейд Палдиски, 1912 год"
+      },
+      "lead": {
+        "ru": "Отпечаток 8×12 см · цифровая копия"
+      },
+      "photo": "shop-04.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 500,
+          "delivery": "shipping",
+          "stock": null,
+          "label": {
+            "ru": "Отпечаток 8×12 см"
+          }
+        },
+        {
+          "kind": "digital",
+          "priceCents": 800,
+          "delivery": null,
+          "stock": null,
+          "label": {
+            "ru": "Цифровая копия"
+          }
+        }
+      ]
+    },
+    {
+      "category": "photos",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "План крепости Рогервик, 1720-е"
+      },
+      "lead": {
+        "ru": "Цифровая копия высокого разрешения"
+      },
+      "photo": "shop-05.jpg",
+      "variants": [
+        {
+          "kind": "digital",
+          "priceCents": 1200,
+          "delivery": null,
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "art",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Андрей Кириллов. Маяк Пакри"
+      },
+      "lead": {
+        "ru": "Оригинал · печать · цифровая версия"
+      },
+      "photo": "shop-06.jpg",
+      "variants": [
+        {
+          "kind": "digital",
+          "priceCents": 1500,
+          "delivery": null,
+          "stock": null,
+          "label": {
+            "ru": "Цифровая версия"
+          }
+        },
+        {
+          "kind": "physical",
+          "priceCents": 3500,
+          "delivery": "shipping",
+          "stock": null,
+          "label": {
+            "ru": "Печать"
+          }
+        },
+        {
+          "kind": "physical",
+          "priceCents": 45000,
+          "delivery": "pickup",
+          "stock": 1,
+          "label": {
+            "ru": "Оригинал"
+          }
+        }
+      ]
+    },
+    {
+      "category": "art",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Набор открыток «Старый Палдиски»"
+      },
+      "lead": {
+        "ru": "8 открыток"
+      },
+      "photo": "shop-07.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 900,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    },
+    {
+      "category": "souvenirs",
+      "locales": ["et", "en", "ru"],
+      "names": {
+        "ru": "Магнит Peetri Toll"
+      },
+      "lead": {
+        "ru": "Рисунок Андрея Кириллова"
+      },
+      "photo": "shop-08.jpg",
+      "variants": [
+        {
+          "kind": "physical",
+          "priceCents": 400,
+          "delivery": "shipping",
+          "stock": null,
+          "label": null
+        }
+      ]
+    }
+  ]
+}
