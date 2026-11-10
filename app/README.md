@@ -265,6 +265,7 @@ npm run dev
 npm run lint           # ESLint: ошибки и подозрительный код
 npm run format:check   # Prettier: оформление
 npm run typecheck      # TypeScript
+npm test               # тесты бизнес-логики (Vitest): права, заявки, лиды, цены — app/tests/
 ```
 
 Исправить автоматически: `npm run lint:fix` и `npm run format`.
