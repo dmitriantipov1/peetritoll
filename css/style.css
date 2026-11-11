@@ -944,6 +944,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story__media .photo__frame { aspect-ratio: 4 / 3; }
 .story__quote { margin-top: var(--s-3); text-align: right; }
 .story--reverse .story__quote { text-align: left; }
+/* Длинная подпись под фото — по центру, как в макете заказчицы (group.html, 12.11.2026) */
+.story .story__quote--center { text-align: center; font-style: normal; }
 .story__note { margin-top: var(--s-3); }
 
 /* ---------- Таймлайн (история здания) ---------- */
