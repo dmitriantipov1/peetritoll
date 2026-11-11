@@ -39,6 +39,14 @@ describe('заявка', () => {
     expect(requestInputSchema.safeParse({ ...group, menuId: 3 }).success).toBe(true)
   })
 
+  it('группа: дату и время приезда можно не указывать', () => {
+    const { visitDate: _d, visitTime: _t, ...noVisit } = table
+    const parsed = requestInputSchema.safeParse({ ...noVisit, type: 'group', guests: 30 })
+    expect(parsed.success && parsed.data.type === 'group' && parsed.data.visitDate).toBe(null)
+    // у брони стола дата по-прежнему обязательна
+    expect(requestInputSchema.safeParse(noVisit).success).toBe(false)
+  })
+
   it('заявки группы открывает право на банкеты', () => {
     expect(requestSection.group).toBe('requests.banquet')
   })

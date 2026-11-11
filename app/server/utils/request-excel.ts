@@ -43,8 +43,9 @@ export async function requestExcel(row: RequestRow): Promise<Buffer> {
     ['Гость', row.name],
     ['Телефон', row.phone],
     ['E-mail', row.email ?? ''],
-    ['Дата', row.visitDate ? fullDate(row.visitDate) : ''],
-    ['Время', row.visitTime ?? ''],
+    // У группы дата и время необязательны — согласуют позже
+    ['Дата', row.visitDate ? fullDate(row.visitDate) : 'не указана'],
+    ['Время', row.visitTime ?? 'не указано'],
     ['Гостей', row.guests ?? ''],
   ]
   if (d.type === 'banquet' && d.occasion) info.push(['Повод', banquetOccasionNames[d.occasion]])

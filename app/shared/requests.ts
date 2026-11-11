@@ -238,8 +238,9 @@ export const requestInputSchema = z.discriminatedUnion(
     z.object({
       ...common,
       type: z.literal('group'),
-      visitDate,
-      visitTime: time,
+      // Дата и время приезда необязательны: группы часто сами не знают (созвон 12.11.2026)
+      visitDate: visitDate.nullable().default(null),
+      visitTime: time.nullable().default(null),
       guests,
       agency: z
         .string()
