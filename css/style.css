@@ -299,6 +299,14 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   text-transform: uppercase;
 }
 
+/* Длинный заголовок героя (страница «Устроителям путешествий», макет заказчицы 12.11.2026):
+   без капса и мельче, чтобы два слова помещались в строку */
+.hero__title--long {
+  font-size: clamp(36px, 6vw, 84px);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .hero__quote {
   margin-top: var(--s-3);
   font-family: var(--f-head);
@@ -1903,6 +1911,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .bq-step__num { font-weight: 500; color: var(--c-gold); }
 .bq-top { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .bq-contacts { max-width: 760px; }
+/* Форма одним блоком (group.html): все поля в одной сетке, комментарий ниже обычного */
+.bq-one textarea { min-height: 72px; }
+.bq-one .form__check, .bq-one .bq-send { margin-top: 4px; }
 .bq-send { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
 .bq-done { max-width: 760px; padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
 .bq-done .quote { margin-bottom: var(--s-1); }
@@ -1910,6 +1921,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .bq-done__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
 @media (max-width: 860px) { .bq-top { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .bq-top { grid-template-columns: 1fr; } }
+/* Форма группы на телефоне: дата и время в одном ряду, остальное — во всю ширину */
+@media (max-width: 640px) {
+  .bq-form .bq-one { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bq-one > :nth-child(n+3) { grid-column: 1 / -1; }
+}
 /* На планшете и телефоне «Ваш выбор» уезжает под список — оставляем от него
    прилипшую снизу полосу с суммой и кнопкой; выбранные блюда и так подсвечены в списке */
 @media (max-width: 860px) {
