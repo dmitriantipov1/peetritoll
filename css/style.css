@@ -195,7 +195,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 .nav__link {
   display: block;
-  padding: 6px 0;
+  /* снизу 3px: подчёркивание текущего пункта ближе к тексту (созвон 12.11.2026, было 6px) */
+  padding: 6px 0 3px;
   font-family: var(--f-deco);
   /* семь пунктов должны влезать в строку до 1181 px, где включается бургер */
   font-size: clamp(16px, 1.32vw, 19px);
@@ -209,11 +210,93 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .nav__link:hover { color: #fff; border-color: var(--c-gold); }
 
-.lang { display: flex; gap: 12px; flex-shrink: 0; }
+/* Выпадающее меню у «Меню» (созвон 12.11.2026): основное, банкетное, групповое — с любой страницы.
+   Открывается по нажатию (на компьютере — и при наведении), плавно; в бургере — раскрывается на месте */
+.nav__item--sub { position: relative; }
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  line-height: inherit;
+  cursor: pointer;
+}
+.nav__toggle.is-current, .nav__toggle:hover { border-color: var(--c-gold); }
+.nav__caret {
+  width: 7px;
+  height: 7px;
+  margin-top: -4px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+  transition: transform .3s ease, margin .3s ease;
+}
+.nav__item--sub.is-open .nav__caret { transform: rotate(-135deg); margin-top: 3px; }
+.nav__sub {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 25;
+  min-width: 290px;
+  padding-top: 14px;               /* мостик: курсор доходит до списка, не закрыв его */
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -8px);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+}
+.nav__item--sub.is-open .nav__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s;
+}
+.nav__sublist {
+  list-style: none;
+  padding: 8px 0;
+  background: rgba(20, 12, 6, .96);
+  border-top: 2px solid var(--c-gold);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .35);
+}
+.nav__sublink {
+  display: block;
+  padding: 12px 24px;
+  font-family: var(--f-deco);
+  font-size: 18px;
+  letter-spacing: .04em;
+  color: var(--c-light);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .2s, color .2s;
+}
+.nav__sublink small {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+.nav__sublink:hover, .nav__sublink:focus-visible { background: rgba(203, 170, 88, .14); color: #fff; }
+.nav__sublink[aria-current="page"] { color: var(--c-gold); }
+@media (hover: hover) and (min-width: 1181px) {
+  .nav__item--sub:hover .nav__sub {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition: opacity .25s ease, transform .25s ease, visibility 0s;
+  }
+  .nav__item--sub:hover .nav__caret { transform: rotate(-135deg); margin-top: 3px; }
+}
+
+.lang { display: flex; gap: 10px; flex-shrink: 0; }
 
 .lang__btn {
-  width: 40px;
-  height: 36px;
+  /* на 20 % меньше прежних 40×36 (созвон 12.11.2026) */
+  width: 32px;
+  height: 29px;
   border: 1px solid var(--c-gold);
   background: transparent;
   color: var(--c-light);
@@ -297,14 +380,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   line-height: 1;
   letter-spacing: .02em;
   text-transform: uppercase;
-}
-
-/* Длинный заголовок героя (страница «Устроителям путешествий», макет заказчицы 12.11.2026):
-   без капса и мельче, чтобы два слова помещались в строку */
-.hero__title--long {
-  font-size: clamp(36px, 6vw, 84px);
-  text-transform: none;
-  letter-spacing: 0;
 }
 
 .hero__quote {
@@ -736,6 +811,24 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   }
   .nav.is-open .nav__list { flex-direction: column; gap: 4px; }
   .nav.is-open .nav__link { font-size: 26px; padding: 10px 0; }
+  /* В бургере подменю раскрывается на месте, плавно по высоте */
+  .nav__sub {
+    position: static;
+    min-width: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    transform: none;
+    transition: grid-template-rows .3s ease, opacity .3s ease, visibility 0s linear .3s;
+  }
+  .nav__item--sub.is-open .nav__sub {
+    grid-template-rows: 1fr;
+    transform: none;
+    transition: grid-template-rows .3s ease, opacity .3s ease, visibility 0s;
+  }
+  .nav__sublist { min-height: 0; overflow: hidden; padding: 0 0 0 18px; background: none; border: 0; box-shadow: none; }
+  .nav__sublink { padding: 8px 0; font-size: 20px; white-space: normal; }
+  .nav__sublink:hover, .nav__sublink:focus-visible { background: none; }
 }
 
 @media (max-width: 1024px) {
@@ -774,7 +867,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
   .header__logo img { width: 84px; }
   .lang { gap: 6px; }
-  .lang__btn { width: 34px; height: 32px; font-size: 12px; }
+  .lang__btn { width: 30px; height: 27px; font-size: 12px; }
 
   .section-head { grid-template-columns: 1fr; }
   .section-head__more { padding: var(--s-1) 0 0; }
@@ -1039,6 +1132,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   color: var(--c-ink);
 }
 .field textarea { min-height: 120px; resize: vertical; }
+/* «— если знаете» у необязательного поля */
+.field__opt { font-weight: 400; color: var(--c-grey); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--c-gold); outline-offset: 0; }
 .form__note { font-size: 14px; color: var(--c-grey); }
 .form__check { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; }
@@ -1300,14 +1395,15 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .diet { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; list-style: none; }
 .diet__tag { padding: 1px 8px; border: 1px solid var(--c-gold); border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1.5; color: var(--c-gold-text); background: rgba(203,170,88,.10); }
 .diet__tag--spicy { border-color: var(--c-red); color: var(--c-red); background: rgba(153,49,34,.07); }
-.diet-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-3); }
+.diet-filter { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-3); }
 .diet-filter__label { margin: 0 var(--s-1) 0 0; font-weight: 600; color: var(--c-grey); }
 .diet-filter__btn[aria-pressed="true"] { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-brown); }
-/* Фильтр меню — две группы в ряд (11.11.2026): ограничения | подборки. Кнопки скруглённые и меньше
-   разделов меню; пояснение — в title (наведение) и строкой .diet-legend (на телефоне наведения нет) */
-.diet-filter__group { display: flex; flex-wrap: wrap; gap: var(--s-1); }
-.diet-filter__sep { align-self: stretch; width: 1px; min-height: 28px; background: rgba(111,108,108,.4); }
-.diet-filter .diet-filter__btn { padding: 4px 14px; border-radius: 999px; font-size: 14px; }
+/* Фильтр меню — две группы (11.11.2026): ограничения, под ними подборки; всё по центру, как и разделы
+   меню (созвон 12.11.2026). Кнопки меньше разделов, скругление 5 px; пояснение — в title (наведение) */
+.diet-filter__group { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1); }
+.diet-filter .diet-filter__btn { padding: 4px 14px; border-radius: 5px; font-size: 14px; }
+.chips--center { justify-content: center; }
+.menu-cat__note { margin-top: var(--s-2); font-size: 14px; color: var(--c-grey); }
 /* Значки отметок (рисунки заказчицы, 12.11.2026): на карточке блюда — значок, подпись при наведении (title)
    и по нажатию на телефоне (data-open ставит js/main.js). Отдельной расшифровки нет: кнопки фильтра
    с теми же значками и названиями и есть расшифровка (решение разработчика 12.11.2026) */
@@ -1320,11 +1416,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   background: var(--c-brown); color: var(--bg-2); font-size: 13px; line-height: 1.4;
 }
 .diet-filter__btn img { width: 20px; height: auto; margin: -2px 6px -2px -4px; vertical-align: middle; }
-@media (max-width: 640px) { .diet-filter__sep { display: none; } }
 .diet-filter__btn[aria-pressed="true"]::before { content: "✓ "; }
 .diet-filter__reset { padding: 0; border: 0; background: none; font: inherit; color: var(--c-gold-text); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .diet-filter__reset[hidden] { display: none; }
-.diet-filter > .diet-filter__reset { margin-left: var(--s-1); }
+.diet-filter > .diet-filter__reset { margin: 0; }
 .diet-note { margin: 0 0 var(--s-4); font-size: 14px; color: var(--c-grey); }
 .diet-empty { margin: var(--s-3) 0; padding: var(--s-3); border: 1px dashed var(--c-gold); text-align: center; }
 .diet-empty[hidden] { display: none; }
@@ -1376,6 +1471,23 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   cursor: pointer;
 }
 .lightbox__nav:hover { background: var(--c-gold); color: var(--c-brown); }
+/* Стрелка нарисована рамкой, а не знаком ‹ › шрифта: у Kurale знак сидит ниже центра кнопки
+   («стрелки кривые», созвон 12.11.2026). Текст кнопки остаётся для чтения с экрана — aria-label */
+.lightbox__nav { font-size: 0; }
+/* Стрелка — от центра кнопки абсолютно: сетка внутри <button> в Safari раскладывается иначе,
+   и стрелка уезжала вверх. Сдвиг по горизонтали — чтобы «уголок» смотрелся по центру на глаз */
+.lightbox__nav::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26%;
+  height: 26%;
+  border: solid currentColor;
+  border-width: 0 0 2px 2px;
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+.lightbox__nav--next::before { transform: translate(-70%, -50%) rotate(-135deg); }
 .lightbox__nav { top: 40%; }
 .lightbox__nav--prev { left: -64px; }
 .lightbox__nav--next { right: -64px; }
@@ -1390,7 +1502,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lightbox--dish .lightbox__nav {
   top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) / 3);
   translate: 0 -50%;
-  width: 56px; height: 56px; font-size: 40px;
+  width: 56px; height: 56px;
 }
 .lightbox--dish .lightbox__title { flex: 1 1 260px; }
 .lightbox--dish .lightbox__desc { margin-top: 4px; }
@@ -1406,14 +1518,14 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 @media (max-width: 640px) {
   .lightbox__img { max-height: 55vh; }
-  .lightbox__nav { width: 44px; height: 44px; font-size: 28px; }
+  .lightbox__nav { width: 44px; height: 44px; }
 }
 /* Телефон: стрелки фото блюда — внизу кадра, вплотную к золотой рамке изнутри (она на 12px от края) */
 @media (max-width: 640px) {
   .lightbox--dish .lightbox__nav {
     top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) * 2 / 3 - 13px - 44px);
     translate: none;
-    width: 44px; height: 44px; font-size: 32px;
+    width: 44px; height: 44px;
   }
   .lightbox--dish .lightbox__nav--prev { left: calc(var(--s-2) + 13px); }
   .lightbox--dish .lightbox__nav--next { right: calc(var(--s-2) + 13px); }

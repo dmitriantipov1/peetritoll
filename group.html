@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261112-5">
+  <link rel="stylesheet" href="./css/style.css?v=20261112-8">
 </head>
 <body>
 
@@ -23,9 +23,18 @@
 
     <nav class="nav" id="nav" aria-label="Главное меню">
       <ul class="nav__list">
-        <li><a class="nav__link is-current" href="./restaurant.html">Ресторан</a></li>
+        <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
         <li><a class="nav__link" href="./about.html">О нас</a></li>
-        <li><a class="nav__link" href="./menu.html">Меню</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle is-current" type="button" aria-expanded="false" aria-controls="nav-sub-menu">Меню<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-menu">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./menu.html">Роспись кушаньям<small>Основное меню</small></a></li>
+              <li><a class="nav__sublink" href="./banquet.html">Пиршества и застолья<small>Банкетное меню</small></a></li>
+              <li><a class="nav__sublink" href="./group.html" aria-current="page">Устроителям путешествий<small>Групповое меню</small></a></li>
+            </ul>
+          </div>
+        </li>
         <li><a class="nav__link" href="./museum.html">Музей</a></li>
         <li><a class="nav__link" href="./services.html">Услуги</a></li>
         <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
@@ -47,18 +56,13 @@
 
 <main>
 
-  <!-- Герой как на главной (макет заказчицы 12.11.2026) -->
-  <section class="hero">
+  <!-- Герой — прежний, невысокий: крупный только на главной (созвон 12.11.2026). Картинка — с главной -->
+  <section class="page-hero">
     <img class="hero__bg" src="./images/hero.jpg" alt="" data-ph="hero.jpg">
-    <div class="container hero__content">
-      <p class="hero__kicker">Ресторан и музей</p>
-      <p class="hero__sub">в здании царской таможни</p>
-      <h1 class="hero__title hero__title--long">Устроителям путешествий</h1>
-      <p class="hero__quote">Сытный обед и тёплый приём для утомлённых путников</p>
-      <div class="hero__actions">
-        <a class="btn btn--solid" href="#zakaz">Меню</a>
-        <a class="btn btn--light" href="#zayavka">Забронировать</a>
-      </div>
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / <a href="./menu.html">Меню</a> / Групповое меню</p>
+      <h1 class="page-hero__title">Устроителям путешествий</h1>
+      <p class="page-hero__lead">Сытный обед и тёплый приём для утомлённых путников</p>
     </div>
   </section>
 
@@ -142,12 +146,12 @@
       </ul>
 
       <!-- Форма одним блоком (просьба заказчицы 12.11.2026): без шагов и слова «Контакты»,
-           e-mail в ряд с телефоном -->
+           e-mail в ряд с телефоном. Дата и время необязательны: группы часто сами не знают (созвон 12.11.2026) -->
       <form class="bq-form" id="zayavka" data-request onsubmit="return false">
         <h3 class="bq-step">Оставить заявку</h3>
         <div class="calc-top bq-top bq-one">
-          <div class="field"><label for="g-date">Дата</label><input id="g-date" type="date" value="2026-12-05"></div>
-          <div class="field"><label for="g-time">Время прибытия</label><input id="g-time" type="time" value="13:00"></div>
+          <div class="field"><label for="g-date">Дата <span class="field__opt">— если знаете</span></label><input id="g-date" type="date"></div>
+          <div class="field"><label for="g-time">Время прибытия <span class="field__opt">— если знаете</span></label><input id="g-time" type="time"></div>
           <div class="field"><label for="g-ppl">Человек</label><input id="g-ppl" type="number" min="1" value="30"></div>
           <div class="field"><label for="g-menu">Меню</label>
             <select id="g-menu"><option>№ 1 Таможенное — 16,00 €</option><option>№ 2 Купеческое — 17,50 €</option><option>№ 3 Путевое — 10,00 €</option><option>№ 4 Ямское — 10,50 €</option><option>№ 5 Шкиперское — 21,50 €</option><option>№ 6 Гимназическое — 10,00 €</option><option>Ещё не выбрали — обсудим по телефону</option></select>
@@ -160,7 +164,7 @@
           <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
           <div class="form__full bq-send">
             <button class="btn btn--red" type="submit">Отправить запрос</button>
-            <p class="form__note">Это запрос: мы подтвердим заказ по телефону или письмом. Цена — с человека, оплата на месте.</p>
+            <p class="form__note">Это запрос: мы подтвердим заказ по телефону или письмом. Дату и время можно согласовать позже. Цена — с человека, оплата на месте.</p>
           </div>
         </div>
       </form>
@@ -204,6 +208,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261112"></script>
+<script src="./js/main.js?v=20261112-2"></script>
 </body>
 </html>

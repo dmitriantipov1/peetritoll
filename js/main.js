@@ -21,6 +21,26 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && nav.classList.contains('is-open')) setMenu(false);
 });
 
+// Выпадающее меню у «Меню» (созвон 12.11.2026): по нажатию, закрывается кликом мимо и Esc.
+// На компьютере открывается и при наведении — это в CSS
+document.querySelectorAll('.nav__item--sub').forEach((item) => {
+  const toggle = item.querySelector('.nav__toggle');
+  const setOpen = (open) => {
+    item.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  };
+  toggle.addEventListener('click', () => setOpen(!item.classList.contains('is-open')));
+  document.addEventListener('click', (e) => {
+    if (!item.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && item.classList.contains('is-open')) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+});
+
 // Переключатель языка (пока только визуально)
 document.querySelectorAll('.lang__btn').forEach((btn, _, all) => {
   btn.addEventListener('click', () => {
