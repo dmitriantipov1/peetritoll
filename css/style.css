@@ -1300,7 +1300,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .diet { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; list-style: none; }
 .diet__tag { padding: 1px 8px; border: 1px solid var(--c-gold); border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1.5; color: var(--c-gold-text); background: rgba(203,170,88,.10); }
 .diet__tag--spicy { border-color: var(--c-red); color: var(--c-red); background: rgba(153,49,34,.07); }
-.diet-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-1); }
+.diet-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: calc(var(--s-2) * -1) 0 var(--s-3); }
 .diet-filter__label { margin: 0 var(--s-1) 0 0; font-weight: 600; color: var(--c-grey); }
 .diet-filter__btn[aria-pressed="true"] { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-brown); }
 /* Фильтр меню — две группы в ряд (11.11.2026): ограничения | подборки. Кнопки скруглённые и меньше
@@ -1309,10 +1309,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .diet-filter__sep { align-self: stretch; width: 1px; min-height: 28px; background: rgba(111,108,108,.4); }
 .diet-filter .diet-filter__btn { padding: 4px 14px; border-radius: 999px; font-size: 14px; }
 /* Значки отметок (рисунки заказчицы, 12.11.2026): на карточке блюда — значок, подпись при наведении (title)
-   и по нажатию на телефоне (data-open ставит js/main.js); под фильтром — расшифровка всех значков */
-.diet-key { display: flex; flex-wrap: wrap; gap: 6px var(--s-3); margin: 0 0 var(--s-3); list-style: none; font-size: 14px; color: var(--c-grey); }
-.diet-key li { display: inline-flex; align-items: center; gap: 6px; }
-.diet-key img { width: 22px; height: auto; }
+   и по нажатию на телефоне (data-open ставит js/main.js). Отдельной расшифровки нет: кнопки фильтра
+   с теми же значками и названиями и есть расшифровка (решение разработчика 12.11.2026) */
 .diet__icon { position: relative; display: inline-flex; cursor: help; }
 .diet__icon img { width: 28px; height: auto; }
 .diet__icon[data-open]::after {
