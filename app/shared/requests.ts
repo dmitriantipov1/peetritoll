@@ -97,16 +97,10 @@ export const lunchModeNames: Record<(typeof lunchModes)[number], string> = {
   pickup: 'Самовывоз',
 }
 
-/** Что заказывают в меню дня: суп, горячее или обед целиком */
-export const lunchItems = ['soup', 'main', 'full'] as const
-export type LunchItem = (typeof lunchItems)[number]
-
-/** «Обед целиком» в расчёте — у супа и горячего названия свои, на каждый день */
-export const lunchFullNames: Localized<string> = {
-  et: 'Päevalõuna',
-  en: 'Lunch of the day',
-  ru: 'Обед дня',
-}
+/** Что заказывают в меню дня: суп и горячее. «Обеда целиком» нет (12.11.2026) */
+export const lunchItems = ['soup', 'main'] as const
+/** В старых заявках в расчёте может быть 'full' — «Обед дня»: строки расчёта хранятся снимком */
+export type LunchItem = (typeof lunchItems)[number] | 'full'
 
 // ---------- Что хранится ----------
 
@@ -253,8 +247,8 @@ export const requestInputSchema = z.discriminatedUnion(
       visitTime: time,
       mode: z.enum(lunchModes).default('onsite'),
       items: z
-        .object({ soup: qty, main: qty, full: qty })
-        .refine((i) => i.soup + i.main + i.full > 0, 'Выберите хотя бы одну позицию'),
+        .object({ soup: qty, main: qty })
+        .refine((i) => i.soup + i.main > 0, 'Выберите хотя бы одну позицию'),
     }),
     z.object({
       ...common,

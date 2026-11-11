@@ -88,6 +88,7 @@ export async function loadAdminMenu(): Promise<AdminMenu> {
       slug: c.slug,
       sort: c.sort,
       isVisible: c.isVisible,
+      ownPage: c.ownPage,
       names: byLocale(c.translations, (t) => t.name),
       dishes: c.dishes.map(toAdminDish),
     })),
@@ -95,11 +96,15 @@ export async function loadAdminMenu(): Promise<AdminMenu> {
       id: t.id,
       key: t.key,
       names: byLocale(t.translations, (tr) => tr.name),
+      inFilter: true,
+      filterHidden: t.filterHidden,
     })),
     labels: labels.map((l) => ({
       id: l.id,
       key: l.key,
       names: byLocale(l.translations, (tr) => tr.name),
+      inFilter: l.inFilter,
+      filterHidden: l.filterHidden,
     })),
   }
 }

@@ -71,7 +71,6 @@ async function loadDays(db: Db | Tx, from: string, to: string): Promise<AdminLun
     date: r.date,
     soupCents: r.soupCents,
     mainCents: r.mainCents,
-    fullCents: r.fullCents,
     translations: Object.fromEntries(
       texts.filter((t) => t.date === r.date).map((t) => [t.locale, { soup: t.soup, main: t.main }]),
     ),
@@ -101,7 +100,6 @@ async function writeDay(tx: Tx, day: LunchWeekInput['days'][number], userId: num
     date: day.date,
     soupCents: day.soupCents,
     mainCents: day.mainCents,
-    fullCents: day.fullCents,
     updatedBy: userId,
   })
   const texts = Object.entries(day.translations)

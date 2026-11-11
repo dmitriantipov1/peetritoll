@@ -11,9 +11,14 @@ export interface AdminMark {
   id: number
   key: string
   names: Localized<string>
+  /** Кнопка в фильтре меню: у отметок для гостей — всегда, у служебных — если включили */
+  inFilter: boolean
+  /** Кнопка в фильтре временно скрыта; значок на блюде остаётся */
+  filterHidden: boolean
 }
 
-// Два справочника отметок (7.1): для гостей — с фильтром в меню, служебные — только значок
+// Два справочника отметок (7.1): для гостей — кнопки-ограничения в фильтре меню,
+// служебные — значок, по желанию кнопка-подборка в фильтре
 export const markKinds = ['diet', 'labels'] as const
 export type MarkKind = (typeof markKinds)[number]
 
@@ -48,6 +53,8 @@ export interface AdminMenuCategory {
   slug: string
   sort: number
   isVisible: boolean
+  /** На отдельной странице, а в основном меню — кнопка на неё (алкогольные напитки) */
+  ownPage: boolean
   names: Localized<string>
   dishes: AdminDish[]
 }
@@ -113,10 +120,16 @@ const namesSchema = z
 export const categoryInputSchema = z.object({
   names: namesSchema,
   isVisible: z.boolean(),
+  ownPage: z.boolean().default(false),
 })
 export type CategoryInput = z.infer<typeof categoryInputSchema>
 
-export const markInputSchema = z.object({ names: namesSchema })
+/** inFilter учитывается только у служебных отметок: отметки для гостей в фильтре всегда */
+export const markInputSchema = z.object({
+  names: namesSchema,
+  inFilter: z.boolean().default(false),
+  filterHidden: z.boolean().default(false),
+})
 export type MarkInput = z.infer<typeof markInputSchema>
 
 // ---------- Порядок ----------

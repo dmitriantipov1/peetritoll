@@ -12,7 +12,6 @@ export interface AdminLunchDay {
   translations: Localized<{ soup: string | null; main: string | null }>
   soupCents: number | null
   mainCents: number | null
-  fullCents: number | null
 }
 
 export interface LunchSettings {
@@ -25,8 +24,6 @@ export interface LunchSettings {
   servedTo: string
   /** Предзаказ на сегодня — до этого времени, «ЧЧ:ММ» */
   preorderUntil: string
-  /** Что входит в обед целиком: «Суп, горячее, морс или компот» */
-  includes: Localized<string>
 }
 
 export const defaultLunchSettings: LunchSettings = {
@@ -35,7 +32,6 @@ export const defaultLunchSettings: LunchSettings = {
   servedFrom: '12:00',
   servedTo: '15:00',
   preorderUntil: '11:00',
-  includes: { ru: 'Суп, горячее, морс или компот' },
 }
 
 export interface AdminLunchWeek {
@@ -60,7 +56,6 @@ export const lunchDayInputSchema = z
     translations: z.partialRecord(z.enum(contentLocales), z.object({ soup: dish, main: dish })),
     soupCents: cents,
     mainCents: cents,
-    fullCents: cents,
   })
   .refine((d) => !Object.values(d.translations).some((t) => t?.soup) || d.soupCents !== null, {
     message: 'У супа нужна цена',
@@ -70,13 +65,6 @@ export const lunchDayInputSchema = z
     message: 'У горячего нужна цена',
     path: ['mainCents'],
   })
-  .refine(
-    (d) =>
-      d.fullCents === null ||
-      (Object.values(d.translations).some((t) => t?.soup) &&
-        Object.values(d.translations).some((t) => t?.main)),
-    { message: 'Обед целиком — только когда есть и суп, и горячее', path: ['fullCents'] },
-  )
 
 export const lunchWeekInputSchema = z.object({
   monday: dateString,
@@ -91,7 +79,6 @@ export const lunchSettingsSchema = z
     servedFrom: time,
     servedTo: time,
     preorderUntil: time,
-    includes: z.partialRecord(z.enum(contentLocales), z.string().trim().max(200)),
   })
   .refine((s) => s.servedFrom < s.servedTo, {
     message: 'Конец подачи — позже начала',

@@ -67,7 +67,12 @@ export async function createCategory(input: CategoryInput) {
     const [last] = await tx.select({ value: max(menuCategories.sort) }).from(menuCategories)
     const [row] = await tx
       .insert(menuCategories)
-      .values({ slug, isVisible: input.isVisible, sort: (last?.value ?? -1) + 1 })
+      .values({
+        slug,
+        isVisible: input.isVisible,
+        ownPage: input.ownPage,
+        sort: (last?.value ?? -1) + 1,
+      })
       .returning({ id: menuCategories.id })
     await tx
       .insert(menuCategoryTranslations)
@@ -80,7 +85,7 @@ export async function updateCategory(id: number, input: CategoryInput) {
   await useDb().transaction(async (tx) => {
     const [row] = await tx
       .update(menuCategories)
-      .set({ isVisible: input.isVisible })
+      .set({ isVisible: input.isVisible, ownPage: input.ownPage })
       .where(eq(menuCategories.id, id))
       .returning({ id: menuCategories.id })
     if (!row) throw createError({ statusCode: 404, message: 'Категория не найдена' })
@@ -112,6 +117,13 @@ export async function deleteCategory(id: number) {
 // Устроены одинаково: таблица отметок и таблица переводов к ней.
 
 const markTables = { diet: dietTags, labels: dishLabels } as const
+
+/** Флаги кнопки в фильтре; у отметок для гостей кнопка есть всегда — флага «в фильтре» нет */
+function filterFlags(kind: MarkKind, input: MarkInput) {
+  return kind === 'diet'
+    ? { filterHidden: input.filterHidden }
+    : { inFilter: input.inFilter, filterHidden: input.filterHidden }
+}
 
 export function markKindParam(event: Parameters<typeof getRouterParam>[0]): MarkKind {
   const kind = getRouterParam(event, 'kind')
@@ -152,7 +164,7 @@ export async function createMark(kind: MarkKind, input: MarkInput) {
     const [last] = await tx.select({ value: max(marks.sort) }).from(marks)
     const [row] = await tx
       .insert(marks)
-      .values({ key, sort: (last?.value ?? -1) + 1 })
+      .values({ key, sort: (last?.value ?? -1) + 1, ...filterFlags(kind, input) })
       .returning({ id: marks.id })
     await replaceMarkNames(tx, kind, row!.id, input.names)
     return row!.id
@@ -164,7 +176,7 @@ export async function updateMark(kind: MarkKind, id: number, input: MarkInput) {
   await useDb().transaction(async (tx) => {
     const [row] = await tx
       .update(marks)
-      .set({ updatedAt: new Date() })
+      .set({ ...filterFlags(kind, input), updatedAt: new Date() })
       .where(eq(marks.id, id))
       .returning({ id: marks.id })
     if (!row) throw createError({ statusCode: 404, message: 'Отметка не найдена' })

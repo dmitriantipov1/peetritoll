@@ -31,7 +31,17 @@ const usage = computed(() => {
 const adding = reactive({ category: false, diet: false, labels: false })
 
 type Done = (error?: string) => void
-type Payload = { names: Localized<string>; isVisible: boolean }
+type Payload = { names: Localized<string>; isVisible: boolean; flags: Record<string, boolean> }
+
+// Флажки строк: у категории — отдельная страница, у отметок — кнопка в фильтре меню
+const categoryFlags = [{ key: 'ownPage', label: 'Отдельной страницей' }]
+const markFlags = {
+  diet: [{ key: 'filterHidden', label: 'Скрыть кнопку' }],
+  labels: [
+    { key: 'inFilter', label: 'Кнопкой в фильтре' },
+    { key: 'filterHidden', label: 'Скрыть кнопку', disabledBy: 'inFilter' },
+  ],
+}
 
 /** Запрос к API; ошибку отдаём строке, при успехе — перечитываем меню */
 async function run(request: () => Promise<unknown>, done: Done, onSuccess?: () => void) {
@@ -47,12 +57,12 @@ async function run(request: () => Promise<unknown>, done: Done, onSuccess?: () =
 
 // Адрес — обычной строкой и тип ответа явно: иначе типизация маршрутов в $fetch
 // уходит в слишком глубокую проверку (TS2321)
-function saveCategory(id: number | null, { names, isVisible }: Payload, done: Done) {
+function saveCategory(id: number | null, { names, isVisible, flags }: Payload, done: Done) {
   const url: string =
     id === null ? '/api/admin/menu/categories' : `/api/admin/menu/categories/${id}`
+  const body = { names, isVisible, ownPage: !!flags.ownPage }
   run(
-    () =>
-      $fetch<unknown>(url, { method: id === null ? 'POST' : 'PUT', body: { names, isVisible } }),
+    () => $fetch<unknown>(url, { method: id === null ? 'POST' : 'PUT', body }),
     done,
     () => (adding.category = false),
   )
@@ -63,10 +73,11 @@ function removeCategory(id: number, name: string, done: Done) {
   run(() => $fetch<unknown>(`/api/admin/menu/categories/${id}`, { method: 'DELETE' }), done)
 }
 
-function saveMark(kind: MarkKind, id: number | null, { names }: Payload, done: Done) {
+function saveMark(kind: MarkKind, id: number | null, { names, flags }: Payload, done: Done) {
   const url: string = `/api/admin/menu/marks/${kind}${id === null ? '' : `/${id}`}`
+  const body = { names, inFilter: !!flags.inFilter, filterHidden: !!flags.filterHidden }
   run(
-    () => $fetch<unknown>(url, { method: id === null ? 'POST' : 'PUT', body: { names } }),
+    () => $fetch<unknown>(url, { method: id === null ? 'POST' : 'PUT', body }),
     done,
     () => (adding[kind] = false),
   )
@@ -100,7 +111,7 @@ const markPanels = computed(() => [
     kind: 'diet' as const,
     anchor: 'marks',
     title: 'Отметки для гостей',
-    hint: 'Видны на карточке блюда, по ним гости фильтруют меню: вегетарианское, без лактозы…',
+    hint: 'Значок на карточке блюда и кнопка в фильтре меню: без мяса, без лактозы… Кнопку можно скрыть — значок останется',
     list: 'dietTags' as const,
     usage: usage.value.diet,
   },
@@ -108,7 +119,7 @@ const markPanels = computed(() => [
     kind: 'labels' as const,
     anchor: 'labels',
     title: 'Отметки',
-    hint: 'Значок на карточке блюда, без фильтра: новинка, детское…',
+    hint: 'Значок на карточке блюда: новинка, детское… Кнопкой в фильтре — подборка, гость выбирает одну',
     list: 'labels' as const,
     usage: usage.value.labels,
   },
@@ -148,6 +159,7 @@ const markPanels = computed(() => [
                 <th scope="col">EN</th>
                 <th scope="col">RU</th>
                 <th scope="col">Видимость</th>
+                <th scope="col">Где</th>
                 <th scope="col" class="num">Блюд</th>
                 <th scope="col"><span class="adm-vh">Действия</span></th>
               </tr>
@@ -173,6 +185,8 @@ const markPanels = computed(() => [
                 :names="c.names"
                 :is-visible="c.isVisible"
                 with-visibility
+                :flags="categoryFlags"
+                :flag-values="{ ownPage: c.ownPage }"
                 :count="c.dishes.length"
                 :can-edit="canEdit"
                 :delete-blocked="c.dishes.length ? 'Сначала перенесите или удалите блюда' : ''"
@@ -186,6 +200,7 @@ const markPanels = computed(() => [
                 :id="null"
                 :names="{}"
                 with-visibility
+                :flags="categoryFlags"
                 :can-edit="canEdit"
                 @save="(p, done) => saveCategory(null, p, done)"
                 @cancel="adding.category = false"
@@ -219,6 +234,7 @@ const markPanels = computed(() => [
                 <th scope="col">ET</th>
                 <th scope="col">EN</th>
                 <th scope="col">RU</th>
+                <th scope="col" :colspan="markFlags[panel.kind].length">Фильтр меню</th>
                 <th scope="col" class="num">Блюд</th>
                 <th scope="col"><span class="adm-vh">Действия</span></th>
               </tr>
@@ -242,6 +258,8 @@ const markPanels = computed(() => [
                 :key="m.id"
                 :draggable="canEdit"
                 :names="m.names"
+                :flags="markFlags[panel.kind]"
+                :flag-values="{ inFilter: m.inFilter, filterHidden: m.filterHidden }"
                 :count="panel.usage.get(m.id) ?? 0"
                 :can-edit="canEdit"
                 @save="(p, done) => saveMark(panel.kind, m.id, p, done)"
@@ -261,6 +279,7 @@ const markPanels = computed(() => [
               <AdminNamesRow
                 :id="null"
                 :names="{}"
+                :flags="markFlags[panel.kind]"
                 :can-edit="canEdit"
                 @save="(p, done) => saveMark(panel.kind, null, p, done)"
                 @cancel="adding[panel.kind] = false"

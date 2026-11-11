@@ -1,8 +1,16 @@
 <script setup lang="ts">
-// Строка справочника с правкой на месте: название на трёх языках, для категорий — «На сайте».
+// Строка справочника с правкой на месте: название на трёх языках, для категорий — «На сайте»,
+// флажки (flags): «Отдельной страницей» у категорий, кнопка в фильтре у отметок.
 // Используется на экране «Категории и отметки» (pages/admin/menu/setup.vue).
 import { contentLocales, type ContentLocale } from '#shared/locales'
 import type { Localized } from '#shared/menu'
+
+/** Флажок в своей колонке. disabledBy — флаг, без которого этот не имеет смысла */
+interface NamesRowFlag {
+  key: string
+  label: string
+  disabledBy?: string
+}
 
 const props = withDefaults(
   defineProps<{
@@ -19,13 +27,22 @@ const props = withDefaults(
     deleteBlocked?: string
     /** Показать значок ⋮⋮ — за него строку перетаскивают */
     draggable?: boolean
+    /** Флажки — по колонке на каждый, после «Видимости» */
+    flags?: NamesRowFlag[]
+    flagValues?: Record<string, boolean>
   }>(),
   // Не переданное логическое свойство Vue считает false — новая категория была бы скрытой
-  { isVisible: true, count: 0, deleteBlocked: '' },
+  { isVisible: true, count: 0, deleteBlocked: '', flags: () => [], flagValues: () => ({}) },
 )
 
+type NamesRowPayload = {
+  names: Localized<string>
+  isVisible: boolean
+  flags: Record<string, boolean>
+}
+
 const emit = defineEmits<{
-  save: [payload: { names: Localized<string>; isVisible: boolean }, done: (error?: string) => void]
+  save: [payload: NamesRowPayload, done: (error?: string) => void]
   remove: [done: (error?: string) => void]
   cancel: []
 }>()
@@ -37,6 +54,9 @@ const names = reactive(
   >,
 )
 const visible = ref(props.isVisible)
+const flagState = reactive(
+  Object.fromEntries(props.flags.map((f) => [f.key, props.flagValues[f.key] ?? false])),
+) as Record<string, boolean>
 const busy = ref(false)
 const error = ref('')
 
@@ -44,7 +64,8 @@ const dirty = computed(
   () =>
     props.id === null ||
     contentLocales.some((l) => names[l].trim() !== (props.names[l] ?? '')) ||
-    (props.withVisibility && visible.value !== props.isVisible),
+    (props.withVisibility && visible.value !== props.isVisible) ||
+    props.flags.some((f) => flagState[f.key] !== (props.flagValues[f.key] ?? false)),
 )
 
 function payload() {
@@ -53,6 +74,7 @@ function payload() {
       contentLocales.filter((l) => names[l].trim()).map((l) => [l, names[l].trim()]),
     ) as Localized<string>,
     isVisible: visible.value,
+    flags: { ...flagState },
   }
 }
 
@@ -105,6 +127,16 @@ function remove() {
         />
         <span class="adm-switch__track" />
         {{ visible ? 'На сайте' : 'Скрыто' }}
+      </label>
+    </td>
+    <td v-for="f in flags" :key="f.key">
+      <label class="adm-check">
+        <input
+          v-model="flagState[f.key]"
+          type="checkbox"
+          :disabled="!canEdit || (!!f.disabledBy && !flagState[f.disabledBy])"
+        />
+        {{ f.label }}
       </label>
     </td>
     <td class="num">{{ id === null ? '—' : count }}</td>

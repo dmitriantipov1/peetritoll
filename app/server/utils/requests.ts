@@ -22,6 +22,7 @@ import { dishWords, plural } from '#shared/plural'
 import {
   PRIVACY_POLICY_VERSION,
   banquetOccasionNames,
+  lunchItems,
   lunchModeNames,
   requestSection,
   requestTypes,
@@ -32,7 +33,6 @@ import {
   type AdminRequestRow,
   type RequestSave,
   type RequestType,
-  lunchFullNames,
   type RequestCalc,
   type RequestCalcLine,
   type RequestChange,
@@ -102,10 +102,10 @@ async function catalogCalc(
   return finishCalc(lines)
 }
 
-/** Обед: суп, горячее, обед целиком — по меню и ценам выбранного дня */
+/** Обед: суп и горячее — по меню и ценам выбранного дня */
 async function lunchCalc(
   date: string,
-  items: Record<'soup' | 'main' | 'full', number>,
+  items: Record<(typeof lunchItems)[number], number>,
 ): Promise<RequestCalc> {
   const [day] = await useDb().select().from(lunchDays).where(eq(lunchDays.date, date)).limit(1)
   if (!day) bad('На этот день меню дня нет', 'visitDate')
@@ -123,12 +123,11 @@ async function lunchCalc(
       translations.filter((t) => t.main),
       'main',
     ),
-    full: lunchFullNames,
   }
-  const price = { soup: day.soupCents, main: day.mainCents, full: day.fullCents }
+  const price = { soup: day.soupCents, main: day.mainCents }
 
   const lines: RequestCalcLine[] = []
-  for (const item of ['soup', 'main', 'full'] as const) {
+  for (const item of lunchItems) {
     if (!items[item]) continue
     const cents = price[item]
     if (cents === null) bad('На этот день такой позиции нет — обновите страницу', 'items')

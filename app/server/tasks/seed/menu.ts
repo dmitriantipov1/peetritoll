@@ -33,8 +33,8 @@ interface SeedDish {
 }
 
 interface SeedMenu {
-  dietTags: { key: string; names: Localized<string> }[]
-  labels: { key: string; names: Localized<string> }[]
+  dietTags: { key: string; names: Localized<string>; filterHidden?: boolean }[]
+  labels: { key: string; names: Localized<string>; inFilter?: boolean }[]
   categories: { slug: string; names: Localized<string>; dishes: SeedDish[] }[]
 }
 
@@ -63,7 +63,10 @@ export default defineTask({
           tagIds.set(tag.key, found.id)
           continue
         }
-        const [row] = await tx.insert(dietTags).values({ key: tag.key, sort }).returning()
+        const [row] = await tx
+          .insert(dietTags)
+          .values({ key: tag.key, sort, filterHidden: tag.filterHidden ?? false })
+          .returning()
         tagIds.set(tag.key, row!.id)
         await tx
           .insert(dietTagTranslations)
@@ -77,7 +80,10 @@ export default defineTask({
           labelIds.set(label.key, found.id)
           continue
         }
-        const [row] = await tx.insert(dishLabels).values({ key: label.key, sort }).returning()
+        const [row] = await tx
+          .insert(dishLabels)
+          .values({ key: label.key, sort, inFilter: label.inFilter ?? false })
+          .returning()
         labelIds.set(label.key, row!.id)
         await tx
           .insert(dishLabelTranslations)

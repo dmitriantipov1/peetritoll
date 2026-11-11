@@ -35,6 +35,7 @@
     },
     {
       "key": "spicy",
+      "filterHidden": true,
       "names": {
         "ru": "Острое",
         "et": "Vürtsikas",
@@ -45,6 +46,7 @@
   "labels": [
     {
       "key": "new",
+      "inFilter": true,
       "names": {
         "ru": "Новинка",
         "et": "Uus",

@@ -425,6 +425,7 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 
 .adm-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 14px; }
 .adm-check input { width: 18px; height: 18px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--c-gold-dark); }
+.adm-table .adm-check { margin-top: 0; white-space: nowrap; }
 /* Приложение: заголовок группы галочек — в прототипе был задан прямо в разметке (admin/dish.html) */
 .adm-legend-title { margin-bottom: 6px; font-family: var(--f-head); font-weight: 700; font-size: 14px; color: var(--c-grey); }
 

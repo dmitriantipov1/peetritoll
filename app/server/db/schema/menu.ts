@@ -41,6 +41,9 @@ export const menuCategories = pgTable('menu_categories', {
   slug: text('slug').notNull().unique(),
   sort: integer('sort').notNull().default(0),
   isVisible: boolean('is_visible').notNull().default(true),
+  // «На отдельной странице»: категории нет в основном меню, у неё своя страница, а в меню —
+  // кнопка на неё. Так сделаны алкогольные напитки (решение заказчицы 12.11.2026)
+  ownPage: boolean('own_page').notNull().default(false),
   ...timestamps,
 })
 
@@ -137,12 +140,15 @@ export const dishPortionTranslations = pgTable(
 
 // ---------- Отметки для гостей ----------
 // Справочник ведётся в «Настройках» (7.1): вегетарианское, веганское, без глютена…
+// Каждая — кнопка в фильтре меню, кнопку можно временно скрыть: значок на блюде остаётся.
 
 export const dietTags = pgTable('diet_tags', {
   id: serial('id').primaryKey(),
   // Код для фильтра и стилей: veg, vegan, gf, lf, spicy
   key: text('key').notNull().unique(),
   sort: integer('sort').notNull().default(0),
+  // «Временно скрыть кнопку» в фильтре. «Острое» скрыто: в списке заказчицы его нет (11.11.2026)
+  filterHidden: boolean('filter_hidden').notNull().default(false),
   ...timestamps,
 })
 
@@ -175,13 +181,18 @@ export const dishDietTags = pgTable(
 )
 
 // ---------- Отметки (служебные значки) ----------
-// «Новинка», «Детское»… — значок на карточке блюда, без фильтра. Справочник пополняется в админке.
+// «Новинка», «Детское»… — значок на карточке блюда. Справочник пополняется в админке.
+// Отметку можно показать кнопкой в фильтре — подборкой: «Новинки», «Сезонное» (одна за раз).
 
 export const dishLabels = pgTable('dish_labels', {
   id: serial('id').primaryKey(),
   // Код для стилей значка: new, kids; у добавленных в админке — из названия
   key: text('key').notNull().unique(),
   sort: integer('sort').notNull().default(0),
+  // «Показывать кнопкой в фильтре»
+  inFilter: boolean('in_filter').notNull().default(false),
+  // «Временно скрыть кнопку»: настройка «в фильтре» сохраняется, кнопки пока нет
+  filterHidden: boolean('filter_hidden').notNull().default(false),
   ...timestamps,
 })
 

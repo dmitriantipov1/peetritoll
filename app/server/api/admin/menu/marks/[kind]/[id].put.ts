@@ -1,4 +1,4 @@
-// Переименовать отметку: PUT /api/admin/menu/marks/diet|labels/:id { names }
+// Переименовать отметку, кнопка в фильтре: PUT /api/admin/menu/marks/diet|labels/:id { names, inFilter, filterHidden }
 import { markInputSchema } from '#shared/menu'
 
 export default defineEventHandler(async (event) => {

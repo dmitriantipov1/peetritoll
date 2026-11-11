@@ -67,7 +67,6 @@ function weekState(w: AdminLunchWeek) {
       ) as Record<ContentLocale, { soup: string; main: string }>,
       soup: priceText(d?.soupCents ?? null),
       main: priceText(d?.mainCents ?? null),
-      full: priceText(d?.fullCents ?? null),
     }
   })
 }
@@ -121,7 +120,6 @@ function toInput() {
     ),
     soupCents: price(d.soup, `${d.name}: суп`),
     mainCents: price(d.main, `${d.name}: горячее`),
-    fullCents: price(d.full, `${d.name}: обед целиком`),
   }))
   if (bad.length) {
     saveError.value = `Цена — число, например 4,50. Проверьте: ${bad.join(', ')}`
@@ -241,9 +239,7 @@ async function saveSettings() {
             <h2 id="p-week" class="adm-week-nav__title">{{ weekTitle(data.monday) }}</h2>
             <a href="#" aria-label="Следующая неделя" @click.prevent="goWeek(1)">→</a>
           </div>
-          <p class="adm-panel__hint">
-            Суп и горячее продаются и по отдельности · обед целиком обычно дешевле суммы
-          </p>
+          <p class="adm-panel__hint">Суп и горячее — у каждого своя цена</p>
         </div>
 
         <div class="adm-lang-tabs" role="tablist" aria-label="Язык названий">
@@ -269,7 +265,6 @@ async function saveSettings() {
                 <th scope="col" class="num">Суп, €</th>
                 <th scope="col">Горячее ({{ lang.toUpperCase() }})</th>
                 <th scope="col" class="num">Горячее, €</th>
-                <th scope="col" class="num">Обед целиком, €</th>
               </tr>
             </thead>
             <tbody>
@@ -326,18 +321,6 @@ async function saveSettings() {
                     inputmode="decimal"
                   />
                 </td>
-                <td class="num">
-                  <label class="adm-vh" :for="`p-${d.date}`"
-                    >Цена обеда целиком, {{ d.name }}</label
-                  >
-                  <input
-                    :id="`p-${d.date}`"
-                    v-model="d.full"
-                    class="adm-week__price"
-                    type="text"
-                    inputmode="decimal"
-                  />
-                </td>
               </tr>
               <tr class="is-closed">
                 <td class="adm-week__day">
@@ -348,7 +331,7 @@ async function saveSettings() {
                     }}</small
                   >
                 </td>
-                <td colspan="5">Дневного меню нет: обеды подаём в будни</td>
+                <td colspan="4">Дневного меню нет: обеды подаём в будни</td>
               </tr>
             </tbody>
           </table>
@@ -393,10 +376,6 @@ async function saveSettings() {
                 </div>
               </div>
               <div class="field">
-                <label for="l-in">Входит в обед целиком ({{ lang.toUpperCase() }})</label>
-                <input id="l-in" v-model="settings.includes[lang]" type="text" maxlength="200" />
-              </div>
-              <div class="field">
                 <label for="l-until">Предзаказ на сегодня — до</label>
                 <input id="l-until" v-model="settings.preorderUntil" type="time" />
                 <span class="adm-note"
@@ -427,8 +406,8 @@ async function saveSettings() {
             </li>
             <li>Дневное меню не связано с основным: блюда пишутся текстом.</li>
             <li>
-              У супа и горячего своя цена — их берут и по отдельности. Цена обеда целиком
-              показывается на сайте вместе с суммой по отдельности, зачёркнутой.
+              У супа и горячего своя цена — их берут и по отдельности. Цены «обед целиком» нет
+              (решение заказчицы 12.11.2026).
             </li>
             <li>Предзаказы будут приходить в «Заявки» с типом «Обед», оплата на месте.</li>
           </ul>

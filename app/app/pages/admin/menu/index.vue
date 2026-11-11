@@ -178,6 +178,7 @@ async function toggleVisible(dish: AdminDish) {
                       {{ category.dishes.length }} {{ dishWord(category.dishes.length) }}
                     </span>
                     <span v-if="!category.isVisible" class="adm-label">Скрыта на сайте</span>
+                    <span v-if="category.ownPage" class="adm-label">Отдельной страницей</span>
                     <span v-if="canEdit" class="adm-cat-row__links">
                       <NuxtLink to="/admin/menu/setup#categories">Переименовать</NuxtLink>
                       <NuxtLink :to="{ path: '/admin/menu/new', query: { category: category.id } }">

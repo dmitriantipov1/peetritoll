@@ -19,12 +19,12 @@ describe('заявка', () => {
 
   it('предзаказ обеда без единой позиции не принимается', () => {
     const lunch = { ...guest, type: 'lunch', visitDate: '2026-11-20', visitTime: '13:00' }
-    expect(
-      requestInputSchema.safeParse({ ...lunch, items: { soup: 0, main: 0, full: 0 } }).success,
-    ).toBe(false)
-    expect(
-      requestInputSchema.safeParse({ ...lunch, items: { soup: 0, main: 0, full: 2 } }).success,
-    ).toBe(true)
+    expect(requestInputSchema.safeParse({ ...lunch, items: { soup: 0, main: 0 } }).success).toBe(
+      false,
+    )
+    expect(requestInputSchema.safeParse({ ...lunch, items: { soup: 0, main: 2 } }).success).toBe(
+      true,
+    )
   })
 
   it('банкет без выбранных блюд — можно: заявка не заказ, отправку не блокируем', () => {

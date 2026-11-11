@@ -128,11 +128,11 @@ export default defineTask({
       })
     } else skipped.push('группа — пустой групповой каталог')
 
-    // Обед — на ближайший день, где есть меню и цена обеда целиком
+    // Обед — на последний день, где есть меню с супом и горячим
     const [lunchDay] = await db
       .select({ date: lunchDays.date })
       .from(lunchDays)
-      .where(isNotNull(lunchDays.fullCents))
+      .where(and(isNotNull(lunchDays.soupCents), isNotNull(lunchDays.mainCents)))
       .orderBy(desc(lunchDays.date))
       .limit(1)
     if (lunchDay) {
@@ -147,9 +147,9 @@ export default defineTask({
         visitDate: lunchDay.date,
         visitTime: '13:00',
         mode: 'pickup',
-        items: { soup: 0, main: 1, full: 2 },
+        items: { soup: 2, main: 2 },
       })
-    } else skipped.push('обед — нет дня с ценой обеда в меню дня')
+    } else skipped.push('обед — в меню дня нет дня с супом и горячим')
 
     // Экскурсии
     await add({
