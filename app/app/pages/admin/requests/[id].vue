@@ -171,7 +171,10 @@ const facts = computed(() => {
     case 'banquet':
       return d.occasion ? [['Повод', banquetOccasionNames[d.occasion]]] : []
     case 'group':
-      return [['Группа или агентство', d.agency ?? 'не указано']]
+      return [
+        ['Группа или агентство', d.agency ?? 'не указано'],
+        ...(d.menuId === null ? [['Обед', 'не выбрали — обсудить по телефону']] : []),
+      ]
     case 'lunch':
       return [['Как', lunchModeNames[d.mode]]]
     case 'tour':
@@ -187,6 +190,16 @@ const eventLink = computed(() => {
 })
 
 // ---------- Расчёт ----------
+
+/** Заголовки таблицы расчёта: обед группы — цена с человека на число людей */
+const calcHead = computed(() => {
+  const lines = request.value?.calc?.lines ?? []
+  if (request.value?.type === 'lunch') return { item: 'Позиция', price: 'Цена', qty: 'Штук' }
+  if (lines.some((l) => l.ref.kind === 'groupMenu')) {
+    return { item: 'Обед', price: 'С человека', qty: 'Человек' }
+  }
+  return { item: 'Блюдо', price: 'Цена за порцию', qty: 'Порций' }
+})
 
 const calcGroups = computed(() => {
   const groups: { name: string; lines: AdminRequestCalcLine[] }[] = []
@@ -330,13 +343,9 @@ const source = computed(() => {
             <table v-else class="adm-calc">
               <thead>
                 <tr>
-                  <th scope="col">{{ request.type === 'lunch' ? 'Позиция' : 'Блюдо' }}</th>
-                  <th scope="col" class="num">
-                    {{ request.type === 'lunch' ? 'Цена' : 'Цена за порцию' }}
-                  </th>
-                  <th scope="col" class="num">
-                    {{ request.type === 'lunch' ? 'Штук' : 'Порций' }}
-                  </th>
+                  <th scope="col">{{ calcHead.item }}</th>
+                  <th scope="col" class="num">{{ calcHead.price }}</th>
+                  <th scope="col" class="num">{{ calcHead.qty }}</th>
                   <th scope="col" class="num">Сумма</th>
                 </tr>
               </thead>
@@ -350,10 +359,15 @@ const source = computed(() => {
                     <td class="num">
                       {{ formatPrice(l.priceCents) }}
                       <span v-if="l.nowCents === null" class="adm-calc__now">
-                        блюда уже нет в каталоге
+                        {{
+                          l.ref.kind === 'groupMenu'
+                            ? 'обеда уже нет в меню'
+                            : 'блюда уже нет в каталоге'
+                        }}
                       </span>
                       <span v-else-if="l.nowCents !== l.priceCents" class="adm-calc__now">
-                        в каталоге уже {{ formatPrice(l.nowCents) }}
+                        {{ l.ref.kind === 'groupMenu' ? 'в меню' : 'в каталоге' }} уже
+                        {{ formatPrice(l.nowCents) }}
                       </span>
                     </td>
                     <td class="num">{{ l.qty }}</td>

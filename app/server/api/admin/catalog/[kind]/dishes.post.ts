@@ -1,4 +1,4 @@
-// Новое блюдо каталога: POST /api/admin/catalog/banquet|group/dishes → { id }
+// Новое блюдо каталога: POST /api/admin/catalog/banquet/dishes → { id }
 import { catalogDishInputSchema } from '#shared/catalog'
 
 export default defineEventHandler(async (event) => {

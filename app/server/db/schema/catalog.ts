@@ -1,5 +1,6 @@
-// Каталоги для калькуляторов: банкетное и групповое меню (7.1). Свои блюда и цены за порцию,
-// с основным меню не связаны. Устроены одинаково, различаются полем kind.
+// Каталог для калькулятора банкетного меню (7.1). Свои блюда и цены за порцию,
+// с основным меню не связаны. Поле kind — на случай второго каталога: групповое меню
+// здесь было до 12.11.2026, теперь «Трапезы групп» (group-menus.ts).
 // Сеты банкета — внизу файла; настройки калькуляторов — в settings (banquet, group).
 import {
   boolean,
@@ -35,7 +36,7 @@ export const catalogCategories = pgTable(
   },
   (t) => [
     index('catalog_categories_kind_sort').on(t.kind, t.sort),
-    check('catalog_categories_kind', sql`${t.kind} in ('banquet', 'group')`),
+    check('catalog_categories_kind', sql`${t.kind} in ('banquet')`),
   ],
 )
 

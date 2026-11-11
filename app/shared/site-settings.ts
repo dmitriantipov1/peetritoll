@@ -43,8 +43,8 @@ export const siteSections = [
   {
     key: 'group',
     title: 'Групповое меню',
-    path: 'форма',
-    note: 'Заказ для групп',
+    path: 'страница',
+    note: 'Трапезы групп и запрос',
     parent: 'restaurant',
   },
   { key: 'museum', title: 'Музей', path: '/museum', note: 'Выставка, архивы, книги, авторы' },

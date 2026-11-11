@@ -49,6 +49,7 @@ export async function requestExcel(row: RequestRow): Promise<Buffer> {
   ]
   if (d.type === 'banquet' && d.occasion) info.push(['Повод', banquetOccasionNames[d.occasion]])
   if (d.type === 'group' && d.agency) info.push(['Группа или агентство', d.agency])
+  if (d.type === 'group' && d.menuId === null) info.push(['Обед', 'не выбрали — обсудить'])
   if (row.comment) info.push(['Комментарий гостя', row.comment])
   for (const [label, value] of info) {
     const r = sheet.addRow([label, value])
@@ -56,11 +57,13 @@ export async function requestExcel(row: RequestRow): Promise<Buffer> {
   }
   sheet.addRow([])
 
+  // Обед группы — одна строка «Меню № 3 · Путевое · цена с человека × человек»
+  const groupMenu = row.calc?.lines.some((l) => l.ref.kind === 'groupMenu') ?? false
   const head = sheet.addRow([
-    'Категория',
-    'Блюдо',
-    'Цена за порцию',
-    'Порций',
+    groupMenu ? 'Меню' : 'Категория',
+    groupMenu ? 'Обед' : 'Блюдо',
+    groupMenu ? 'С человека' : 'Цена за порцию',
+    groupMenu ? 'Человек' : 'Порций',
     'Сумма',
     'Предложение заведения',
     'Комментарий',

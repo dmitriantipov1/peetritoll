@@ -11,6 +11,7 @@ import { and, asc, desc, eq, isNotNull, like } from 'drizzle-orm'
 import {
   catalogCategories,
   catalogDishes,
+  groupMenus,
   lunchDays,
   materials,
   requests,
@@ -110,23 +111,26 @@ export default defineTask({
       })
     } else skipped.push('банкет — пустой банкетный каталог')
 
-    const group = await dishIds('group', 4)
-    if (group.length) {
-      await add({
-        type: 'group',
-        locale: 'en',
-        name: 'Irina Sokolova',
-        phone: '+372 5640 1187',
-        email: 'irina@peetritoll.test',
-        comment: null,
-        marketingOptIn: false,
-        visitDate: addDays(today, 7),
-        visitTime: '13:00',
-        guests: 32,
-        agency: 'Baltic Tours',
-        items: group.map((dishId) => ({ dishId, qty: 32 })),
-      })
-    } else skipped.push('группа — пустой групповой каталог')
+    // Группа — на первый обед «Трапез групп», если он есть; без обеда — «обсудим по телефону»
+    const [groupMenu] = await db
+      .select({ id: groupMenus.id })
+      .from(groupMenus)
+      .orderBy(asc(groupMenus.number))
+      .limit(1)
+    await add({
+      type: 'group',
+      locale: 'en',
+      name: 'Irina Sokolova',
+      phone: '+372 5640 1187',
+      email: 'irina@peetritoll.test',
+      comment: null,
+      marketingOptIn: false,
+      visitDate: addDays(today, 7),
+      visitTime: '13:00',
+      guests: 32,
+      agency: 'Baltic Tours',
+      menuId: groupMenu?.id ?? null,
+    })
 
     // Обед — на последний день, где есть меню с супом и горячим
     const [lunchDay] = await db

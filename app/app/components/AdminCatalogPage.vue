@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Банкетное или групповое меню — каталог для калькулятора на сайте (7.1).
+// Банкетное меню — каталог для калькулятора на сайте (7.1). Групповое — «Трапезы групп»,
+// своя страница (pages/admin/menu/group).
 // Разметка — из прототипа (admin/menu-banquet.html). Сеты банкета — components/AdminBanquetSets.vue.
 import { VueDraggable } from 'vue-draggable-plus'
 import {
@@ -9,7 +10,6 @@ import {
   type AdminCatalogDish,
   type BanquetSettings,
   type CatalogKind,
-  type GroupSettings,
 } from '#shared/catalog'
 import type { Localized } from '#shared/menu'
 import { contentLocales, pickTranslation, type ContentLocale } from '#shared/locales'
@@ -132,12 +132,7 @@ watch(
     if (s) settings.value = structuredClone(toRaw(s))
   },
 )
-const banquet = computed(() =>
-  props.kind === 'banquet' ? (settings.value as BanquetSettings | null) : null,
-)
-const group = computed(() =>
-  props.kind === 'group' ? (settings.value as GroupSettings | null) : null,
-)
+const banquet = computed(() => settings.value)
 const settingsMessage = ref('')
 const settingsError = ref('')
 
@@ -145,13 +140,10 @@ async function saveSettings() {
   settingsMessage.value = ''
   settingsError.value = ''
   try {
-    settings.value = await $fetch<BanquetSettings | GroupSettings>(
-      `/api/admin/catalog/${props.kind}/settings`,
-      {
-        method: 'PUT',
-        body: settings.value,
-      },
-    )
+    settings.value = await $fetch<BanquetSettings>(`/api/admin/catalog/${props.kind}/settings`, {
+      method: 'PUT',
+      body: settings.value,
+    })
     settingsMessage.value = 'Настройки сохранены.'
   } catch (e) {
     settingsError.value = apiErrorMessage(e, 'Не удалось сохранить. Попробуйте ещё раз.')
@@ -369,16 +361,6 @@ async function saveSettings() {
                 <div class="field">
                   <label for="c-days">Запрос не позже чем за, дней до события</label>
                   <input id="c-days" v-model.number="banquet.leadDays" type="number" min="0" />
-                </div>
-              </template>
-              <template v-if="group">
-                <div class="field">
-                  <label for="g-min">Минимум человек в группе</label>
-                  <input id="g-min" v-model.number="group.minPeople" type="number" min="1" />
-                </div>
-                <div class="field">
-                  <label for="g-hours">Заказ не позже чем за, часов до приезда</label>
-                  <input id="g-hours" v-model.number="group.leadHours" type="number" min="0" />
                 </div>
               </template>
 

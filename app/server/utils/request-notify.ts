@@ -42,7 +42,7 @@ function calcText(row: RequestRow): string[] {
   if (!row.calc?.lines.length) return []
   const lines = row.calc.lines.map(
     (l) =>
-      `  ${ruFirst(l.names)} — ${l.qty} × ${formatPrice(l.priceCents)} = ${formatPrice(l.priceCents * l.qty)}`,
+      `  ${l.ref.kind === 'groupMenu' ? `${ruFirst(l.category)} «${ruFirst(l.names)}»` : ruFirst(l.names)} — ${l.qty} × ${formatPrice(l.priceCents)} = ${formatPrice(l.priceCents * l.qty)}`,
   )
   return [
     'Расчёт:',

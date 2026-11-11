@@ -1,4 +1,4 @@
-// Каталоги банкетного и группового меню: чтение, категории, блюда, настройки калькуляторов.
+// Каталог банкетного меню: чтение, категории, блюда, сеты, настройки калькулятора.
 // Доступно в серверном коде без импорта.
 import { and, asc, count, eq, inArray, max } from 'drizzle-orm'
 import {
@@ -14,8 +14,6 @@ import {
   banquetTiers,
   catalogKinds,
   defaultBanquetSettings,
-  defaultGroupSettings,
-  groupSettingsSchema,
   type AdminCatalog,
   type AdminBanquetSet,
   type AdminCatalogDish,
@@ -24,7 +22,6 @@ import {
   type BanquetSettings,
   type CatalogDishInput,
   type CatalogKind,
-  type GroupSettings,
 } from '#shared/catalog'
 import type { Localized } from '#shared/menu'
 import type { ContentLocale } from '#shared/locales'
@@ -54,25 +51,18 @@ function byLocale(rows: { locale: ContentLocale; name: string }[]) {
 
 // ---------- Настройки ----------
 
-export function readCatalogSettings(kind: 'banquet'): Promise<BanquetSettings>
-export function readCatalogSettings(kind: 'group'): Promise<GroupSettings>
-export function readCatalogSettings(kind: CatalogKind): Promise<BanquetSettings | GroupSettings>
-export function readCatalogSettings(kind: CatalogKind) {
-  return kind === 'banquet'
-    ? readSetting('banquet', banquetSettingsSchema, defaultBanquetSettings)
-    : readSetting('group', groupSettingsSchema, defaultGroupSettings)
+export function readCatalogSettings(_kind: CatalogKind): Promise<BanquetSettings> {
+  return readSetting('banquet', banquetSettingsSchema, defaultBanquetSettings)
 }
 
-/** Сохранить настройки калькулятора; тело уже проверено схемой своего меню */
+/** Сохранить настройки калькулятора; тело уже проверено схемой */
 export async function saveCatalogSettings(
   kind: CatalogKind,
-  value: BanquetSettings | GroupSettings,
+  value: BanquetSettings,
   userId: number,
 ) {
-  // Категория для предупреждения о горячем — только из банкетного каталога
-  if (kind === 'banquet' && (value as BanquetSettings).warnCategoryId !== null) {
-    await categoryOf('banquet', (value as BanquetSettings).warnCategoryId!)
-  }
+  // Категория для предупреждения о горячем — только из этого каталога
+  if (value.warnCategoryId !== null) await categoryOf(kind, value.warnCategoryId)
   await writeSetting(kind, value, userId)
   return value
 }
@@ -107,7 +97,7 @@ export async function loadCatalog(kind: CatalogKind): Promise<AdminCatalog> {
       })),
     })),
     settings: await readCatalogSettings(kind),
-    ...(kind === 'banquet' ? { sets: await loadBanquetSets() } : {}),
+    sets: await loadBanquetSets(),
   }
 }
 

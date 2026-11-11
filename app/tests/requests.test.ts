@@ -32,6 +32,13 @@ describe('заявка', () => {
     expect(requestInputSchema.safeParse(banquet).success).toBe(true)
   })
 
+  it('группа: обед можно не выбирать — обсудят по телефону', () => {
+    const group = { ...table, type: 'group', guests: 30 }
+    const parsed = requestInputSchema.safeParse(group)
+    expect(parsed.success && parsed.data.type === 'group' && parsed.data.menuId).toBe(null)
+    expect(requestInputSchema.safeParse({ ...group, menuId: 3 }).success).toBe(true)
+  })
+
   it('заявки группы открывает право на банкеты', () => {
     expect(requestSection.group).toBe('requests.banquet')
   })

@@ -6,6 +6,7 @@
 import { desc, eq, inArray } from 'drizzle-orm'
 import {
   catalogDishes,
+  groupMenus,
   lunchDays,
   lunchDayTranslations,
   materials,
@@ -43,6 +44,8 @@ import {
   type RequestStatus,
 } from '#shared/requests'
 import type { CatalogKind } from '#shared/catalog'
+import { groupMenuTitles } from '#shared/group-menus'
+import { contentLocales } from '#shared/locales'
 
 type Db = ReturnType<typeof useDb>
 type Tx = Parameters<Parameters<Db['transaction']>[0]>[0]
@@ -63,7 +66,7 @@ function byLocale<T extends { locale: string }, K extends keyof T>(rows: T[], ke
 
 // ---------- Снимок цен ----------
 
-/** Банкет и группа: блюда своего каталога, цена и названия на момент отправки */
+/** Банкет: блюда каталога, цена и названия на момент отправки */
 async function catalogCalc(
   kind: CatalogKind,
   items: { dishId: number; qty: number }[],
@@ -142,6 +145,35 @@ async function lunchCalc(
   return finishCalc(lines)
 }
 
+/**
+ * Группа: выбранный обед «Трапез групп» — цена с человека × число людей.
+ * Обед не выбран — расчёт пустой: обсудят по телефону.
+ */
+async function groupCalc(
+  menuId: number | null,
+  guests: number,
+  source: RequestSource,
+): Promise<RequestCalc> {
+  if (menuId === null) return finishCalc([])
+  const menu = await findGroupMenu(menuId)
+  if (!menu) bad('Такого обеда нет — обновите страницу', 'menuId')
+  // С сайта — только показанные обеды; персонал может внести и скрытый
+  if (source === 'site' && !menu.isVisible) {
+    bad('Этот обед сейчас не заказать — обновите страницу', 'menuId')
+  }
+  return finishCalc([
+    {
+      ref: { kind: 'groupMenu', menuId: menu.id },
+      names: menu.names,
+      category: Object.fromEntries(
+        contentLocales.map((l) => [l, groupMenuTitles[l](menu.number)]),
+      ) as Localized<string>,
+      priceCents: menu.priceCents,
+      qty: guests,
+    },
+  ])
+}
+
 function finishCalc(lines: RequestCalcLine[]): RequestCalc {
   return {
     lines,
@@ -200,8 +232,8 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, visitTime, guests } = input)
       break
     case 'group':
-      details = { type: 'group', agency: input.agency }
-      calc = await catalogCalc('group', input.items, opts.source)
+      details = { type: 'group', agency: input.agency, menuId: input.menuId }
+      calc = await groupCalc(input.menuId, input.guests, opts.source)
       ;({ visitDate, visitTime, guests } = input)
       break
     case 'lunch':
@@ -379,10 +411,16 @@ export function requestSummary(row: RequestRow, withComment = true): string {
       if (d.occasion) parts.push(banquetOccasionNames[d.occasion])
       dishes()
       break
-    case 'group':
+    case 'group': {
       if (d.agency) parts.push(d.agency)
-      dishes()
+      const menu = calc?.lines.find((l) => l.ref.kind === 'groupMenu')
+      if (menu) {
+        parts.push(`${ruFirst(menu.category)} «${ruFirst(menu.names)}» × ${menu.qty}`)
+        parts.push(`≈ ${formatPrice(calc!.totalCents)}`)
+      } else if (d.menuId === null) parts.push('обед не выбран')
+      else dishes() // заявки до 12.11.2026 — по блюдам каталога
       break
+    }
     case 'lunch':
       for (const l of calc?.lines ?? []) parts.push(`${ruFirst(l.names)} × ${l.qty}`)
       parts.push(lunchModeNames[d.mode].toLowerCase())
@@ -466,12 +504,30 @@ export async function loadRequest(id: number, user: UserRow): Promise<AdminReque
           ).map((d) => [d.id, d.priceCents])
         : [],
     )
+    const menuIds = row.calc.lines.flatMap((l) =>
+      l.ref.kind === 'groupMenu' ? [l.ref.menuId] : [],
+    )
+    const menuNow = new Map(
+      menuIds.length
+        ? (
+            await useDb()
+              .select({ id: groupMenus.id, priceCents: groupMenus.priceCents })
+              .from(groupMenus)
+              .where(inArray(groupMenus.id, menuIds))
+          ).map((m) => [m.id, m.priceCents])
+        : [],
+    )
     calc = {
       ...row.calc,
       lines: row.calc.lines.map((l) => ({
         ...l,
-        // У обеда цена своя на каждый день — сравнивать не с чем
-        nowCents: l.ref.kind === 'catalog' ? (now.get(l.ref.dishId) ?? null) : l.priceCents,
+        // У обеда из меню дня цена своя на каждый день — сравнивать не с чем
+        nowCents:
+          l.ref.kind === 'catalog'
+            ? (now.get(l.ref.dishId) ?? null)
+            : l.ref.kind === 'groupMenu'
+              ? (menuNow.get(l.ref.menuId) ?? null)
+              : l.priceCents,
       })),
     }
   }

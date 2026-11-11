@@ -113,7 +113,13 @@ export type RequestDetails =
       /** С какого сета начали в калькуляторе, если с него */
       setTier: 'basic' | 'middle' | 'premium' | null
     }
-  | { type: 'group'; agency: string | null }
+  | {
+      type: 'group'
+      agency: string | null
+      /** Выбранный обед «Трапез групп»; null — ещё не выбрали, обсудят по телефону.
+       *  В заявках до 12.11.2026 поля нет: там расчёт по блюдам каталога */
+      menuId?: number | null
+    }
   | { type: 'lunch'; mode: (typeof lunchModes)[number] }
   | { type: 'tour'; topic: TourTopic }
   | {
@@ -125,10 +131,14 @@ export type RequestDetails =
 
 /** Строка расчёта — снимок на момент отправки, а не ссылка на каталог (7.1) */
 export interface RequestCalcLine {
-  /** Блюдо каталога (банкет, группа) или позиция меню дня (обед) */
-  ref: { kind: 'catalog'; dishId: number } | { kind: 'lunch'; item: LunchItem }
+  /** Блюдо каталога (банкет; группа — до 12.11.2026), позиция меню дня или обед для групп
+   *  (цена с человека × число людей) */
+  ref:
+    | { kind: 'catalog'; dishId: number }
+    | { kind: 'lunch'; item: LunchItem }
+    | { kind: 'groupMenu'; menuId: number }
   names: Localized<string>
-  /** Категория каталога — для группировки в карточке и Excel */
+  /** Категория каталога — для группировки в карточке и Excel; у обеда для групп — «Меню № 3» */
   category: Localized<string> | null
   priceCents: number
   qty: number
@@ -238,7 +248,8 @@ export const requestInputSchema = z.discriminatedUnion(
         .transform((v) => v || null)
         .nullable()
         .default(null),
-      items: catalogItems,
+      // Обед «Трапез групп»; не выбрали — обсудим по телефону, заявку всё равно принимаем
+      menuId: z.number().int().positive().nullable().default(null),
     }),
     z.object({
       ...common,

@@ -1,16 +1,15 @@
 <script setup lang="ts">
-// Новое блюдо: Групповое меню. Форма — components/AdminCatalogDishForm.vue
-import type { AdminCatalog } from '#shared/catalog'
+// Новый обед для групп. Форма — components/AdminGroupMenuForm.vue
+import type { AdminGroupMenus } from '#shared/group-menus'
 
 definePageMeta({ layout: 'admin', access: ['menu'] })
 defineI18nRoute(false)
-useHead({ title: 'Новое блюдо — Групповое меню — админка Peetri Toll' })
+useHead({ title: 'Новый обед — Групповое меню — админка Peetri Toll' })
 
-const route = useRoute()
 const { can } = useAdminUser()
 if (!can('menu', 'edit')) await navigateTo('/admin/menu/group', { replace: true })
 
-const { data, error } = await useFetch<AdminCatalog>('/api/admin/catalog/group')
+const { data, error } = await useFetch<AdminGroupMenus>('/api/admin/group-menus')
 </script>
 
 <template>
@@ -18,12 +17,6 @@ const { data, error } = await useFetch<AdminCatalog>('/api/admin/catalog/group')
     <p v-if="error" class="adm-alert" role="alert">
       {{ apiErrorMessage(error, 'Не удалось загрузить меню.') }}
     </p>
-    <AdminCatalogDishForm
-      v-if="data"
-      kind="group"
-      :catalog="data"
-      :dish-id="null"
-      :category-id="Number(route.query.category) || undefined"
-    />
+    <AdminGroupMenuForm v-if="data" :data="data" :menu-id="null" />
   </div>
 </template>

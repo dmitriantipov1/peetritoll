@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Блюдо банкетного или группового меню: название на трёх языках, цена за порцию,
+// Блюдо банкетного меню: название на трёх языках, цена за порцию,
 // категория, «можно заказать». Новое (dishId = null) или существующее.
 import { catalogTitles, type AdminCatalog, type CatalogKind } from '#shared/catalog'
 import type { Localized } from '#shared/menu'

@@ -1,15 +1,14 @@
-// Банкетное и групповое меню — каталоги для калькуляторов (7.1). Одна схема zod на сервер и форму.
+// Банкетное меню — каталог для калькулятора (7.1). Одна схема zod на сервер и форму.
+// Каталог задуман общим для нескольких меню (поле kind); групповое меню из него ушло
+// в «Трапезы групп» без калькулятора (shared/group-menus.ts, 12.11.2026).
 import { z } from 'zod'
 import { contentLocales } from './locales'
 import type { Localized } from './menu'
 
-export const catalogKinds = ['banquet', 'group'] as const
+export const catalogKinds = ['banquet'] as const
 export type CatalogKind = (typeof catalogKinds)[number]
 
-export const catalogTitles: Record<CatalogKind, string> = {
-  banquet: 'Банкетное',
-  group: 'Групповое',
-}
+export const catalogTitles: Record<CatalogKind, string> = { banquet: 'Банкетное' }
 
 export interface AdminCatalogDish {
   id: number
@@ -42,14 +41,6 @@ export interface BanquetSettings {
   warnMinPerGuest: number
 }
 
-export interface GroupSettings {
-  /** Минимум человек в группе */
-  minPeople: number
-  /** Заказ не позже чем за столько часов до приезда */
-  leadHours: number
-  hint: Localized<string>
-}
-
 export const defaultBanquetSettings: BanquetSettings = {
   capacityMin: 10,
   capacityMax: 40,
@@ -57,12 +48,6 @@ export const defaultBanquetSettings: BanquetSettings = {
   hint: { ru: 'Обычно берут 2–3 закуски и одно горячее на человека.' },
   warnCategoryId: null,
   warnMinPerGuest: 1,
-}
-
-export const defaultGroupSettings: GroupSettings = {
-  minPeople: 10,
-  leadHours: 24,
-  hint: { ru: 'Выберите блюда для группы — посчитаем ориентировочную сумму.' },
 }
 
 // ---------- Сеты банкета ----------
@@ -87,9 +72,9 @@ export interface AdminBanquetSet {
 export interface AdminCatalog {
   kind: CatalogKind
   categories: AdminCatalogCategory[]
-  settings: BanquetSettings | GroupSettings
-  /** Только у банкетного меню: всегда три ступени */
-  sets?: AdminBanquetSet[]
+  settings: BanquetSettings
+  /** Сеты банкета: всегда три ступени */
+  sets: AdminBanquetSet[]
 }
 
 // ---------- Проверка ----------
@@ -124,16 +109,6 @@ export const banquetSettingsSchema = z
     message: 'Вместимость «от» не больше, чем «до»',
     path: ['capacityMax'],
   })
-
-export const groupSettingsSchema = z.object({
-  minPeople: z.number().int().min(1).max(1000),
-  leadHours: z
-    .number()
-    .int()
-    .min(0)
-    .max(24 * 60),
-  hint,
-})
 
 export const banquetSetInputSchema = z.object({
   names: z.partialRecord(z.enum(contentLocales), z.string().trim().max(100)),
