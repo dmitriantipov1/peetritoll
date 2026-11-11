@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Групповое меню — Tavern Peetri Toll</title>
+  <title>Устроителям путешествий — Tavern Peetri Toll</title>
   <meta name="description" content="Обед для экскурсионной группы в таверне «Петровская Таможня»: выберите блюда на всех и сразу увидите сумму.">
   <meta name="robots" content="noindex">
 
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261111-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261112">
 </head>
 <body>
 
@@ -51,8 +51,8 @@
     <img class="hero__bg" src="./images/restaurant-hall.jpg" alt="" data-ph="restaurant-hall.jpg">
     <div class="container page-hero__content">
       <p class="page-hero__crumb"><a href="./index.html">Главная</a> / <a href="./restaurant.html">Ресторан</a> / Групповое меню</p>
-      <h1 class="page-hero__title">Групповое меню</h1>
-      <p class="page-hero__lead">Сытный обед для экскурсионной группы — заказ заранее, сразу на всех</p>
+      <h1 class="page-hero__title">Устроителям путешествий</h1>
+      <p class="page-hero__lead">Сытный обед и тёплый приём для утомлённых путников</p>
     </div>
   </section>
 
@@ -60,22 +60,23 @@
   <section class="section section--bg1" id="gruppam">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Туристические и школьные группы</p>
+        <p class="section-head__crumb">Групповое меню</p>
         <h2 class="section-head__title"><span class="section-head__num">01</span> Обед для группы</h2>
       </header>
 
       <div class="story">
         <div class="story__text">
           <h3 class="intro__title">Накроем к приезду автобуса</h3>
+          <p class="lead-note">Горячие комплексные обеды, дегустации, чайные и кофейные паузы и многое другое…</p>
           <p>Экскурсия по Палдиски и полуострову Пакри — и горячий обед в старинной таверне. Выберите блюда на всю группу заранее: сумму видно сразу, а к вашему приезду всё будет готово.</p>
           <dl class="facts">
             <div class="facts__row"><dt>Для кого</dt><dd>Экскурсионные, туристические и школьные группы</dd></div>
             <div class="facts__row"><dt>Группа</dt><dd>От 10 человек, заказ не позже чем за сутки до приезда</dd></div>
-            <div class="facts__row"><dt>Меню</dt><dd>Домашняя кухня: супы, горячее, десерты и напитки</dd></div>
+            <div class="facts__row"><dt>Меню</dt><dd>Шесть комплексных обедов — от 10 € с человека</dd></div>
             <div class="facts__row"><dt>Оплата</dt><dd>На месте. Заказ — это запрос, мы подтвердим его</dd></div>
             <div class="facts__row"><dt>Банкет</dt><dd>Праздник с залом и сетами — на странице <a href="./banquet.html">банкетного зала</a></dd></div>
           </dl>
-          <a class="btn btn--red" href="#zakaz">Рассчитать обед</a>
+          <a class="btn btn--red" href="#zakaz">Выбрать обед</a>
         </div>
 
         <figure class="story__media">
@@ -86,158 +87,68 @@
     </div>
   </section>
 
-  <!-- ============ 02 ЗАКАЗ ============ -->
+  <!-- ============ 02 ТРАПЕЗЫ ГРУПП ============ -->
+  <!-- Без калькулятора (решение заказчицы 12.11.2026): карточки групповых меню и форма запроса.
+       Карточки заказчица добавляет и меняет в админке. Отправки нет, после «Отправить» показываем ответ гостю -->
   <section class="section section--bg2" id="zakaz">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Расчёт и заказ</p>
-        <h2 class="section-head__title"><span class="section-head__num">02</span> Групповое меню</h2>
+        <p class="section-head__crumb">Групповое меню</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Трапезы групп</h2>
       </header>
 
-      <!-- Калькулятор считает по-настоящему; отправки нет, после «Отправить» показываем, что увидит гость -->
-      <form class="bq-form" data-calc data-request onsubmit="return false">
+      <ul class="meal-cards" aria-label="Групповые меню">
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 1</p>
+          <h3 class="meal-card__name">Таможенное</h3>
+          <ul class="meal-card__list"><li>Буженина: свинина, фаршированная чесноком, запечённый картофель, салат, соус</li><li>Чизкейк с соусом из свежей клубники</li><li>Вода с лимоном, чай или кофе</li></ul>
+          <p class="meal-card__price"><b>16,00 €</b> с человека</p>
+        </li>
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 2</p>
+          <h3 class="meal-card__name">Купеческое</h3>
+          <ul class="meal-card__list"><li>Котлета по-киевски: рулет из куриного филе с укропом, запечённый картофель, салат, соус</li><li>Брауни со взбитыми сливками</li><li>Вода с лимоном, чай или кофе</li></ul>
+          <p class="meal-card__price"><b>17,50 €</b> с человека</p>
+        </li>
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 3</p>
+          <h3 class="meal-card__name">Путевое</h3>
+          <ul class="meal-card__list"><li>Солянка</li><li>Пирожок с капустой</li><li>Вода с лимоном, чай или кофе</li></ul>
+          <p class="meal-card__price"><b>10,00 €</b> с человека</p>
+        </li>
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 4</p>
+          <h3 class="meal-card__name">Ямское</h3>
+          <ul class="meal-card__list"><li>Борщ</li><li>Блины с карамельным соусом</li><li>Вода с лимоном, чай или кофе</li></ul>
+          <p class="meal-card__price"><b>10,50 €</b> с человека</p>
+        </li>
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 5</p>
+          <h3 class="meal-card__name">Шкиперское</h3>
+          <ul class="meal-card__list"><li>Морской окунь на овощной подушке под сыром, картофельное пюре, салат</li><li>Фисташковый торт</li><li>Вода с лимоном, чай или кофе</li></ul>
+          <p class="meal-card__price"><b>21,50 €</b> с человека</p>
+        </li>
+        <li class="meal-card">
+          <p class="meal-card__num">Меню № 6</p>
+          <h3 class="meal-card__name">Гимназическое</h3>
+          <ul class="meal-card__list"><li>Макароны по-флотски</li><li>Творожный десерт с вареньем</li><li>Морс</li></ul>
+          <p class="meal-card__price"><b>10,00 €</b> с человека</p>
+        </li>
+      </ul>
+
+      <form class="bq-form" data-request onsubmit="return false">
         <h3 class="bq-step"><span class="bq-step__num">1</span> Группа</h3>
         <div class="calc-top bq-top">
           <div class="field"><label for="g-date">Дата</label><input id="g-date" type="date" value="2026-12-05"></div>
           <div class="field"><label for="g-time">Время прибытия</label><input id="g-time" type="time" value="13:00"></div>
-          <div class="field"><label for="g-ppl">Человек</label><input id="g-ppl" type="number" min="1" value="30" data-guests></div>
+          <div class="field"><label for="g-ppl">Человек</label><input id="g-ppl" type="number" min="1" value="30"></div>
           <div class="field"><label for="g-name">Группа или агентство</label><input id="g-name" type="text" placeholder="Например, школа № 5 или Baltic Tours"></div>
+          <div class="field form__full"><label for="g-menu">Меню</label>
+            <select id="g-menu"><option>№ 1 — Таможенное, 16,00 € с человека</option><option>№ 2 — Купеческое, 17,50 € с человека</option><option>№ 3 — Путевое, 10,00 € с человека</option><option>№ 4 — Ямское, 10,50 € с человека</option><option>№ 5 — Шкиперское, 21,50 € с человека</option><option>№ 6 — Гимназическое, 10,00 € с человека</option><option>Ещё не выбрали — обсудим по телефону</option></select>
+          </div>
         </div>
 
-        <h3 class="bq-step"><span class="bq-step__num">2</span> Меню на группу</h3>
-          <div class="calc-presets">
-            <div class="calc-presets__head">
-              <p class="calc-presets__label">Отметьте блюда</p>
-              <button class="calc-presets__act" type="button" data-fill disabled>Заполнить по числу человек</button>
-              <button class="calc-presets__act" type="button" data-reset disabled>Сбросить выбор</button>
-            </div>
-            <p class="calc-presets__hint">Обычно группе берут суп, горячее и напиток на человека. Добавьте по одной порции нужных блюд и нажмите «Заполнить по числу человек».</p>
-          </div>
-          <div class="calc-two">
-            <div>
-            <div class="calc-cat">
-              <p class="calc-cat__name">Супы</p>
-              <div class="calc-row" data-dish="borshch" data-price="5.00">
-                <div><p class="calc-row__name">Борщ со сметаной</p><p class="calc-row__price">5,00 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Борщ со сметаной">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Борщ со сметаной">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Борщ со сметаной">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="solyanka" data-price="6.50">
-                <div><p class="calc-row__name">Солянка сборная</p><p class="calc-row__price">6,50 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Солянка сборная">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Солянка сборная">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Солянка сборная">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-            </div>
-            <div class="calc-cat">
-              <p class="calc-cat__name">Горячее</p>
-              <div class="calc-row" data-dish="pelmeni" data-price="8.00">
-                <div><p class="calc-row__name">Пельмени домашние</p><p class="calc-row__price">8,00 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Пельмени домашние">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Пельмени домашние">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Пельмени домашние">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="vareniki" data-price="8.00">
-                <div><p class="calc-row__name">Вареники с картошкой</p><p class="calc-row__price">8,00 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Вареники с картошкой">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Вареники с картошкой">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Вареники с картошкой">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="kotleta" data-price="8.50">
-                <div><p class="calc-row__name">Домашняя котлета с картофелем</p><p class="calc-row__price">8,50 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Домашняя котлета с картофелем">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Домашняя котлета с картофелем">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Домашняя котлета с картофелем">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="bliny" data-price="7.00">
-                <div><p class="calc-row__name">Блины с мясом</p><p class="calc-row__price">7,00 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Блины с мясом">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Блины с мясом">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Блины с мясом">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-            </div>
-            <div class="calc-cat">
-              <p class="calc-cat__name">Десерты</p>
-              <div class="calc-row" data-dish="tort" data-price="5.40">
-                <div><p class="calc-row__name">Вишнёвый торт</p><p class="calc-row__price">5,40 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Вишнёвый торт">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Вишнёвый торт">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Вишнёвый торт">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="oreshek" data-price="1.50">
-                <div><p class="calc-row__name">Сладкий орешек</p><p class="calc-row__price">1,50 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Сладкий орешек">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Сладкий орешек">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Сладкий орешек">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-            </div>
-            <div class="calc-cat">
-              <p class="calc-cat__name">Напитки</p>
-              <div class="calc-row" data-dish="chai" data-price="2.50">
-                <div><p class="calc-row__name">Чай</p><p class="calc-row__price">2,50 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Чай">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Чай">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Чай">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="kofe" data-price="2.80">
-                <div><p class="calc-row__name">Кофе</p><p class="calc-row__price">2,80 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Кофе">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Кофе">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Кофе">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="sok" data-price="2.00">
-                <div><p class="calc-row__name">Сок, 0,25 л</p><p class="calc-row__price">2,00 € за порцию</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать порцию Сок, 0,25 л">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Порций: Сок, 0,25 л">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить порцию Сок, 0,25 л">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-            </div>
-              <p class="calc-warn" data-warn hidden></p>
-            </div>
-            <aside class="calc-side">
-              <p class="calc-side__title">Заказ группы</p>
-              <ul class="calc-chosen" data-chosen><li class="calc-chosen__empty">Пока ничего не выбрано</li></ul>
-              <p class="calc-side__total"><span>Ориентировочно</span> <span data-total>0,00 €</span></p>
-              <p class="calc-side__note">На человека: <span data-per-guest>—</span>. Предварительный расчёт, не является офертой.</p>
-              <p class="calc-side__act"><a class="btn btn--sm" href="#g-contacts">Дальше: контакты</a></p>
-            </aside>
-          </div>
-
-        <h3 class="bq-step" id="g-contacts"><span class="bq-step__num">3</span> Контакты</h3>
+        <h3 class="bq-step" id="g-contacts"><span class="bq-step__num">2</span> Контакты</h3>
         <div class="form bq-contacts">
           <div class="field"><label for="g-person">Имя руководителя группы</label><input id="g-person" type="text" autocomplete="name"></div>
           <div class="field"><label for="g-phone">Телефон</label><input id="g-phone" type="tel" autocomplete="tel"></div>
@@ -245,20 +156,20 @@
           <div class="field form__full"><label for="g-msg">Комментарий</label><textarea id="g-msg" placeholder="Вегетарианцы, аллергии, детские порции, обед с собой"></textarea></div>
           <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
           <div class="form__full bq-send">
-            <button class="btn btn--red" type="submit">Отправить заказ</button>
+            <button class="btn btn--red" type="submit">Отправить запрос</button>
             <p class="form__note">Это запрос: мы подтвердим заказ по телефону или письмом. Оплата на месте.</p>
           </div>
         </div>
       </form>
 
       <div class="bq-done" data-request-done hidden tabindex="-1">
-        <p class="quote">Заказ принят</p>
+        <p class="quote">Запрос принят</p>
         <h3 class="intro__title">Мы свяжемся с вами для подтверждения</h3>
         <p>Уточним время прибытия и меню. Пока мы не подтвердили заказ, обед не готовится.</p>
         <p class="form__note">Эскиз: заказ никуда не отправлен.</p>
         <div class="bq-done__actions">
           <a class="btn" href="./restaurant.html">О ресторане</a>
-          <button class="btn btn--red" type="button" data-request-again>Изменить заказ</button>
+          <button class="btn btn--red" type="button" data-request-again>Изменить запрос</button>
         </div>
       </div>
     </div>
@@ -290,6 +201,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261111"></script>
+<script src="./js/main.js?v=20261112"></script>
 </body>
 </html>

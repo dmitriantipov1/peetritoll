@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261111-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261112">
 </head>
 <body>
 
@@ -69,45 +69,62 @@
 
       <div class="intro intro--single">
         <h3 class="intro__title">Каждый день новый суп и горячее</h3>
-        <p>Можно взять только суп или только горячее — цена у каждого блюда своя. Обед целиком — суп, горячее, морс или компот — выходит дешевле. Закажите заранее, и к вашему приходу всё будет готово, оплата на месте.</p>
+        <p>Суп и горячее — у каждого блюда своя цена. Закажите заранее, и к вашему приходу всё будет готово, оплата на месте.</p>
       </div>
 
       <!-- Сегодняшний день подсвечивается. На телефоне таблица раскладывается по дням столбиком -->
-      <table class="lunch-week lunch-week--full" data-lunch-week>
+      <!-- Колонки «День / Наименование / Цена» (12.11.2026): суп и под ним горячее, у каждого своя цена.
+           Сегодняшний день подсвечивается. На телефоне — карточка дня -->
+      <table class="lunch-week lunch-week--split" data-lunch-week>
         <caption class="lunch-week__caption">Неделя 9 — 13 ноября</caption>
         <thead>
-          <tr><th scope="col">День</th><th scope="col">Суп</th><th scope="col">Горячее</th><th scope="col">Обед целиком</th></tr>
+          <tr><th scope="col">День</th><th scope="col">Наименование</th><th scope="col">Цена</th></tr>
         </thead>
         <tbody>
           <tr data-weekday="1">
-            <th scope="row">Понедельник<span class="lunch-week__date">9 ноября</span></th>
-            <td data-label="Суп"><span>Грибной крем-суп<span class="lunch-week__price">4,00 €</span></span></td>
-            <td data-label="Горячее"><span>Куриное филе с картофелем<span class="lunch-week__price">7,50 €</span></span></td>
-            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+            <th scope="row" rowspan="2">Понедельник<span class="lunch-week__date">9 ноября</span></th>
+            <td><span class="lunch-week__kind">Суп</span>Грибной крем-суп</td>
+            <td class="lunch-week__cost">4,00 €</td>
+          </tr>
+          <tr data-weekday="1" class="lunch-week__second">
+            <td><span class="lunch-week__kind">Горячее</span>Куриное филе с картофелем</td>
+            <td class="lunch-week__cost">7,50 €</td>
           </tr>
           <tr data-weekday="2">
-            <th scope="row">Вторник<span class="lunch-week__date">10 ноября</span></th>
-            <td data-label="Суп"><span>Щи из квашеной капусты<span class="lunch-week__price">4,00 €</span></span></td>
-            <td data-label="Горячее"><span>Пельмени домашние со сметаной<span class="lunch-week__price">7,50 €</span></span></td>
-            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+            <th scope="row" rowspan="2">Вторник<span class="lunch-week__date">10 ноября</span></th>
+            <td><span class="lunch-week__kind">Суп</span>Щи из квашеной капусты</td>
+            <td class="lunch-week__cost">4,00 €</td>
+          </tr>
+          <tr data-weekday="2" class="lunch-week__second">
+            <td><span class="lunch-week__kind">Горячее</span>Пельмени домашние со сметаной</td>
+            <td class="lunch-week__cost">7,50 €</td>
           </tr>
           <tr data-weekday="3">
-            <th scope="row">Среда<span class="lunch-week__date">11 ноября</span></th>
-            <td data-label="Суп"><span>Уха из балтийской рыбы<span class="lunch-week__price">4,50 €</span></span></td>
-            <td data-label="Горячее"><span>Треска с овощами на пару<span class="lunch-week__price">8,50 €</span></span></td>
-            <td data-label="Обед целиком"><span>10,50 €<s>13,00 €</s></span></td>
+            <th scope="row" rowspan="2">Среда<span class="lunch-week__date">11 ноября</span></th>
+            <td><span class="lunch-week__kind">Суп</span>Уха из балтийской рыбы</td>
+            <td class="lunch-week__cost">4,50 €</td>
+          </tr>
+          <tr data-weekday="3" class="lunch-week__second">
+            <td><span class="lunch-week__kind">Горячее</span>Треска с овощами на пару</td>
+            <td class="lunch-week__cost">8,50 €</td>
           </tr>
           <tr data-weekday="4">
-            <th scope="row">Четверг<span class="lunch-week__date">12 ноября</span></th>
-            <td data-label="Суп"><span>Гороховый с копчёностями<span class="lunch-week__price">4,00 €</span></span></td>
-            <td data-label="Горячее"><span>Жаркое по-таможенному в горшочке<span class="lunch-week__price">7,50 €</span></span></td>
-            <td data-label="Обед целиком"><span>9,50 €<s>11,50 €</s></span></td>
+            <th scope="row" rowspan="2">Четверг<span class="lunch-week__date">12 ноября</span></th>
+            <td><span class="lunch-week__kind">Суп</span>Гороховый с копчёностями</td>
+            <td class="lunch-week__cost">4,00 €</td>
+          </tr>
+          <tr data-weekday="4" class="lunch-week__second">
+            <td><span class="lunch-week__kind">Горячее</span>Жаркое по-таможенному в горшочке</td>
+            <td class="lunch-week__cost">7,50 €</td>
           </tr>
           <tr data-weekday="5">
-            <th scope="row">Пятница<span class="lunch-week__date">13 ноября</span></th>
-            <td data-label="Суп"><span>Солянка сборная мясная<span class="lunch-week__price">4,50 €</span></span></td>
-            <td data-label="Горячее"><span>Свиная отбивная с тушёной капустой<span class="lunch-week__price">7,50 €</span></span></td>
-            <td data-label="Обед целиком"><span>9,50 €<s>12,00 €</s></span></td>
+            <th scope="row" rowspan="2">Пятница<span class="lunch-week__date">13 ноября</span></th>
+            <td><span class="lunch-week__kind">Суп</span>Солянка сборная мясная</td>
+            <td class="lunch-week__cost">4,50 €</td>
+          </tr>
+          <tr data-weekday="5" class="lunch-week__second">
+            <td><span class="lunch-week__kind">Горячее</span>Свиная отбивная с тушёной капустой</td>
+            <td class="lunch-week__cost">7,50 €</td>
           </tr>
         </tbody>
       </table>
@@ -156,15 +173,6 @@
                 </div>
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <div class="calc-row" data-dish="mon-lunch" data-price="9.50">
-                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
             </div>
             <div class="lunch-day" id="lunch-tue" data-weekday="2" hidden>
               <p class="lunch-hero__date">Вторник · 10 ноября</p>
@@ -183,15 +191,6 @@
                   <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Пельмени домашние со сметаной">−</button>
                   <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Пельмени домашние со сметаной">
                   <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Пельмени домашние со сметаной">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="tue-lunch" data-price="9.50">
-                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
                 </div>
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
@@ -216,15 +215,6 @@
                 </div>
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <div class="calc-row" data-dish="wed-lunch" data-price="10.50">
-                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 10,50 € · вместо 13,00 €</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
             </div>
             <div class="lunch-day" id="lunch-thu" data-weekday="4" hidden>
               <p class="lunch-hero__date">Четверг · 12 ноября</p>
@@ -246,15 +236,6 @@
                 </div>
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
-              <div class="calc-row" data-dish="thu-lunch" data-price="9.50">
-                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 11,50 €</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
             </div>
             <div class="lunch-day" id="lunch-fri" data-weekday="5" hidden>
               <p class="lunch-hero__date">Пятница · 13 ноября</p>
@@ -273,15 +254,6 @@
                   <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Свиная отбивная с тушёной капустой">−</button>
                   <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Свиная отбивная с тушёной капустой">
                   <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Свиная отбивная с тушёной капустой">+</button>
-                </div>
-                <p class="calc-row__sum" data-sum>—</p>
-              </div>
-              <div class="calc-row" data-dish="fri-lunch" data-price="9.50">
-                <div><p class="calc-row__name">Суп, горячее, морс или компот</p><p class="calc-row__price">Обед целиком · 9,50 € · вместо 12,00 €</p></div>
-                <div class="calc-step">
-                  <button class="calc-step__btn" type="button" data-step="-1" aria-label="Убрать: Суп, горячее, морс или компот">−</button>
-                  <input class="calc-step__input" type="number" min="0" value="0" data-qty aria-label="Количество: Суп, горячее, морс или компот">
-                  <button class="calc-step__btn" type="button" data-step="1" aria-label="Добавить: Суп, горячее, морс или компот">+</button>
                 </div>
                 <p class="calc-row__sum" data-sum>—</p>
               </div>
@@ -357,6 +329,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261111"></script>
+<script src="./js/main.js?v=20261112"></script>
 </body>
 </html>

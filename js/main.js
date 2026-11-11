@@ -528,6 +528,20 @@ document.querySelectorAll('[data-request]').forEach((requestForm) => {
 
 // Фильтр меню по отметкам: можно выбрать несколько, показываем блюда, у которых есть все выбранные.
 // Пустые разделы прячем, их кнопки в строке разделов приглушаем.
+// Значок отметки на карточке блюда: подпись по нажатию — на телефоне нет наведения, title не видно
+document.querySelectorAll('.diet__icon').forEach((icon) => {
+  icon.addEventListener('click', () => {
+    const open = !icon.hasAttribute('data-open');
+    document.querySelectorAll('.diet__icon[data-open]').forEach((i) => i.removeAttribute('data-open'));
+    if (open) icon.setAttribute('data-open', '');
+  });
+});
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.diet__icon')) {
+    document.querySelectorAll('.diet__icon[data-open]').forEach((i) => i.removeAttribute('data-open'));
+  }
+});
+
 const dietFilter = document.querySelector('[data-diet-filter]');
 if (dietFilter) {
   // Ограничения (data-diet-tag): можно несколько, блюдо должно подходить под все.
@@ -600,9 +614,11 @@ document.querySelectorAll('.pdp-gallery').forEach((gallery) => {
 // Предзаказ — только на сегодня и на завтра: в пятницу только сегодня, в выходные — понедельник
 // (на сайте в выходные предзаказа не будет; в эскизе понедельник, чтобы было что показать)
 document.querySelectorAll('[data-lunch-week]').forEach((table) => {
-  const row = table.querySelector('tr[data-weekday="' + new Date().getDay() + '"]');
+  // В таблице «суп / горячее» у дня две строки — подсвечиваем обе, отметку ставим в первую
+  const rows = table.querySelectorAll('tr[data-weekday="' + new Date().getDay() + '"]');
+  const row = rows[0];
   if (!row) return;
-  row.classList.add('is-today');
+  rows.forEach((r) => r.classList.add('is-today'));
   const mark = document.createElement('span');
   mark.className = 'lunch-week__today';
   mark.textContent = 'Сегодня';
