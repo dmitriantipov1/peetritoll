@@ -2,7 +2,7 @@
 // «Роспись кушаньям» — основное меню из базы (menu.html прототипа, карточки — вариант 3).
 // Блюда с фото — карточками, без фото — списком «Также»; категория вовсе без фото (напитки,
 // соусы) — списком в две колонки. Фильтр — две группы: ограничения (подходит под все выбранные)
-// и подборки (одна за раз). Фото крупно по клику — следующим слоем.
+// и подборки (одна за раз). Клик по фото открывает его крупно — components/MenuLightbox.vue.
 import { dietIcons, type SiteDish, type SiteMark, type SiteMenu } from '#shared/site-menu'
 import { formatPrice } from '#shared/money'
 
@@ -61,6 +61,10 @@ const categories = computed(() =>
   }),
 )
 const nothingFound = computed(() => filtering.value && categories.value.every((c) => c.empty))
+
+// Фото крупно: листаются блюда с фото, которые сейчас видны
+const lightbox = ref<{ open: (id: number) => void } | null>(null)
+const photoDishes = computed(() => categories.value.flatMap((c) => c.cards))
 
 // Служебные отметки на карточке — строкой («Новинка»), как в прототипе
 const labelLine = (d: SiteDish) =>
@@ -174,7 +178,14 @@ onBeforeUnmount(() => document.removeEventListener('click', closeIcon))
 
               <ul v-if="c.cards.length" class="dishes">
                 <li v-for="d in c.cards" :key="d.id" class="dish">
-                  <div class="dish__img">
+                  <div
+                    class="dish__img"
+                    role="button"
+                    tabindex="0"
+                    :aria-label="t('menu.openPhoto', { name: d.name })"
+                    @click="lightbox?.open(d.id)"
+                    @keydown.enter.space.prevent="lightbox?.open(d.id)"
+                  >
                     <img
                       :src="d.photo!.url"
                       :srcset="d.photo!.srcset ?? undefined"
@@ -245,5 +256,7 @@ onBeforeUnmount(() => document.removeEventListener('click', closeIcon))
         </div>
       </div>
     </section>
+
+    <MenuLightbox ref="lightbox" :dishes="photoDishes" />
   </div>
 </template>
