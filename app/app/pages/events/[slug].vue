@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Мероприятие (event.html прототипа): «01 О мероприятии» — текст из админки, факты (когда, где,
-// вход, запись) и афиша. Запись на мероприятие — следующий слой (раздел «02 Записаться»).
+// вход, запись) и афиша. «02 Записаться» — components/EventRegistration.vue, если запись открыта.
 // Прошедшее (в архиве) — без записи, с пометкой. Адрес — слаг на языке страницы.
 import type { SiteEventPage } from '#shared/site-events'
 
@@ -10,7 +10,11 @@ const localePath = useLocalePath()
 const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug))
-const { data: ev, error } = await useFetch<SiteEventPage>('/api/site/events/item', {
+const {
+  data: ev,
+  error,
+  refresh,
+} = await useFetch<SiteEventPage>('/api/site/events/item', {
   query: { locale, slug },
 })
 if (error.value || !ev.value) {
@@ -102,6 +106,9 @@ const when = computed(() => {
                 <dd>{{ t('events.registrationText') }}</dd>
               </div>
             </dl>
+            <a v-if="ev.registrationOpen" class="btn btn--red" href="#zapis">{{
+              t('events.register')
+            }}</a>
           </div>
 
           <figure class="story__media">
@@ -123,5 +130,8 @@ const when = computed(() => {
         </div>
       </div>
     </section>
+
+    <!-- После записи — пересчитать свободные места -->
+    <EventRegistration v-if="ev.registrationOpen" :event="ev" :when="when" @registered="refresh" />
   </div>
 </template>

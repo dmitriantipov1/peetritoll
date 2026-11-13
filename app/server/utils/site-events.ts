@@ -9,7 +9,8 @@ import type { SiteEvent, SiteEventPage, SiteEvents } from '#shared/site-events'
 import { contentLocales, pickTranslation, type ContentLocale } from '#shared/locales'
 import { toMediaImage } from '#shared/media'
 import { defaultEvents, eventsSchema } from '#shared/site-settings'
-import { eventKinds, eventPlaces, materialStatus } from '#shared/materials'
+import { eventKinds, eventPlaces, eventPlacesLeft, materialStatus } from '#shared/materials'
+import { todayInTallinn } from '#shared/dates'
 
 async function eventsShown(locale: ContentLocale) {
   const { events } = await readSections()
@@ -88,10 +89,15 @@ export async function loadSiteEvent(
     list.find((e) => e.item.slug === slug)
   if (!hit) return null
   const { m, t, item, archived } = hit
+  // Прошедшее — без записи, даже если её забыли закрыть (и если «в архив» не отмечено)
+  const registrationOpen = item.registrationOpen && !archived && item.date >= todayInTallinn()
   return {
     ...item,
-    // Прошедшее — без записи, даже если её забыли закрыть
-    registrationOpen: item.registrationOpen && !archived,
+    id: m.id,
+    registrationOpen,
+    placesLeft: registrationOpen
+      ? eventPlacesLeft(m.event!.capacity, await eventPlacesTaken(useDb(), m.id))
+      : null,
     body: t.body,
     place: m.event!.place ? eventPlaces[m.event!.place][locale] : null,
     archived,

@@ -71,6 +71,15 @@ export const eventPlaces = {
 export type EventPlace = keyof typeof eventPlaces
 
 // Тема новости — фильтр на странице «Новости» (решение 13.11.2026). Может быть не задана
+/**
+ * Сколько мест осталось на мероприятии (запись с сайта, 7.2): лимит минус записавшиеся
+ * (заявки «Мероприятие», кроме отменённых). Без лимита — null, «мест сколько угодно».
+ */
+export function eventPlacesLeft(capacity: number | null, taken: number): number | null {
+  if (capacity === null) return null
+  return Math.max(0, capacity - taken)
+}
+
 export const newsTopics = {
   restaurant: { et: 'Restoran', en: 'Restaurant', ru: 'Ресторан' },
   museum: { et: 'Muuseum', en: 'Museum', ru: 'Музей' },

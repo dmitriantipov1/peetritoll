@@ -3,12 +3,13 @@
 //
 // Цены считает сервер по каталогу и меню дня: цифрам из браузера не верим.
 // Сроки (предзаказ на сегодня, за сколько дней банкет) проверят формы сайта — шаг 2.
-import { desc, eq, inArray } from 'drizzle-orm'
+import { and, desc, eq, inArray, ne, sql } from 'drizzle-orm'
 import {
   catalogDishes,
   groupMenus,
   lunchDays,
   lunchDayTranslations,
+  materialEvents,
   materials,
   requestHistory,
   requests,
@@ -45,7 +46,8 @@ import {
 } from '#shared/requests'
 import type { CatalogKind } from '#shared/catalog'
 import { groupLeadOk, groupMenuTitles } from '#shared/group-menus'
-import { contentLocales } from '#shared/locales'
+import { contentLocales, type ContentLocale } from '#shared/locales'
+import { eventPlacesLeft, materialStatus } from '#shared/materials'
 import { preorderDates, preorderTimes } from '#shared/lunch'
 import { timeInTallinn, todayInTallinn } from '#shared/dates'
 
@@ -184,8 +186,16 @@ function finishCalc(lines: RequestCalcLine[]): RequestCalc {
   }
 }
 
-/** Запись на мероприятие: оно есть, это мероприятие, с сайта — запись открыта */
-async function eventDetails(materialId: number, source: RequestSource): Promise<RequestDetails> {
+/**
+ * Запись на мероприятие: оно есть, это мероприятие. С сайта — ещё и запись открыта,
+ * мероприятие на сайте сейчас (не запланировано, не прошло) и на языке формы.
+ * Лимит мест проверяет checkEventPlaces — внутри транзакции записи.
+ */
+async function eventDetails(
+  materialId: number,
+  source: RequestSource,
+  locale: ContentLocale,
+): Promise<RequestDetails> {
   const material = await useDb().query.materials.findFirst({
     where: eq(materials.id, materialId),
     with: { translations: true, event: true },
@@ -193,10 +203,57 @@ async function eventDetails(materialId: number, source: RequestSource): Promise<
   if (!material || material.type !== 'event' || !material.event) {
     bad('Мероприятие не найдено', 'materialId')
   }
-  if (source === 'site' && (material.state !== 'published' || !material.event.registrationOpen)) {
-    bad('Запись на это мероприятие закрыта', 'materialId')
+  if (source === 'site') {
+    const status = materialStatus({
+      state: material.state,
+      publishAt: material.publishAt?.toISOString() ?? null,
+      event: material.event,
+    })
+    if (
+      status !== 'published' ||
+      !material.locales.includes(locale) ||
+      !material.event.registrationOpen ||
+      material.event.date < todayInTallinn()
+    ) {
+      bad('Запись на это мероприятие закрыта', 'materialId')
+    }
   }
   return { type: 'event', materialId, title: byLocale(material.translations, 'title') }
+}
+
+/** Записано человек на мероприятие: заявки «Мероприятие», кроме отменённых */
+export async function eventPlacesTaken(db: Tx | Db, materialId: number) {
+  const [row] = await db
+    .select({ n: sql<number>`coalesce(sum(${requests.guests}), 0)::int` })
+    .from(requests)
+    .where(
+      and(
+        eq(requests.type, 'event'),
+        sql`(${requests.details}->>'materialId')::int = ${materialId}`,
+        ne(requests.status, 'cancelled'),
+      ),
+    )
+  return row?.n ?? 0
+}
+
+/**
+ * Хватит ли мест (7.2). Строку мероприятия блокируем до конца транзакции: две записи
+ * одновременно на последние места не пройдут обе. Персонал может записать сверх лимита.
+ */
+async function checkEventPlaces(tx: Tx, materialId: number, guests: number) {
+  const [ev] = await tx
+    .select({ capacity: materialEvents.capacity })
+    .from(materialEvents)
+    .where(eq(materialEvents.materialId, materialId))
+    .for('update')
+  const left = eventPlacesLeft(ev?.capacity ?? null, await eventPlacesTaken(tx, materialId))
+  if (left === null || guests <= left) return
+  bad(
+    left === 0
+      ? 'Мест больше нет — запись закрыта'
+      : `Осталось мест: ${left} — уменьшите число человек или позвоните нам`,
+    'guests',
+  )
 }
 
 // ---------- Создание ----------
@@ -286,13 +343,16 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, guests } = input)
       break
     case 'event':
-      details = await eventDetails(input.materialId, opts.source)
+      details = await eventDetails(input.materialId, opts.source, input.locale)
       guests = input.guests
       break
   }
 
   const now = new Date()
   const id = await useDb().transaction(async (tx) => {
+    if (input.type === 'event' && opts.source === 'site') {
+      await checkEventPlaces(tx, input.materialId, input.guests)
+    }
     const [row] = await tx
       .insert(requests)
       .values({

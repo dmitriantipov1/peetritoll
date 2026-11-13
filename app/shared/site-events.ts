@@ -34,6 +34,10 @@ export interface SiteEventPage extends SiteEvent {
   place: string | null
   /** Прошло и ушло в архив — записи нет */
   archived: boolean
+  /** id материала — для записи (заявка «Мероприятие») */
+  id: number
+  /** Сколько мест осталось; null — без лимита */
+  placesLeft: number | null
   /** Адрес мероприятия на других языках — для переключателя языков */
   slugs: Localized<string>
 }
