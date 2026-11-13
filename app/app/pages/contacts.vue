@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // «Контакты» (contacts.html прототипа): адрес и связь, часы работы с особыми днями, как добраться.
 // Адрес, телефон, часы и особые дни — из админки «Контакты и часы», тот же запрос, что у подвала.
+// «Написать нам» — components/ContactForm.vue: письмо сотрудникам, не заявка.
 // Карты пока нет — заглушка map.jpg и ссылка «Открыть на карте» (встроенная карта Google
 // ставит свои cookies — только после баннера согласия, 8.1).
 import { groupWeek } from '#shared/contacts'
@@ -181,6 +182,26 @@ const social = computed(() =>
             </p>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- 04 Написать нам -->
+    <section id="napisat" class="section section--bg2">
+      <div class="container">
+        <SectionHead num="04" :crumb="t('contacts.writeCrumb')" :title="t('contacts.writeTitle')" />
+
+        <div class="two-col">
+          <div class="prose">
+            <h3 class="intro__title">{{ t('contacts.writeLead') }}</h3>
+            <p>{{ t('contacts.writeText') }}</p>
+            <p class="quote">
+              {{ t('contacts.writeQuote1') }}<br /><span class="quote__indent">{{
+                t('contacts.writeQuote2')
+              }}</span>
+            </p>
+          </div>
+          <ContactForm />
+        </div>
       </div>
     </section>
   </div>
