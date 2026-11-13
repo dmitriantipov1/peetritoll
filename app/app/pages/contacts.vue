@@ -4,7 +4,6 @@
 // «Написать нам» — components/ContactForm.vue: письмо сотрудникам, не заявка.
 // Карты пока нет — заглушка map.jpg и ссылка «Открыть на карте» (встроенная карта Google
 // ставит свои cookies — только после баннера согласия, 8.1).
-import { groupWeek } from '#shared/contacts'
 import { phoneDigits } from '#shared/site-contacts'
 
 const { t, locale } = useI18n()
@@ -19,19 +18,7 @@ const asDate = (d: string) => new Date(`${d}T00:00:00Z`)
 const fmt = (options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat(locale.value, { ...options, timeZone: 'UTC' })
 
-// 9 ноября 2026 — понедельник: от него берём названия дней недели на языке страницы
-const dayName = (i: number) => {
-  const name = fmt({ weekday: 'short' }).format(asDate(`2026-11-${String(9 + i).padStart(2, '0')}`))
-  return name.replace('.', '')
-}
-const capital = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
-
-const hoursRows = computed(() =>
-  groupWeek(c.value?.week ?? []).map(({ first, last, hours }) => ({
-    days: capital(first === last ? dayName(first) : `${dayName(first)} — ${dayName(last)}`),
-    text: hours.open ? `${hours.from} — ${hours.to}` : t('contacts.closed'),
-  })),
-)
+const hoursRows = useHoursRows(() => c.value?.week)
 const everyDay = computed(() => c.value?.week.every((d) => d.open) ?? false)
 
 const specialDate = (d: string) => fmt({ day: 'numeric', month: 'long' }).format(asDate(d))

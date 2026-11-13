@@ -1,0 +1,56 @@
+{
+  "photos": [
+    {
+      "file": "restaurant-hall.jpg",
+      "category": "Интерьер и экстерьер",
+      "captions": {
+        "ru": "Зал первого этажа",
+        "et": "Esimese korruse saal",
+        "en": "Ground floor hall"
+      }
+    },
+    {
+      "file": "terrace.jpg",
+      "category": "Интерьер и экстерьер",
+      "captions": { "ru": "Летняя терраса", "et": "Suveterrass", "en": "Summer terrace" }
+    },
+    {
+      "file": "dish-01.jpg",
+      "category": "Наши блюда",
+      "captions": { "ru": "Блюдо из меню", "et": "Roog menüüst", "en": "A dish from the menu" }
+    },
+    {
+      "file": "dish-02.jpg",
+      "category": "Наши блюда",
+      "captions": { "ru": "Блюдо из меню", "et": "Roog menüüst", "en": "A dish from the menu" }
+    },
+    {
+      "file": "banquet-hall.jpg",
+      "category": "Банкеты и фуршеты",
+      "captions": {
+        "ru": "Накрытые столы в оружейном зале",
+        "et": "Kaetud lauad relvasaalis",
+        "en": "Set tables in the armoury hall"
+      }
+    },
+    {
+      "file": "weapons-2.jpg",
+      "category": "Банкеты и фуршеты",
+      "captions": { "ru": "Зал второго этажа", "et": "Teise korruse saal", "en": "Upstairs hall" }
+    },
+    {
+      "file": "event-poster.jpg",
+      "category": "Мероприятия и гости",
+      "captions": { "ru": "Афиша концерта", "et": "Kontserdi plakat", "en": "Concert poster" }
+    },
+    {
+      "file": "pakri-express.jpg",
+      "category": "Мероприятия и гости",
+      "captions": {
+        "ru": "Поездка на Pakri Express",
+        "et": "Sõit Pakri Expressiga",
+        "en": "A ride on the Pakri Express"
+      }
+    }
+  ]
+}

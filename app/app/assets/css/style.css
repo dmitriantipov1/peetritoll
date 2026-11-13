@@ -2133,3 +2133,6 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 
 /* Страница мероприятия: прошедшее — пометкой над текстом */
 .event-page__past { margin-bottom: var(--s-3); }
+
+/* Галерея «Ресторана»: фото — кнопка, открывает его крупно (окно .lightbox) */
+.gallery__open { display: block; width: 100%; padding: 0; border: 0; background: none; font: inherit; }
