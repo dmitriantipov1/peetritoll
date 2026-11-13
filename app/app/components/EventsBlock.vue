@@ -1,10 +1,16 @@
 <script setup lang="ts">
-// Главная, «05 Мероприятия»: вкладки «Предстоящие / Архив» (index.html прототипа).
+// Блок «Мероприятия»: вкладки «Предстоящие / Архив» (index.html прототипа) — на главной
+// («05», со ссылкой «Все мероприятия») и на странице /events («01», весь архив).
 // Предстоящие идут по очереди вместе с афишей, как data-rotate в js/main.js прототипа:
 // у выделенного — полоска, сколько осталось до следующего; наведение или фокус останавливает смену.
-import type { HomeData, HomeEvent } from '#shared/home'
+import type { SiteEvent, SiteEvents } from '#shared/site-events'
 
-const props = defineProps<{ events: NonNullable<HomeData['events']> }>()
+const props = defineProps<{
+  events: SiteEvents
+  num: string
+  /** Ссылка «Все мероприятия» в заголовке — на главной */
+  more?: boolean
+}>()
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -25,7 +31,7 @@ function dateParts(date: string) {
   }
 }
 
-const eventPath = (e: HomeEvent) => localePath(`/events/${e.slug}`)
+const eventPath = (e: SiteEvent) => localePath(`/events/${e.slug}`)
 
 // ---------- По очереди ----------
 
@@ -65,10 +71,10 @@ onBeforeUnmount(() => clearTimeout(timer))
   <section id="meropriyatiya" class="section section--bg1">
     <div class="container">
       <SectionHead
-        num="05"
+        :num="num"
         :crumb="t('home.events.crumb')"
         :title="t('home.events.title')"
-        :more="{ to: localePath('/events'), label: t('home.events.more') }"
+        :more="more ? { to: localePath('/events'), label: t('home.events.more') } : undefined"
       />
 
       <div class="intro intro--single">

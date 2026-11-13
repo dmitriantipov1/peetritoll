@@ -1,6 +1,7 @@
 // Главная (лендинг): что отдаёт сервер для разделов из базы — «Магазин» и «Мероприятия».
 // Тексты уже на языке страницы: перевод выбран на сервере (на этом языке, иначе эстонский).
 import type { MediaImage } from './media'
+import type { SiteEvents } from './site-events'
 
 export interface HomeShopCategory {
   slug: string
@@ -17,24 +18,10 @@ export interface HomeProduct {
   photo: MediaImage | null
 }
 
-export interface HomeEvent {
-  slug: string
-  title: string
-  lead: string | null
-  /** «2026-11-28» и «18:00» — по Таллину */
-  date: string
-  startTime: string | null
-  kind: string | null
-  priceNote: string | null
-  /** Обложка мероприятия, иначе общая афиша из настроек сайта; нет и её — null */
-  poster: MediaImage | null
-  registrationOpen: boolean
-}
-
 export interface HomeData {
   /** Раздел выключен в настройках сайта или скрыт на этом языке — блока на главной нет */
   shop: { categories: HomeShopCategory[]; books: HomeProduct[] } | null
-  events: { rotateSeconds: number; upcoming: HomeEvent[]; archive: HomeEvent[] } | null
+  events: SiteEvents | null
 }
 
 /** Сколько книг на главной, сколько прошедших мероприятий в «Архиве» */

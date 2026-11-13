@@ -155,6 +155,6 @@ const facts = 4
     </section>
 
     <HomeShop v-if="data?.shop" :shop="data.shop" />
-    <HomeEvents v-if="data?.events" :events="data.events" />
+    <EventsBlock v-if="data?.events" :events="data.events" num="05" more />
   </div>
 </template>

@@ -1,13 +1,12 @@
-// Главная: разделы из базы — магазин (категории и книги) и мероприятия (предстоящие и архив).
+// Главная: разделы из базы — магазин (категории и книги) и мероприятия (предстоящие и архив,
+// server/utils/site-events.ts).
 // Доступно в серверном коде без импорта. Что показывать гостю, решают те же правила, что в админке:
 // разделы сайта (settings.sections), языки показа (8.5), состояние материала (materialStatus).
 import { and, arrayContains, asc, eq } from 'drizzle-orm'
-import { materials, media, products, shopCategories } from '../db/schema'
-import { HOME_ARCHIVE, HOME_BOOKS, type HomeData, type HomeEvent } from '#shared/home'
+import { products, shopCategories } from '../db/schema'
+import { HOME_ARCHIVE, HOME_BOOKS, type HomeData } from '#shared/home'
 import { pickTranslation, type ContentLocale } from '#shared/locales'
 import { toMediaImage } from '#shared/media'
-import { defaultEvents, eventsSchema } from '#shared/site-settings'
-import { eventKinds, materialStatus } from '#shared/materials'
 
 /** Слаг категории книг — из каталога прототипа (seed:shop) */
 const BOOKS_SLUG = 'books'
@@ -62,67 +61,12 @@ async function loadShop(locale: ContentLocale): Promise<NonNullable<HomeData['sh
   }
 }
 
-async function loadEvents(locale: ContentLocale): Promise<NonNullable<HomeData['events']>> {
-  const db = useDb()
-  const settings = await readSetting('events', eventsSchema, defaultEvents)
-  const [rows, defaultPoster] = await Promise.all([
-    db.query.materials.findMany({
-      where: and(
-        eq(materials.type, 'event'),
-        eq(materials.state, 'published'),
-        arrayContains(materials.locales, [locale]),
-      ),
-      with: { translations: true, event: true, cover: true },
-    }),
-    settings.defaultPosterId
-      ? db.query.media.findFirst({ where: eq(media.id, settings.defaultPosterId) })
-      : undefined,
-  ])
-  const fallbackPoster = defaultPoster ? toMediaImage(defaultPoster) : null
-
-  const upcoming: HomeEvent[] = []
-  const archive: HomeEvent[] = []
-  for (const m of rows) {
-    if (!m.event) continue
-    const status = materialStatus({
-      state: m.state,
-      publishAt: m.publishAt?.toISOString() ?? null,
-      event: m.event,
-    })
-    if (status === 'planned') continue
-    const t = pickTranslation(m.translations, locale)
-    const item: HomeEvent = {
-      slug: t?.slug ?? '',
-      title: t?.title ?? '',
-      lead: t?.lead ?? null,
-      date: m.event.date,
-      startTime: m.event.startTime,
-      kind: m.event.kind ? eventKinds[m.event.kind][locale] : null,
-      priceNote: t?.priceNote ?? null,
-      poster: m.cover ? toMediaImage(m.cover) : fallbackPoster,
-      registrationOpen: m.event.registrationOpen,
-    }
-    ;(status === 'archived' ? archive : upcoming).push(item)
-  }
-  // Предстоящие — ближайшие первыми, архив — последние прошедшие первыми
-  const byDate = (a: HomeEvent, b: HomeEvent) =>
-    a.date.localeCompare(b.date) || (a.startTime ?? '').localeCompare(b.startTime ?? '')
-  upcoming.sort(byDate)
-  archive.sort((a, b) => byDate(b, a))
-
-  return {
-    rotateSeconds: settings.rotateSeconds,
-    upcoming,
-    archive: archive.slice(0, HOME_ARCHIVE),
-  }
-}
-
 export async function loadHome(locale: ContentLocale): Promise<HomeData> {
   const sections = await readSections()
   const shown = (key: 'shop' | 'events') => sections[key].enabled && sections[key].locales[locale]
   const [shop, events] = await Promise.all([
     shown('shop') ? loadShop(locale) : null,
-    shown('events') ? loadEvents(locale) : null,
+    shown('events') ? loadSiteEvents(locale, HOME_ARCHIVE) : null,
   ])
   return { shop, events }
 }
