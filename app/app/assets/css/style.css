@@ -2136,3 +2136,8 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 
 /* Галерея «Ресторана»: фото — кнопка, открывает его крупно (окно .lightbox) */
 .gallery__open { display: block; width: 100%; padding: 0; border: 0; background: none; font: inherit; }
+
+/* Главная: без Pakri Express (раздел выключен) — три карточки услуг, без пустой четвёртой колонки */
+@media (min-width: 1025px) {
+  .services--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

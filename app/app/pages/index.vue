@@ -9,16 +9,18 @@ const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
 const { data } = await useFetch<HomeData>('/api/site/home', { query: { locale } })
+const services = computed(() => allServices.filter((s) => s.i !== 3 || data.value?.pakri))
 
 useHead({ title: () => t('home.meta') })
 
 // Картинки и ссылки — здесь, тексты — в переводах под тем же номером
 const halls = ['/images/restaurant-hall.jpg', '/images/banquet-hall.jpg', '/images/terrace.jpg']
-const services = [
-  { image: '/images/restaurant-terrace.jpg', to: '/services#ekskursii' },
-  { image: '/images/guides.jpg', to: '/services#gidy' },
-  { image: '/images/audioguide.jpg', to: '/services#audiogid' },
-  { image: '/images/pakri-express.jpg', to: '/services#pakri-express' },
+// i — номер текста в переводах; Pakri Express — только если раздел включён (ждёт условий, 7.2)
+const allServices = [
+  { i: 0, image: '/images/restaurant-terrace.jpg', to: '/services#ekskursii' },
+  { i: 1, image: '/images/guides.jpg', to: '/services#gidy' },
+  { i: 2, image: '/images/audioguide.jpg', to: '/services#audiogid' },
+  { i: 3, image: '/images/pakri-express.jpg', to: '/services#pakri-express' },
 ]
 const formats = 4
 const facts = 4
@@ -141,13 +143,13 @@ const facts = 4
           <p>{{ t('home.services.text') }}</p>
         </div>
 
-        <ul class="services">
-          <li v-for="(s, i) in services" :key="s.to" class="service">
-            <PhotoFrame :src="s.image" :alt="t(`home.services.items.${i}.alt`)" />
-            <h4 class="service__title">{{ t(`home.services.items.${i}.title`) }}</h4>
-            <p class="service__text">{{ t(`home.services.items.${i}.text`) }}</p>
+        <ul class="services" :class="{ 'services--3': services.length === 3 }">
+          <li v-for="s in services" :key="s.to" class="service">
+            <PhotoFrame :src="s.image" :alt="t(`home.services.items.${s.i}.alt`)" />
+            <h4 class="service__title">{{ t(`home.services.items.${s.i}.title`) }}</h4>
+            <p class="service__text">{{ t(`home.services.items.${s.i}.text`) }}</p>
             <NuxtLink class="service__link" :to="localePath(s.to)">{{
-              t(`home.services.items.${i}.link`)
+              t(`home.services.items.${s.i}.link`)
             }}</NuxtLink>
           </li>
         </ul>

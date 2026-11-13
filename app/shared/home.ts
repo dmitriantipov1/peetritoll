@@ -22,6 +22,8 @@ export interface HomeData {
   /** Раздел выключен в настройках сайта или скрыт на этом языке — блока на главной нет */
   shop: { categories: HomeShopCategory[]; books: HomeProduct[] } | null
   events: SiteEvents | null
+  /** Раздел Pakri Express включён — карточка в «Экскурсиях и поездках» (ведёт на /services) */
+  pakri: boolean
 }
 
 /** Сколько книг на главной, сколько прошедших мероприятий в «Архиве» */

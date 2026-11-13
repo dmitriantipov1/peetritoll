@@ -63,10 +63,12 @@ async function loadShop(locale: ContentLocale): Promise<NonNullable<HomeData['sh
 
 export async function loadHome(locale: ContentLocale): Promise<HomeData> {
   const sections = await readSections()
-  const shown = (key: 'shop' | 'events') => sections[key].enabled && sections[key].locales[locale]
+  const shown = (key: 'shop' | 'events' | 'pakri') =>
+    sections[key].enabled && sections[key].locales[locale]
   const [shop, events] = await Promise.all([
     shown('shop') ? loadShop(locale) : null,
     shown('events') ? loadSiteEvents(locale, HOME_ARCHIVE) : null,
   ])
-  return { shop, events }
+  // Pakri Express — внутри «Экскурсий и поездок»: без них карточке некуда вести
+  return { shop, events, pakri: shown('pakri') && sections.services.enabled }
 }
