@@ -2,6 +2,8 @@
 // Сеты банкета (7.1): три ступени — базовый, средний, премиум. Название и состав правятся
 // здесь, цена на гостя считается из цен блюд каталога. Разметка — из прототипа (admin/menu-banquet.html).
 import {
+  unitPriceLabel,
+  pricePerGuest,
   banquetTierTitles,
   type AdminBanquetSet,
   type AdminCatalogCategory,
@@ -29,7 +31,9 @@ const dishes = computed(
 )
 const setDishes = (set: AdminBanquetSet) =>
   set.dishIds.map((id) => dishes.value.get(id)).filter((d): d is AdminCatalogDish => !!d)
-const price = (set: AdminBanquetSet) => setDishes(set).reduce((sum, d) => sum + d.priceCents, 0)
+// Цена на гостя: блюдо «на 10 гостей» даёт гостю десятую часть своей цены
+const price = (set: AdminBanquetSet) =>
+  setDishes(set).reduce((sum, d) => sum + pricePerGuest(d.priceCents, d.servesGuests), 0)
 
 // ---------- Правка одного сета ----------
 
@@ -78,7 +82,10 @@ async function save() {
 }
 
 const draftPrice = computed(() =>
-  draft.dishIds.reduce((sum, id) => sum + (dishes.value.get(id)?.priceCents ?? 0), 0),
+  draft.dishIds.reduce((sum, id) => {
+    const d = dishes.value.get(id)
+    return sum + (d ? pricePerGuest(d.priceCents, d.servesGuests) : 0)
+  }, 0),
 )
 </script>
 
@@ -142,7 +149,7 @@ const draftPrice = computed(() =>
             <label v-for="dish in category.dishes" :key="dish.id" class="adm-check">
               <input v-model="draft.dishIds" type="checkbox" :value="dish.id" />
               <span>
-                {{ name(dish.names) }} · {{ formatPrice(dish.priceCents) }}
+                {{ name(dish.names) }} · {{ unitPriceLabel(dish) }}
                 <small v-if="!dish.isAvailable" class="adm-danger">нельзя заказать</small>
               </span>
             </label>

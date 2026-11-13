@@ -1,7 +1,14 @@
 <script setup lang="ts">
-// Блюдо банкетного меню: название на трёх языках, цена за порцию,
-// категория, «можно заказать». Новое (dishId = null) или существующее.
-import { catalogTitles, type AdminCatalog, type CatalogKind } from '#shared/catalog'
+// Блюдо банкетного меню: название на трёх языках, цена за единицу, единица и на сколько гостей
+// её хватает («1 кг салата — на 10 гостей», 13.11.2026), категория, «можно заказать».
+// Новое (dishId = null) или существующее.
+import {
+  catalogTitles,
+  catalogUnits,
+  type AdminCatalog,
+  type CatalogKind,
+  type CatalogUnit,
+} from '#shared/catalog'
 import type { Localized } from '#shared/menu'
 import { contentLocales, pickTranslation, type ContentLocale } from '#shared/locales'
 import { formatPrice, parsePrice } from '#shared/money'
@@ -37,6 +44,8 @@ const form = reactive({
     string
   >,
   price: dish.value ? formatPrice(dish.value.priceCents).replace(' €', '') : '',
+  unit: dish.value?.unit ?? ('portion' as CatalogUnit),
+  servesGuests: dish.value?.servesGuests ?? 1,
   categoryId: dish.value?.categoryId ?? props.categoryId ?? props.catalog.categories[0]?.id ?? 0,
   isAvailable: dish.value?.isAvailable ?? true,
 })
@@ -49,12 +58,18 @@ async function save() {
   error.value = ''
   const priceCents = parsePrice(form.price)
   if (priceCents === null) {
-    error.value = 'Цена за порцию — число, например 6,50'
+    error.value = 'Цена — число, например 6,50'
+    return
+  }
+  if (!Number.isInteger(form.servesGuests) || form.servesGuests < 1) {
+    error.value = '«Хватает на» — целое число гостей, от 1'
     return
   }
   const body = {
     categoryId: form.categoryId,
     priceCents,
+    unit: form.unit,
+    servesGuests: form.servesGuests,
     isAvailable: form.isAvailable,
     names: Object.fromEntries(
       contentLocales.filter((l) => form.names[l].trim()).map((l) => [l, form.names[l].trim()]),
@@ -137,7 +152,7 @@ async function remove() {
               <input id="c-name" v-model="form.names[lang]" type="text" maxlength="200" />
             </div>
             <div class="field">
-              <label for="c-price">За порцию, €</label>
+              <label for="c-price">Цена за {{ catalogUnits[form.unit].ru }}, €</label>
               <input
                 id="c-price"
                 v-model="form.price"
@@ -147,6 +162,30 @@ async function remove() {
               />
             </div>
           </div>
+          <div class="form" style="grid-template-columns: 1fr 160px; margin-top: 16px">
+            <div class="field">
+              <label for="c-unit">Единица</label>
+              <select id="c-unit" v-model="form.unit">
+                <option v-for="(u, key) in catalogUnits" :key="key" :value="key">
+                  {{ u.ru }}
+                </option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="c-serves">Хватает на, гостей</label>
+              <input
+                id="c-serves"
+                v-model.number="form.servesGuests"
+                type="number"
+                min="1"
+                max="500"
+              />
+            </div>
+          </div>
+          <p class="adm-note" style="margin-top: 10px">
+            Калькулятор и сеты ставят «гости ÷ хватает на» с округлением вверх: 1 кг салата на 10
+            гостей — для 10 гостей 1 кг, для 12 — 2 кг. Порция на одного — как раньше.
+          </p>
           <p v-if="dish?.previousPriceCents != null" class="adm-note" style="margin-top: 10px">
             Прежняя цена — {{ formatPrice(dish.previousPriceCents) }}. Поступившие заявки считаются
             по ценам на момент отправки.

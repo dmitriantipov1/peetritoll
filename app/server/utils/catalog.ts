@@ -91,6 +91,8 @@ export async function loadCatalog(kind: CatalogKind): Promise<AdminCatalog> {
         categoryId: d.categoryId,
         names: byLocale(d.translations),
         priceCents: d.priceCents,
+        unit: d.unit,
+        servesGuests: d.servesGuests,
         previousPriceCents: d.previousPriceCents,
         priceChangedAt: d.priceChangedAt?.toISOString() ?? null,
         isAvailable: d.isAvailable,
@@ -264,6 +266,8 @@ export async function saveCatalogDish(
     const fields = {
       categoryId: input.categoryId,
       priceCents: input.priceCents,
+      unit: input.unit,
+      servesGuests: input.servesGuests,
       isAvailable: input.isAvailable,
       updatedBy: userId,
     }

@@ -15,7 +15,7 @@ import {
 } from 'drizzle-orm/pg-core'
 import { relations, sql } from 'drizzle-orm'
 import type { ContentLocale } from '../../../shared/locales'
-import type { BanquetTier, CatalogKind } from '../../../shared/catalog'
+import type { BanquetTier, CatalogKind, CatalogUnit } from '../../../shared/catalog'
 import { users } from './users'
 
 const timestamps = {
@@ -64,7 +64,11 @@ export const catalogDishes = pgTable(
       .notNull()
       .references(() => catalogCategories.id, { onDelete: 'restrict' }),
     sort: integer('sort').notNull().default(0),
+    // Цена за единицу (unit): за порцию, за кг, за штуку…
     priceCents: integer('price_cents').notNull(),
+    // Единица и на сколько гостей её хватает (13.11.2026): «1 кг салата на 10 гостей»
+    unit: text('unit').$type<CatalogUnit>().notNull().default('portion'),
+    servesGuests: integer('serves_guests').notNull().default(1),
     // Прежняя цена и когда поменяли — «цена изменена 31.10: было 14,50 €» в админке.
     // Заявки хранят цены снимком (7.1), так что смена цены их не трогает
     previousPriceCents: integer('previous_price_cents'),
@@ -77,6 +81,8 @@ export const catalogDishes = pgTable(
   (t) => [
     index('catalog_dishes_category_sort').on(t.categoryId, t.sort),
     check('catalog_dishes_price_positive', sql`${t.priceCents} >= 0`),
+    check('catalog_dishes_unit', sql`${t.unit} in ('portion', 'kg', 'pcs', 'l', 'dish')`),
+    check('catalog_dishes_serves', sql`${t.servesGuests} >= 1`),
   ],
 )
 

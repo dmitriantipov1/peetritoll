@@ -4,17 +4,56 @@
 import { z } from 'zod'
 import { contentLocales } from './locales'
 import type { Localized } from './menu'
+import { formatPrice } from './money'
 
 export const catalogKinds = ['banquet'] as const
 export type CatalogKind = (typeof catalogKinds)[number]
 
 export const catalogTitles: Record<CatalogKind, string> = { banquet: 'Банкетное' }
 
+// ---------- Единица блюда (решение 13.11.2026) ----------
+// «10 человек — нужен 1 кг салата, а не 10 кг»: у блюда единица и на сколько гостей хватает
+// одной единицы. Цена — за единицу. По умолчанию «порция, на 1 гостя» — как раньше.
+
+export const catalogUnits = {
+  portion: { et: 'portsjon', en: 'portion', ru: 'порция' },
+  kg: { et: 'kg', en: 'kg', ru: 'кг' },
+  pcs: { et: 'tk', en: 'pcs', ru: 'шт.' },
+  l: { et: 'l', en: 'l', ru: 'л' },
+  dish: { et: 'vaagen', en: 'platter', ru: 'блюдо' },
+} as const satisfies Record<string, Record<'et' | 'en' | 'ru', string>>
+export type CatalogUnit = keyof typeof catalogUnits
+export const catalogUnitKeys = Object.keys(catalogUnits) as [CatalogUnit, ...CatalogUnit[]]
+
+/** Сколько единиц блюда на столько гостей: гости ÷ «хватает на», с округлением вверх */
+export function unitsForGuests(guests: number, servesGuests: number): number {
+  if (guests <= 0) return 0
+  return Math.ceil(guests / Math.max(1, servesGuests))
+}
+
+/** Цена блюда в пересчёте на одного гостя, в центах (для цены сета на гостя) */
+export function pricePerGuest(priceCents: number, servesGuests: number): number {
+  return Math.round(priceCents / Math.max(1, servesGuests))
+}
+
+/**
+ * «6,50 €» для порции на одного; иначе «12,00 € / кг · на 10 гостей» — для админки.
+ */
+export function unitPriceLabel(d: { priceCents: number; unit: CatalogUnit; servesGuests: number }) {
+  if (d.unit === 'portion' && d.servesGuests === 1) return formatPrice(d.priceCents)
+  const serves = d.servesGuests > 1 ? ` · на ${d.servesGuests} гостей` : ''
+  return `${formatPrice(d.priceCents)} / ${catalogUnits[d.unit].ru}${serves}`
+}
+
 export interface AdminCatalogDish {
   id: number
   categoryId: number
   names: Localized<string>
+  /** Цена за единицу */
   priceCents: number
+  unit: CatalogUnit
+  /** На сколько гостей хватает одной единицы */
+  servesGuests: number
   previousPriceCents: number | null
   priceChangedAt: string | null
   isAvailable: boolean
@@ -65,7 +104,7 @@ export const banquetTierTitles: Record<BanquetTier, string> = {
 export interface AdminBanquetSet {
   tier: BanquetTier
   names: Localized<string>
-  /** Блюда по порядку; цена сета на гостя = сумма их цен за порцию */
+  /** Блюда по порядку; цена сета на гостя = сумма цен блюд в пересчёте на гостя (pricePerGuest) */
   dishIds: number[]
 }
 
@@ -90,6 +129,8 @@ export const catalogDishInputSchema = z.object({
   categoryId: z.number().int().positive(),
   names: names(200),
   priceCents: z.number().int().min(0).max(1_000_000),
+  unit: z.enum(catalogUnitKeys, 'Неизвестная единица').default('portion'),
+  servesGuests: z.number().int().min(1, 'Хватает хотя бы на одного гостя').max(500).default(1),
   isAvailable: z.boolean(),
 })
 export type CatalogDishInput = z.infer<typeof catalogDishInputSchema>

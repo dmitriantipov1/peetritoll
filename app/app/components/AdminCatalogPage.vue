@@ -4,6 +4,7 @@
 // Разметка — из прототипа (admin/menu-banquet.html). Сеты банкета — components/AdminBanquetSets.vue.
 import { VueDraggable } from 'vue-draggable-plus'
 import {
+  unitPriceLabel,
   catalogTitles,
   type AdminCatalog,
   type AdminCatalogCategory,
@@ -246,7 +247,7 @@ async function saveSettings() {
                     <small v-if="priceNote(dish)" class="adm-danger">{{ priceNote(dish) }}</small>
                   </td>
                   <td class="num">
-                    <span class="adm-price">{{ formatPrice(dish.priceCents) }}</span>
+                    <span class="adm-price">{{ unitPriceLabel(dish) }}</span>
                   </td>
                   <td>
                     <AdminLangBadges :has="(l) => !!dish.names[l]" />
