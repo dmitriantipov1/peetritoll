@@ -44,7 +44,7 @@ import {
   type RequestStatus,
 } from '#shared/requests'
 import type { CatalogKind } from '#shared/catalog'
-import { groupMenuTitles } from '#shared/group-menus'
+import { groupLeadOk, groupMenuTitles } from '#shared/group-menus'
 import { contentLocales } from '#shared/locales'
 import { preorderDates, preorderTimes } from '#shared/lunch'
 import { timeInTallinn, todayInTallinn } from '#shared/dates'
@@ -230,6 +230,20 @@ async function checkLunchPreorder(date: string, time: string, now = new Date()) 
   }
 }
 
+/** Запрос группы с сайта: не меньше минимума человек и не позже срока заказа (shared/group-menus.ts) */
+async function checkGroupRequest(guests: number, date: string | null, time: string | null) {
+  const settings = await readGroupSettings()
+  if (guests < settings.minPeople) {
+    bad(`Групповой обед — от ${settings.minPeople} человек`, 'guests')
+  }
+  if (!groupLeadOk(date, time, settings.leadHours)) {
+    bad(
+      `Заказ принимаем не позже чем за ${settings.leadHours} ч до приезда — выберите дату позже или позвоните нам`,
+      'visitDate',
+    )
+  }
+}
+
 /** Новая заявка: снимок цен, согласие, запись «поступила» в историю. Возвращает номер */
 export async function createRequest(input: RequestInput, opts: CreateRequestOptions) {
   if (opts.source === 'site' && !opts.consent) {
@@ -253,6 +267,9 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, visitTime, guests } = input)
       break
     case 'group':
+      // С сайта — минимум человек и срок заказа из настроек; персонал может записать любую группу
+      if (opts.source === 'site')
+        await checkGroupRequest(input.guests, input.visitDate, input.visitTime)
       details = { type: 'group', agency: input.agency, menuId: input.menuId }
       calc = await groupCalc(input.menuId, input.guests, opts.source)
       ;({ visitDate, visitTime, guests } = input)

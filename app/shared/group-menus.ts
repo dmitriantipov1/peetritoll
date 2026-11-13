@@ -3,6 +3,7 @@
 // с человека; группа выбирает обед в форме запроса. Одна схема zod на сервер и форму.
 import { z } from 'zod'
 import { contentLocales } from './locales'
+import { fromTallinnLocal } from './dates'
 import type { Localized } from './menu'
 
 export interface AdminGroupMenu {
@@ -69,3 +70,22 @@ export const groupSettingsSchema = z.object({
     .min(0)
     .max(24 * 60),
 })
+
+// ---------- Правила запроса группы (7.1) ----------
+// Одни и те же для формы на сайте и для проверки на сервере.
+
+/**
+ * Успеваем ли к приезду: от «сейчас» до приезда не меньше leadHours часов.
+ * Дата и время необязательны (созвон 12.11.2026): без даты — успеваем (обсудят по телефону),
+ * без времени — считаем по концу дня, чтобы не отказать группе, которая приедет вечером.
+ */
+export function groupLeadOk(
+  visitDate: string | null,
+  visitTime: string | null,
+  leadHours: number,
+  now = new Date(),
+): boolean {
+  if (!visitDate) return true
+  const arrival = fromTallinnLocal(`${visitDate}T${visitTime ?? '23:59'}`)
+  return arrival.getTime() - now.getTime() >= leadHours * 3600 * 1000
+}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // «Устроителям путешествий» — групповое меню (group.html прототипа, ответы заказчицы 12.11.2026):
 // раздел «Трапезы групп» с фото и фактами, ниже карточки обедов из базы. Калькулятора нет.
-// Форма запроса группы — следующим слоем.
+// Ниже карточек — форма запроса группы (components/GroupRequest.vue).
 import type { SiteGroup } from '#shared/site-group'
 import { formatPrice } from '#shared/money'
 
@@ -102,6 +102,8 @@ const lead = computed(() =>
           </li>
         </ul>
         <p v-else class="events-empty">{{ t('group.noMenus') }}</p>
+
+        <GroupRequest :group="group" />
       </div>
     </section>
   </div>
