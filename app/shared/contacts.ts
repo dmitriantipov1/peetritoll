@@ -101,27 +101,38 @@ const words: Record<ContentLocale, { open: string; closed: string }> = {
 // Эстонская и русская запись времени — с точкой, английская — с двоеточием
 const time = (t: string, locale: ContentLocale) => (locale === 'en' ? t : t.replace(':', '.'))
 
+/** Соседние дни с одинаковыми часами — одним отрезком: с какого по какой день (0 — пн) */
+export interface HoursRange {
+  first: number
+  last: number
+  hours: DayHours
+}
+
+export function groupWeek(week: DayHours[]): HoursRange[] {
+  const same = (a: DayHours, b: DayHours) =>
+    a.open === b.open && (!a.open || (a.from === b.from && a.to === b.to))
+  const ranges: HoursRange[] = []
+  for (let i = 0; i < week.length;) {
+    let j = i
+    while (j + 1 < week.length && same(week[j + 1]!, week[i]!)) j++
+    ranges.push({ first: i, last: j, hours: week[i]! })
+    i = j + 1
+  }
+  return ranges
+}
+
 /**
  * «Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00» — соседние дни с одинаковыми часами
  * сливаются в диапазон, выходные пишутся словом.
  */
 export function hoursLine(week: DayHours[], locale: ContentLocale): string {
-  const same = (a: DayHours, b: DayHours) =>
-    a.open === b.open && (!a.open || (a.from === b.from && a.to === b.to))
-  const parts: string[] = []
-  for (let i = 0; i < week.length;) {
-    let j = i
-    while (j + 1 < week.length && same(week[j + 1]!, week[i]!)) j++
-    const names = dayNames[locale]
-    const days = i === j ? names[i] : `${names[i]}–${names[j]}`
-    const d = week[i]!
-    parts.push(
-      d.open
-        ? `${days} ${time(d.from, locale)}–${time(d.to, locale)}`
-        : `${days} ${words[locale].closed}`,
-    )
-    i = j + 1
-  }
+  const names = dayNames[locale]
+  const parts = groupWeek(week).map(({ first, last, hours: d }) => {
+    const days = first === last ? names[first] : `${names[first]}–${names[last]}`
+    return d.open
+      ? `${days} ${time(d.from, locale)}–${time(d.to, locale)}`
+      : `${days} ${words[locale].closed}`
+  })
   return `${words[locale].open}: ${parts.join(', ')}`
 }
 

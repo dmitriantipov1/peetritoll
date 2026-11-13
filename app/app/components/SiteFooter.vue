@@ -1,17 +1,23 @@
 <script setup lang="ts">
 // Подвал сайта. Разметка и классы — из прототипа (index.html).
-// Часы, адрес и телефон пока вписаны здесь; из базы они придут со срезом
-// «Контакты, часы работы, настройки сайта» (6.1, шаг 1.2).
+// Часы, адрес, телефон, почта и соцсети — из админки «Контакты и часы» (тот же запрос,
+// что у страницы «Контакты»). Пустые ссылки соцсетей не показываем (TripAdvisor и
+// Foursquare ждём от заказчицы, 8.3).
+import { phoneDigits } from '#shared/site-contacts'
+
 const { t } = useI18n()
 const localePath = useLocalePath()
 const year = new Date().getFullYear()
 
-// Адресов TripAdvisor и Foursquare пока нет, ждём от заказчицы (8.3)
-const social = [
-  { label: 'Facebook', href: 'https://www.facebook.com/TavernPeetriToll' },
-  { label: 'TripAdvisor', href: '#' },
-  { label: 'Foursquare', href: '#' },
-]
+const { data: c } = await useSiteContacts()
+
+const social = computed(() =>
+  [
+    { label: 'Facebook', href: c.value?.facebook },
+    { label: 'TripAdvisor', href: c.value?.tripadvisor },
+    { label: 'Foursquare', href: c.value?.foursquare },
+  ].filter((s) => s.href),
+)
 </script>
 
 <template>
@@ -26,11 +32,15 @@ const social = [
         loading="lazy"
       />
 
-      <address class="footer__contacts">
-        <p>{{ t('footer.hours') }}</p>
-        <p>{{ t('footer.address') }}</p>
-        <p><a href="tel:+37253423425">+372 53 423 425</a></p>
-        <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+      <address v-if="c" class="footer__contacts">
+        <p>{{ c.hoursLine }}</p>
+        <p v-if="c.address">{{ c.address }}</p>
+        <p v-if="c.phone">
+          <a :href="`tel:${phoneDigits(c.phone)}`">{{ c.phone }}</a>
+        </p>
+        <p v-if="c.email">
+          <a :href="`mailto:${c.email}`">{{ c.email }}</a>
+        </p>
       </address>
     </div>
 
