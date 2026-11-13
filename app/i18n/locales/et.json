@@ -45,5 +45,11 @@
     "colPrice": "Hind",
     "noMenu": "Selle päeva menüü pole veel valmis",
     "emptyWeek": "Selle nädala menüü on alles valmimas — vaadake veidi hiljem."
+  },
+  "group": {
+    "title": "Reisikorraldajatele",
+    "crumb": "Grupimenüü",
+    "menuNo": "Menüü nr {n}",
+    "perPerson": "inimese kohta"
   }
 }

@@ -45,5 +45,11 @@
     "colPrice": "Price",
     "noMenu": "No menu for this day yet",
     "emptyWeek": "This week’s menu is still being prepared — please check back a little later."
+  },
+  "group": {
+    "title": "For Tour Organisers",
+    "crumb": "Group menu",
+    "menuNo": "Menu No. {n}",
+    "perPerson": "per person"
   }
 }
