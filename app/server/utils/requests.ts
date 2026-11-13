@@ -46,6 +46,8 @@ import {
 import type { CatalogKind } from '#shared/catalog'
 import { groupMenuTitles } from '#shared/group-menus'
 import { contentLocales } from '#shared/locales'
+import { preorderDates, preorderTimes } from '#shared/lunch'
+import { timeInTallinn, todayInTallinn } from '#shared/dates'
 
 type Db = ReturnType<typeof useDb>
 type Tx = Parameters<Parameters<Db['transaction']>[0]>[0]
@@ -209,6 +211,25 @@ export interface CreateRequestOptions {
   notify?: boolean
 }
 
+/**
+ * Предзаказ обеда с сайта: включён ли предзаказ, можно ли заказать на этот день и время.
+ * Те же правила, что в форме (shared/lunch.ts): форма могла быть открыта со вчерашнего дня.
+ */
+async function checkLunchPreorder(date: string, time: string, now = new Date()) {
+  const settings = await readLunchSettings()
+  if (!settings.visible || !settings.acceptPreorders) {
+    bad('Предзаказ обедов сейчас не принимается')
+  }
+  const today = todayInTallinn(now)
+  const nowTime = timeInTallinn(now)
+  if (!preorderDates(today, nowTime, settings).includes(date)) {
+    bad('На этот день заказать уже нельзя — обновите страницу', 'visitDate')
+  }
+  if (!preorderTimes(date, today, nowTime, settings).includes(time)) {
+    bad('На это время заказать нельзя — выберите другое', 'visitTime')
+  }
+}
+
 /** Новая заявка: снимок цен, согласие, запись «поступила» в историю. Возвращает номер */
 export async function createRequest(input: RequestInput, opts: CreateRequestOptions) {
   if (opts.source === 'site' && !opts.consent) {
@@ -237,6 +258,8 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, visitTime, guests } = input)
       break
     case 'lunch':
+      // С сайта — по правилам предзаказа (7.1); персонал может записать обед на любой день
+      if (opts.source === 'site') await checkLunchPreorder(input.visitDate, input.visitTime)
       details = { type: 'lunch', mode: input.mode }
       calc = await lunchCalc(input.visitDate, input.items)
       ;({ visitDate, visitTime } = input)

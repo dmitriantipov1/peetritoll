@@ -2122,3 +2122,6 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 
 /* Меню дня: день без меню — одной строкой, приглушённо (а не красным, как цена в последней ячейке) */
 .lunch-week td.lunch-week__none { font-family: var(--f-body); font-size: 16px; font-style: italic; color: var(--c-grey); text-align: left; white-space: normal; }
+
+/* Формы сайта: ошибка под полем и под кнопкой отправки */
+.form__error { display: block; margin-top: 4px; font-size: 14px; font-weight: 600; color: var(--c-red); }

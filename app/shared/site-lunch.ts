@@ -25,4 +25,6 @@ export interface SiteLunch {
   servedTo: string
   acceptPreorders: boolean
   preorderUntil: string
+  /** Время на сервере по Таллину «ЧЧ:ММ» — для первой отрисовки формы; дальше форма считает по часам гостя */
+  now: string
 }

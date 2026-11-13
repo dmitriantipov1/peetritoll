@@ -2,7 +2,7 @@
 // Раздел «Дневное меню» выключен или скрыт на этом языке — страницы нет (null).
 // Доступно в серверном коде без импорта.
 import type { SiteLunch, SiteLunchItem } from '#shared/site-lunch'
-import { addDays } from '#shared/dates'
+import { addDays, timeInTallinn } from '#shared/dates'
 import { pickTranslation, type ContentLocale } from '#shared/locales'
 
 export async function loadSiteLunch(locale: ContentLocale): Promise<SiteLunch | null> {
@@ -43,5 +43,6 @@ export async function loadSiteLunch(locale: ContentLocale): Promise<SiteLunch | 
     servedTo: week.settings.servedTo,
     acceptPreorders: week.settings.acceptPreorders,
     preorderUntil: week.settings.preorderUntil,
+    now: timeInTallinn(),
   }
 }

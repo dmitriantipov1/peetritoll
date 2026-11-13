@@ -2,7 +2,7 @@
 // «Дневная трапеза» — меню дня из базы (lunch.html прототипа, вариант 3 «таблица на неделю»).
 // Ссылок с сайта нет — только прямая ссылка (решение заказчицы 11.11.2026).
 // «День / Наименование / Цена»: суп и под ним горячее, у каждого своя цена; сегодня подсвечено.
-// Предзаказ — следующим слоем.
+// Ниже — предзаказ (components/LunchPreorder.vue), если он включён в настройках меню дня.
 import type { SiteLunch, SiteLunchDay } from '#shared/site-lunch'
 import { formatPrice } from '#shared/money'
 
@@ -70,6 +70,9 @@ const emptyWeek = computed(() => lunch.value?.days.every((d) => !d.soup && !d.ma
           num="01"
           :crumb="t('lunch.sectionCrumb', { hours })"
           :title="t('lunch.sectionTitle')"
+          :more="
+            lunch.acceptPreorders ? { to: '#predzakaz', label: t('lunch.orderAhead') } : undefined
+          "
         />
 
         <div class="intro intro--single">
@@ -124,5 +127,7 @@ const emptyWeek = computed(() => lunch.value?.days.every((d) => !d.soup && !d.ma
         </table>
       </div>
     </section>
+
+    <LunchPreorder v-if="lunch.acceptPreorders" :lunch="lunch" />
   </div>
 </template>
