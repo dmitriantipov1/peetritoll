@@ -49,6 +49,7 @@ import { groupLeadOk, groupMenuTitles } from '#shared/group-menus'
 import { contentLocales, type ContentLocale } from '#shared/locales'
 import { eventPlacesLeft, materialStatus } from '#shared/materials'
 import { preorderDates, preorderTimes } from '#shared/lunch'
+import { bookingTimes, isBanquetSize } from '#shared/table-booking'
 import { timeInTallinn, todayInTallinn } from '#shared/dates'
 
 type Db = ReturnType<typeof useDb>
@@ -301,6 +302,24 @@ async function checkGroupRequest(guests: number, date: string | null, time: stri
   }
 }
 
+/**
+ * Бронь стола с сайта (7.1): по часам работы и особым дням, не позже чем за N минут до закрытия,
+ * не раньше чем через N часов; от N гостей — это банкет. Те же правила, что в форме
+ * (shared/table-booking.ts). Персонал из админки может записать любую бронь.
+ */
+async function checkTableBooking(date: string, time: string, guests: number) {
+  const { hours } = await loadContacts()
+  if (isBanquetSize(guests, hours)) {
+    bad(
+      `Для компании от ${hours.banquetFromGuests} гостей — запрос на банкет или звонок нам`,
+      'guests',
+    )
+  }
+  if (!bookingTimes(date, hours).includes(time)) {
+    bad('На это время онлайн-бронь недоступна — выберите другое или позвоните нам', 'visitTime')
+  }
+}
+
 /** Новая заявка: снимок цен, согласие, запись «поступила» в историю. Возвращает номер */
 export async function createRequest(input: RequestInput, opts: CreateRequestOptions) {
   if (opts.source === 'site' && !opts.consent) {
@@ -315,6 +334,8 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
 
   switch (input.type) {
     case 'table':
+      if (opts.source === 'site')
+        await checkTableBooking(input.visitDate, input.visitTime, input.guests)
       details = { type: 'table', occasion: input.occasion }
       ;({ visitDate, visitTime, guests } = input)
       break

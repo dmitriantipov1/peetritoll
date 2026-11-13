@@ -39,8 +39,25 @@ export async function loadSiteRestaurant(locale: ContentLocale): Promise<SiteRes
   const shown = (key: keyof typeof sections) =>
     sections[key].enabled && sections[key].locales[locale]
   if (!shown('restaurant')) return null
+  const { hours } = await loadContacts()
   return {
     gallery: shown('gallery') ? await loadSiteGallery(locale) : null,
     links: { menu: shown('menu'), banquet: shown('banquet'), group: shown('group') },
+    // Правила брони целиком: форма считает время сама, сервер проверяет ещё раз
+    booking: shown('booking')
+      ? {
+          week: hours.week,
+          specialDays: hours.specialDays.map(({ date, open, from, to }) => ({
+            date,
+            open,
+            from,
+            to,
+          })),
+          lastBookingBeforeCloseMin: hours.lastBookingBeforeCloseMin,
+          bookingLeadHours: hours.bookingLeadHours,
+          banquetFromGuests: hours.banquetFromGuests,
+        }
+      : null,
+    now: new Date().toISOString(),
   }
 }

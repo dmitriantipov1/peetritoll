@@ -1,6 +1,7 @@
 // Страница «Ресторан» (restaurant.html прототипа): что приходит из базы — галерея
 // и какие разделы сайта включены (ссылки на меню, банкет и группы показываем, только если есть куда).
 import type { MediaImage } from './media'
+import type { BookingRules } from './table-booking'
 
 export interface SiteGalleryPhoto {
   id: number
@@ -20,4 +21,8 @@ export interface SiteRestaurant {
   /** Раздел «Галерея» выключен или скрыт на этом языке, или фото нет — null */
   gallery: SiteGallery | null
   links: { menu: boolean; banquet: boolean; group: boolean }
+  /** Бронь стола: раздел «Бронь стола» выключен или скрыт на этом языке — null */
+  booking: BookingRules | null
+  /** «Сейчас» сервера, ISO: форма брони считает время от него, пока страница не ожила */
+  now: string
 }

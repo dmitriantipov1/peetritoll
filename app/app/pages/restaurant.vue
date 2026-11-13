@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // «Ресторан» (restaurant.html прототипа): 01 залы и события, 02 меню (часы — из «Контактов
 // и часов»), 03 галерея из базы с фильтром по категориям и фото крупно, 04 отзывы.
-// «05 Забронировать стол» — следующий слой (форма брони). Раздел «Ресторан» выключен — 404.
+// «05 Забронировать стол» — components/TableBooking.vue, последним разделом: сначала гость
+// знакомится с рестораном, потом бронирует (7.1). Раздел «Ресторан» выключен — 404.
 import type { SiteRestaurant } from '#shared/site-restaurant'
 
 const { t, locale } = useI18n()
@@ -252,11 +253,24 @@ const reviews = ['tripadvisor', 'google'] as const
               t('restaurant.reviews.quote2')
             }}</span>
           </p>
-          <NuxtLink class="btn btn--red" :to="localePath('/contacts')">{{
+          <a v-if="r.booking" class="btn btn--red" href="#bron">{{
+            t('restaurant.reviews.book')
+          }}</a>
+          <NuxtLink v-else class="btn btn--red" :to="localePath('/contacts')">{{
             t('restaurant.reviews.contact')
           }}</NuxtLink>
         </div>
       </div>
     </section>
+
+    <TableBooking
+      v-if="r.booking"
+      :num="r.gallery ? '05' : '04'"
+      :rules="r.booking"
+      :server-now="r.now"
+      :hours="hours"
+      :banquet-link="r.links.banquet"
+      :group-link="r.links.group"
+    />
   </div>
 </template>
