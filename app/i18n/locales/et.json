@@ -12,7 +12,18 @@
     "open": "Ava menüü",
     "close": "Sulge menüü",
     "language": "Keel",
-    "logo": "Peetri Toll — avalehele"
+    "logo": "Peetri Toll — avalehele",
+    "sub": {
+      "menu": {
+        "title": "Restorani menüü"
+      },
+      "banquet": {
+        "title": "Banketimenüü"
+      },
+      "group": {
+        "title": "Grupimenüü"
+      }
+    }
   },
   "footer": {
     "hours": "Avatud: E–N 11.00–18.00, R–P 11.00–19.00",

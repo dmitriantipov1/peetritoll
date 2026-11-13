@@ -12,7 +12,18 @@
     "open": "Open menu",
     "close": "Close menu",
     "language": "Language",
-    "logo": "Peetri Toll — home"
+    "logo": "Peetri Toll — home",
+    "sub": {
+      "menu": {
+        "title": "Restaurant menu"
+      },
+      "banquet": {
+        "title": "Banquet menu"
+      },
+      "group": {
+        "title": "Group menu"
+      }
+    }
   },
   "footer": {
     "hours": "Open: Mon–Thu 11:00–18:00, Fri–Sun 11:00–19:00",
