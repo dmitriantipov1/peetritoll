@@ -10,6 +10,7 @@ import {
   type RequestCalcLine,
 } from '#shared/requests'
 import { fullDate } from '#shared/dates'
+import { catalogUnitPer } from '#shared/catalog'
 import { slugify } from '#shared/slug'
 
 const EURO = '#,##0.00 "€"'
@@ -63,8 +64,8 @@ export async function requestExcel(row: RequestRow): Promise<Buffer> {
   const head = sheet.addRow([
     groupMenu ? 'Меню' : 'Категория',
     groupMenu ? 'Обед' : 'Блюдо',
-    groupMenu ? 'С человека' : 'Цена за порцию',
-    groupMenu ? 'Человек' : 'Порций',
+    groupMenu ? 'С человека' : 'Цена за единицу',
+    groupMenu ? 'Человек' : 'Количество',
     'Сумма',
     'Предложение заведения',
     'Комментарий',
@@ -78,7 +79,14 @@ export async function requestExcel(row: RequestRow): Promise<Buffer> {
   const lines: RequestCalcLine[] = row.calc?.lines ?? []
   const first = sheet.rowCount + 1
   for (const l of lines) {
-    const r = sheet.addRow([ruFirst(l.category), ruFirst(l.names), l.priceCents / 100, l.qty])
+    // Единица — к названию: в колонке количества число, его считает формула суммы
+    const unit = l.unit && l.unit !== 'portion' ? ` (за ${catalogUnitPer[l.unit].ru})` : ''
+    const r = sheet.addRow([
+      ruFirst(l.category),
+      ruFirst(l.names) + unit,
+      l.priceCents / 100,
+      l.qty,
+    ])
     // Сумма — формулой: заказчица меняет порции, сумма пересчитывается сама
     r.getCell(5).value = {
       formula: `C${r.number}*D${r.number}`,

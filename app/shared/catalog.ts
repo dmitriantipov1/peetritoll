@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { contentLocales } from './locales'
 import type { Localized } from './menu'
 import { formatPrice } from './money'
+import { addDays } from './dates'
 
 export const catalogKinds = ['banquet'] as const
 export type CatalogKind = (typeof catalogKinds)[number]
@@ -149,6 +150,21 @@ export function banquetShortfall(
     .filter((l) => l.categoryId === settings.warnCategoryId)
     .reduce((sum, l) => sum + l.qty * l.servesGuests, 0)
   return covered < guests * settings.warnMinPerGuest ? covered : null
+}
+
+/**
+ * Запрос банкета с сайта (7.1): гостей — в вместимость зала, дата — не раньше чем через
+ * leadDays дней от сегодня (по Таллину). Возвращает, что не так, или null.
+ */
+export function banquetRequestProblem(
+  guests: number,
+  date: string,
+  today: string,
+  settings: Pick<BanquetSettings, 'capacityMin' | 'capacityMax' | 'leadDays'>,
+): 'capacity' | 'lead' | null {
+  if (guests < settings.capacityMin || guests > settings.capacityMax) return 'capacity'
+  if (date < addDays(today, settings.leadDays)) return 'lead'
+  return null
 }
 
 // ---------- Проверка ----------

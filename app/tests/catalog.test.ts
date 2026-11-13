@@ -1,6 +1,12 @@
 // Единица блюда банкетного каталога (13.11.2026): «1 кг салата на 10 гостей», а не 10 кг
 import { describe, expect, it } from 'vitest'
-import { banquetShortfall, pricePerGuest, unitPriceLabel, unitsForGuests } from '../shared/catalog'
+import {
+  banquetRequestProblem,
+  banquetShortfall,
+  pricePerGuest,
+  unitPriceLabel,
+  unitsForGuests,
+} from '../shared/catalog'
 
 describe('банкет: количество по числу гостей', () => {
   it('порция на одного — по гостю', () => {
@@ -51,5 +57,23 @@ describe('банкет: подсказка «мало горячего»', () =>
   it('ничего не выбрано или категория не задана — молчим', () => {
     expect(banquetShortfall([hot(0)], 20, settings)).toBeNull()
     expect(banquetShortfall([salad], 20, { ...settings, warnCategoryId: null })).toBeNull()
+  })
+})
+
+describe('банкет: запрос с сайта', () => {
+  const settings = { capacityMin: 10, capacityMax: 40, leadDays: 3 }
+  const today = '2026-11-13'
+
+  it('в вместимость и не раньше срока — можно', () => {
+    expect(banquetRequestProblem(20, '2026-11-16', today, settings)).toBeNull()
+  })
+
+  it('гостей меньше или больше вместимости зала', () => {
+    expect(banquetRequestProblem(9, '2026-11-20', today, settings)).toBe('capacity')
+    expect(banquetRequestProblem(41, '2026-11-20', today, settings)).toBe('capacity')
+  })
+
+  it('раньше чем через 3 дня — поздно', () => {
+    expect(banquetRequestProblem(20, '2026-11-15', today, settings)).toBe('lead')
   })
 })

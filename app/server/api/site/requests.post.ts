@@ -1,6 +1,6 @@
 // Заявка с формы сайта: POST /api/site/requests → { id }
-// Принимаем бронь стола, предзаказ обеда, запрос группы и запись на мероприятие (банкет
-// и экскурсии — следующими срезами).
+// Принимаем бронь стола, запрос банкета, предзаказ обеда, запрос группы и запись
+// на мероприятие (экскурсии — следующим срезом).
 // Согласие на обработку обязательно (8.1), его время и версия политики сохраняются с заявкой.
 // Защита от спама: поле-ловушка website (люди его не видят и не заполняют) и не больше
 // 10 отправок за 10 минут с одного адреса.
@@ -12,7 +12,7 @@ const formSchema = z.object({
   website: z.string().max(0).optional(),
 })
 
-const publicTypes = ['table', 'lunch', 'group', 'event'] as const
+const publicTypes = ['table', 'banquet', 'lunch', 'group', 'event'] as const
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -42,7 +42,9 @@ export default defineEventHandler(async (event) => {
           ? sections.events
           : input.type === 'table'
             ? sections.booking
-            : null
+            : input.type === 'banquet'
+              ? sections.banquet
+              : null
   if (section && (!section.enabled || !section.locales[input.locale])) {
     throw createError({ statusCode: 404, message: 'Этот раздел сейчас не принимает заявки' })
   }

@@ -5,6 +5,7 @@ import type { Section } from './access'
 import { contentLocales } from './locales'
 import { isDateString } from './dates'
 import type { Localized } from './menu'
+import { catalogUnitShort, type CatalogUnit } from './catalog'
 
 // ---------- Виды и статусы ----------
 
@@ -142,6 +143,14 @@ export interface RequestCalcLine {
   category: Localized<string> | null
   priceCents: number
   qty: number
+  /** Единица блюда банкетного каталога снимком (13.11.2026): qty — в ней, цена — за неё.
+   *  Нет — порции (заявки до единиц, обед, меню группы) */
+  unit?: CatalogUnit
+}
+
+/** Количество строки для людей: «2 кг», «3 шт.»; порции — просто число */
+export function calcLineQty(l: Pick<RequestCalcLine, 'qty' | 'unit'>): string {
+  return l.unit && l.unit !== 'portion' ? `${l.qty} ${catalogUnitShort[l.unit].ru}` : String(l.qty)
 }
 
 export interface RequestCalc {

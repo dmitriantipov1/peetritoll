@@ -7,6 +7,7 @@ import { fullDate, momentLabel, todayInTallinn, weekday } from '#shared/dates'
 import { formatPrice } from '#shared/money'
 import { plural } from '#shared/plural'
 import {
+  calcLineQty,
   banquetOccasionNames,
   lunchModeNames,
   requestFieldNames,
@@ -198,6 +199,10 @@ const calcHead = computed(() => {
   if (lines.some((l) => l.ref.kind === 'groupMenu')) {
     return { item: 'Обед', price: 'С человека', qty: 'Человек' }
   }
+  // Есть блюда на вес или штуками — общие слова; количество с единицей в строке («2 кг»)
+  if (lines.some((l) => l.unit && l.unit !== 'portion')) {
+    return { item: 'Блюдо', price: 'Цена за единицу', qty: 'Количество' }
+  }
   return { item: 'Блюдо', price: 'Цена за порцию', qty: 'Порций' }
 })
 
@@ -370,7 +375,7 @@ const source = computed(() => {
                         {{ formatPrice(l.nowCents) }}
                       </span>
                     </td>
-                    <td class="num">{{ l.qty }}</td>
+                    <td class="num">{{ calcLineQty(l) }}</td>
                     <td class="num">{{ formatPrice(l.priceCents * l.qty) }}</td>
                   </tr>
                 </template>

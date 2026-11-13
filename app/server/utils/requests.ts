@@ -50,6 +50,7 @@ import { contentLocales, type ContentLocale } from '#shared/locales'
 import { eventPlacesLeft, materialStatus } from '#shared/materials'
 import { preorderDates, preorderTimes } from '#shared/lunch'
 import { bookingTimes, isBanquetSize } from '#shared/table-booking'
+import { banquetRequestProblem } from '#shared/catalog'
 import { timeInTallinn, todayInTallinn } from '#shared/dates'
 
 type Db = ReturnType<typeof useDb>
@@ -105,6 +106,7 @@ async function catalogCalc(
       category: byLocale(dish.category.translations, 'name'),
       priceCents: dish.priceCents,
       qty: item.qty,
+      unit: dish.unit,
     })
   }
   return finishCalc(lines)
@@ -302,6 +304,24 @@ async function checkGroupRequest(guests: number, date: string | null, time: stri
   }
 }
 
+/** Запрос банкета с сайта (7.1): вместимость зала и срок в днях — из настроек банкета */
+async function checkBanquetRequest(guests: number, date: string) {
+  const settings = await readCatalogSettings('banquet')
+  const problem = banquetRequestProblem(guests, date, todayInTallinn(), settings)
+  if (problem === 'capacity') {
+    bad(
+      `В зале — от ${settings.capacityMin} до ${settings.capacityMax} гостей. Для другого числа позвоните нам`,
+      'guests',
+    )
+  }
+  if (problem === 'lead') {
+    bad(
+      `Запрос принимаем не позже чем за ${settings.leadDays} дн. до события — выберите дату позже или позвоните нам`,
+      'visitDate',
+    )
+  }
+}
+
 /**
  * Бронь стола с сайта (7.1): по часам работы и особым дням, не позже чем за N минут до закрытия,
  * не раньше чем через N часов; от N гостей — это банкет. Те же правила, что в форме
@@ -340,6 +360,8 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, visitTime, guests } = input)
       break
     case 'banquet':
+      // С сайта — вместимость и срок; персонал может записать любой банкет
+      if (opts.source === 'site') await checkBanquetRequest(input.guests, input.visitDate)
       details = { type: 'banquet', occasion: input.occasion, setTier: input.setTier }
       calc = await catalogCalc('banquet', input.items, opts.source)
       ;({ visitDate, visitTime, guests } = input)

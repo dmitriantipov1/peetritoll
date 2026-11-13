@@ -9,7 +9,7 @@ import { requestHistory, requests, type RequestRow } from '../db/schema'
 import { fullDate, weekday } from '#shared/dates'
 import { formatPrice } from '#shared/money'
 import { plural } from '#shared/plural'
-import { requestTypeNames, ruFirst } from '#shared/requests'
+import { calcLineQty, requestTypeNames, ruFirst } from '#shared/requests'
 import { defaultNotifications, notificationsSchema } from '#shared/site-settings'
 
 const weekdays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
@@ -42,7 +42,7 @@ function calcText(row: RequestRow): string[] {
   if (!row.calc?.lines.length) return []
   const lines = row.calc.lines.map(
     (l) =>
-      `  ${l.ref.kind === 'groupMenu' ? `${ruFirst(l.category)} «${ruFirst(l.names)}»` : ruFirst(l.names)} — ${l.qty} × ${formatPrice(l.priceCents)} = ${formatPrice(l.priceCents * l.qty)}`,
+      `  ${l.ref.kind === 'groupMenu' ? `${ruFirst(l.category)} «${ruFirst(l.names)}»` : ruFirst(l.names)} — ${calcLineQty(l)} × ${formatPrice(l.priceCents)} = ${formatPrice(l.priceCents * l.qty)}`,
   )
   return [
     'Расчёт:',
