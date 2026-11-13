@@ -2108,3 +2108,14 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 
 /* Афиша на главной пока не открывается крупно (окно с афишей прототипа — позже) */
 [data-rotate] .events__poster--still { cursor: default; }
+
+/* Текст страницы из редактора админки (страницы-материалы: политика конфиденциальности, cookies…).
+   В HTML из редактора голые h2, h3, списки и цитаты — оформляем как статью прототипа (.article__h) */
+.article--rich > * + * { margin-top: var(--s-2); }
+.article--rich h2 { font-family: var(--f-head); font-weight: 400; font-size: clamp(24px, 2.6vw, 30px); margin-top: var(--s-4); }
+.article--rich h3 { font-family: var(--f-head); font-weight: 700; font-size: 20px; margin-top: var(--s-3); }
+.article--rich ul, .article--rich ol { padding-left: 1.4em; }
+.article--rich li + li { margin-top: 6px; }
+.article--rich blockquote { padding-left: var(--s-3); border-left: 3px solid var(--c-gold); font-family: var(--f-head); font-style: italic; }
+.article--rich hr { border: 0; border-top: 1px solid rgba(111,108,108,.4); margin: var(--s-4) 0; }
+.article--rich a { color: var(--c-gold-text); }
