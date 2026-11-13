@@ -109,6 +109,7 @@ export const reservedPageSlugs = [
   'shop',
   'gallery',
   'authors',
+  'subscribe',
 ] as const
 
 // ---------- Что отдаёт сервер ----------

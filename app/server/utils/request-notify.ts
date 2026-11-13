@@ -16,7 +16,7 @@ const weekdays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
 const localeNames = { et: 'эстонская', en: 'английская', ru: 'русская' } as const
 
 /** Адрес сайта для ссылок в письмах — NUXT_PUBLIC_I18N_BASE_URL */
-function siteUrl(): string {
+export function siteUrl(): string {
   const base = useRuntimeConfig().public.i18n?.baseUrl
   return (typeof base === 'string' && base ? base : 'http://localhost:3000').replace(/\/$/, '')
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // «Новости» (news.html прототипа): опубликованные новости, новые сверху, фильтр по темам
 // (только темы, по которым есть новости) и «Показать ещё» по 9. Раздел «Новости» выключен — 404.
-// Подписка на рассылку — следующий слой.
+// Ниже — подписка на рассылку (components/NewsSubscribe.vue).
 import type { SiteNewsCard } from '#shared/site-news'
 import { newsTopics, type NewsTopic } from '#shared/materials'
 import type { ContentLocale } from '#shared/locales'
@@ -78,5 +78,7 @@ const visible = computed(() => filtered.value.slice(0, shown.value))
         </div>
       </div>
     </section>
+
+    <NewsSubscribe />
   </div>
 </template>

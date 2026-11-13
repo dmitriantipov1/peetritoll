@@ -127,6 +127,13 @@
       "when": 1794578822947,
       "tag": "0017_news_topic",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1794579469309,
+      "tag": "0018_subscriptions",
+      "breakpoints": true
     }
   ]
 }
