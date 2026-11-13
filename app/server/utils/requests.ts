@@ -31,6 +31,7 @@ import {
   ruFirst,
   tableOccasionNames,
   tourTopicNames,
+  type TourTopic,
   type AdminRequest,
   type AdminRequestRow,
   type RequestSave,
@@ -323,6 +324,20 @@ async function checkBanquetRequest(guests: number, date: string) {
 }
 
 /**
+ * Заявка на экскурсию с сайта («Экскурсии и поездки», 7.2): дата — не в прошлом;
+ * Pakri Express — только если его раздел включён (ждёт условий заказчицы).
+ */
+async function checkTourRequest(date: string, topic: TourTopic, locale: ContentLocale) {
+  if (date < todayInTallinn()) bad('Эта дата уже прошла — выберите другую', 'visitDate')
+  if (topic === 'pakri') {
+    const { pakri } = await readSections()
+    if (!pakri.enabled || !pakri.locales[locale]) {
+      bad('Поездки Pakri Express сейчас не принимаем — выберите другое', 'topic')
+    }
+  }
+}
+
+/**
  * Бронь стола с сайта (7.1): по часам работы и особым дням, не позже чем за N минут до закрытия,
  * не раньше чем через N часов; от N гостей — это банкет. Те же правила, что в форме
  * (shared/table-booking.ts). Персонал из админки может записать любую бронь.
@@ -382,6 +397,7 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       ;({ visitDate, visitTime } = input)
       break
     case 'tour':
+      if (opts.source === 'site') await checkTourRequest(input.visitDate, input.topic, input.locale)
       details = { type: 'tour', topic: input.topic }
       ;({ visitDate, guests } = input)
       break

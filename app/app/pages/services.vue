@@ -2,7 +2,9 @@
 // «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды,
 // 03 мобильный аудиогид, 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
 // 7.2), 06 банкетный зал (если включён), 07 заявка. Номера разделов идут подряд.
-// Тексты и цены пока в переводах, не в админке. Форма заявки — следующий слой.
+// Тексты и цены пока в переводах, не в админке. Заявка — components/TourRequest.vue;
+// кнопки «Заказать» выше сразу выбирают тему заявки.
+import type { TourTopic } from '#shared/requests'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
@@ -33,9 +35,12 @@ const order = computed(() =>
 const num = (key: string) => String(order.value.indexOf(key) + 1).padStart(2, '0')
 
 const tours = [
-  { key: 'express', image: '/images/weapons-2.jpg' },
-  { key: 'secrets', image: '/images/restaurant-house.jpg' },
+  { key: 'express', image: '/images/weapons-2.jpg', topic: 'exhibition' },
+  { key: 'secrets', image: '/images/restaurant-house.jpg', topic: 'secrets' },
 ] as const
+
+/** Тема заявки: кнопки «Заказать» выше выбирают её и ведут к форме */
+const topic = ref<TourTopic>('exhibition')
 </script>
 
 <template>
@@ -65,7 +70,9 @@ const tours = [
             <h3 class="service__title">{{ t(`services.tours.${tour.key}.title`) }}</h3>
             <p class="service__text">{{ t(`services.tours.${tour.key}.text`) }}</p>
             <p class="tile__meta">{{ t(`services.tours.${tour.key}.meta`) }}</p>
-            <a class="service__link" href="#zayavka">{{ t('services.order') }}</a>
+            <a class="service__link" href="#zayavka" @click="topic = tour.topic">{{
+              t('services.order')
+            }}</a>
           </li>
         </ul>
       </div>
@@ -93,7 +100,9 @@ const tours = [
                 <dd>{{ t('services.guides.routeText') }}</dd>
               </div>
             </dl>
-            <a class="btn" href="#zayavka">{{ t('services.guides.order') }}</a>
+            <a class="btn" href="#zayavka" @click="topic = 'guide'">{{
+              t('services.guides.order')
+            }}</a>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/guides.jpg" :alt="t('services.guides.alt')" />
@@ -173,7 +182,9 @@ const tours = [
             <h3 class="ev-card__title">{{ t('services.radio.rent') }}</h3>
             <p class="ev-card__price">{{ t('services.radio.rentPrice') }}</p>
             <p>{{ t('services.radio.rentText') }}</p>
-            <a class="btn btn--sm btn--red" href="#zayavka">{{ t('services.radio.request') }}</a>
+            <a class="btn btn--sm btn--red" href="#zayavka" @click="topic = 'radioguides'">{{
+              t('services.radio.request')
+            }}</a>
           </div>
         </div>
       </div>
@@ -200,7 +211,9 @@ const tours = [
                 </dd>
               </div>
             </dl>
-            <a class="btn" href="#zayavka">{{ t('services.pakri.schedule') }}</a>
+            <a class="btn" href="#zayavka" @click="topic = 'pakri'">{{
+              t('services.pakri.schedule')
+            }}</a>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/pakri-express.jpg" :alt="t('services.pakri.alt')" />
@@ -288,7 +301,7 @@ const tours = [
               }}</span>
             </p>
           </div>
-          <p class="events-empty">{{ t('services.request.soon') }}</p>
+          <TourRequest v-model:topic="topic" :pakri="s.pakri" />
         </div>
       </div>
     </section>
