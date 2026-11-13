@@ -2119,3 +2119,6 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 .article--rich blockquote { padding-left: var(--s-3); border-left: 3px solid var(--c-gold); font-family: var(--f-head); font-style: italic; }
 .article--rich hr { border: 0; border-top: 1px solid rgba(111,108,108,.4); margin: var(--s-4) 0; }
 .article--rich a { color: var(--c-gold-text); }
+
+/* Меню дня: день без меню — одной строкой, приглушённо (а не красным, как цена в последней ячейке) */
+.lunch-week td.lunch-week__none { font-family: var(--f-body); font-size: 16px; font-style: italic; color: var(--c-grey); text-align: left; white-space: normal; }

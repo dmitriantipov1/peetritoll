@@ -33,5 +33,17 @@
   },
   "menu": {
     "allergens": "Please speak to our staff if you have any questions about allergens"
+  },
+  "lunch": {
+    "title": "Daytime Fare",
+    "crumb": "Lunch menu",
+    "soup": "Soup",
+    "main": "Main course",
+    "today": "Today",
+    "colDay": "Day",
+    "colName": "Dish",
+    "colPrice": "Price",
+    "noMenu": "No menu for this day yet",
+    "emptyWeek": "This week’s menu is still being prepared — please check back a little later."
   }
 }

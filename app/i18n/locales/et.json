@@ -33,5 +33,17 @@
   },
   "menu": {
     "allergens": "Allergeenide kohta lisateabe saamiseks pöörduge palun teenindava personaali poole"
+  },
+  "lunch": {
+    "title": "Päevane söömaaeg",
+    "crumb": "Päevamenüü",
+    "soup": "Supp",
+    "main": "Praad",
+    "today": "Täna",
+    "colDay": "Päev",
+    "colName": "Nimetus",
+    "colPrice": "Hind",
+    "noMenu": "Selle päeva menüü pole veel valmis",
+    "emptyWeek": "Selle nädala menüü on alles valmimas — vaadake veidi hiljem."
   }
 }
