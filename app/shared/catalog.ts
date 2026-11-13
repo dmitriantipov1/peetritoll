@@ -23,6 +23,21 @@ export const catalogUnits = {
   dish: { et: 'vaagen', en: 'platter', ru: 'блюдо' },
 } as const satisfies Record<string, Record<'et' | 'en' | 'ru', string>>
 export type CatalogUnit = keyof typeof catalogUnits
+
+/** После «за»: «6,50 € за порцию», «12 € за кг» — в русском падеж другой */
+export const catalogUnitPer = {
+  ...catalogUnits,
+  portion: { et: 'portsjon', en: 'portion', ru: 'порцию' },
+} as const satisfies Record<CatalogUnit, Record<'et' | 'en' | 'ru', string>>
+
+/** Коротко после числа: «10 порц.», «2 кг», «3 шт.» — в «Вашем выборе» и в расчёте заявки */
+export const catalogUnitShort = {
+  portion: { et: 'port.', en: 'port.', ru: 'порц.' },
+  kg: { et: 'kg', en: 'kg', ru: 'кг' },
+  pcs: { et: 'tk', en: 'pcs', ru: 'шт.' },
+  l: { et: 'l', en: 'l', ru: 'л' },
+  dish: { et: 'vaag.', en: 'plt.', ru: 'бл.' },
+} as const satisfies Record<CatalogUnit, Record<'et' | 'en' | 'ru', string>>
 export const catalogUnitKeys = Object.keys(catalogUnits) as [CatalogUnit, ...CatalogUnit[]]
 
 /** Сколько единиц блюда на столько гостей: гости ÷ «хватает на», с округлением вверх */
@@ -114,6 +129,26 @@ export interface AdminCatalog {
   settings: BanquetSettings
   /** Сеты банкета: всегда три ступени */
   sets: AdminBanquetSet[]
+}
+
+// ---------- Калькулятор на сайте ----------
+
+/**
+ * Мягкое предупреждение (подсказка, не запрет — 7.1): в категории из настроек (обычно
+ * «Горячее») блюд хватает меньше чем на warnMinPerGuest × гостей. С единицами считаем
+ * не единицы, а сколько гостей они накормят: «1 кг на 10» — это 10.
+ * Возвращает, на сколько гостей хватает, если мало; иначе null.
+ */
+export function banquetShortfall(
+  lines: { qty: number; servesGuests: number; categoryId: number }[],
+  guests: number,
+  settings: Pick<BanquetSettings, 'warnCategoryId' | 'warnMinPerGuest'>,
+): number | null {
+  if (!settings.warnCategoryId || !guests || !lines.some((l) => l.qty > 0)) return null
+  const covered = lines
+    .filter((l) => l.categoryId === settings.warnCategoryId)
+    .reduce((sum, l) => sum + l.qty * l.servesGuests, 0)
+  return covered < guests * settings.warnMinPerGuest ? covered : null
 }
 
 // ---------- Проверка ----------

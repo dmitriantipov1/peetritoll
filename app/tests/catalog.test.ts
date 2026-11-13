@@ -1,6 +1,6 @@
 // Единица блюда банкетного каталога (13.11.2026): «1 кг салата на 10 гостей», а не 10 кг
 import { describe, expect, it } from 'vitest'
-import { pricePerGuest, unitPriceLabel, unitsForGuests } from '../shared/catalog'
+import { banquetShortfall, pricePerGuest, unitPriceLabel, unitsForGuests } from '../shared/catalog'
 
 describe('банкет: количество по числу гостей', () => {
   it('порция на одного — по гостю', () => {
@@ -28,5 +28,28 @@ describe('банкет: цена на гостя', () => {
     expect(unitPriceLabel({ priceCents: 1200, unit: 'kg', servesGuests: 10 })).toBe(
       '12,00 € / кг · на 10 гостей',
     )
+  })
+})
+
+describe('банкет: подсказка «мало горячего»', () => {
+  const settings = { warnCategoryId: 2, warnMinPerGuest: 1 }
+  const hot = (qty: number, servesGuests = 1) => ({ qty, servesGuests, categoryId: 2 })
+  const salad = { qty: 20, servesGuests: 1, categoryId: 1 }
+
+  it('горячего на всех — подсказки нет', () => {
+    expect(banquetShortfall([salad, hot(20)], 20, settings)).toBeNull()
+  })
+
+  it('горячего меньше, чем гостей, — на сколько хватает', () => {
+    expect(banquetShortfall([salad, hot(5)], 20, settings)).toBe(5)
+  })
+
+  it('считаем гостей, а не единицы: 2 блюда «на 10» хватает на 20', () => {
+    expect(banquetShortfall([salad, hot(2, 10)], 20, settings)).toBeNull()
+  })
+
+  it('ничего не выбрано или категория не задана — молчим', () => {
+    expect(banquetShortfall([hot(0)], 20, settings)).toBeNull()
+    expect(banquetShortfall([salad], 20, { ...settings, warnCategoryId: null })).toBeNull()
   })
 })
