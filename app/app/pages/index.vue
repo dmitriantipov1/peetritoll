@@ -1,10 +1,14 @@
 <script setup lang="ts">
 // Главная — лендинг (index.html прототипа). Порядок разделов — звонок 06.11.2026:
 // Ресторан → Выставка → Экскурсии и поездки → Магазин → Мероприятия.
-// Слой 1: герой и разделы 01–03, тексты — в i18n/locales (home.*).
-// Магазин и мероприятия из базы — слой 2.
-const { t } = useI18n()
+// Тексты — в i18n/locales (home.*); магазин и мероприятия — из базы (/api/site/home),
+// каждый раздел есть, только если включён в настройках сайта на этом языке.
+import type { HomeData } from '#shared/home'
+
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
+
+const { data } = await useFetch<HomeData>('/api/site/home', { query: { locale } })
 
 useHead({ title: () => t('home.meta') })
 
@@ -149,5 +153,8 @@ const facts = 4
         </ul>
       </div>
     </section>
+
+    <HomeShop v-if="data?.shop" :shop="data.shop" />
+    <HomeEvents v-if="data?.events" :events="data.events" />
   </div>
 </template>

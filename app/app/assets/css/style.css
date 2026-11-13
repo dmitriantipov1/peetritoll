@@ -2105,3 +2105,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 /* Переключатель языков — ссылки на ту же страницу на другом языке, а не кнопки */
 a.lang__btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+
+/* Афиша на главной пока не открывается крупно (окно с афишей прототипа — позже) */
+[data-rotate] .events__poster--still { cursor: default; }
