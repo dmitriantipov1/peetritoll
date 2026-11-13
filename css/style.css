@@ -511,6 +511,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   margin-bottom: var(--s-3);
 }
 .intro p { max-width: 62ch; }
+/* Несколько абзацев подряд (партнёры на «О нас», 13.11.2026) — с отступом */
+.intro__text p + p { margin-top: var(--s-2); }
 .intro__aside .h4 { margin-top: 0; }
 
 .formats { list-style: none; border-top: 1px solid rgba(111,108,108,.35); }
@@ -1101,6 +1103,15 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   font-weight: 700;
   text-align: center;
   color: var(--c-grey);
+}
+/* Логотипы спонсоров и партнёров (13.11.2026): в порядке заказчицы, 1–2 ряда по центру.
+   Логотипы разной формы — уравниваем высотой, слишком широкие ограничиваем по ширине */
+.partners--logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--s-3) var(--s-4); margin-top: var(--s-4); }
+.partners--logos li { min-height: 0; padding: 0; border: 0; }
+.partners--logos img { display: block; width: auto; height: 84px; max-width: 220px; object-fit: contain; }
+@media (max-width: 640px) {
+  .partners--logos { gap: var(--s-2) var(--s-3); }
+  .partners--logos img { height: 60px; max-width: 150px; }
 }
 
 /* ---------- Отзывы ---------- */
