@@ -6,6 +6,7 @@ import type { SitePage } from '#shared/site-pages'
 
 const route = useRoute()
 const { locale } = useI18n()
+const localePath = useLocalePath()
 const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug))
@@ -20,6 +21,8 @@ if (error.value || !page.value) {
 setI18nParams(
   Object.fromEntries(Object.entries(page.value.slugs).map(([l, s]) => [l, { slug: s }])),
 )
+// В версии сайта, где страницы нет, переключатель ведёт на главную
+setLangFallback(Object.keys(page.value.slugs), (l) => localePath('/', l))
 
 useHead({ title: () => `${page.value?.title ?? ''} — Tavern Peetri Toll` })
 </script>

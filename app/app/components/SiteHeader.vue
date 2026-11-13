@@ -26,20 +26,31 @@ const subItems = computed(() =>
   })),
 )
 
-// Переключатель ведёт на эту же страницу на другом языке
+// Переключатель ведёт на эту же страницу на другом языке; если её там нет — куда скажет
+// страница (useLangFallback: новость, выключенная в этой версии сайта, → список новостей).
+// Страница задаёт это позже, чем на сервере отрисована шапка, поэтому подменяем ссылку
+// после загрузки — иначе разметка сервера и браузера не совпадёт и ссылка останется старой
+const route = useRoute()
+const langFallback = useLangFallback()
+const mounted = ref(false)
+onMounted(() => (mounted.value = true))
 const langs = computed(() =>
   locales.value.map((l) => ({
     code: l.code,
     label: String(l.label ?? l.code),
     name: l.name,
-    to: switchLocalePath(l.code),
+    to:
+      (mounted.value &&
+        langFallback.value?.path === route.path &&
+        langFallback.value.links[l.code]) ||
+      // Без якоря (#napisat): сервер его не видит, и ссылки на сервере и в браузере разошлись бы
+      switchLocalePath(l.code).split('#')[0],
   })),
 )
 
 const open = ref(false)
 const subOpen = ref(false)
 const sub = ref<HTMLElement | null>(null)
-const route = useRoute()
 const routeBaseName = useRouteBaseName()
 
 // «Меню» подсвечен на всех страницах меню, в том числе на дневном (lunch) — у него ссылки в списке нет

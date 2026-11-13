@@ -70,6 +70,15 @@ export const eventPlaces = {
 } as const satisfies Record<string, Record<ContentLocale, string>>
 export type EventPlace = keyof typeof eventPlaces
 
+// Тема новости — фильтр на странице «Новости» (решение 13.11.2026). Может быть не задана
+export const newsTopics = {
+  restaurant: { et: 'Restoran', en: 'Restaurant', ru: 'Ресторан' },
+  museum: { et: 'Muuseum', en: 'Museum', ru: 'Музей' },
+  events: { et: 'Üritused', en: 'Events', ru: 'Мероприятия' },
+} as const satisfies Record<string, Record<ContentLocale, string>>
+export type NewsTopic = keyof typeof newsTopics
+export const newsTopicKeys = Object.keys(newsTopics) as [NewsTopic, ...NewsTopic[]]
+
 /**
  * Начало адреса материала на сайте. Страницы лежат в корне языка — им нельзя брать адреса
  * разделов сайта (reservedPageSlugs).
@@ -147,6 +156,8 @@ export interface AdminMaterial {
   /** Дата выхода по Таллину, «2026-11-03T09:00» — для поля формы */
   publishAt: string | null
   locales: ContentLocale[]
+  /** Только у новости */
+  topic: NewsTopic | null
   cover: MediaImage | null
   translations: Localized<AdminMaterialTranslation>
   event: AdminMaterialEvent | null
@@ -197,6 +208,7 @@ export const materialInputSchema = z
     state: z.enum(materialStates),
     publishAt: z.string().refine(isLocalDateTime, 'Неверная дата публикации').nullable(),
     locales: z.array(z.enum(contentLocales)).max(3),
+    topic: z.enum(newsTopicKeys).nullable().default(null),
     coverId: z.uuid().nullable(),
     translations: z.partialRecord(z.enum(contentLocales), translationSchema),
     event: eventSchema.nullable(),

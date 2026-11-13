@@ -21,7 +21,13 @@ import {
 } from 'drizzle-orm/pg-core'
 import { relations, sql } from 'drizzle-orm'
 import type { ContentLocale } from '../../../shared/locales'
-import type { EventKind, EventPlace, MaterialState, MaterialType } from '../../../shared/materials'
+import type {
+  EventKind,
+  EventPlace,
+  MaterialState,
+  MaterialType,
+  NewsTopic,
+} from '../../../shared/materials'
 import { users } from './users'
 import { media } from './media'
 
@@ -37,6 +43,8 @@ export const materials = pgTable(
     // Где показывать (8.5): в каких версиях сайта материал есть. Это не перевод:
     // выключенный язык — материала для этой аудитории нет совсем, даже если перевод есть
     locales: text('locales').array().$type<ContentLocale[]>().notNull(),
+    // Тема новости — фильтр на странице «Новости» (13.11.2026); у остальных типов пусто
+    topic: text('topic').$type<NewsTopic>(),
     coverId: uuid('cover_id').references(() => media.id, { onDelete: 'set null' }),
     updatedBy: integer('updated_by').references(() => users.id, { onDelete: 'set null' }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -49,6 +57,10 @@ export const materials = pgTable(
     index('materials_type_publish').on(t.type, t.publishAt),
     check('materials_type', sql`${t.type} in ('news', 'event', 'page')`),
     check('materials_state', sql`${t.state} in ('draft', 'published', 'archived')`),
+    check(
+      'materials_topic',
+      sql`${t.topic} is null or ${t.topic} in ('restaurant', 'museum', 'events')`,
+    ),
     check('materials_locales', sql`${t.locales} <@ array['et', 'en', 'ru']::text[]`),
   ],
 )

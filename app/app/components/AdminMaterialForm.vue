@@ -8,12 +8,14 @@ import {
   materialPath,
   materialStatusNames,
   materialTypeNames,
+  newsTopics,
   type AdminMaterial,
   type EventKind,
   type EventPlace,
   type MaterialInput,
   type MaterialState,
   type MaterialType,
+  type NewsTopic,
 } from '#shared/materials'
 import { contentLocales, type ContentLocale } from '#shared/locales'
 import { fullDate, todayInTallinn, toTallinnLocal } from '#shared/dates'
@@ -50,6 +52,7 @@ function initialState() {
     state: m?.state ?? ('draft' as MaterialState),
     publishAt: m?.publishAt ?? '',
     locales: [...(m?.locales ?? [])] as ContentLocale[],
+    topic: m?.topic ?? (null as NewsTopic | null),
     cover: m?.cover ?? (null as MediaImage | null),
     translations: Object.fromEntries(
       contentLocales.map((l) => {
@@ -117,7 +120,11 @@ function toggleLocale(l: ContentLocale, on: boolean) {
   form.locales = contentLocales.filter((x) => (x === l ? on : form.locales.includes(x)))
 }
 
-// Вид и место мероприятия: пустое значение в <select> — «не указано»
+// Тема новости, вид и место мероприятия: пустое значение в <select> — «не указано»
+const topicModel = computed({
+  get: () => form.topic ?? '',
+  set: (v: string) => (form.topic = (v || null) as NewsTopic | null),
+})
 const kindModel = computed({
   get: () => form.event?.kind ?? '',
   set: (v: string) => form.event && (form.event.kind = (v || null) as EventKind | null),
@@ -144,6 +151,7 @@ function toInput(): MaterialInput {
     state: form.state,
     publishAt: form.publishAt || null,
     locales: form.locales,
+    topic: form.type === 'news' ? form.topic : null,
     coverId: form.cover?.id ?? null,
     // Язык без заголовка не сохраняем — на сайте для него покажем эстонский текст
     translations: Object.fromEntries(
@@ -316,6 +324,15 @@ const publishHint = computed(() => {
               <div v-if="form.type !== 'page'" class="field">
                 <label for="m-lead">Коротко — для карточки в списке</label>
                 <input id="m-lead" v-model="t.lead" type="text" maxlength="300" />
+              </div>
+              <div v-if="form.type === 'news'" class="field">
+                <label for="m-topic">Тема — для фильтра на странице «Новости»</label>
+                <select id="m-topic" v-model="topicModel">
+                  <option value="">Без темы</option>
+                  <option v-for="(names, key) in newsTopics" :key="key" :value="key">
+                    {{ names.ru }}
+                  </option>
+                </select>
               </div>
               <div class="field">
                 <span class="adm-legend-title">Текст страницы</span>

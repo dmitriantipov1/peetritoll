@@ -107,6 +107,7 @@ export async function loadAdminMaterial(id: number): Promise<AdminMaterial> {
     status: materialStatus({ state: m.state, publishAt, event }),
     publishAt: m.publishAt ? toTallinnLocal(m.publishAt) : null,
     locales: contentLocales.filter((l) => m.locales.includes(l)),
+    topic: m.topic,
     cover: m.cover ? toMediaImage(m.cover) : null,
     translations: translationsOf(m.translations),
     event,
@@ -207,6 +208,7 @@ export async function saveMaterial(
           state: input.state,
           publishAt,
           locales: input.locales,
+          topic: input.type === 'news' ? input.topic : null,
           coverId: input.coverId,
           updatedBy: userId,
         })
@@ -226,6 +228,7 @@ export async function saveMaterial(
           state: input.state,
           publishAt,
           locales: input.locales,
+          topic: input.type === 'news' ? input.topic : null,
           coverId: input.coverId,
           updatedBy: userId,
         })
