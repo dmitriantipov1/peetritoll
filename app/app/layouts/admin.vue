@@ -4,6 +4,7 @@
 // Сюда попадает только вошедший сотрудник: это проверяет middleware/admin.global.ts.
 import { adminNav } from '~/utils/admin-nav'
 import { roles } from '#shared/access'
+import { plural } from '#shared/plural'
 
 // Админка на одном языке, без префикса /et, /en, /ru (5.1)
 useHead({
@@ -22,6 +23,23 @@ const nav = computed(() =>
 )
 
 const userInitials = computed(() => initials(user.value?.name ?? ''))
+
+// Счётчик новых заявок в меню (как в прототипе admin/index.html): пересчитываем при каждом
+// переходе — сменили статус в карточке, вернулись к списку — цифра уже другая — и раз в минуту,
+// чтобы заявка с сайта была видна, даже если никуда не переходить
+const route = useRoute()
+const { data: counts, refresh: refreshCounts } = await useFetch<{ requests: number }>(
+  '/api/admin/nav-counts',
+  { key: 'admin-nav-counts', default: () => ({ requests: 0 }) },
+)
+watch(
+  () => route.fullPath,
+  () => refreshCounts(),
+)
+let countsTimer: ReturnType<typeof setInterval> | undefined
+onMounted(() => (countsTimer = setInterval(() => refreshCounts(), 60_000)))
+onBeforeUnmount(() => clearInterval(countsTimer))
+const countOf = (key: 'requests' | undefined) => (key ? (counts.value?.[key] ?? 0) : 0)
 </script>
 
 <template>
@@ -41,6 +59,12 @@ const userInitials = computed(() => initials(user.value?.name ?? ''))
               <NuxtLink class="adm-nav__link" exact-active-class="is-current" :to="item.to">
                 <AdminIcon :name="item.icon" />
                 {{ item.label }}
+                <span
+                  v-if="countOf(item.count)"
+                  class="adm-nav__count"
+                  :aria-label="`${countOf(item.count)} ${plural(countOf(item.count), ['новая', 'новые', 'новых'])}`"
+                  >{{ countOf(item.count) }}</span
+                >
               </NuxtLink>
             </li>
           </ul>

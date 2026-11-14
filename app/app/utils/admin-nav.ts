@@ -9,6 +9,8 @@ export interface AdminNavItem {
   label: string
   icon: AdminIconName
   access: readonly Section[]
+  /** Счётчик рядом с пунктом — ключ из /api/admin/nav-counts */
+  count?: 'requests'
 }
 
 export interface AdminNavGroup {
@@ -28,7 +30,13 @@ export const adminNav: AdminNavGroup[] = [
   {
     title: 'Работа',
     items: [
-      { to: '/admin', label: 'Заявки', icon: 'requests', access: requestSections },
+      {
+        to: '/admin',
+        label: 'Заявки',
+        icon: 'requests',
+        access: requestSections,
+        count: 'requests',
+      },
       { to: '/admin/orders', label: 'Заказы', icon: 'orders', access: ['orders'] },
     ],
   },

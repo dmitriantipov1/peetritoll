@@ -627,6 +627,17 @@ export async function loadRequestList(user: UserRow): Promise<AdminRequestRow[]>
   return rows.map(toRow)
 }
 
+/** Сколько новых заявок ждёт ответа — для счётчика в меню; только видов, доступных сотруднику */
+export async function countNewRequests(user: UserRow): Promise<number> {
+  const types = requestTypesFor(user)
+  if (!types.length) return 0
+  const [row] = await useDb()
+    .select({ n: sql<number>`count(*)::int` })
+    .from(requests)
+    .where(and(inArray(requests.type, types), eq(requests.status, 'new')))
+  return row?.n ?? 0
+}
+
 /** Карточка заявки с историей и ценами каталога сейчас — чтобы видеть, что подорожало */
 export async function loadRequest(id: number, user: UserRow): Promise<AdminRequest> {
   const [row] = await useDb().select().from(requests).where(eq(requests.id, id)).limit(1)

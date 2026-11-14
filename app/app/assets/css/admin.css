@@ -376,6 +376,8 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
   align-items: start;
 }
 .adm-stack { display: grid; gap: 24px; }
+/* Элемент сетки не шире колонки, даже если содержимое шире (длинная строка, кнопки) */
+.adm-stack > * { min-width: 0; }
 
 .adm-panel {
   padding: 24px;
@@ -736,7 +738,7 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-set__pick .adm-check { margin-top: 6px; font-size: 13px; }
 
 /* Редактор: вкладки языков */
-.adm-lang-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+.adm-lang-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
 .adm-lang-tabs button {
   display: inline-flex;
   align-items: center;
@@ -1001,6 +1003,9 @@ body.adm-body { min-width: 1200px; font-size: 16px; }
 .adm-dl-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 14px; color: #4d4842; }
 .adm-dl-meta b { font-weight: 600; color: var(--c-ink); }
 .adm-inline { display: flex; gap: 10px; align-items: flex-end; }
+/* Поля в строке («от — до») сжимаются до ширины колонки: иначе в узкой боковой панели
+   (340 px) они не помещались и растягивали её за рамку */
+.adm-inline > input { flex: 1 1 0; min-width: 0; }
 .adm-inline .field { flex: 1; }
 .adm-calc td small { display: block; font-size: 13px; color: #4d4842; }
 .adm-calc .adm-dish__name { color: var(--c-ink); }
