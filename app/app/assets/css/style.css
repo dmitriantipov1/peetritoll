@@ -41,6 +41,8 @@
   --s-2: 16px;
   --s-3: 24px;
   --s-4: 32px;
+  /* Золотая рамка внутри фото — отступ от края (14.11.2026, дизайнер: ближе к краю, было 12 px) */
+  --frame-inset: 6px;
   --s-5: 48px;
 }
 
@@ -62,6 +64,50 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
+
+/* ---------- Анимация (14.11.2026): спокойно, без эффектов ради эффектов ---------- */
+/* Наведение — цвет меняется плавно у всех ссылок и кнопок. Свои transition ниже по файлу важнее */
+a, button, .chip, .btn { transition: color .2s, background-color .2s, border-color .2s, opacity .2s; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Появление при прокрутке: .reveal и .is-in ставит плагин app/plugins/reveal.client.ts */
+  .reveal { opacity: 0; transform: translateY(16px); }
+  .reveal--ready {
+    transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Переход между страницами (14.11.2026): старая страница плавно растворяется в новой, а не
+     сменяется рывком. Встроено в браузер (View Transitions): Chrome, Edge, Safari 18.2+;
+     где не поддерживается — переход как раньше. Шапка не мигает: она на всех страницах одна.
+     В приложении переходы внутри сайта — без перезагрузки, их запускает Nuxt
+     (experimental.viewTransition в nuxt.config.ts); @view-transition — для полной загрузки */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: page-out .25s ease both; }
+  ::view-transition-new(root) { animation: page-in .35s ease both; }
+  @keyframes page-out { to { opacity: 0; } }
+  @keyframes page-in { from { opacity: 0; transform: translateY(8px); } }
+  .header { view-transition-name: site-header; }
+
+  /* + и − в калькуляторах и корзине: кнопка чуть проседает при нажатии, число «подпрыгивает»
+     (класс .is-bump ставит директива v-bump, app/plugins/motion.ts), 14.11.2026 */
+  .calc-step__btn { transition: background-color .2s, color .2s, transform .1s ease; }
+  .calc-step__btn:active { transform: scale(.88); }
+  .is-bump { animation: num-bump .35s ease; }
+  @keyframes num-bump {
+    40% { transform: scale(1.18); color: var(--c-red); }
+  }
+
+  /* Фильтры (меню, новости, галерея): то, что на экране, проявляется заново по очереди —
+     .filter-in ставит useSoftFilter (app/composables), 14.11.2026 */
+  .filter-in { animation: filter-in .35s ease both; animation-delay: var(--filter-delay, 0ms); }
+  @keyframes filter-in { from { opacity: 0; transform: translateY(10px); } }
+
+  /* Фото в шапке еле заметно приближается — «живая» фотография */
+  .hero__bg { animation: hero-zoom 10s ease-out both; }
+  @keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } }
+}
 ul, ol { margin: 0; padding: 0; }
 h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
@@ -466,7 +512,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .photo__frame--square { aspect-ratio: 1; }
 .photo__frame--wide   { aspect-ratio: 6 / 5; }
 
-/* Золотая рамка внутри картинки, 12 px от краёв. Требование заказчицы:
+/* Золотая рамка внутри картинки, отступ от краёв — токен --frame-inset (6 px с 14.11.2026). Требование заказчицы:
    рамка у всех картинок, кроме товаров (карточки магазина и обложки книг).
    У миниатюр варианта 3 меню своя рамка снаружи, внутренняя там не помещается */
 .photo__frame::after,
@@ -476,7 +522,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lightbox__frame::after {
   content: "";
   position: absolute;
-  inset: 12px;
+  inset: var(--frame-inset);
   border: 1px solid var(--c-gold);
   pointer-events: none;
 }
@@ -1527,12 +1573,12 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* Телефон: стрелки фото блюда — внизу кадра, вплотную к золотой рамке изнутри (она на 12px от края) */
 @media (max-width: 640px) {
   .lightbox--dish .lightbox__nav {
-    top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) * 2 / 3 - 13px - 44px);
+    top: calc(var(--s-2) + (100cqw - 2 * var(--s-2)) * 2 / 3 - var(--frame-inset) - 1px - 44px);
     translate: none;
     width: 44px; height: 44px;
   }
-  .lightbox--dish .lightbox__nav--prev { left: calc(var(--s-2) + 13px); }
-  .lightbox--dish .lightbox__nav--next { right: calc(var(--s-2) + 13px); }
+  .lightbox--dish .lightbox__nav--prev { left: calc(var(--s-2) + var(--frame-inset) + 1px); }
+  .lightbox--dish .lightbox__nav--next { right: calc(var(--s-2) + var(--frame-inset) + 1px); }
 }
 
 /* Порции разного размера, у каждой своя цена: у супов маленькая и большая */

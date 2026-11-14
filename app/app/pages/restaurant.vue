@@ -32,6 +32,9 @@ const formats = ['celebrations', 'business', 'rent', 'groups'] as const
 // ---------- Галерея ----------
 
 const category = ref<number | 'all'>('all')
+// После смены категории фото на экране проявляются заново (как в прототипе, 14.11.2026)
+const galleryList = ref<HTMLElement | null>(null)
+const soft = useSoftFilter(galleryList, 'li')
 const photos = computed(
   () =>
     r.value?.gallery?.photos.filter(
@@ -191,7 +194,7 @@ const reviews = ['tripadvisor', 'google'] as const
             :class="{ 'is-active': category === 'all' }"
             type="button"
             :aria-pressed="category === 'all'"
-            @click="category = 'all'"
+            @click="((category = 'all'), soft())"
           >
             {{ t('news.all') }}
           </button>
@@ -202,13 +205,13 @@ const reviews = ['tripadvisor', 'google'] as const
             :class="{ 'is-active': category === c.id }"
             type="button"
             :aria-pressed="category === c.id"
-            @click="category = c.id"
+            @click="((category = c.id), soft())"
           >
             {{ c.name }}
           </button>
         </div>
 
-        <ul class="gallery">
+        <ul ref="galleryList" class="gallery">
           <li v-for="p in photos" :key="p.id">
             <button
               class="photo__frame gallery__open"

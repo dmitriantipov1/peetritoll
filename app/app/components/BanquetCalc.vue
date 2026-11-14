@@ -15,6 +15,10 @@ import type { ContentLocale } from '#shared/locales'
 
 const props = defineProps<{ banquet: SiteBanquet }>()
 
+// Суммы досчитывают плавно (TweenNumber): промежуточные значения — дробные центы
+const money = (v: number) => formatPrice(Math.round(v))
+const moneyOrDash = (v: number) => (v ? money(v) : '—')
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const lang = computed(() => locale.value as ContentLocale)
@@ -265,6 +269,7 @@ function again() {
                     −
                   </button>
                   <input
+                    v-bump="q(d)"
                     class="calc-step__input"
                     type="number"
                     min="0"
@@ -281,7 +286,9 @@ function again() {
                     +
                   </button>
                 </div>
-                <p class="calc-row__sum">{{ q(d) ? formatPrice(q(d) * d.priceCents) : '—' }}</p>
+                <p class="calc-row__sum">
+                  <TweenNumber :value="q(d) * d.priceCents" :format="moneyOrDash" />
+                </p>
               </div>
             </div>
             <p v-if="shortfall !== null" class="calc-warn">
@@ -307,11 +314,15 @@ function again() {
               </li>
             </ul>
             <p class="calc-side__total">
-              <span>{{ t('banquet.calc.total') }}</span> <span>{{ formatPrice(total) }}</span>
+              <span>{{ t('banquet.calc.total') }}</span>
+              <TweenNumber :value="total" :format="money" />
             </p>
             <p class="calc-side__note">
               {{ t('banquet.calc.perGuest') }}:
-              {{ form.guests > 0 && total ? formatPrice(perGuest) : '—' }}.
+              <TweenNumber
+                :value="form.guests > 0 && total ? perGuest : 0"
+                :format="moneyOrDash"
+              />.
               {{ t('banquet.calc.notOffer') }}
             </p>
             <p class="calc-side__act">

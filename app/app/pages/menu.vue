@@ -31,17 +31,24 @@ const selected = ref<string[]>([])
 const pick = ref<string | null>(null)
 const filtering = computed(() => selected.value.length > 0 || pick.value !== null)
 
+// После смены фильтра категории на экране проявляются заново (как в прототипе, 14.11.2026)
+const menuRoot = ref<HTMLElement | null>(null)
+const soft = useSoftFilter(menuRoot, '.menu-cat')
+
 function toggleTag(key: string) {
   selected.value = selected.value.includes(key)
     ? selected.value.filter((k) => k !== key)
     : [...selected.value, key]
+  soft()
 }
 function togglePick(key: string) {
   pick.value = pick.value === key ? null : key
+  soft()
 }
 function reset() {
   selected.value = []
   pick.value = null
+  soft()
 }
 
 const shown = (d: SiteDish) =>
@@ -166,7 +173,7 @@ onBeforeUnmount(() => document.removeEventListener('click', closeIcon))
             >.
           </p>
 
-          <div class="menu-root menu--v3">
+          <div ref="menuRoot" class="menu-root menu--v3">
             <section
               v-for="c in categories"
               v-show="!c.empty"

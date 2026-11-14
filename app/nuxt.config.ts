@@ -86,6 +86,11 @@ export default defineNuxtConfig({
     experimental: { tasks: true },
   },
 
+  // Плавный переход между страницами (14.11.2026, как в прототипе): Nuxt оборачивает смену
+  // страницы в document.startViewTransition, вид перехода — ::view-transition-* в style.css.
+  // При «уменьшить движение» Nuxt переход не запускает
+  experimental: { viewTransition: true },
+
   typescript: {
     strict: true,
     // Конфиги инструментов в корне app/ выполняются в Node, а не в Nuxt:

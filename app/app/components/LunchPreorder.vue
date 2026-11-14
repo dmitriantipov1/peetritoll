@@ -10,6 +10,10 @@ import { formatPrice } from '#shared/money'
 
 const props = defineProps<{ lunch: SiteLunch }>()
 
+// Суммы досчитывают плавно (TweenNumber): промежуточные значения — дробные центы
+const money = (v: number) => formatPrice(Math.round(v))
+const moneyOrDash = (v: number) => (v ? money(v) : '—')
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
@@ -194,6 +198,7 @@ function again() {
                 </button>
                 <input
                   v-model.number="form[i.key]"
+                  v-bump="form[i.key]"
                   class="calc-step__input"
                   type="number"
                   min="0"
@@ -210,7 +215,7 @@ function again() {
                 </button>
               </div>
               <p class="calc-row__sum">
-                {{ form[i.key] ? formatPrice(i.priceCents * form[i.key]) : '—' }}
+                <TweenNumber :value="i.priceCents * (form[i.key] || 0)" :format="moneyOrDash" />
               </p>
             </div>
           </div>
@@ -225,7 +230,8 @@ function again() {
               <li v-for="i in chosen" :key="i.key">{{ i.name }} × {{ form[i.key] }}</li>
             </ul>
             <p class="calc-side__total">
-              <span>{{ t('lunch.order.total') }}</span> <span>{{ formatPrice(total) }}</span>
+              <span>{{ t('lunch.order.total') }}</span>
+              <TweenNumber :value="total" :format="money" />
             </p>
             <p class="calc-side__note">
               {{ t('lunch.order.served', { from: lunch.servedFrom, to: lunch.servedTo }) }}

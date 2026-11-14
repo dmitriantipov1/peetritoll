@@ -23,6 +23,9 @@ const topics = computed(() =>
   (Object.keys(newsTopics) as NewsTopic[]).filter((k) => news.value?.some((n) => n.topic === k)),
 )
 const topic = ref<NewsTopic | 'all'>('all')
+// После смены темы карточки на экране проявляются заново (как в прототипе, 14.11.2026)
+const list = ref<HTMLElement | null>(null)
+const soft = useSoftFilter(list, '.news-card')
 const shown = ref(PAGE)
 watch(topic, () => (shown.value = PAGE))
 
@@ -51,7 +54,7 @@ const visible = computed(() => filtered.value.slice(0, shown.value))
             :class="{ 'is-active': topic === 'all' }"
             type="button"
             :aria-pressed="topic === 'all'"
-            @click="topic = 'all'"
+            @click="((topic = 'all'), soft())"
           >
             {{ t('news.all') }}
           </button>
@@ -62,13 +65,13 @@ const visible = computed(() => filtered.value.slice(0, shown.value))
             :class="{ 'is-active': topic === k }"
             type="button"
             :aria-pressed="topic === k"
-            @click="topic = k"
+            @click="((topic = k), soft())"
           >
             {{ newsTopics[k][locale as ContentLocale] }}
           </button>
         </div>
 
-        <ul v-if="visible.length" class="grid-3 news">
+        <ul v-if="visible.length" ref="list" class="grid-3 news">
           <NewsCard v-for="n in visible" :key="n.id" :item="n" />
         </ul>
         <p v-else class="events-empty">{{ t('news.empty') }}</p>
