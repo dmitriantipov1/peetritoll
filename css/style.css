@@ -844,7 +844,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .intro { grid-template-columns: 1fr; gap: var(--s-4); }
   /* Фото рядом с текстом — под текстом, целиком (правило: до 860 px фото без обрезки) */
   .intro__photo { min-height: 0; }
-  /* Пропорции самой фотографии (679×370): место под фото есть до загрузки, и фото целиком */
+  /* Пропорции самой фотографии (1600×872, как 679 × 370): место под фото есть до загрузки, и фото целиком */
   .intro__photo .photo__frame { position: relative; aspect-ratio: 679 / 370; }
   .exhibition { grid-template-columns: 1fr; }
   .cards, .explore, .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
