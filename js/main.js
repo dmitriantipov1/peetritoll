@@ -887,3 +887,47 @@ document.querySelectorAll('[data-order-done]').forEach((box) => {
     p.hidden = !(p.dataset.next === o.way || (p.dataset.next === 'digital' && o.digital));
   });
 });
+
+// ---------- Плавное появление при прокрутке (14.11.2026) ----------
+// Разделы, карточки и фото проявляются и чуть поднимаются, когда доходят до экрана; в сетках —
+// по очереди. Помечает скрипт: без него (или при «уменьшить движение») всё видно сразу.
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const blocks = [
+    '.section-head', '.intro', '.story__text', '.story__media', '.two-col > *', '.cta-row',
+    '.exhibition__text', '.exhibition__gallery', '.events', '.subsection', '.menu-cat',
+    '.bk-card', '.pdp-gallery', '.pdp__info', '.pdp__about', '.article',
+  ];
+  const items = [
+    '.grid-2 > li', '.grid-3 > li', '.grid-4 > li', '.products > li', '.news > li', '.halls > li',
+    '.services > li', '.gallery > li', '.explore > li', '.meal-cards > li', '.partners--logos > li',
+  ];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  // Первый экран не трогаем: он уже нарисован, его прятать нельзя — мелькнёт. Движение там
+  // даёт фото в шапке. Остальное прячем сразу, без перехода (.reveal), а плавность включаем
+  // кадром позже (.reveal--ready) — иначе блоки сначала плавно погаснут
+  const marked = [];
+  function watch(el) {
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    el.classList.add('reveal');
+    marked.push(el);
+    io.observe(el);
+  }
+  document.querySelectorAll(blocks.join(',')).forEach(watch);
+  // В сетке — по очереди, по 4 в «волне», чтобы длинный список не ждал своей очереди
+  document.querySelectorAll(items.join(',')).forEach((el) => {
+    const i = [...el.parentElement.children].indexOf(el);
+    el.style.setProperty('--reveal-delay', (i % 4) * 90 + 'ms');
+    watch(el);
+  });
+  void document.body.offsetHeight; // применить «спрятано» до включения перехода
+  marked.forEach((el) => el.classList.add('reveal--ready'));
+})();
