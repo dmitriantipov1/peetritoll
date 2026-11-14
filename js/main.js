@@ -330,8 +330,10 @@ document.querySelectorAll('[data-filter-group]').forEach((group) => {
         b.classList.toggle('is-active', b === btn);
         b.setAttribute('aria-pressed', String(b === btn));
       });
-      target.querySelectorAll('[data-cat]').forEach((item) => {
-        item.hidden = cat !== 'all' && item.dataset.cat !== cat;
+      filterSwap(target, '[data-cat]', () => {
+        target.querySelectorAll('[data-cat]').forEach((item) => {
+          item.hidden = cat !== 'all' && item.dataset.cat !== cat;
+        });
       });
     });
   });
@@ -420,10 +422,12 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
 
   function setQty(row, n) {
     const input = row.querySelector('[data-qty]');
+    const before = qty(row);
     input.value = Math.max(0, Math.round(n));
     const q = qty(row);
     row.classList.toggle('is-picked', q > 0);
-    row.querySelector('[data-sum]').textContent = q ? money(q * Number(row.dataset.price)) : '—';
+    if (q !== before) bump(input);
+    tweenText(row.querySelector('[data-sum]'), q * Number(row.dataset.price), (v) => (v ? money(v) : '—'));
   }
 
   function recalc() {
@@ -442,9 +446,9 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
     });
 
     const people = Number(guests && guests.value) || 0;
-    calc.querySelectorAll('[data-total]').forEach((el) => { el.textContent = money(total); });
+    calc.querySelectorAll('[data-total]').forEach((el) => tweenText(el, total, money));
     calc.querySelectorAll('[data-per-guest]').forEach((el) => {
-      el.textContent = people ? money(total / people) : '—';
+      tweenText(el, people ? total / people : 0, (v) => (people ? money(v) : '—'));
     });
 
     if (chosen) {
@@ -599,18 +603,21 @@ if (dietFilter) {
     resetTop.hidden = on.length === 0 && !pick;
   };
 
+  // Плавно: список приглушается, меняется, видимые блюда проявляются (filterSwap)
+  // Проявляются категории целиком: отдельные блюда после фильтра часто ниже экрана
+  const applySoft = () => filterSwap(root, '.menu-cat', apply);
   btns.forEach((b) => b.addEventListener('click', () => {
     b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-    apply();
+    applySoft();
   }));
   picks.forEach((b) => b.addEventListener('click', () => {
     const turnOn = b.getAttribute('aria-pressed') !== 'true';
     picks.forEach((p) => p.setAttribute('aria-pressed', String(p === b && turnOn)));
-    apply();
+    applySoft();
   }));
   document.querySelectorAll('[data-diet-reset]').forEach((r) => r.addEventListener('click', () => {
     btns.concat(picks).forEach((b) => b.setAttribute('aria-pressed', 'false'));
-    apply();
+    applySoft();
   }));
 }
 
@@ -700,7 +707,12 @@ function cartBadge() {
   document.querySelectorAll('[data-cart-link]').forEach((a) => {
     a.setAttribute('aria-label', 'Корзина, товаров: ' + n);
     const c = a.querySelector('.cart-link__count');
-    if (c) c.textContent = n;
+    if (c && c.textContent !== String(n)) {
+      const changed = c.dataset.seen === '1';
+      c.textContent = n;
+      if (changed) bump(c);
+    }
+    if (c) c.dataset.seen = '1';
   });
   // Уже в корзине: товар штучный — кнопку не нажать второй раз
   const ids = cartRead().filter((i) => i.unique).map((i) => i.id);
@@ -804,8 +816,9 @@ document.querySelectorAll('[data-cart-page]').forEach((page) => {
     page.classList.toggle('is-empty', !items.length);
     list.innerHTML = '';
     items.forEach((i) => list.appendChild(cartLine(i, true)));
-    page.querySelector('[data-cart-sum]').textContent = euro(cartSum(items));
-    page.querySelector('[data-cart-count]').textContent = cartCount(items);
+    tweenText(page.querySelector('[data-cart-sum]'), cartSum(items), euro);
+    const count = page.querySelector('[data-cart-count]');
+    if (count.textContent !== String(cartCount(items))) { count.textContent = cartCount(items); bump(count); }
   }
   page.addEventListener('click', (e) => {
     const line = e.target.closest('.cart-line');
@@ -818,6 +831,12 @@ document.querySelectorAll('[data-cart-page]').forEach((page) => {
     else return;
     cartWrite(items);
     render();
+    // Строка нарисована заново — «толчок» числа и суммы в ней
+    const again = list.querySelector('.cart-line[data-id="' + line.dataset.id + '"]');
+    if (again && step) {
+      bump(again.querySelector('.calc-step__input'));
+      bump(again.querySelector('.cart-line__sum'));
+    }
   });
   render();
 });
@@ -851,8 +870,10 @@ document.querySelectorAll('[data-checkout]').forEach((form) => {
     const goods = cartSum(items);
     const delivery = DELIVERY[way] || 0;
     form.querySelector('[data-goods]').textContent = euro(goods);
-    form.querySelector('[data-delivery]').textContent = !physical.length ? 'не нужна' : delivery ? euro(delivery) : 'бесплатно';
-    form.querySelector('[data-total]').textContent = euro(goods + delivery);
+    const del = form.querySelector('[data-delivery]');
+    const delText = !physical.length ? 'не нужна' : delivery ? euro(delivery) : 'бесплатно';
+    if (del.textContent !== delText) { del.textContent = delText; bump(del); }
+    tweenText(form.querySelector('[data-total]'), goods + delivery, euro);
     form.querySelector('[data-pay]').disabled = !form.querySelector('[data-terms]').checked;
   }
   form.addEventListener('change', update);
@@ -931,3 +952,59 @@ document.querySelectorAll('[data-order-done]').forEach((box) => {
   void document.body.offsetHeight; // применить «спрятано» до включения перехода
   marked.forEach((el) => el.classList.add('reveal--ready'));
 })();
+
+// ---------- Плавные числа (14.11.2026) ----------
+// «Толчок» — число чуть подпрыгивает, когда поменялось (счётчик, значок корзины).
+// tweenText — сумма не перескакивает, а досчитывает до нового значения за 0,3 с.
+// При «уменьшить движение» — сразу новое значение, без анимации.
+function motionOff() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+function bump(el) {
+  if (!el || motionOff()) return;
+  el.classList.remove('is-bump');
+  void el.offsetWidth; // перезапустить анимацию, если нажали подряд
+  el.classList.add('is-bump');
+}
+function tweenText(el, to, format) {
+  if (!el) return;
+  const from = el.dataset.val === undefined ? null : Number(el.dataset.val);
+  el.dataset.val = to;
+  cancelAnimationFrame(Number(el.dataset.raf || 0));
+  // Первый показ, то же число или «уменьшить движение» — сразу
+  if (from === null || from === to || motionOff()) { el.textContent = format(to); return; }
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / 300);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = format(t === 1 ? to : from + (to - from) * eased);
+    if (t < 1) el.dataset.raf = requestAnimationFrame(step);
+  };
+  el.dataset.raf = requestAnimationFrame(step);
+}
+
+// ---------- Плавные фильтры (14.11.2026) ----------
+// Магазин, новости, галерея, меню: список на 0,15 с приглушается, меняется, и карточки,
+// которые сейчас на экране, проявляются с лёгким подъёмом по очереди. За экраном — без анимации.
+// Нажали несколько раз подряд — применяется последнее состояние кнопок.
+function filterSwap(scope, itemSelector, apply) {
+  clearTimeout(scope._filterTimer);
+  if (motionOff()) { apply(); return; }
+  scope.classList.add('is-filtering');
+  scope._filterTimer = setTimeout(() => {
+    apply();
+    scope.classList.remove('is-filtering');
+    let i = 0;
+    scope.querySelectorAll(itemSelector).forEach((el) => {
+      if (el.offsetParent === null) return;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      el.classList.add('is-in'); // уже на экране — появление при прокрутке ему не нужно
+      el.classList.remove('filter-in');
+      void el.offsetWidth;
+      el.style.setProperty('--filter-delay', Math.min(i++, 10) * 35 + 'ms');
+      el.classList.add('filter-in');
+      el.addEventListener('animationend', () => el.classList.remove('filter-in'), { once: true });
+    });
+  }, 150);
+}

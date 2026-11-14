@@ -84,6 +84,24 @@ a, button, .chip, .btn { transition: color .2s, background-color .2s, border-col
   @keyframes page-in { from { opacity: 0; transform: translateY(8px); } }
   .header { view-transition-name: site-header; }
 
+  /* + и − в калькуляторах и корзине: кнопка чуть проседает при нажатии, число «подпрыгивает»
+     (класс .is-bump ставит js/main.js, когда число поменялось), 14.11.2026 */
+  .calc-step__btn { transition: background-color .2s, color .2s, transform .1s ease; }
+  .calc-step__btn:active { transform: scale(.88); }
+  .is-bump { animation: num-bump .35s ease; }
+  @keyframes num-bump {
+    40% { transform: scale(1.18); color: var(--c-red); }
+  }
+  /* Сумма строки корзины прижата вправо (на телефоне влево) — растёт от своего края */
+  .cart-line__sum.is-bump { transform-origin: right center; }
+
+  /* Фильтры (магазин, новости, галерея, меню): список приглушается и проявляется заново —
+     .is-filtering и .filter-in ставит filterSwap() в js/main.js, 14.11.2026 */
+  .products, .news, .gallery, .menu-root { transition: opacity .15s ease; }
+  .is-filtering { opacity: .2; }
+  .filter-in { animation: filter-in .35s ease both; animation-delay: var(--filter-delay, 0ms); }
+  @keyframes filter-in { from { opacity: 0; transform: translateY(10px); } }
+
   /* Фото в шапке еле заметно приближается — «живая» фотография */
   .hero__bg { animation: hero-zoom 10s ease-out both; }
   @keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } }
@@ -2240,6 +2258,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .cart-line { grid-template-columns: 72px minmax(0, 1fr); }
   .cart-line__qty { grid-column: 2; flex-direction: row; justify-content: space-between; align-items: center; }
   .cart-line__sum { grid-column: 2; text-align: left; }
+  .cart-line__sum.is-bump { transform-origin: left center; }
   .cart-lines--mini .cart-line { grid-template-columns: 56px minmax(0, 1fr) auto; }
 }
 @media (prefers-reduced-motion: reduce) { .cart-toast { transition: none; } }
