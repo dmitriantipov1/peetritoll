@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261113">
+  <link rel="stylesheet" href="./css/style.css?v=20261114-2">
 </head>
 <body>
 
@@ -86,8 +86,7 @@
 
         <div class="pdp__buy">
           <p class="pdp__price">120 €</p>
-          <p class="pdp__stock">Один экземпляр</p>
-          <a class="btn btn--solid" href="#">В корзину</a>
+          <button class="btn btn--solid" type="button" data-add data-id="mednyy-samovar-nachalo-xx-veka" data-name="Медный самовар, начало XX века" data-price="120.00" data-img="./images/shop-01.jpg" data-kind="physical" data-pickup>В корзину</button>
         </div>
 
         <dl class="facts facts--compact">
@@ -99,8 +98,9 @@
         </dl>
 
         <div class="note pdp__note">
-          <p><strong>Только самовывоз.</strong> Антиквариат не отправляем почтой: забрать покупку можно
-            бесплатно в таверне на Mere 10 в часы работы. <a href="./shop.html#dostavka">Доставка и получение</a></p>
+          <p><strong>Только самовывоз.</strong> Антиквариат не отправляем почтой. Все покупки можно бесплатно
+            забрать в таверне «Петровская Таможня» по адресу Mere 10, Палдиски в часы работы ресторана.
+            Для вашего удобства просим сообщить о времени визита заранее. <a href="./shop.html#dostavka">Доставка и получение</a></p>
         </div>
       </div>
 
@@ -125,43 +125,39 @@
         <li class="product">
           <div class="product__img"><img src="./images/shop-02.jpg" alt="Морской компас" loading="lazy" data-ph="shop-02.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Антиквариат</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Морской компас</a></h3>
-            <p class="product__desc">Один экземпляр</p>
+            <p class="product__desc">Латунный корпус, стрелка работает</p>
           </div>
           <div class="product__foot">
             <p class="product__price">85 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="morskoy-kompas" data-name="Морской компас" data-price="85.00" data-img="./images/shop-02.jpg" data-kind="physical" data-pickup>В корзину</button>
           </div>
         </li>
         <li class="product">
           <div class="product__img"><img src="./images/shop-03.jpg" alt="Набор старинных ключей" loading="lazy" data-ph="shop-03.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Антиквариат</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Набор старинных ключей</a></h3>
-            <p class="product__desc">Один экземпляр</p>
+            <p class="product__desc">Кованые ключи от старинных замков</p>
           </div>
           <div class="product__foot">
             <p class="product__price">35 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="nabor-starinnyh-klyuchey" data-name="Набор старинных ключей" data-price="35.00" data-img="./images/shop-03.jpg" data-kind="physical" data-pickup>В корзину</button>
           </div>
         </li>
         <li class="product">
           <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
-            <p class="product__desc">Галина Малютина · 2022 · 144 стр.</p>
+            <p class="product__desc">Галина Малютина</p>
           </div>
           <div class="product__foot">
             <p class="product__price">10,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/bajki-iz-za-barnoj-stojki" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="bayki-iz-za-barnoy-stoyki" data-name="Байки из-за барной стойки" data-price="10.00" data-img="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product">
           <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Фото и карты</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
             <p class="product__desc">Отпечаток 8×12 см · цифровая копия</p>
           </div>
@@ -200,6 +196,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261112-2"></script>
+<script src="./js/main.js?v=20261114"></script>
 </body>
 </html>

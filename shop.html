@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261113">
+  <link rel="stylesheet" href="./css/style.css?v=20261114-2">
 </head>
 <body>
 
@@ -76,110 +76,108 @@
           <button class="chip" type="button" data-filter="art" aria-pressed="false">Картины и открытки</button>
           <button class="chip" type="button" data-filter="souvenirs" aria-pressed="false">Сувениры</button>
         </div>
-        <a class="cart-link" href="#">Корзина (0)</a>
+        <!-- Корзина значком (14.11.2026, просьба заказчицы): сумка — «лавка», число — сколько товаров -->
+        <a class="cart-link" href="./cart.html" aria-label="Корзина, товаров: 0" title="Корзина" data-cart-link>
+          <svg class="cart-link__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+            <path d="M5 8h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9L5 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="cart-link__count">0</span>
+        </a>
       </div>
 
-      <ul class="products" id="shop-grid" style="margin-top: var(--s-4)">
+      <ul class="products shop-grid" id="shop-grid">
         <li class="product" data-cat="books">
           <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
-            <p class="product__desc">Галина Малютина · 2022 · 144 стр.</p>
+            <p class="product__desc">Галина Малютина</p>
           </div>
           <div class="product__foot">
             <p class="product__price">10,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/bajki-iz-za-barnoj-stojki" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="bayki-iz-za-barnoy-stoyki" data-name="Байки из-за барной стойки" data-price="10.00" data-img="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="books">
           <div class="product__img"><img src="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" alt="Обложка книги «Былой Палдиски и его люди»" loading="lazy" data-ph="byloj-paldiski-i-ego-ludi"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Былой Палдиски и его люди</a></h3>
-            <p class="product__desc">Йосеф Кац · 2022 · 152 стр.</p>
+            <p class="product__desc">Йосеф Кац</p>
           </div>
           <div class="product__foot">
             <p class="product__price">12,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/byloj-paldiski-i-ego-ludi" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="byloy-paldiski-i-ego-lyudi" data-name="Былой Палдиски и его люди" data-price="12.00" data-img="https://images.sumup.com/img_0G8BBCKVBM95NVYTSNS180BZCS/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="books">
           <div class="product__img"><img src="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" alt="Обложка книги «Мой родной Палдиски»" loading="lazy" data-ph="moj-rodnoj-paldiski"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Мой родной Палдиски</a></h3>
-            <p class="product__desc">Пауль Лаан · 2022 · 28 стр.</p>
+            <p class="product__desc">Пауль Лаан</p>
           </div>
           <div class="product__foot">
             <p class="product__price">15,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/moj-rodnoj-paldiski" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="moy-rodnoy-paldiski" data-name="Мой родной Палдиски" data-price="15.00" data-img="https://images.sumup.com/img_229JGJ4Q7E80YRH6Y3C8VABYNE/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="books">
           <div class="product__img"><img src="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" alt="Обложка книги «Lood baarileti tagant»" loading="lazy" data-ph="lood-baarileti-tagant"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Lood baarileti tagant</a></h3>
-            <p class="product__desc">Galina Maljutina · 2023 · 144 стр. · на эстонском</p>
+            <p class="product__desc">Galina Maljutina</p>
           </div>
           <div class="product__foot">
             <p class="product__price">10,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/lood-baarileti-tagant" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="lood-baarileti-tagant" data-name="Lood baarileti tagant" data-price="10.00" data-img="https://images.sumup.com/img_6N5M8Y9MW39WGRC52XJ7V3XP7V/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="books">
           <div class="product__img"><img src="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" alt="Обложка книги «Kodulinn Paldiski»" loading="lazy" data-ph="kodulinn-paldiski"></div>
           <div class="product__body">
-            <p class="product__cat">Книги</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Kodulinn Paldiski</a></h3>
-            <p class="product__desc">Paul Laan · 2022 · 28 стр.</p>
+            <p class="product__desc">Paul Laan</p>
           </div>
           <div class="product__foot">
             <p class="product__price">15,00 €</p>
-            <a class="btn btn--sm" href="https://peetritoll.sumupstore.com/toode/kodulinn-paldiski" target="_blank" rel="noopener">Купить</a>
+            <button class="btn btn--sm" type="button" data-add data-id="kodulinn-paldiski" data-name="Kodulinn Paldiski" data-price="15.00" data-img="https://images.sumup.com/img_4N8FJBPZDW80ATF832FR3HD759/image.png" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="antique">
           <div class="product__img"><img src="./images/shop-01.jpg" alt="Медный самовар, начало XX века" loading="lazy" data-ph="shop-01.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Антиквариат</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Медный самовар, начало XX века</a></h3>
-            <p class="product__desc">Один экземпляр. Состояние, размеры и история предмета — на странице товара, вместе с фотографиями со всех сторон.</p>
+            <p class="product__desc">Тульский самовар «рюмкой» на 5 литров, с клеймом мастера</p>
           </div>
           <div class="product__foot">
             <p class="product__price">120 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="mednyy-samovar-nachalo-xx-veka" data-name="Медный самовар, начало XX века" data-price="120.00" data-img="./images/shop-01.jpg" data-kind="physical" data-pickup>В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="antique">
           <div class="product__img"><img src="./images/shop-02.jpg" alt="Морской компас" loading="lazy" data-ph="shop-02.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Антиквариат</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Морской компас</a></h3>
-            <p class="product__desc">Один экземпляр</p>
+            <p class="product__desc">Латунный корпус, стрелка работает</p>
           </div>
           <div class="product__foot">
             <p class="product__price">85 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="morskoy-kompas" data-name="Морской компас" data-price="85.00" data-img="./images/shop-02.jpg" data-kind="physical" data-pickup>В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="antique">
           <div class="product__img"><img src="./images/shop-03.jpg" alt="Набор старинных ключей" loading="lazy" data-ph="shop-03.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Антиквариат</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Набор старинных ключей</a></h3>
-            <p class="product__desc">Один экземпляр</p>
+            <p class="product__desc">Кованые ключи от старинных замков</p>
           </div>
           <div class="product__foot">
             <p class="product__price">35 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="nabor-starinnyh-klyuchey" data-name="Набор старинных ключей" data-price="35.00" data-img="./images/shop-03.jpg" data-kind="physical" data-pickup>В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="photos">
           <div class="product__img"><img src="./images/shop-04.jpg" alt="Рейд Палдиски, 1912 год" loading="lazy" data-ph="shop-04.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Фото и карты</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Рейд Палдиски, 1912 год</a></h3>
             <p class="product__desc">Отпечаток 8×12 см · цифровая копия</p>
           </div>
@@ -191,19 +189,17 @@
         <li class="product" data-cat="photos">
           <div class="product__img"><img src="./images/shop-05.jpg" alt="План крепости Рогервик, 1720-е" loading="lazy" data-ph="shop-05.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Фото и карты</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">План крепости Рогервик, 1720-е</a></h3>
             <p class="product__desc">Цифровая копия высокого разрешения</p>
           </div>
           <div class="product__foot">
             <p class="product__price">12 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="plan-kreposti-rogervik-1720-e" data-name="План крепости Рогервик, 1720-е" data-price="12.00" data-img="./images/shop-05.jpg" data-kind="digital">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="art">
           <div class="product__img"><img src="./images/shop-06.jpg" alt="Андрей Кириллов. Маяк Пакри" loading="lazy" data-ph="shop-06.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Картины и открытки</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Андрей Кириллов. Маяк Пакри</a></h3>
             <p class="product__desc">Оригинал · печать · цифровая версия</p>
           </div>
@@ -215,25 +211,23 @@
         <li class="product" data-cat="art">
           <div class="product__img"><img src="./images/shop-07.jpg" alt="Набор открыток «Старый Палдиски»" loading="lazy" data-ph="shop-07.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Картины и открытки</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Набор открыток «Старый Палдиски»</a></h3>
             <p class="product__desc">8 открыток</p>
           </div>
           <div class="product__foot">
             <p class="product__price">9 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="nabor-otkrytok-staryy-paldiski" data-name="Набор открыток «Старый Палдиски»" data-price="9.00" data-img="./images/shop-07.jpg" data-kind="physical">В корзину</button>
           </div>
         </li>
         <li class="product" data-cat="souvenirs">
           <div class="product__img"><img src="./images/shop-08.jpg" alt="Магнит Peetri Toll" loading="lazy" data-ph="shop-08.jpg"></div>
           <div class="product__body">
-            <p class="product__cat">Сувениры</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Магнит Peetri Toll</a></h3>
             <p class="product__desc">Рисунок Андрея Кириллова</p>
           </div>
           <div class="product__foot">
             <p class="product__price">4 €</p>
-            <a class="btn btn--sm" href="#">В корзину</a>
+            <button class="btn btn--sm" type="button" data-add data-id="magnit-peetri-toll" data-name="Магнит Peetri Toll" data-price="4.00" data-img="./images/shop-08.jpg" data-kind="physical">В корзину</button>
           </div>
         </li>
       </ul>
@@ -249,7 +243,7 @@
       <ul class="grid-4">
         <li class="tile"><h3 class="tile__title">Доставка по Эстонии</h3><p class="tile__text">Отправляем заказы в посылочные автоматы (Omniva, Smartpost, DPD). Стоимость доставки автоматически рассчитывается при оформлении заказа.</p></li>
         <li class="tile"><h3 class="tile__title">Доставка за границу</h3><p class="tile__text">Международная доставка почтой. Стоимость и сроки зависят от страны назначения и веса посылки и автоматически рассчитываются при оформлении заказа.</p></li>
-        <li class="tile"><h3 class="tile__title">Самовывоз</h3><p class="tile__text">Все покупки можно бесплатно забрать в таверне на Mere 10 в часы работы. Будем рады передать ваш заказ лично! Для вашего удобства просим сообщить о времени визита заранее, и мы подготовим заказ к вашему приходу.</p></li>
+        <li class="tile"><h3 class="tile__title">Самовывоз</h3><p class="tile__text">Все покупки можно бесплатно забрать в таверне «Петровская Таможня» по адресу Mere 10, Палдиски в часы работы ресторана. Для вашего удобства просим сообщить о времени визита заранее.</p></li>
         <li class="tile"><h3 class="tile__title">Электронные издания</h3><p class="tile__text">Книги в формате PDF, фотографии и другие цифровые товары вы получите на электронную почту сразу после оплаты. Никаких затрат на доставку.</p></li>
       </ul>
     </div>
@@ -281,6 +275,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261112-2"></script>
+<script src="./js/main.js?v=20261114"></script>
 </body>
 </html>

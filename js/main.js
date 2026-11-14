@@ -673,3 +673,217 @@ document.querySelectorAll('[data-lunch-pick]').forEach((pick) => {
   pick.addEventListener('change', show);
   show();
 });
+
+// ---------- Корзина и оформление заказа (эскиз флоу покупки, 14.11.2026) ----------
+// Без сервера: корзина хранится в браузере (localStorage), заказ никуда не уходит.
+// Кнопка с data-add кладёт товар: data-id, data-name, data-price («12.00»), data-img,
+// data-kind (physical | digital), data-pickup — только самовывоз (антиквариат, он один).
+const CART_KEY = 'pt-cart';
+const DELIVERY = { pickup: 0, parcel: 4, eu: 12 }; // по Эстонии и в ЕС — из настроек магазина
+
+function cartRead() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { return []; }
+}
+function cartWrite(items) {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch (e) { /* приватный режим — без хранения */ }
+  cartBadge();
+}
+function euro(n) {
+  const parts = n.toFixed(2).split('.');
+  return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ',' + parts[1] + ' €';
+}
+const cartCount = (items) => items.reduce((s, i) => s + i.qty, 0);
+const cartSum = (items) => items.reduce((s, i) => s + i.qty * i.price, 0);
+
+function cartBadge() {
+  const n = cartCount(cartRead());
+  document.querySelectorAll('[data-cart-link]').forEach((a) => {
+    a.setAttribute('aria-label', 'Корзина, товаров: ' + n);
+    const c = a.querySelector('.cart-link__count');
+    if (c) c.textContent = n;
+  });
+  // Уже в корзине: товар штучный — кнопку не нажать второй раз
+  const ids = cartRead().filter((i) => i.unique).map((i) => i.id);
+  document.querySelectorAll('[data-add][data-pickup]').forEach((b) => {
+    const inCart = ids.includes(b.dataset.id);
+    b.disabled = inCart;
+    b.textContent = inCart ? 'В корзине' : 'В корзину';
+  });
+}
+
+let toastTimer;
+function cartToast(name) {
+  let t = document.querySelector('.cart-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.className = 'cart-toast';
+    t.setAttribute('role', 'status');
+    document.body.appendChild(t);
+  }
+  t.innerHTML = '<span></span><a href="./cart.html">Перейти в корзину</a>';
+  t.firstChild.textContent = 'Добавлено в корзину: ' + name;
+  t.classList.add('is-shown');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('is-shown'), 4000);
+}
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-add]');
+  if (!b || b.disabled) return;
+  const items = cartRead();
+  const found = items.find((i) => i.id === b.dataset.id);
+  if (found && !found.unique) found.qty += 1;
+  else if (!found) {
+    items.push({
+      id: b.dataset.id,
+      name: b.dataset.name,
+      price: Number(b.dataset.price),
+      img: b.dataset.img,
+      kind: b.dataset.kind,
+      pickup: b.hasAttribute('data-pickup'),
+      unique: b.hasAttribute('data-pickup'),
+      qty: 1,
+    });
+  }
+  cartWrite(items);
+  cartToast(b.dataset.name);
+});
+cartBadge();
+
+// Строка товара: фото, название, что это, количество, сумма
+function cartLine(i, editable) {
+  const li = document.createElement('li');
+  li.className = 'cart-line';
+  li.dataset.id = i.id;
+  const what = i.kind === 'digital' ? 'Цифровая копия — ссылка на e-mail' : i.pickup ? 'Только самовывоз' : 'Печатное издание или предмет';
+  li.innerHTML =
+    '<div class="cart-line__img"><img alt="" loading="lazy"></div>' +
+    '<div class="cart-line__body"><p class="cart-line__name"></p><p class="cart-line__what"></p><p class="cart-line__price"></p></div>' +
+    '<div class="cart-line__qty"></div>' +
+    '<p class="cart-line__sum"></p>';
+  const img = li.querySelector('img');
+  // Фото ещё нет — полосатая заглушка, как у остальных картинок прототипа
+  img.addEventListener('error', () => {
+    const box = img.parentElement;
+    box.classList.add('is-missing');
+    box.dataset.ph = (i.img.split('/').pop() || '').slice(0, 24);
+  });
+  img.src = i.img;
+  li.querySelector('.cart-line__name').textContent = i.name;
+  li.querySelector('.cart-line__what').textContent = what;
+  li.querySelector('.cart-line__price').textContent = euro(i.price) + ' за шт.';
+  li.querySelector('.cart-line__sum').textContent = euro(i.price * i.qty);
+  const q = li.querySelector('.cart-line__qty');
+  if (!editable) q.textContent = i.qty + ' шт.';
+  else if (i.unique) q.innerHTML = '<span class="cart-line__one">1 шт.</span>';
+  else {
+    q.innerHTML =
+      '<div class="calc-step"><button class="calc-step__btn" type="button" data-qty-step="-1">−</button>' +
+      '<span class="calc-step__input" aria-live="polite"></span>' +
+      '<button class="calc-step__btn" type="button" data-qty-step="1">+</button></div>';
+    q.querySelector('.calc-step__input').textContent = i.qty;
+    q.querySelectorAll('button')[0].setAttribute('aria-label', 'Меньше: ' + i.name);
+    q.querySelectorAll('button')[1].setAttribute('aria-label', 'Больше: ' + i.name);
+  }
+  if (editable) {
+    const rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'cart-line__remove';
+    rm.dataset.remove = '';
+    rm.textContent = 'Удалить';
+    q.appendChild(rm);
+  }
+  return li;
+}
+
+// Корзина: cart.html
+document.querySelectorAll('[data-cart-page]').forEach((page) => {
+  const list = page.querySelector('[data-cart-list]');
+  function render() {
+    const items = cartRead();
+    page.classList.toggle('is-empty', !items.length);
+    list.innerHTML = '';
+    items.forEach((i) => list.appendChild(cartLine(i, true)));
+    page.querySelector('[data-cart-sum]').textContent = euro(cartSum(items));
+    page.querySelector('[data-cart-count]').textContent = cartCount(items);
+  }
+  page.addEventListener('click', (e) => {
+    const line = e.target.closest('.cart-line');
+    if (!line) return;
+    const items = cartRead();
+    const item = items.find((i) => i.id === line.dataset.id);
+    const step = e.target.closest('[data-qty-step]');
+    if (step) item.qty = Math.max(1, Math.min(20, item.qty + Number(step.dataset.qtyStep)));
+    else if (e.target.closest('[data-remove]')) items.splice(items.indexOf(item), 1);
+    else return;
+    cartWrite(items);
+    render();
+  });
+  render();
+});
+
+// Оформление: checkout.html. Способы получения зависят от корзины
+document.querySelectorAll('[data-checkout]').forEach((form) => {
+  const items = cartRead();
+  if (!items.length) { location.replace('./cart.html'); return; }
+  const physical = items.filter((i) => i.kind === 'physical');
+  const pickupOnly = items.some((i) => i.pickup);
+  const list = form.querySelector('[data-order-list]');
+  items.forEach((i) => list.appendChild(cartLine(i, false)));
+
+  const ship = form.querySelector('[data-ship]');
+  const digitalOnly = form.querySelector('[data-digital-only]');
+  ship.hidden = !physical.length;
+  digitalOnly.hidden = !!physical.length;
+  form.querySelector('[data-has-digital]').hidden = !items.some((i) => i.kind === 'digital') || !physical.length;
+  // Антиквариат почтой не отправляем — остаётся только самовывоз
+  form.querySelectorAll('input[name="ship"]').forEach((r) => {
+    if (r.value !== 'pickup' && pickupOnly) {
+      r.disabled = true;
+      r.closest('.ship-opt').classList.add('is-off');
+    }
+  });
+  form.querySelector('[data-pickup-only]').hidden = !pickupOnly;
+
+  function update() {
+    const way = physical.length ? (form.querySelector('input[name="ship"]:checked') || {}).value : 'none';
+    form.querySelectorAll('[data-ship-fields]').forEach((f) => { f.hidden = f.dataset.shipFields !== way; });
+    const goods = cartSum(items);
+    const delivery = DELIVERY[way] || 0;
+    form.querySelector('[data-goods]').textContent = euro(goods);
+    form.querySelector('[data-delivery]').textContent = !physical.length ? 'не нужна' : delivery ? euro(delivery) : 'бесплатно';
+    form.querySelector('[data-total]').textContent = euro(goods + delivery);
+    form.querySelector('[data-pay]').disabled = !form.querySelector('[data-terms]').checked;
+  }
+  form.addEventListener('change', update);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const way = physical.length ? form.querySelector('input[name="ship"]:checked').value : 'none';
+    // Что увидит покупатель после оплаты — запоминаем для страницы «Заказ принят» и чистим корзину
+    try {
+      sessionStorage.setItem('pt-order', JSON.stringify({
+        no: 'PT-' + (1000 + Math.floor(Math.random() * 9000)),
+        way: way,
+        digital: items.some((i) => i.kind === 'digital'),
+        email: form.querySelector('#o-mail').value,
+        total: cartSum(items) + (DELIVERY[way] || 0),
+      }));
+    } catch (err) { /* без хранения — страница покажет общий текст */ }
+    cartWrite([]);
+    location.href = './order-done.html';
+  });
+  update();
+});
+
+// «Спасибо, заказ оплачен»: order-done.html
+document.querySelectorAll('[data-order-done]').forEach((box) => {
+  let o = null;
+  try { o = JSON.parse(sessionStorage.getItem('pt-order')); } catch (e) { /* общий текст */ }
+  if (!o) return;
+  box.querySelector('[data-order-no]').textContent = o.no;
+  box.querySelector('[data-order-total]').textContent = euro(o.total);
+  if (o.email) box.querySelector('[data-order-email]').textContent = o.email;
+  box.querySelectorAll('[data-next]').forEach((p) => {
+    p.hidden = !(p.dataset.next === o.way || (p.dataset.next === 'digital' && o.digital));
+  });
+});
