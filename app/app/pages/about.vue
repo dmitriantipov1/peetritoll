@@ -28,7 +28,14 @@ const bookSlugs: Partial<Record<string, string>> = {
   et: 'lood-baarileti-tagant',
 }
 const bookSlug = computed(() => bookSlugs[locale.value])
-// Логотипы — в порядке заказчицы (13.11.2026); на телефоне — лентой, листается сама
+// Сноска под фото здания (15.11.2026) — книга Пауля Лаана: русское издание «Мой родной Палдиски»,
+// эстонское — «Kodulinn Paldiski». Английского нет — без кнопки
+const laanSlugs: Partial<Record<string, string>> = {
+  ru: 'moy-rodnoy-paldiski',
+  et: 'kodulinn-paldiski',
+}
+const laanSlug = computed(() => laanSlugs[locale.value])
+// Логотипы — в порядке заказчицы (13.11.2026); на телефоне — лентой, плывёт сама
 const logos = ref<HTMLElement | null>(null)
 useAutoSlide(logos)
 // Логотипы — в порядке заказчицы (13.11.2026)
@@ -120,6 +127,14 @@ const partners = [
                 t('about.building.quote2')
               }}</span>
             </figcaption>
+            <div v-if="te('about.building.book.text')" class="note story__note story__note--light">
+              <p>
+                <strong>{{ t('about.building.book.lead') }}</strong> {{ t('about.building.book.text') }}
+              </p>
+            </div>
+            <p v-if="laanSlug && te('about.building.book.text')" class="story__more">
+              <NuxtLink class="btn" :to="localePath(`/shop/${laanSlug}`)">{{ t('about.family.book') }}</NuxtLink>
+            </p>
           </figure>
         </div>
       </div>
@@ -190,6 +205,16 @@ const partners = [
             <img
               :src="`/images/partners/${p.file}`"
               :alt="p.alt"
+              :width="p.w"
+              :height="p.h"
+              loading="lazy"
+            />
+          </li>
+          <!-- копия для ленты на телефоне: плывёт по кругу без скачка; на компьютере скрыта -->
+          <li v-for="p in partners" :key="`copy-${p.file}`" data-clone aria-hidden="true">
+            <img
+              :src="`/images/partners/${p.file}`"
+              alt=""
               :width="p.w"
               :height="p.h"
               loading="lazy"

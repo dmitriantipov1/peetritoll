@@ -17,6 +17,8 @@ const BLOCKS = [
   '.bk-card',
   '.bq-form',
   '.article',
+  // логотипы — одним блоком: на телефоне это плывущая лента, по одному они проявлялись бы на ходу
+  '.partners--logos',
 ].join(',')
 const ITEMS = [
   '.grid-2 > li',
@@ -29,7 +31,6 @@ const ITEMS = [
   '.gallery > li',
   '.explore > li',
   '.meal-cards > li',
-  '.partners--logos > li',
 ].join(',')
 
 export default defineNuxtPlugin((nuxtApp) => {

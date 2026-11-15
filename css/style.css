@@ -1106,6 +1106,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* Длинная подпись под фото — по центру, как в макете заказчицы (group.html, 12.11.2026) */
 .story .story__quote--center { text-align: center; font-style: normal; }
 .story__note { margin-top: var(--s-3); }
+/* Сноска под фото про книгу (15.11.2026, «О нас», 02): как «Только самовывоз» у товара, фон светлее */
+.note.story__note--light { background: var(--bg-shop); }
+.story__more { display: flex; justify-content: flex-end; margin-top: var(--s-3); }
+@media (max-width: 860px) { .story__more { justify-content: flex-start; } }
 /* Длинный текст рядом с фото (15.11.2026, «О нас»): фото с подписью едет рядом с текстом,
    факты — полосой в 4 колонки под блоком, а не в колонке текста */
 .story--sticky .story__media { position: sticky; top: var(--s-3); }
@@ -1205,8 +1209,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .partners--logos { gap: var(--s-2) var(--s-3); }
   .partners--logos img { height: 60px; max-width: 150px; }
 }
-/* Телефон (15.11.2026): логотипы — лентой, листается пальцем и сама по кругу (js — data-slider);
-   виден край следующего логотипа, чтобы было понятно, что лента листается */
+/* Телефон (15.11.2026): логотипы — лентой, листается пальцем и сама медленно плывёт по кругу
+   (js — data-slider). Копия логотипов в конце ([data-clone]) — чтобы круг был без скачка в начало;
+   на компьютере копия скрыта. Пока лента плывёт (.is-drift), без прилипания к логотипу */
+.partners--logos [data-clone] { display: none; }
 @media (max-width: 640px) {
   .partners--logos {
     flex-wrap: nowrap; justify-content: flex-start; gap: var(--s-4);
@@ -1214,6 +1220,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
     margin-inline: calc(-1 * var(--gutter)); padding: var(--s-1) var(--gutter);
     scroll-padding-inline: var(--gutter); scrollbar-width: none;
   }
+  .partners--logos.is-drift { scroll-snap-type: none; scroll-behavior: auto; }
+  .partners--logos [data-clone] { display: list-item; }
   .partners--logos::-webkit-scrollbar { display: none; }
   .partners--logos li { flex: 0 0 auto; scroll-snap-align: start; }
   .partners--logos img { height: 72px; max-width: 200px; }

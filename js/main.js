@@ -909,30 +909,50 @@ document.querySelectorAll('[data-order-done]').forEach((box) => {
   });
 });
 
-// ---------- Лента, которая листается сама (data-slider, 15.11.2026) ----------
-// Логотипы партнёров на телефоне: каждые 2,5 с — к следующему, в конце — в начало.
-// Только когда лента не помещается (на компьютере логотипы стоят рядами — ничего не делаем),
-// видна на экране и её не трогают пальцем (после касания — пауза 6 с). «Уменьшить движение» — без автопрокрутки.
+// ---------- Лента, которая плывёт сама (data-slider, 15.11.2026) ----------
+// Логотипы партнёров на телефоне медленно и непрерывно едут влево (~25 px/с), по кругу:
+// в конец добавлена копия логотипов (data-clone, на компьютере скрыта), и когда первая копия
+// доезжает до начала, лента незаметно перескакивает назад на длину набора. Только когда лента
+// не помещается (на компьютере логотипы стоят рядами), видна на экране и её не трогают пальцем
+// (после касания — пауза 4 с, дальше плывёт с того места, куда долистали). «Уменьшить движение» — стоит.
 document.querySelectorAll('[data-slider]').forEach((list) => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const items = [...list.children];
+  items.forEach((li) => {
+    const copy = li.cloneNode(true);
+    copy.setAttribute('data-clone', '');
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('img').forEach((img) => { img.alt = ''; });
+    list.appendChild(copy);
+  });
+  const firstCopy = list.children[items.length];
+  const SPEED = 25; // px в секунду
   let visible = false;
   let pausedUntil = 0;
-  const pause = () => { pausedUntil = Date.now() + 6000; };
+  let pos = list.scrollLeft;
+  let last = 0;
+  const pause = () => { pausedUntil = performance.now() + 4000; };
   list.addEventListener('pointerdown', pause);
   list.addEventListener('touchstart', pause, { passive: true });
   list.addEventListener('wheel', pause, { passive: true });
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { threshold: 0.5 }).observe(list);
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }).observe(list);
   } else visible = true;
-  setInterval(() => {
-    if (!visible || Date.now() < pausedUntil || list.scrollWidth <= list.clientWidth + 2) return;
-    const pad = parseFloat(getComputedStyle(list).paddingLeft) || 0;
-    const start = list.getBoundingClientRect().left + pad;
-    const next = [...list.children].find((li) => li.getBoundingClientRect().left > start + 4);
-    const atEnd = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4;
-    if (!next || atEnd) list.scrollTo({ left: 0 });
-    else list.scrollBy({ left: next.getBoundingClientRect().left - start });
-  }, 2500);
+  const step = (now) => {
+    const dt = last ? Math.min(now - last, 100) / 1000 : 0;
+    last = now;
+    const loop = firstCopy.offsetLeft - items[0].offsetLeft; // длина одного набора
+    const moving = visible && now >= pausedUntil && list.scrollWidth > list.clientWidth + 2 && loop > 0;
+    list.classList.toggle('is-drift', moving);
+    if (moving) {
+      if (Math.abs(list.scrollLeft - pos) > 2) pos = list.scrollLeft; // долистали пальцем
+      pos += SPEED * dt;
+      if (pos >= loop) pos -= loop;
+      list.scrollLeft = pos;
+    } else pos = list.scrollLeft;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 });
 
 // ---------- Плавное появление при прокрутке (14.11.2026) ----------
@@ -945,10 +965,12 @@ document.querySelectorAll('[data-slider]').forEach((list) => {
     '.section-head', '.intro', '.story__text', '.story__media', '.two-col > *', '.cta-row',
     '.exhibition__text', '.exhibition__gallery', '.events', '.subsection', '.menu-cat',
     '.bk-card', '.pdp-gallery', '.pdp__info', '.pdp__about', '.article',
+    // логотипы — одним блоком: на телефоне это плывущая лента, по одному они проявлялись бы на ходу
+    '.partners--logos',
   ];
   const items = [
     '.grid-2 > li', '.grid-3 > li', '.grid-4 > li', '.products > li', '.news > li', '.halls > li',
-    '.services > li', '.gallery > li', '.explore > li', '.meal-cards > li', '.partners--logos > li',
+    '.services > li', '.gallery > li', '.explore > li', '.meal-cards > li',
   ];
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
