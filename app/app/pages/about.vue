@@ -2,10 +2,11 @@
 // «О нас» (about.html прототипа, перенесено как есть 15.11.2026): 01 семейное дело, 02 история
 // здания, 03 история Палдиски, 04 новости (три свежие из базы; раздел «Новости» выключен
 // или новостей нет — блока нет, номера сдвигаются), 05 спонсоры и партнёры с логотипами
-// и фото владелицы. Тексты — в переводах (пока только русские).
+// и фото владелицы. Тексты — в переводах (пока только русские); 01–03 — тексты и фото
+// от заказчицы (15.11.2026), «Заглянуть в книгу» — в магазин.
 import type { SiteNewsCard } from '#shared/site-news'
 
-const { t, locale } = useI18n()
+const { t, te, locale } = useI18n()
 const localePath = useLocalePath()
 
 useHead({ title: () => `${t('about.title')} — Tavern Peetri Toll` })
@@ -19,7 +20,17 @@ const latest = computed(() => (news.value ?? []).slice(0, 3))
 const partnersNum = computed(() => (latest.value.length ? '05' : '04'))
 
 const facts = ['since', 'restaurant', 'museum', 'publishing'] as const
-const timeline = ['1760', 'xix', 'xx', 'today'] as const
+const timeline = ['xviii', 'xix', 'xx', 'xxi'] as const
+// «Заглянуть в книгу» — «Байки из-за барной стойки» в нашем магазине: в русской версии —
+// русское издание, в эстонской — эстонское («Lood baarileti tagant»). Английского нет — без кнопки
+const bookSlugs: Partial<Record<string, string>> = {
+  ru: 'bayki-iz-za-barnoy-stoyki',
+  et: 'lood-baarileti-tagant',
+}
+const bookSlug = computed(() => bookSlugs[locale.value])
+// Логотипы — в порядке заказчицы (13.11.2026); на телефоне — лентой, листается сама
+const logos = ref<HTMLElement | null>(null)
+useAutoSlide(logos)
 // Логотипы — в порядке заказчицы (13.11.2026)
 const partners = [
   { file: '01-laane-harju-vald.png', alt: 'Lääne-Harju vald', w: 460, h: 200 },
@@ -50,17 +61,18 @@ const partners = [
     <section id="semya" class="section section--bg1">
       <div class="container">
         <SectionHead num="01" :crumb="t('about.family.crumb')" :title="t('about.family.title')" />
-        <div class="story">
+        <div class="story story--sticky">
           <div class="story__text">
             <h3 class="intro__title">{{ t('about.family.lead') }}</h3>
             <p>{{ t('about.family.text1') }}</p>
             <p>{{ t('about.family.text2') }}</p>
-            <dl class="facts">
-              <div v-for="f in facts" :key="f" class="facts__row">
-                <dt>{{ t(`about.family.facts.${f}.title`) }}</dt>
-                <dd>{{ t(`about.family.facts.${f}.text`) }}</dd>
-              </div>
-            </dl>
+            <p>{{ t('about.family.text3') }}</p>
+            <p>
+              <strong>{{ t('about.family.factLabel') }}</strong> {{ t('about.family.fact') }}
+            </p>
+            <NuxtLink v-if="bookSlug" class="btn" :to="localePath(`/shop/${bookSlug}`)">{{
+              t('about.family.book')
+            }}</NuxtLink>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/about-family.jpg" :alt="t('about.family.photoAlt')" />
@@ -71,6 +83,12 @@ const partners = [
             </figcaption>
           </figure>
         </div>
+        <dl class="facts facts--strip">
+          <div v-for="f in facts" :key="f" class="facts__row">
+            <dt>{{ t(`about.family.facts.${f}.title`) }}</dt>
+            <dd>{{ t(`about.family.facts.${f}.text`) }}</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -82,18 +100,21 @@ const partners = [
           :crumb="t('about.building.crumb')"
           :title="t('about.building.title')"
         />
-        <div class="story">
+        <div class="story story--sticky">
           <div class="story__text">
             <h3 class="intro__title">{{ t('about.building.lead') }}</h3>
             <ol class="timeline">
               <li v-for="step in timeline" :key="step">
                 <p class="timeline__date">{{ t(`about.building.timeline.${step}.date`) }}</p>
                 <p class="timeline__text">{{ t(`about.building.timeline.${step}.text`) }}</p>
+                <p v-if="te(`about.building.timeline.${step}.text2`)" class="timeline__text">
+                  {{ t(`about.building.timeline.${step}.text2`) }}
+                </p>
               </li>
             </ol>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/restaurant-house.jpg" :alt="t('about.building.photoAlt')" />
+            <PhotoFrame src="/images/about-building.jpg" :alt="t('about.building.photoAlt')" />
             <figcaption class="quote story__quote">
               {{ t('about.building.quote1') }}<br /><span class="quote__indent">{{
                 t('about.building.quote2')
@@ -108,11 +129,12 @@ const partners = [
     <section id="paldiski" class="section section--bg1">
       <div class="container">
         <SectionHead num="03" :crumb="t('about.city.crumb')" :title="t('about.city.title')" />
-        <div class="story story--reverse">
+        <div class="story story--reverse story--sticky">
           <div class="story__text">
             <h3 class="intro__title">{{ t('about.city.lead') }}</h3>
             <p>{{ t('about.city.text1') }}</p>
             <p>{{ t('about.city.text2') }}</p>
+            <p>{{ t('about.city.text3') }}</p>
             <NuxtLink class="btn" :to="localePath('/museum') + '#arhivy'">{{
               t('about.city.archives')
             }}</NuxtLink>
@@ -163,7 +185,7 @@ const partners = [
             <PhotoFrame src="/images/owner.jpg" :alt="t('about.partners.ownerAlt')" />
           </figure>
         </div>
-        <ul class="partners partners--logos" :aria-label="t('about.partners.crumb')">
+        <ul ref="logos" class="partners partners--logos" :aria-label="t('about.partners.crumb')">
           <li v-for="p in partners" :key="p.file">
             <img
               :src="`/images/partners/${p.file}`"

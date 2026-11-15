@@ -9,7 +9,7 @@ const switchLocalePath = useSwitchLocalePath()
 // Адрес страницы один для всех языков, префикс языка добавляет localePath (5.1).
 // У «Меню» — выпадающий список (созвон 12.11.2026): основное, банкетное, групповое меню
 const items = computed(() =>
-  ['restaurant', 'about', 'menu', 'museum', 'services', 'contacts', 'shop'].map((key) => ({
+  ['about', 'restaurant', 'menu', 'museum', 'services', 'contacts', 'shop'].map((key) => ({
     key,
     to: localePath(`/${key}`),
     label: t(`nav.${key}`),

@@ -909,6 +909,32 @@ document.querySelectorAll('[data-order-done]').forEach((box) => {
   });
 });
 
+// ---------- Лента, которая листается сама (data-slider, 15.11.2026) ----------
+// Логотипы партнёров на телефоне: каждые 2,5 с — к следующему, в конце — в начало.
+// Только когда лента не помещается (на компьютере логотипы стоят рядами — ничего не делаем),
+// видна на экране и её не трогают пальцем (после касания — пауза 6 с). «Уменьшить движение» — без автопрокрутки.
+document.querySelectorAll('[data-slider]').forEach((list) => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let visible = false;
+  let pausedUntil = 0;
+  const pause = () => { pausedUntil = Date.now() + 6000; };
+  list.addEventListener('pointerdown', pause);
+  list.addEventListener('touchstart', pause, { passive: true });
+  list.addEventListener('wheel', pause, { passive: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { threshold: 0.5 }).observe(list);
+  } else visible = true;
+  setInterval(() => {
+    if (!visible || Date.now() < pausedUntil || list.scrollWidth <= list.clientWidth + 2) return;
+    const pad = parseFloat(getComputedStyle(list).paddingLeft) || 0;
+    const start = list.getBoundingClientRect().left + pad;
+    const next = [...list.children].find((li) => li.getBoundingClientRect().left > start + 4);
+    const atEnd = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4;
+    if (!next || atEnd) list.scrollTo({ left: 0 });
+    else list.scrollBy({ left: next.getBoundingClientRect().left - start });
+  }, 2500);
+});
+
 // ---------- Плавное появление при прокрутке (14.11.2026) ----------
 // Разделы, карточки и фото проявляются и чуть поднимаются, когда доходят до экрана; в сетках —
 // по очереди. Помечает скрипт: без него (или при «уменьшить движение») всё видно сразу.

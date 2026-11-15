@@ -486,6 +486,13 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 
 .section-head__num { font-weight: 500; color: var(--c-gold); }
+/* Телефон (15.11.2026): вторая строка цитаты без сдвига — сдвиг доставался только первой строке
+   переноса, и цитата выглядела «рваной»; заголовок раздела мельче, чтобы чаще помещался в строку */
+@media (max-width: 640px) {
+  .quote { font-size: 21px; }
+  .quote__indent { padding-left: 0; }
+  .section-head__title { font-size: clamp(30px, 9vw, 40px); }
+}
 
 .section-head__more {
   padding-bottom: 10px;
@@ -1101,6 +1108,25 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* Длинная подпись под фото — по центру, как в макете заказчицы (group.html, 12.11.2026) */
 .story .story__quote--center { text-align: center; font-style: normal; }
 .story__note { margin-top: var(--s-3); }
+/* Длинный текст рядом с фото (15.11.2026, «О нас»): фото с подписью едет рядом с текстом,
+   факты — полосой в 4 колонки под блоком, а не в колонке текста */
+.story--sticky .story__media { position: sticky; top: var(--s-3); }
+.facts--strip {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap);
+  margin: var(--s-4) 0 0; border-top: 0;
+}
+.facts--strip .facts__row {
+  grid-template-columns: 1fr; gap: 4px; align-content: start;
+  padding: var(--s-2) 0 0; border-top: 1px solid rgba(111,108,108,.35); border-bottom: 0;
+}
+@media (max-width: 860px) {
+  .story--sticky .story__media { position: static; }
+  .facts--strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .facts--strip { grid-template-columns: 1fr; gap: 0; }
+  .facts--strip .facts__row { padding: 12px 0; }
+}
 
 /* ---------- Таймлайн (история здания) ---------- */
 .timeline { list-style: none; border-left: 1px solid var(--c-gold); }
@@ -1171,6 +1197,19 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 640px) {
   .partners--logos { gap: var(--s-2) var(--s-3); }
   .partners--logos img { height: 60px; max-width: 150px; }
+}
+/* Телефон (15.11.2026): логотипы — лентой, листается пальцем и сама по кругу (js — data-slider);
+   виден край следующего логотипа, чтобы было понятно, что лента листается */
+@media (max-width: 640px) {
+  .partners--logos {
+    flex-wrap: nowrap; justify-content: flex-start; gap: var(--s-4);
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    margin-inline: calc(-1 * var(--gutter)); padding: var(--s-1) var(--gutter);
+    scroll-padding-inline: var(--gutter); scrollbar-width: none;
+  }
+  .partners--logos::-webkit-scrollbar { display: none; }
+  .partners--logos li { flex: 0 0 auto; scroll-snap-align: start; }
+  .partners--logos img { height: 72px; max-width: 200px; }
 }
 
 /* ---------- Отзывы ---------- */
