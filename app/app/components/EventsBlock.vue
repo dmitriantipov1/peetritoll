@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Блок «Мероприятия»: вкладки «Предстоящие / Архив» (index.html прототипа) — на главной
-// («05», со ссылкой «Все мероприятия») и на странице /events («01», весь архив).
+// («05», со ссылкой «Все мероприятия»), на странице /events («01», весь архив) и в «Музее»
+// («04», свой вводный текст и фон).
 // Предстоящие идут по очереди вместе с афишей, как data-rotate в js/main.js прототипа:
 // у выделенного — полоска, сколько осталось до следующего; наведение или фокус останавливает смену.
 import type { SiteEvent, SiteEvents } from '#shared/site-events'
@@ -10,6 +11,10 @@ const props = defineProps<{
   num: string
   /** Ссылка «Все мероприятия» в заголовке — на главной */
   more?: boolean
+  /** Свой вводный текст и фон — в «Музее» (как в museum.html прототипа) */
+  lead?: string
+  text?: string
+  bg?: 'section--bg1' | 'section--bg4'
 }>()
 
 const { t, locale } = useI18n()
@@ -68,7 +73,7 @@ onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <template>
-  <section id="meropriyatiya" class="section section--bg1">
+  <section id="meropriyatiya" class="section" :class="bg ?? 'section--bg1'">
     <div class="container">
       <SectionHead
         :num="num"
@@ -78,8 +83,8 @@ onBeforeUnmount(() => clearTimeout(timer))
       />
 
       <div class="intro intro--single">
-        <h3 class="intro__title">{{ t('home.events.lead') }}</h3>
-        <p>{{ t('home.events.text') }}</p>
+        <h3 class="intro__title">{{ lead ?? t('home.events.lead') }}</h3>
+        <p>{{ text ?? t('home.events.text') }}</p>
       </div>
 
       <div class="tabs" role="tablist" :aria-label="t('home.events.title')">
