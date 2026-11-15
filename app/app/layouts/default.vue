@@ -33,5 +33,6 @@ useHead(() => ({
       <slot />
     </main>
     <SiteFooter />
+    <CartToast />
   </div>
 </template>

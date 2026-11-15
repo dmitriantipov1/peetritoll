@@ -35,6 +35,9 @@ docker compose up
 | `/et/about`, `/en/about`, `/ru/about`                | «О нас»: семья, история здания и Палдиски, новости из базы, спонсоры и партнёры                                                                                                 |
 | `/et/museum`, `/en/museum`, `/ru/museum`             | «Музей»: выставка, экспонаты, визит, мероприятия из базы, архивы, книги (SumUp), авторы                                                                                         |
 | `/ru/authors/kirillov` и т. д.                       | страница автора — шаблон, как в прототипе (авторы — `app/utils/museum.ts`)                                                                                                      |
+| `/et/shop`, `/en/shop`, `/ru/shop`                   | магазин «Музейная лавка»: фильтр по категориям, карточки из базы, «В корзину»; `#books` — сразу категория                                                                       |
+| `/ru/shop/<slug>`                                    | страница товара: фото, варианты, цена, характеристики, «Ещё в лавке»                                                                                                            |
+| `/ru/cart`                                           | корзина (в браузере, localStorage); оформления пока нет                                                                                                                         |
 | `/et/restaurant`, `/en/restaurant`, `/ru/restaurant` | «Ресторан»: залы, меню, галерея из базы с фото крупно, отзывы, бронь стола (`/api/site/restaurant`, `/api/site/requests`)                                                       |
 | `/et/menu`, `/en/menu`, `/ru/menu`                   | основное меню из базы: разделы, карточки и списки, фильтр по отметкам, фото крупно (`/api/site/menu`)                                                                           |
 | `/et/lunch`, `/en/lunch`, `/ru/lunch`                | «Дневная трапеза»: меню дня на неделю (`/api/site/lunch`); ссылок с сайта нет                                                                                                   |
@@ -254,6 +257,8 @@ npm run dev
 - в формах — компонент `AdminImageUpload` (`v-model:image`, `v-model:legacy`)
 - перенос старых фото блюд по ссылкам со старого сайта (повторный запуск — только новое):
   `docker compose exec app npx nuxi task run media:import-dish-photos`
+- обложки книг издательства из SumUp-магазина — первым фото книги (книги с фото пропускает):
+  `docker compose exec app npx nuxi task run media:import-book-covers`
 
 ## API
 
