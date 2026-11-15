@@ -1,0 +1,190 @@
+<script setup lang="ts">
+// «О нас» (about.html прототипа, перенесено как есть 15.11.2026): 01 семейное дело, 02 история
+// здания, 03 история Палдиски, 04 новости (три свежие из базы; раздел «Новости» выключен
+// или новостей нет — блока нет, номера сдвигаются), 05 спонсоры и партнёры с логотипами
+// и фото владелицы. Тексты — в переводах (пока только русские).
+import type { SiteNewsCard } from '#shared/site-news'
+
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+
+useHead({ title: () => `${t('about.title')} — Tavern Peetri Toll` })
+
+// Новости — не обязательны: раздел выключен (404) — просто без блока
+const { data: news } = await useFetch<SiteNewsCard[]>('/api/site/news', {
+  query: { locale },
+  default: () => [],
+})
+const latest = computed(() => (news.value ?? []).slice(0, 3))
+const partnersNum = computed(() => (latest.value.length ? '05' : '04'))
+
+const facts = ['since', 'restaurant', 'museum', 'publishing'] as const
+const timeline = ['1760', 'xix', 'xx', 'today'] as const
+// Логотипы — в порядке заказчицы (13.11.2026)
+const partners = [
+  { file: '01-laane-harju-vald.png', alt: 'Lääne-Harju vald', w: 460, h: 200 },
+  {
+    file: '02-tuuleenergia-toetab.png',
+    alt: 'Tuuleenergia toetab — MTÜ Paldiski Linna Toetusgrupp',
+    w: 373,
+    h: 200,
+  },
+  { file: '03-laane-harju-koostookogu.png', alt: 'Lääne-Harju Koostöökogu', w: 574, h: 123 },
+  { file: '04-eesti-kultuurkapital.png', alt: 'Eesti Kultuurkapital', w: 446, h: 200 },
+  { file: '05-leader.png', alt: 'LEADER Eesti', w: 382, h: 123 },
+  { file: '06-derivaat-nh3.png', alt: 'Derivaat NH3', w: 842, h: 200 },
+  { file: '07-uus-laine.png', alt: 'Uus Laine', w: 458, h: 200 },
+]
+</script>
+
+<template>
+  <div>
+    <PageHero
+      :title="t('about.title')"
+      image="/images/hero.jpg"
+      :crumb="t('about.title')"
+      :lead="t('about.heroLead')"
+    />
+
+    <!-- 01 Семейное дело -->
+    <section id="semya" class="section section--bg1">
+      <div class="container">
+        <SectionHead num="01" :crumb="t('about.family.crumb')" :title="t('about.family.title')" />
+        <div class="story">
+          <div class="story__text">
+            <h3 class="intro__title">{{ t('about.family.lead') }}</h3>
+            <p>{{ t('about.family.text1') }}</p>
+            <p>{{ t('about.family.text2') }}</p>
+            <dl class="facts">
+              <div v-for="f in facts" :key="f" class="facts__row">
+                <dt>{{ t(`about.family.facts.${f}.title`) }}</dt>
+                <dd>{{ t(`about.family.facts.${f}.text`) }}</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="story__media">
+            <PhotoFrame src="/images/about-family.jpg" :alt="t('about.family.photoAlt')" />
+            <figcaption class="quote story__quote">
+              {{ t('about.family.quote1') }}<br /><span class="quote__indent">{{
+                t('about.family.quote2')
+              }}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 История здания -->
+    <section id="zdanie" class="section section--bg2">
+      <div class="container">
+        <SectionHead
+          num="02"
+          :crumb="t('about.building.crumb')"
+          :title="t('about.building.title')"
+        />
+        <div class="story">
+          <div class="story__text">
+            <h3 class="intro__title">{{ t('about.building.lead') }}</h3>
+            <ol class="timeline">
+              <li v-for="step in timeline" :key="step">
+                <p class="timeline__date">{{ t(`about.building.timeline.${step}.date`) }}</p>
+                <p class="timeline__text">{{ t(`about.building.timeline.${step}.text`) }}</p>
+              </li>
+            </ol>
+          </div>
+          <figure class="story__media">
+            <PhotoFrame src="/images/restaurant-house.jpg" :alt="t('about.building.photoAlt')" />
+            <figcaption class="quote story__quote">
+              {{ t('about.building.quote1') }}<br /><span class="quote__indent">{{
+                t('about.building.quote2')
+              }}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 История Палдиски -->
+    <section id="paldiski" class="section section--bg1">
+      <div class="container">
+        <SectionHead num="03" :crumb="t('about.city.crumb')" :title="t('about.city.title')" />
+        <div class="story story--reverse">
+          <div class="story__text">
+            <h3 class="intro__title">{{ t('about.city.lead') }}</h3>
+            <p>{{ t('about.city.text1') }}</p>
+            <p>{{ t('about.city.text2') }}</p>
+            <NuxtLink class="btn" :to="localePath('/museum') + '#arhivy'">{{
+              t('about.city.archives')
+            }}</NuxtLink>
+          </div>
+          <figure class="story__media">
+            <PhotoFrame src="/images/paldiski-history.jpg" :alt="t('about.city.photoAlt')" />
+            <figcaption class="quote story__quote">
+              {{ t('about.city.quote1') }}<br /><span class="quote__indent">{{
+                t('about.city.quote2')
+              }}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Новости — из базы -->
+    <section v-if="latest.length" id="novosti" class="section section--bg2">
+      <div class="container">
+        <SectionHead
+          num="04"
+          :crumb="t('news.crumb')"
+          :title="t('news.title')"
+          :more="{ to: localePath('/news'), label: t('news.allNews') }"
+        />
+        <ul class="grid-3 news">
+          <NewsCard v-for="n in latest" :key="n.id" :item="n" />
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 Спонсоры и партнёры -->
+    <section id="partnery" class="section section--bg1">
+      <div class="container">
+        <SectionHead
+          :num="partnersNum"
+          :crumb="t('about.partners.crumb')"
+          :title="t('about.partners.title')"
+        />
+        <div class="intro intro--half">
+          <div class="intro__text">
+            <h3 class="intro__title">{{ t('about.partners.lead') }}</h3>
+            <p>{{ t('about.partners.text1') }}</p>
+            <p>{{ t('about.partners.text2') }}</p>
+            <p>{{ t('about.partners.text3') }}</p>
+          </div>
+          <figure class="intro__photo">
+            <PhotoFrame src="/images/owner.jpg" :alt="t('about.partners.ownerAlt')" />
+          </figure>
+        </div>
+        <ul class="partners partners--logos" :aria-label="t('about.partners.crumb')">
+          <li v-for="p in partners" :key="p.file">
+            <img
+              :src="`/images/partners/${p.file}`"
+              :alt="p.alt"
+              :width="p.w"
+              :height="p.h"
+              loading="lazy"
+            />
+          </li>
+        </ul>
+        <div class="cta-row">
+          <p class="quote">
+            {{ t('about.partners.quote1') }}<br /><span class="quote__indent">{{
+              t('about.partners.quote2')
+            }}</span>
+          </p>
+          <NuxtLink class="btn btn--red" :to="localePath('/museum')">{{
+            t('about.partners.toMuseum')
+          }}</NuxtLink>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>

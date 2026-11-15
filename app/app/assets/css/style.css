@@ -561,6 +561,13 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   margin-bottom: var(--s-3);
 }
 .intro p { max-width: 62ch; }
+/* Текст и фото поровну (партнёры на «О нас», 14.11.2026): фото по высоте текста, с обрезкой */
+.intro--half { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+.intro__photo { position: relative; min-height: 320px; }
+.intro__photo .photo__frame { position: absolute; inset: 0; aspect-ratio: auto; }
+.intro__photo img { object-position: 45% 30%; }
+/* Несколько абзацев подряд (партнёры на «О нас», 13.11.2026) — с отступом */
+.intro__text p + p { margin-top: var(--s-2); }
 .intro__aside .h4 { margin-top: 0; }
 
 .formats { list-style: none; border-top: 1px solid rgba(111,108,108,.35); }
@@ -883,6 +890,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 @media (max-width: 1024px) {
   .intro { grid-template-columns: 1fr; gap: var(--s-4); }
+  /* Фото рядом с текстом — под текстом, целиком (правило: до 860 px фото без обрезки) */
+  .intro__photo { min-height: 0; }
+  /* Пропорции самой фотографии (1600×872, как 679 × 370): место под фото есть до загрузки, и фото целиком */
+  .intro__photo .photo__frame { position: relative; aspect-ratio: 679 / 370; }
   .exhibition { grid-template-columns: 1fr; }
   .cards, .explore, .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .events { grid-template-columns: 1fr; }
@@ -1151,6 +1162,15 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   font-weight: 700;
   text-align: center;
   color: var(--c-grey);
+}
+/* Логотипы спонсоров и партнёров (13.11.2026): в порядке заказчицы, 1–2 ряда по центру.
+   Логотипы разной формы — уравниваем высотой, слишком широкие ограничиваем по ширине */
+.partners--logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--s-3) var(--s-4); margin-top: var(--s-4); }
+.partners--logos li { min-height: 0; padding: 0; border: 0; }
+.partners--logos img { display: block; width: auto; height: 84px; max-width: 220px; object-fit: contain; }
+@media (max-width: 640px) {
+  .partners--logos { gap: var(--s-2) var(--s-3); }
+  .partners--logos img { height: 60px; max-width: 150px; }
 }
 
 /* ---------- Отзывы ---------- */
