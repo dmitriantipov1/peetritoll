@@ -1959,6 +1959,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .radio-two > div { display: flex; flex-direction: column; padding: var(--s-4); background: var(--bg-2); border-top: 3px solid var(--c-gold); }
 .radio-two .btn { margin-top: auto; align-self: flex-start; }
 .section--bg2 .radio-two > div { background: var(--bg-1); }
+/* Одна карточка (только аренда, 15.11.2026) — не на всю ширину */
+.radio-two--one { grid-template-columns: minmax(0, 560px); }
 
 /* Широкие таблицы на телефоне прокручиваются сами, а не тянут страницу */
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }

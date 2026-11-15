@@ -169,15 +169,8 @@ const topic = ref<TourTopic>('exhibition')
           <h3 class="intro__title">{{ t('services.radio.lead') }}</h3>
           <p>{{ t('services.radio.text') }}</p>
         </div>
-        <div class="radio-two">
-          <div>
-            <h3 class="ev-card__title">{{ t('services.radio.buy') }}</h3>
-            <p class="ev-card__price">{{ t('services.radio.buyPrice') }}</p>
-            <p>{{ t('services.radio.buyText') }}</p>
-            <NuxtLink v-if="s.shop" class="btn btn--sm" :to="localePath('/shop')">{{
-              t('services.radio.toShop')
-            }}</NuxtLink>
-          </div>
+        <!-- Радиогиды — только аренда (15.11.2026): это устройства музея, не товар -->
+        <div class="radio-two radio-two--one">
           <div>
             <h3 class="ev-card__title">{{ t('services.radio.rent') }}</h3>
             <p class="ev-card__price">{{ t('services.radio.rentPrice') }}</p>

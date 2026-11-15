@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261115">
+  <link rel="stylesheet" href="./css/style.css?v=20261115-2">
 </head>
 <body>
 
@@ -831,15 +831,16 @@
           <p class="variant-group__num">Блок 05 · раздел «Музей»</p>
           <h2 class="variant-group__title">Радиогиды на странице экскурсий</h2>
           <p class="variant-group__why">Договорились, что радиогиды живут блоком на странице
-            экскурсий, а не отдельной страницей. Остался вопрос, как этот блок выглядит:
-            одной плашкой или двумя предложениями — купить и арендовать.</p>
+            экскурсий, а не отдельной страницей. Радиогиды только в аренду — это устройства
+            музея, не товар (15.11.2026). Остался вопрос, как этот блок выглядит: плашкой
+            с фото или карточкой с ценой.</p>
         </div>
 
         <div class="variant-panel">
           <p class="variant-panel__label">Выберите вид блока радиогидов</p>
           <div class="chips" role="group" aria-label="Варианты блока радиогидов">
-            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Одна плашка внутри страницы экскурсий. Не перетягивает внимание с экскурсий, но покупка и аренда смешаны в одной кнопке.">1. Плашка в тексте</button>
-            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Два отдельных предложения рядом: купить себе и арендовать на группу. Сценарии разведены, но блок занимает заметно больше места.">2. Две карточки</button>
+            <button class="chip" type="button" data-variant="1" aria-pressed="false" data-desc="Одна плашка с фото внутри страницы экскурсий. Не перетягивает внимание с экскурсий, цена — в тексте.">1. Плашка в тексте</button>
+            <button class="chip" type="button" data-variant="2" aria-pressed="false" data-desc="Карточка аренды с ценой и условиями. Так сейчас на странице «Услуги».">2. Карточка</button>
           </div>
           <p class="variant-panel__desc"></p>
         </div>
@@ -850,21 +851,14 @@
             <div>
               <h3 class="ev-card__title">Радиогиды для групп</h3>
               <p>Слышно каждое слово гида даже в большой группе и на ветру.
-                Выдаём на месте, можно купить себе или взять в аренду на время экскурсии.</p>
+                Выдаём в аренду на время экскурсии: 3 € за устройство, от 5 устройств.</p>
             </div>
             <a class="btn btn--sm" href="#radio">Оставить запрос</a>
           </div>
         </div>
 
         <div data-v="2" hidden>
-          <div class="radio-two">
-            <div>
-              <h3 class="ev-card__title">Купить радиогид</h3>
-              <p class="ev-card__price">89 €</p>
-              <p>Приёмник с наушником. Подходит для всех наших экскурсий
-                и работает с оборудованием других музеев.</p>
-              <a class="btn btn--sm" href="#radio">В магазин</a>
-            </div>
+          <div class="radio-two radio-two--one">
             <div>
               <h3 class="ev-card__title">Арендовать на группу</h3>
               <p class="ev-card__price">3 € за устройство</p>
