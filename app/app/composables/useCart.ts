@@ -100,5 +100,19 @@ export function useCart() {
     save()
   }
 
-  return { items, loaded, toast, count, sumCents, load, find, canAdd, add, setQty, remove, clear }
+  return {
+    items,
+    loaded,
+    toast,
+    count,
+    sumCents,
+    load,
+    save,
+    find,
+    canAdd,
+    add,
+    setQty,
+    remove,
+    clear,
+  }
 }

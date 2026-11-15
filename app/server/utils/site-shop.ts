@@ -61,7 +61,6 @@ function toCard(p: ProductRow, locale: ContentLocale, catSlug: string): SiteShop
   const t = pickTranslation(p.translations, locale)!
   const variants = p.variants.filter((v) => v.isAvailable).map((v) => toVariant(v, locale))
   const prices = variants.map((v) => v.priceCents)
-  const buyable = variants.filter((v) => v.stock === null || v.stock > 0)
   return {
     id: p.id,
     slug: t.slug,
@@ -71,7 +70,7 @@ function toCard(p: ProductRow, locale: ContentLocale, catSlug: string): SiteShop
     priceCents: Math.min(...prices),
     priceFrom: new Set(prices).size > 1,
     photo: p.photos[0] ? toMediaImage(p.photos[0].media) : null,
-    quickVariant: variants.length === 1 && buyable.length === 1 ? buyable[0]! : null,
+    quickVariant: variants.length === 1 ? variants[0]! : null,
   }
 }
 

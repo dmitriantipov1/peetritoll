@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Карточка товара — вариант 8 (выбор заказчицы 10.11.2026), .product прототипа: без категории,
-// под названием одна строка (у книг — автор). Один вариант в наличии — «В корзину» сразу,
+// под названием одна строка (у книг — автор). Один вариант — «В корзину» сразу (продан — «Продано»),
 // несколько — «Выбрать» на странице товара.
 import type { SiteShopCard } from '#shared/site-shop'
 import { formatPrice } from '#shared/money'
@@ -12,8 +12,11 @@ const localePath = useLocalePath()
 const cart = useCart()
 const to = computed(() => localePath(`/shop/${props.product.slug}`))
 const quick = computed(() => props.product.quickVariant)
+const soldOut = computed(() => quick.value?.stock === 0)
 // Штучный уже в корзине — второй раз не положить
-const full = computed(() => cart.loaded.value && !!quick.value && !cart.canAdd(quick.value))
+const full = computed(
+  () => cart.loaded.value && !!quick.value && !soldOut.value && !cart.canAdd(quick.value),
+)
 </script>
 
 <template>
@@ -47,10 +50,10 @@ const full = computed(() => cart.loaded.value && !!quick.value && !cart.canAdd(q
         v-if="quick"
         class="btn btn--sm"
         type="button"
-        :disabled="full"
+        :disabled="soldOut || full"
         @click="cart.add(product, quick)"
       >
-        {{ full ? t('shop.inCart') : t('shop.add') }}
+        {{ soldOut ? t('shop.soldOut') : full ? t('shop.inCart') : t('shop.add') }}
       </button>
       <NuxtLink v-else class="btn btn--sm" :to="to">{{ t('shop.choose') }}</NuxtLink>
     </div>

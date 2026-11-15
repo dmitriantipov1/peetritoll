@@ -28,18 +28,31 @@ function requestTag(row: RequestRow): string {
   })
 }
 
+/** Кто обратился — из заявки или заказа: этого хватает, чтобы найти или завести контакт */
+export interface LeadContact {
+  name: string
+  email: string | null
+  phone: string | null
+  locale: RequestRow['locale']
+  at: Date
+  /** Галочку «согласен на рассылку» ставил сам человек на сайте */
+  optIn: boolean
+  /** Где дал согласие: «заявка № 1008», «заказ № 2001» */
+  source: string
+  tag: string
+}
+
 /**
- * Найти контакт заявки или завести новый и привязать к нему заявку (8.2).
+ * Найти контакт или завести новый (8.2), поставить автотег. Возвращает id контакта.
  * Ключ склейки — почта; без почты — телефон. Если почта есть, но новая, а телефон совпал
  * с чужим контактом, — это новый контакт и «возможный дубль»: склеивать по одному телефону
  * людей с разными почтами нельзя, это может быть семья с общим номером.
- * Согласие на рассылку переносим только из заявки с сайта: галочку ставил сам гость.
  */
-export async function linkRequestToLead(tx: Tx, row: RequestRow): Promise<number> {
-  const key = phoneKey(row.phone)
+export async function upsertLead(tx: Tx, c: LeadContact): Promise<number> {
+  const key = phoneKey(c.phone)
   let lead: LeadRow | undefined
-  if (row.email) {
-    ;[lead] = await tx.select().from(leads).where(eq(leads.email, row.email)).limit(1)
+  if (c.email) {
+    ;[lead] = await tx.select().from(leads).where(eq(leads.email, c.email)).limit(1)
   } else if (key) {
     ;[lead] = await tx
       .select()
@@ -49,51 +62,61 @@ export async function linkRequestToLead(tx: Tx, row: RequestRow): Promise<number
       .limit(1)
   }
 
-  const optIn = row.source === 'site' && row.marketingOptIn
-  const marketing = optIn
-    ? {
-        marketing: 'yes' as const,
-        marketingAt: row.createdAt,
-        marketingSource: `заявка № ${row.id}`,
-      }
+  const marketing = c.optIn
+    ? { marketing: 'yes' as const, marketingAt: c.at, marketingSource: c.source }
     : {}
 
   if (!lead) {
     ;[lead] = await tx
       .insert(leads)
       .values({
-        name: row.name,
-        email: row.email,
-        phone: row.phone,
+        name: c.name,
+        email: c.email,
+        phone: c.phone,
         phoneKey: key,
-        locale: row.locale,
-        lastEventAt: row.createdAt,
-        createdAt: row.createdAt,
+        locale: c.locale,
+        lastEventAt: c.at,
+        createdAt: c.at,
         ...marketing,
       })
       .returning()
   } else {
     // Дополняем пустое, но не переписываем то, что персонал мог поправить руками
-    const later = row.createdAt >= lead.lastEventAt
+    const later = c.at >= lead.lastEventAt
     await tx
       .update(leads)
       .set({
-        phone: lead.phone ?? row.phone,
+        phone: lead.phone ?? c.phone,
         phoneKey: lead.phoneKey ?? key,
-        email: lead.email ?? row.email,
-        ...(later ? { locale: row.locale, lastEventAt: row.createdAt } : {}),
+        email: lead.email ?? c.email,
+        ...(later ? { locale: c.locale, lastEventAt: c.at } : {}),
         // Согласие не снимаем: отказ от рассылки — только явный
-        ...(optIn && lead.marketing !== 'yes' ? marketing : {}),
+        ...(c.optIn && lead.marketing !== 'yes' ? marketing : {}),
       })
       .where(eq(leads.id, lead.id))
   }
 
   await tx
     .insert(leadTags)
-    .values({ leadId: lead!.id, tag: requestTag(row), auto: true })
+    .values({ leadId: lead!.id, tag: c.tag, auto: true })
     .onConflictDoUpdate({ target: [leadTags.leadId, leadTags.tag], set: { auto: true } })
-  await tx.update(requests).set({ leadId: lead!.id }).where(eq(requests.id, row.id))
   return lead!.id
+}
+
+/** Привязать заявку к контакту. Согласие на рассылку переносим только из заявки с сайта */
+export async function linkRequestToLead(tx: Tx, row: RequestRow): Promise<number> {
+  const leadId = await upsertLead(tx, {
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    locale: row.locale,
+    at: row.createdAt,
+    optIn: row.source === 'site' && row.marketingOptIn,
+    source: `заявка № ${row.id}`,
+    tag: requestTag(row),
+  })
+  await tx.update(requests).set({ leadId }).where(eq(requests.id, row.id))
+  return leadId
 }
 
 /** Привязать заявки, у которых контакта ещё нет (заведены до лидов), — по порядку поступления */
