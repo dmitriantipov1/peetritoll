@@ -4,13 +4,14 @@
 // Пока без оплаты (решение 15.11.2026): заказ сохраняется со статусом «ждёт оплаты».
 // Цены и наличие сервер проверяет сам — корзина в браузере могла устареть. Остаток списываем
 // сразу при оформлении, под блокировкой строки: два покупателя одну вещь не купят (7.3).
-import { eq, inArray, sql } from 'drizzle-orm'
+import { and, count, desc, eq, inArray, isNotNull, sql } from 'drizzle-orm'
 import {
   orderHistory,
   orderItems,
   orders,
   productVariants,
   products,
+  users,
   type OrderRow,
 } from '../db/schema'
 import { pickTranslation } from '#shared/locales'
@@ -20,11 +21,15 @@ import { defaultNotifications, notificationsSchema } from '#shared/site-settings
 import {
   deliveryChoices,
   deliveryMethodNames,
+  orderStatusChoices,
   orderStatusNames,
   orderTotals,
+  type AdminOrder,
+  type AdminOrderRow,
   shipToOf,
   type OrderInput,
   type OrderProblem,
+  type OrderSave as OrderSaveInput,
   type OrderRuleLine,
   type SiteOrderDone,
 } from '#shared/orders'
@@ -302,4 +307,148 @@ export async function loadOrderDone(publicId: string): Promise<SiteOrderDone | n
     email: row.email,
     totalCents: row.totalCents,
   }
+}
+
+// ---------- Админка ----------
+
+function itemsText(items: { name: string; label: string; qty: number }[]) {
+  return items
+    .map((i) => `${i.name}${i.label ? ` (${i.label})` : ''}${i.qty > 1 ? ` × ${i.qty}` : ''}`)
+    .join(' · ')
+}
+
+type OrderWithItems = OrderRow & { items: (typeof orderItems.$inferSelect)[] }
+
+function toRow(o: OrderWithItems): AdminOrderRow {
+  return {
+    id: o.id,
+    status: o.status,
+    createdAt: o.createdAt.toISOString(),
+    name: o.name,
+    email: o.email,
+    phone: o.phone,
+    items: itemsText([...o.items].sort((a, b) => a.sort - b.sort)),
+    hasDigital: o.items.some((i) => i.kind === 'digital'),
+    hasPhysical: o.items.some((i) => i.kind === 'physical'),
+    delivery: o.delivery,
+    totalCents: o.totalCents,
+    trackingNo: o.trackingNo,
+  }
+}
+
+export async function loadOrderList(): Promise<AdminOrderRow[]> {
+  const rows = await useDb().query.orders.findMany({
+    with: { items: true },
+    orderBy: [desc(orders.createdAt), desc(orders.id)],
+  })
+  return rows.map(toRow)
+}
+
+export async function loadOrder(id: number): Promise<AdminOrder> {
+  const o = await useDb().query.orders.findFirst({
+    where: eq(orders.id, id),
+    with: {
+      items: { orderBy: (i, { asc }) => [asc(i.sort)] },
+      history: { orderBy: (h, { desc }) => [desc(h.at), desc(h.id)] },
+    },
+  })
+  if (!o) throw createError({ statusCode: 404, message: 'Заказ не найден' })
+  const userIds = [...new Set(o.history.map((h) => h.userId).filter((x): x is number => !!x))]
+  const names = userIds.length
+    ? await useDb()
+        .select({ id: users.id, name: users.name })
+        .from(users)
+        .where(inArray(users.id, userIds))
+    : []
+  return {
+    ...toRow(o),
+    locale: o.locale,
+    comment: o.comment,
+    staffNote: o.staffNote,
+    shipTo: o.shipTo,
+    goodsCents: o.goodsCents,
+    deliveryCents: o.deliveryCents,
+    paidAt: o.paidAt?.toISOString() ?? null,
+    consentAt: o.consentAt.toISOString(),
+    policyVersion: o.policyVersion,
+    marketingOptIn: o.marketingOptIn,
+    orderItems: o.items.map((i) => ({
+      id: i.id,
+      productId: i.productId,
+      name: i.name,
+      label: i.label,
+      kind: i.kind,
+      pickupOnly: i.pickupOnly,
+      priceCents: i.priceCents,
+      qty: i.qty,
+    })),
+    history: o.history.map((h) => ({
+      id: h.id,
+      kind: h.kind,
+      note: h.note,
+      userName: names.find((u) => u.id === h.userId)?.name ?? null,
+      at: h.at.toISOString(),
+    })),
+    lead: await leadForRequest(o.leadId),
+  }
+}
+
+/**
+ * Сохранить карточку заказа: статус, трек-номер, заметка. Смена статуса — в историю.
+ * «Оплачен» ставит время оплаты (пока оплату отмечают руками). Отмена возвращает остаток
+ * на полку — поэтому из «Отменён» обратно не переводим: вещь уже могли купить.
+ */
+export async function saveOrder(id: number, input: OrderSaveInput, userId: number) {
+  await useDb().transaction(async (tx) => {
+    const [o] = await tx.select().from(orders).where(eq(orders.id, id)).for('update').limit(1)
+    if (!o) throw createError({ statusCode: 404, message: 'Заказ не найден' })
+    if (!orderStatusChoices(o.status).includes(input.status)) {
+      throw createError({
+        statusCode: 400,
+        message: 'Отменённый заказ не вернуть — оформите новый',
+      })
+    }
+    const changed = o.status !== input.status
+    const becamePaid =
+      changed && input.status !== 'cancelled' && input.status !== 'awaiting_payment'
+    await tx
+      .update(orders)
+      .set({
+        status: input.status,
+        trackingNo: input.trackingNo,
+        staffNote: input.staffNote,
+        updatedBy: userId,
+        ...(becamePaid && !o.paidAt ? { paidAt: new Date() } : {}),
+      })
+      .where(eq(orders.id, id))
+    if (changed) {
+      const label = `${orderStatusNames[o.status]} → ${orderStatusNames[input.status]}`
+      await tx.insert(orderHistory).values({
+        orderId: id,
+        kind: 'status',
+        note: input.note ? `${label}. ${input.note}` : label,
+        userId,
+      })
+    }
+    if (changed && input.status === 'cancelled') {
+      const items = await tx.select().from(orderItems).where(eq(orderItems.orderId, id))
+      for (const i of items) {
+        if (!i.variantId) continue
+        // Остаток не считаем (null) — возвращать нечего
+        await tx
+          .update(productVariants)
+          .set({ stock: sql`${productVariants.stock} + ${i.qty}` })
+          .where(and(eq(productVariants.id, i.variantId), isNotNull(productVariants.stock)))
+      }
+    }
+  })
+}
+
+/** Сколько заказов ждут действия персонала: ждут оплаты или оплачены и не собраны */
+export async function countNewOrders(): Promise<number> {
+  const [row] = await useDb()
+    .select({ n: count() })
+    .from(orders)
+    .where(inArray(orders.status, ['awaiting_payment', 'paid']))
+  return row?.n ?? 0
 }

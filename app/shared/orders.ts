@@ -2,7 +2,7 @@
 // Пока без оплаты (решение 15.11.2026): заказ сохраняется со статусом «ждёт оплаты»,
 // позже между «Оформить» и «Спасибо» встанет страница оплаты SumUp.
 import { z } from 'zod'
-import { contentLocales } from './locales'
+import { contentLocales, type ContentLocale } from './locales'
 import type { ShopSettings, VariantKind } from './shop'
 
 // ---------- Получение ----------
@@ -220,4 +220,86 @@ export interface SiteOrderDone {
   hasDigital: boolean
   email: string
   totalCents: number
+}
+
+// ---------- Админка ----------
+
+/** Отменённый заказ не возвращаем: остаток уже вернулся на полку, его могли купить */
+export const FINAL_STATUSES: readonly OrderStatus[] = ['cancelled']
+
+export interface AdminOrderRow {
+  id: number
+  status: OrderStatus
+  createdAt: string
+  name: string
+  email: string
+  phone: string | null
+  /** «Байки из-за барной стойки · Рейд Палдиски (Цифровая копия)» */
+  items: string
+  hasDigital: boolean
+  hasPhysical: boolean
+  delivery: DeliveryMethod
+  totalCents: number
+  trackingNo: string | null
+}
+
+export interface AdminOrderItem {
+  id: number
+  productId: number | null
+  name: string
+  label: string
+  kind: VariantKind
+  pickupOnly: boolean
+  priceCents: number
+  qty: number
+}
+
+export interface AdminOrderHistoryItem {
+  id: number
+  kind: OrderHistoryKind
+  note: string | null
+  userName: string | null
+  at: string
+}
+
+export interface AdminOrder extends AdminOrderRow {
+  locale: ContentLocale
+  comment: string | null
+  staffNote: string | null
+  shipTo: OrderShipTo
+  goodsCents: number
+  deliveryCents: number
+  paidAt: string | null
+  consentAt: string
+  policyVersion: string
+  marketingOptIn: boolean
+  orderItems: AdminOrderItem[]
+  history: AdminOrderHistoryItem[]
+  lead: { id: number; name: string; events: number; since: string; tags: string[] } | null
+}
+
+export const orderSaveSchema = z.object({
+  status: z.enum(orderStatuses),
+  trackingNo: z
+    .string()
+    .trim()
+    .max(100)
+    .transform((v) => v || null)
+    .nullable()
+    .default(null),
+  staffNote: z
+    .string()
+    .trim()
+    .max(4000)
+    .transform((v) => v || null)
+    .nullable()
+    .default(null),
+  // Пояснение к смене статуса — в историю
+  note: z.string().trim().max(300).default(''),
+})
+export type OrderSave = z.input<typeof orderSaveSchema>
+
+/** Куда можно перевести заказ из этого статуса: из отменённого — никуда */
+export function orderStatusChoices(from: OrderStatus): OrderStatus[] {
+  return FINAL_STATUSES.includes(from) ? [from] : [...orderStatuses]
 }

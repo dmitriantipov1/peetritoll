@@ -24,14 +24,17 @@ const nav = computed(() =>
 
 const userInitials = computed(() => initials(user.value?.name ?? ''))
 
-// Счётчик новых заявок в меню (как в прототипе admin/index.html): пересчитываем при каждом
+// Счётчики новых заявок и заказов в меню (как в прототипе admin/index.html): пересчитываем при каждом
 // переходе — сменили статус в карточке, вернулись к списку — цифра уже другая — и раз в минуту,
 // чтобы заявка с сайта была видна, даже если никуда не переходить
 const route = useRoute()
-const { data: counts, refresh: refreshCounts } = await useFetch<{ requests: number }>(
-  '/api/admin/nav-counts',
-  { key: 'admin-nav-counts', default: () => ({ requests: 0 }) },
-)
+const { data: counts, refresh: refreshCounts } = await useFetch<{
+  requests: number
+  orders: number
+}>('/api/admin/nav-counts', {
+  key: 'admin-nav-counts',
+  default: () => ({ requests: 0, orders: 0 }),
+})
 watch(
   () => route.fullPath,
   () => refreshCounts(),
@@ -39,7 +42,7 @@ watch(
 let countsTimer: ReturnType<typeof setInterval> | undefined
 onMounted(() => (countsTimer = setInterval(() => refreshCounts(), 60_000)))
 onBeforeUnmount(() => clearInterval(countsTimer))
-const countOf = (key: 'requests' | undefined) => (key ? (counts.value?.[key] ?? 0) : 0)
+const countOf = (key: 'requests' | 'orders' | undefined) => (key ? (counts.value?.[key] ?? 0) : 0)
 </script>
 
 <template>
@@ -62,7 +65,7 @@ const countOf = (key: 'requests' | undefined) => (key ? (counts.value?.[key] ?? 
                 <span
                   v-if="countOf(item.count)"
                   class="adm-nav__count"
-                  :aria-label="`${countOf(item.count)} ${plural(countOf(item.count), ['новая', 'новые', 'новых'])}`"
+                  :aria-label="`${countOf(item.count)} ${item.count === 'orders' ? plural(countOf(item.count), ['ждёт', 'ждут', 'ждут']) + ' действия' : plural(countOf(item.count), ['новая', 'новые', 'новых'])}`"
                   >{{ countOf(item.count) }}</span
                 >
               </NuxtLink>
