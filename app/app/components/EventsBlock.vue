@@ -127,6 +127,15 @@ onBeforeUnmount(() => clearTimeout(timer))
               @mouseenter="pause(i)"
               @focusin="pause(i)"
             >
+              <img
+                v-if="e.poster"
+                class="event__thumb"
+                :src="e.poster.url"
+                :srcset="e.poster.srcset"
+                sizes="76px"
+                :alt="t('home.events.poster', { title: e.title })"
+                loading="lazy"
+              />
               <p class="event__date">
                 <span class="event__day">{{ dateParts(e.date).day }}</span>
                 {{ dateParts(e.date).month }}
@@ -195,6 +204,15 @@ onBeforeUnmount(() => clearTimeout(timer))
         >
           <ul v-if="events.archive.length" class="events__list">
             <li v-for="e in events.archive" :key="e.slug" class="event">
+              <img
+                v-if="e.poster"
+                class="event__thumb"
+                :src="e.poster.url"
+                :srcset="e.poster.srcset"
+                sizes="76px"
+                :alt="t('home.events.poster', { title: e.title })"
+                loading="lazy"
+              />
               <p class="event__date">
                 <span class="event__day">{{ dateParts(e.date).day }}</span>
                 {{ dateParts(e.date).month }}

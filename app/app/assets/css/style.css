@@ -793,6 +793,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .event__desc { font-size: 16px; }
 .event__meta { margin-top: 6px; font-weight: 600; font-size: 14px; }
 .event__meta span { margin-left: var(--s-3); }
+.event__thumb { display: none; }
 
 .events__poster { position: relative; aspect-ratio: 3 / 4; background: rgba(60, 31, 12, .08); }
 .events__poster img { width: 100%; height: 100%; object-fit: cover; }
@@ -972,8 +973,32 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
   .facts__row { grid-template-columns: 1fr; gap: 2px; }
 
-  .event { grid-template-columns: 72px 1fr; }
-  .event__btn { grid-column: 2; justify-self: start; }
+  /* Мероприятия на телефоне (15.11.2026): компактно — у каждого своя маленькая афиша слева
+     (большая афиша скрыта), дата строкой над типом, текст мельче, описание в одну строку,
+     кнопка поменьше. Все видны сразу — без затемнения и полоски очереди */
+  .event {
+    grid-template-columns: 1fr;
+    grid-template-areas: "date" "body" "btn";
+    gap: 6px var(--s-2);
+    align-items: start;
+    padding: var(--s-2) 0;
+  }
+  .event:has(.event__thumb) {
+    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-areas: "thumb date" "thumb body" "thumb btn";
+  }
+  .event__thumb { display: block; grid-area: thumb; width: 76px; aspect-ratio: 3 / 4; object-fit: cover; }
+  .event__date { grid-area: date; text-align: left; font-size: 12px; }
+  .event__day { display: inline; font-size: inherit; line-height: inherit; color: var(--c-red); }
+  .event__body { grid-area: body; }
+  .event__type { font-size: 11px; }
+  .event__title { font-size: 18px; line-height: 1.25; margin: 2px 0; }
+  .event__desc { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .event__meta { margin-top: 2px; font-size: 13px; }
+  .event__btn { grid-area: btn; justify-self: start; min-height: 36px; padding: 4px 14px; font-size: 14px; }
+  .events__poster { display: none; }
+  [data-rotate] .event, [data-rotate] .event.is-active { padding-inline: 0; opacity: 1; box-shadow: none; }
+  .event__progress { display: none; }
 
   .center .btn { width: 100%; }
 
