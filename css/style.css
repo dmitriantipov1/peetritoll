@@ -1225,13 +1225,23 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
    подзаголовок и текст, справа фото с подписью и строкой хэштегов; на телефоне фото сразу под заголовком */
 .news-story .article__gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .news-story .article--rich p { margin-bottom: 0; }
-.news-story .article__back { margin-bottom: 0; }
-.news-story__quote { margin-top: var(--s-4); padding-left: var(--s-3); border-left: 3px solid var(--c-gold); font-size: clamp(20px, 2vw, 26px); }
+.news-story__quote { margin: var(--s-4) 0 0; padding-left: var(--s-3); border-left: 3px solid var(--c-gold); font-size: clamp(20px, 2vw, 26px); }
+/* Фото новости открывается крупно по клику */
+[data-zoom] .photo__frame { cursor: zoom-in; }
+[data-zoom] .photo__frame img { transition: transform .3s; }
+[data-zoom] .photo__frame:hover img { transform: scale(1.03); }
 .tags {
   display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; list-style: none;
   font-family: var(--f-head); font-size: 16px; color: var(--c-gold-text);
 }
-@media (max-width: 860px) { .news-story .story__media { order: -1; } }
+/* Телефон и планшет: колонка с фото распадается — фото с хэштегами над текстом, цитата после текста */
+@media (max-width: 860px) {
+  .news-story .story__media { display: contents; }
+  .news-story__photo { order: -1; }
+  .news-story__quote { margin-top: 0; }
+}
+/* «Другие новости» на телефоне — без «Все новости» под заголовком: ссылка уже есть в «01» (16.11.2026) */
+@media (max-width: 640px) { .news-more .section-head__more { display: none; } }
 
 /* ---------- Партнёры ---------- */
 .partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-2); list-style: none; }

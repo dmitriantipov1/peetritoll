@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-5">
+  <link rel="stylesheet" href="./css/style.css?v=20261116-8">
 </head>
 <body>
 
@@ -83,16 +83,19 @@
         <div class="story__text">
           <h2 class="intro__title">Откуда берутся экспонаты в нашем музее?</h2>
           <p>Иногда они буквально приходят к нам сами! На днях мы получили в дар уникальный экспонат — оригинальный пропуск в советский Палдиски времён, когда в городе всё ещё находился сверхсекретный центр для обучения подводников. И это не просто обычная справка, а официальный документ, отпечатанный на бумаге с водяными знаками!</p>
-          <p class="article__back"><a class="link-more" href="./news.html">← Все новости</a></p>
         </div>
 
-        <figure class="story__media">
-          <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Пропуск в закрытый Палдиски — новый экспонат музея" data-ph="weapons-2.jpg"></div>
-          <ul class="tags" aria-label="Хэштеги">
-            <li>#Музей</li>
-            <li>#НовыйЭкспонат</li>
-            <li>#Палдиски</li>
-          </ul>
+        <!-- Фото открывается крупно по клику (data-zoom). На телефоне колонка распадается:
+             фото с хэштегами — над текстом, цитата — после текста -->
+        <figure class="story__media" data-zoom>
+          <div class="news-story__photo">
+            <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Пропуск в закрытый Палдиски — новый экспонат музея" data-ph="weapons-2.jpg"></div>
+            <ul class="tags" aria-label="Хэштеги">
+              <li>#Музей</li>
+              <li>#НовыйЭкспонат</li>
+              <li>#Палдиски</li>
+            </ul>
+          </div>
           <!-- Цитата — по желанию, справа под фото -->
           <blockquote class="quote news-story__quote">«Мы очень благодарны за оказанное нам доверие!»</blockquote>
         </figure>
@@ -101,7 +104,7 @@
   </section>
 
   <!-- ============ ДРУГИЕ НОВОСТИ ============ -->
-  <section class="section section--bg2">
+  <section class="section section--bg2 news-more">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Актуальное</p>
@@ -163,6 +166,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261116-3"></script>
+<script src="./js/main.js?v=20261116-4"></script>
 </body>
 </html>

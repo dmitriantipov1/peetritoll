@@ -40,6 +40,13 @@ const date = computed(() =>
         .replace(/\s*г\.$/, '')
     : '',
 )
+// Обложка крупно по клику — окно галереи с одним фото, подпись — заголовок новости
+const lightbox = ref<{ open: (id: number) => void } | null>(null)
+const coverPhoto = computed(() =>
+  item.value?.cover
+    ? { id: 0, categoryId: 0, image: item.value.cover, caption: item.value.title }
+    : null,
+)
 // Хэштеги под фото: сначала тема новости («#Мероприятия»), потом свои из админки, без повторов
 const tags = computed(() => {
   if (!item.value) return []
@@ -87,23 +94,37 @@ const tags = computed(() => {
             <!-- Текст из редактора админки, очищен на сервере при сохранении (server/utils/rich-text.ts) -->
             <!-- eslint-disable-next-line vue/no-v-html -->
             <div class="article--rich" v-html="item.body" />
-            <p class="article__back">
-              <NuxtLink class="link-more" :to="localePath('/news')"
-                >← {{ t('news.allNews') }}</NuxtLink
-              >
-            </p>
           </div>
-          <figure class="story__media">
-            <PhotoFrame :src="item.cover?.url ?? '/images/restaurant-house.jpg'" :alt="item.title" />
-            <ul v-if="tags.length" class="tags" :aria-label="t('news.tags')">
-              <li v-for="tag in tags" :key="tag">{{ tag }}</li>
-            </ul>
+          <!-- Обложка открывается крупно по клику (то же окно, что у галереи). На телефоне колонка
+               распадается: фото с хэштегами — над текстом -->
+          <figure class="story__media" data-zoom>
+            <div class="news-story__photo">
+              <button
+                v-if="coverPhoto"
+                class="photo__frame gallery__open"
+                type="button"
+                :aria-label="t('restaurant.gallery.open', { caption: item.title })"
+                @click="lightbox?.open(0)"
+              >
+                <img
+                  :src="coverPhoto.image.url"
+                  :srcset="coverPhoto.image.srcset"
+                  sizes="(max-width: 860px) 100vw, 640px"
+                  :alt="item.title"
+                />
+              </button>
+              <PhotoFrame v-else src="/images/restaurant-house.jpg" :alt="item.title" />
+              <ul v-if="tags.length" class="tags" :aria-label="t('news.tags')">
+                <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+              </ul>
+            </div>
           </figure>
+          <GalleryLightbox v-if="coverPhoto" ref="lightbox" :photos="[coverPhoto]" />
         </div>
       </div>
     </section>
 
-    <section v-if="item.more.length" class="section section--bg2">
+    <section v-if="item.more.length" class="section section--bg2 news-more">
       <div class="container">
         <SectionHead
           num="02"

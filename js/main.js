@@ -208,8 +208,9 @@ document.querySelectorAll('[data-rotate]').forEach((box) => {
 });
 
 // Галерея: клик по фото открывает его крупно. Стрелки листают фото, видимые
-// в текущем фильтре; закрывается кликом мимо фото или Esc
-document.querySelectorAll('.gallery').forEach((gallery) => {
+// в текущем фильтре; закрывается кликом мимо фото или Esc.
+// data-zoom — то же для любого блока с фото (фото новости, 16.11.2026); одно фото — без стрелок
+document.querySelectorAll('.gallery, [data-zoom]').forEach((gallery) => {
   const frames = [...gallery.querySelectorAll('.photo__frame')];
   let box = null;
   let list = [];
