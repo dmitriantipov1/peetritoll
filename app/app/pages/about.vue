@@ -35,6 +35,10 @@ const laanSlugs: Partial<Record<string, string>> = {
   et: 'kodulinn-paldiski',
 }
 const laanSlug = computed(() => laanSlugs[locale.value])
+// Сноска под гравюрой в «03» (16.11.2026) — книга Йосефа Каца «Былой Палдиски и его люди»,
+// есть только русское издание
+const katsSlugs: Partial<Record<string, string>> = { ru: 'byloy-paldiski-i-ego-lyudi' }
+const katsSlug = computed(() => katsSlugs[locale.value])
 // Логотипы — в порядке заказчицы (13.11.2026); на телефоне — лентой, плывёт сама
 const logos = ref<HTMLElement | null>(null)
 useAutoSlide(logos)
@@ -109,7 +113,6 @@ const partners = [
         />
         <div class="story story--sticky">
           <div class="story__text">
-            <h3 class="intro__title">{{ t('about.building.lead') }}</h3>
             <ol class="timeline">
               <li v-for="step in timeline" :key="step">
                 <p class="timeline__date">{{ t(`about.building.timeline.${step}.date`) }}</p>
@@ -129,11 +132,14 @@ const partners = [
             </figcaption>
             <div v-if="te('about.building.book.text')" class="note story__note story__note--light">
               <p>
-                <strong>{{ t('about.building.book.lead') }}</strong> {{ t('about.building.book.text') }}
+                <strong>{{ t('about.building.book.lead') }}</strong>
+                {{ t('about.building.book.text') }}
               </p>
             </div>
             <p v-if="laanSlug && te('about.building.book.text')" class="story__more">
-              <NuxtLink class="btn" :to="localePath(`/shop/${laanSlug}`)">{{ t('about.family.book') }}</NuxtLink>
+              <NuxtLink class="btn" :to="localePath(`/shop/${laanSlug}`)">{{
+                t('about.family.book')
+              }}</NuxtLink>
             </p>
           </figure>
         </div>
@@ -150,9 +156,6 @@ const partners = [
             <p>{{ t('about.city.text1') }}</p>
             <p>{{ t('about.city.text2') }}</p>
             <p>{{ t('about.city.text3') }}</p>
-            <NuxtLink class="btn" :to="localePath('/museum') + '#arhivy'">{{
-              t('about.city.archives')
-            }}</NuxtLink>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/paldiski-history.jpg" :alt="t('about.city.photoAlt')" />
@@ -161,6 +164,16 @@ const partners = [
                 t('about.city.quote2')
               }}</span>
             </figcaption>
+            <div v-if="te('about.city.book.text')" class="note story__note story__note--light">
+              <p>
+                <strong>{{ t('about.city.book.lead') }}</strong> {{ t('about.city.book.text') }}
+              </p>
+            </div>
+            <p v-if="katsSlug && te('about.city.book.text')" class="story__more">
+              <NuxtLink class="btn" :to="localePath(`/shop/${katsSlug}`)">{{
+                t('about.family.book')
+              }}</NuxtLink>
+            </p>
           </figure>
         </div>
       </div>
@@ -221,16 +234,6 @@ const partners = [
             />
           </li>
         </ul>
-        <div class="cta-row">
-          <p class="quote">
-            {{ t('about.partners.quote1') }}<br /><span class="quote__indent">{{
-              t('about.partners.quote2')
-            }}</span>
-          </p>
-          <NuxtLink class="btn btn--red" :to="localePath('/museum')">{{
-            t('about.partners.toMuseum')
-          }}</NuxtLink>
-        </div>
       </div>
     </section>
   </div>

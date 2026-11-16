@@ -1153,6 +1153,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* Сноска под фото про книгу (15.11.2026, «О нас», 02): как «Только самовывоз» у товара, фон светлее */
 .note.story__note--light { background: var(--bg-shop); }
 .story__more { display: flex; justify-content: flex-end; margin-top: var(--s-3); }
+.story--reverse .story__more { justify-content: flex-start; }
 @media (max-width: 860px) { .story__more { justify-content: flex-start; } }
 /* Длинный текст рядом с фото (15.11.2026, «О нас»): фото с подписью едет рядом с текстом,
    факты — полосой в 4 колонки под блоком, а не в колонке текста */
