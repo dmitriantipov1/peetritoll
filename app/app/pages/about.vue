@@ -86,7 +86,7 @@ const partners = [
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/about-family.jpg" :alt="t('about.family.photoAlt')" />
-            <figcaption class="quote story__quote">
+            <figcaption class="quote story__quote story__quote--flush">
               {{ t('about.family.quote1') }}<br /><span class="quote__indent">{{
                 t('about.family.quote2')
               }}</span>
@@ -118,7 +118,7 @@ const partners = [
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/about-building.jpg" :alt="t('about.building.photoAlt')" />
-            <figcaption class="quote story__quote">
+            <figcaption class="quote story__quote story__quote--flush">
               {{ t('about.building.quote1') }}<br /><span class="quote__indent">{{
                 t('about.building.quote2')
               }}</span>
@@ -152,7 +152,7 @@ const partners = [
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/paldiski-history.jpg" :alt="t('about.city.photoAlt')" />
-            <figcaption class="quote story__quote">
+            <figcaption class="quote story__quote story__quote--flush">
               {{ t('about.city.quote1') }}<br /><span class="quote__indent">{{
                 t('about.city.quote2')
               }}</span>

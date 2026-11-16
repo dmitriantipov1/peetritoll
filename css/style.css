@@ -1147,6 +1147,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story__media .photo__frame { aspect-ratio: 4 / 3; }
 .story__quote { margin-top: var(--s-3); text-align: right; }
 .story--reverse .story__quote { text-align: left; }
+/* Цитата обеими строками по одному краю, без сдвига второй (16.11.2026, «О нас») */
+.story__quote--flush .quote__indent { padding-left: 0; }
 /* Длинная подпись под фото — по центру, как в макете заказчицы (group.html, 12.11.2026) */
 .story .story__quote--center { text-align: center; font-style: normal; }
 .story__note { margin-top: var(--s-3); }
@@ -1224,6 +1226,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .news-story .article__gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .news-story .article--rich p { margin-bottom: 0; }
 .news-story .article__back { margin-bottom: 0; }
+.news-story__quote { margin-top: var(--s-4); padding-left: var(--s-3); border-left: 3px solid var(--c-gold); font-size: clamp(20px, 2vw, 26px); }
 .tags {
   display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; list-style: none;
   font-family: var(--f-head); font-size: 16px; color: var(--c-gold-text);
