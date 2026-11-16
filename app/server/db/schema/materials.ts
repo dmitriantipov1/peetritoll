@@ -81,6 +81,9 @@ export const materialTranslations = pgTable(
     body: text('body').notNull().default(''),
     // Мероприятие: цена для справки, «15 €, бокал глинтвейна включён»
     priceNote: text('price_note'),
+    // Новость: хэштеги под фото на странице новости, без «#» (16.11.2026). Свои на каждом языке:
+    // «Палдиски» и «Paldiski» — разные слова
+    tags: text('tags').array().notNull().default(sql`'{}'::text[]`),
   },
   (t) => [
     primaryKey({ columns: [t.materialId, t.locale] }),

@@ -65,6 +65,7 @@ function initialState() {
             lead: t?.lead ?? '',
             body: t?.body ?? '',
             priceNote: t?.priceNote ?? '',
+            tags: t?.tags ?? '',
           },
         ]
       }),
@@ -333,6 +334,23 @@ const publishHint = computed(() => {
                     {{ names.ru }}
                   </option>
                 </select>
+              </div>
+              <div v-if="form.type === 'news'" class="field">
+                <label for="m-tags">Хэштеги — строкой под фото ({{ lang.toUpperCase() }})</label>
+                <input
+                  id="m-tags"
+                  v-model="t.tags"
+                  type="text"
+                  maxlength="300"
+                  placeholder="#НочьМузеев #Палдиски"
+                  :aria-invalid="!!issues[`translations.${lang}.tags`]"
+                />
+                <span v-if="issues[`translations.${lang}.tags`]" class="adm-note adm-danger">
+                  {{ issues[`translations.${lang}.tags`] }}
+                </span>
+                <span v-else class="adm-note">
+                  Через пробел, «#» можно не ставить; тема новости добавится сама
+                </span>
               </div>
               <div class="field">
                 <span class="adm-legend-title">Текст страницы</span>

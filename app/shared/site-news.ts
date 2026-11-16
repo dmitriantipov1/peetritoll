@@ -19,6 +19,8 @@ export interface SiteNewsCard {
 export interface SiteNewsItem extends SiteNewsCard {
   /** HTML из редактора, очищен при сохранении */
   body: string
+  /** Свои хэштеги новости на языке страницы, без «#» */
+  tags: string[]
   /** Адрес новости на других языках — для переключателя языков */
   slugs: Localized<string>
   /** «Другие новости» — три свежие, кроме этой */

@@ -64,6 +64,7 @@ export async function loadSiteNewsItem(
   return {
     ...toCard(m, locale),
     body: t.body,
+    tags: t.tags,
     slugs: Object.fromEntries(
       contentLocales
         .filter((l) => m.locales.includes(l))

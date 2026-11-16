@@ -139,6 +139,8 @@ export interface AdminMaterialTranslation {
   lead: string
   body: string
   priceNote: string
+  /** Хэштеги новости одной строкой, как в поле формы: «#НочьМузеев #Палдиски» */
+  tags: string
 }
 
 /** Строка списка */
@@ -197,6 +199,8 @@ const translationSchema = z.object({
   lead: z.string().trim().max(300, 'Коротко — не длиннее 300 знаков'),
   body: z.string().max(200_000, 'Текст слишком длинный'),
   priceNote: z.string().trim().max(200),
+  // Хэштеги новости одной строкой; разбирает parseTags. По умолчанию пусто — старые клиенты не ломаются
+  tags: z.string().trim().max(300, 'Хэштеги — не длиннее 300 знаков').default(''),
 })
 
 const eventSchema = z.object({
@@ -234,3 +238,29 @@ export const materialInputSchema = z
 export type MaterialInput = z.infer<typeof materialInputSchema>
 
 export const materialLocalesSchema = z.object({ locales: z.array(z.enum(contentLocales)).max(3) })
+
+/** Хэштегов у новости — не больше; лишние отбрасываем */
+export const MAX_TAGS = 8
+
+/**
+ * Хэштеги из поля формы: «#НочьМузеев, #Палдиски  Музей» → ['НочьМузеев', 'Палдиски', 'Музей'].
+ * Разделитель — пробел или запятая, «#» не обязателен, повторы (без учёта регистра) убираем.
+ * Внутри хэштега пробелов не бывает — «Ночь музеев» станет двумя.
+ */
+export function parseTags(raw: string): string[] {
+  const seen = new Set<string>()
+  const tags: string[] = []
+  for (const part of raw.split(/[\s,;]+/)) {
+    const tag = part.replace(/^#+/, '').replace(/[.!?:]+$/, '').slice(0, 40)
+    if (!tag || seen.has(tag.toLowerCase())) continue
+    seen.add(tag.toLowerCase())
+    tags.push(tag)
+    if (tags.length === MAX_TAGS) break
+  }
+  return tags
+}
+
+/** Хэштеги обратно в строку для поля формы */
+export function formatTags(tags: readonly string[]): string {
+  return tags.map((t) => `#${t}`).join(' ')
+}

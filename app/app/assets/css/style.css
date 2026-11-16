@@ -1154,27 +1154,15 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story__note { margin-top: var(--s-3); }
 /* Сноска под фото про книгу (15.11.2026, «О нас», 02): как «Только самовывоз» у товара, фон светлее */
 .note.story__note--light { background: var(--bg-shop); }
+/* Сноска на шаг темнее — о книге Каца в «03» (16.11.2026) */
+.note.story__note--mid { background: var(--bg-2); }
 .story__more { display: flex; justify-content: flex-end; margin-top: var(--s-3); }
 .story--reverse .story__more { justify-content: flex-start; }
 @media (max-width: 860px) { .story__more { justify-content: flex-start; } }
-/* Длинный текст рядом с фото (15.11.2026, «О нас»): фото с подписью едет рядом с текстом,
-   факты — полосой в 4 колонки под блоком, а не в колонке текста */
+/* Длинный текст рядом с фото (15.11.2026, «О нас»): фото с подписью едет рядом с текстом */
 .story--sticky .story__media { position: sticky; top: var(--s-3); }
-.facts--strip {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap);
-  margin: var(--s-4) 0 0; border-top: 0;
-}
-.facts--strip .facts__row {
-  grid-template-columns: 1fr; gap: 4px; align-content: start;
-  padding: var(--s-2) 0 0; border-top: 1px solid rgba(111,108,108,.35); border-bottom: 0;
-}
 @media (max-width: 860px) {
   .story--sticky .story__media { position: static; }
-  .facts--strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 640px) {
-  .facts--strip { grid-template-columns: 1fr; gap: 0; }
-  .facts--strip .facts__row { padding: 12px 0; }
 }
 
 /* ---------- Таймлайн (история здания) ---------- */
@@ -1224,6 +1212,16 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .article__quote { margin: var(--s-4) 0; padding-left: var(--s-3); border-left: 3px solid var(--c-gold); }
 .article__gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--s-3) 0 var(--s-4); }
 .article__back { margin-top: var(--s-4); }
+/* Новость отдельной страницей (16.11.2026) — как обычные страницы: над заголовком дата, слева
+   подзаголовок и текст, справа фото с подписью и строкой хэштегов; на телефоне фото сразу под заголовком */
+.news-story .article__gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.news-story .article--rich p { margin-bottom: 0; }
+.news-story .article__back { margin-bottom: 0; }
+.tags {
+  display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; list-style: none;
+  font-family: var(--f-head); font-size: 16px; color: var(--c-gold-text);
+}
+@media (max-width: 860px) { .news-story .story__media { order: -1; } }
 
 /* ---------- Партнёры ---------- */
 .partners { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-2); list-style: none; }

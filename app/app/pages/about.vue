@@ -19,7 +19,6 @@ const { data: news } = await useFetch<SiteNewsCard[]>('/api/site/news', {
 const latest = computed(() => (news.value ?? []).slice(0, 3))
 const partnersNum = computed(() => (latest.value.length ? '05' : '04'))
 
-const facts = ['since', 'restaurant', 'museum', 'publishing'] as const
 const timeline = ['xviii', 'xix', 'xx', 'xxi'] as const
 // «Заглянуть в книгу» — «Байки из-за барной стойки» в нашем магазине: в русской версии —
 // русское издание, в эстонской — эстонское («Lood baarileti tagant»). Английского нет — без кнопки
@@ -94,12 +93,6 @@ const partners = [
             </figcaption>
           </figure>
         </div>
-        <dl class="facts facts--strip">
-          <div v-for="f in facts" :key="f" class="facts__row">
-            <dt>{{ t(`about.family.facts.${f}.title`) }}</dt>
-            <dd>{{ t(`about.family.facts.${f}.text`) }}</dd>
-          </div>
-        </dl>
       </div>
     </section>
 
@@ -164,7 +157,7 @@ const partners = [
                 t('about.city.quote2')
               }}</span>
             </figcaption>
-            <div v-if="te('about.city.book.text')" class="note story__note story__note--light">
+            <div v-if="te('about.city.book.text')" class="note story__note story__note--mid">
               <p>
                 <strong>{{ t('about.city.book.lead') }}</strong> {{ t('about.city.book.text') }}
               </p>

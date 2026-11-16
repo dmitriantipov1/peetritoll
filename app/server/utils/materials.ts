@@ -2,7 +2,9 @@
 import { and, desc, eq, ne } from 'drizzle-orm'
 import { materialEvents, materials, materialTranslations, media } from '../db/schema'
 import {
+  formatTags,
   materialStatus,
+  parseTags,
   reservedPageSlugs,
   type AdminMaterial,
   type AdminMaterialRow,
@@ -37,6 +39,7 @@ function translationsOf(rows: TranslationRow[]) {
       lead: t.lead ?? '',
       body: t.body,
       priceNote: t.priceNote ?? '',
+      tags: formatTags(t.tags),
     }
   }
   return result
@@ -163,6 +166,7 @@ export async function saveMaterial(
         lead: t.lead || null,
         body: cleanRichText(t.body),
         priceNote: input.type === 'event' ? t.priceNote || null : null,
+        tags: input.type === 'news' ? parseTags(t.tags) : [],
       },
     ]
   })
