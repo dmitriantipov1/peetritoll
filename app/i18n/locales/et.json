@@ -49,5 +49,26 @@
     "crumb": "Grupimenüü",
     "menuNo": "Menüü nr {n}",
     "perPerson": "inimese kohta"
+  },
+  "form": {
+    "check": {
+      "required": "Täitke see väli",
+      "choose": "Valige variant",
+      "date": "Märkige kuupäev",
+      "time": "Märkige kellaaeg",
+      "consent": "Vajame teie nõusolekut",
+      "email": "Kontrollige e-posti: aadress kujul name{'@'}mail.ee",
+      "phone": "Telefoninumbris võivad olla ainult numbrid, tühikud, +, - ja sulud",
+      "phoneShort": "Number on liiga lühike",
+      "contact": "Märkige telefon või e-post",
+      "number": "Sisestage number",
+      "whole": "Vaja on täisarvu",
+      "step": "Valige aeg 15-minutilise sammuga",
+      "min": "Mitte vähem kui {n}",
+      "max": "Mitte rohkem kui {n}",
+      "minDate": "Mitte varem kui {n}",
+      "maxDate": "Mitte hiljem kui {n}",
+      "short": "Liiga lühike — vähemalt {n} märki"
+    }
   }
 }

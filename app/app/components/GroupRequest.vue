@@ -39,10 +39,13 @@ const tooLate = computed(
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 const doneId = ref<number | null>(null)
 const done = ref<HTMLElement | null>(null)
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
@@ -66,6 +69,7 @@ async function submit() {
       },
     })
     doneId.value = res.id
+    fc.reset()
     await nextTick()
     done.value?.focus()
   } catch (e) {
@@ -79,7 +83,7 @@ async function submit() {
 
 <template>
   <div id="zayavka">
-    <form v-if="doneId === null" class="bq-form" novalidate @submit.prevent="submit">
+    <form v-if="doneId === null" ref="formEl" class="bq-form" novalidate @submit.prevent="submit">
       <h3 class="bq-step">{{ t('group.form.title') }}</h3>
       <div class="calc-top bq-top bq-one">
         <div class="field">
@@ -87,14 +91,16 @@ async function submit() {
             >{{ t('group.form.date') }}
             <span class="field__opt">{{ t('group.form.ifKnown') }}</span></label
           >
-          <input id="g-date" v-model="form.visitDate" type="date" :min="minDate" />
+          <input id="g-date" v-model="form.visitDate" type="date" :min="minDate" name="visitDate" />
+<FieldError id="g-date-err" :msg="fc.error('visitDate')" />
         </div>
         <div class="field">
           <label for="g-time"
             >{{ t('group.form.time') }}
             <span class="field__opt">{{ t('group.form.ifKnown') }}</span></label
           >
-          <input id="g-time" v-model="form.visitTime" type="time" step="900" />
+          <input id="g-time" v-model="form.visitTime" type="time" step="900" name="visitTime" />
+<FieldError id="g-time-err" :msg="fc.error('visitTime')" />
         </div>
         <div class="field">
           <label for="g-ppl">{{ t('group.form.people') }}</label>
@@ -103,8 +109,9 @@ async function submit() {
             v-model.number="form.guests"
             type="number"
             :min="group.minPeople"
-            max="500"
-          />
+            max="500" name="guests" required />
+<!-- Меньше минимума — своё сообщение ниже, здесь не повторяем -->
+          <FieldError id="g-ppl-err" :msg="tooFew ? '' : fc.error('guests')" />
         </div>
         <div class="field">
           <label for="g-menu">{{ t('group.form.menu') }}</label>
@@ -128,23 +135,23 @@ async function submit() {
             v-model.trim="form.agency"
             type="text"
             maxlength="200"
-            :placeholder="t('group.form.agencyHint')"
-          />
+            :placeholder="t('group.form.agencyHint')" name="agency" />
+<FieldError id="g-agency-err" :msg="fc.error('agency')" />
         </div>
         <div class="field">
           <label for="g-person">{{ t('group.form.name') }}</label>
-          <input id="g-person" v-model.trim="form.name" type="text" autocomplete="name" />
-          <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+          <input id="g-person" v-model.trim="form.name" type="text" autocomplete="name" name="name" maxlength="100" required />
+<FieldError id="g-person-err" :msg="fc.error('name')" />
         </div>
         <div class="field">
           <label for="g-phone">{{ t('group.form.phone') }}</label>
-          <input id="g-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" />
-          <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+          <input id="g-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" required data-check="phone" />
+<FieldError id="g-phone-err" :msg="fc.error('phone')" />
         </div>
         <div class="field">
           <label for="g-mail">{{ t('group.form.email') }}</label>
-          <input id="g-mail" v-model.trim="form.email" type="email" autocomplete="email" />
-          <span v-if="issues.email" class="form__error">{{ issues.email }}</span>
+          <input id="g-mail" v-model.trim="form.email" type="email" autocomplete="email" name="email" maxlength="200" />
+<FieldError id="g-mail-err" :msg="fc.error('email')" />
         </div>
         <p v-if="tooFew" class="form__full form__error">
           {{ t('group.form.tooFew', { n: group.minPeople }) }}
@@ -159,8 +166,8 @@ async function submit() {
             v-model="form.comment"
             rows="2"
             maxlength="2000"
-            :placeholder="t('group.form.commentHint')"
-          />
+            :placeholder="t('group.form.commentHint')" name="comment" />
+<FieldError id="g-msg-err" :msg="fc.error('comment')" />
         </div>
         <!-- Ловушка для роботов: людям не видна, заполненная — заявку не заводим -->
         <div class="visually-hidden" aria-hidden="true">
@@ -174,7 +181,7 @@ async function submit() {
           />
         </div>
         <label class="form__check form__full">
-          <input v-model="form.consent" type="checkbox" />
+          <input id="g-consent" v-model="form.consent" name="consent" type="checkbox" required />
           <span
             >{{ t('lunch.order.consent') }}
             <NuxtLink :to="localePath('/privacy')" target="_blank">{{
@@ -182,17 +189,20 @@ async function submit() {
             }}</NuxtLink></span
           >
         </label>
+<FieldError id="g-consent-err" :msg="fc.error('consent')" />
         <div class="form__full bq-send">
           <button
             class="btn btn--red"
             type="submit"
-            :disabled="sending || !form.consent || tooFew || tooLate"
+            :disabled="sending || tooFew || tooLate"
           >
             {{ sending ? t('lunch.order.sending') : t('group.form.send') }}
           </button>
           <p class="form__note">{{ t('group.form.note') }}</p>
         </div>
-        <p v-if="error" class="form__full form__error" role="alert">{{ error }}</p>
+        <p v-if="error && !Object.keys(issues).length" class="form__full form__error" role="alert">
+          {{ error }}
+        </p>
       </div>
     </form>
 

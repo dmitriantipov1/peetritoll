@@ -532,6 +532,215 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   recalc();
 });
 
+// ---------- Проверка форм (16.11.2026, 8.6 в требованиях) ----------
+// Правила — атрибутами поля: required, type="email", min/max, minlength, data-check="phone"
+// (цифры, пробелы, +, -, скобки, хотя бы 5 цифр) и data-check="contact" (телефон или e-mail).
+// «Хвалим сразу, ругаем позже»: ошибка появляется, когда гость ушёл из поля, которое начал
+// заполнять, или при отправке; поле с ошибкой проверяется на каждое нажатие. Отправка с ошибками
+// останавливается (раньше всех других обработчиков — слушаем на document при погружении),
+// страница плавно едет к первому неверному полю. Та же логика в приложении — composables/useFormCheck.ts.
+const CHECK_MSG = {
+  required: 'Заполните это поле',
+  choose: 'Выберите вариант',
+  date: 'Укажите дату',
+  time: 'Укажите время',
+  consent: 'Нужно ваше согласие',
+  email: 'Проверьте e-mail: нужен адрес вида name@mail.ee',
+  phone: 'В телефоне — только цифры, пробелы, +, - и скобки',
+  phoneShort: 'Номер слишком короткий',
+  contact: 'Укажите телефон или e-mail',
+  number: 'Введите число',
+  whole: 'Нужно целое число',
+  min: (v) => 'Не меньше ' + v,
+  max: (v) => 'Не больше ' + v,
+  minDate: (v) => 'Не раньше ' + v,
+  maxDate: (v) => 'Не позже ' + v,
+  short: (n) => 'Слишком коротко — хотя бы ' + n + ' зн.',
+};
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^[+\d\s()-]+$/;
+
+function phoneProblem(v) {
+  if (!PHONE_RE.test(v)) return CHECK_MSG.phone;
+  return v.replace(/\D/g, '').length < 5 ? CHECK_MSG.phoneShort : '';
+}
+function ruDate(iso) {
+  const [y, m, d] = iso.split('-');
+  return d + '.' + m + '.' + y;
+}
+
+/** Что не так с полем: текст ошибки или '' */
+function checkProblem(el) {
+  if (el.type === 'radio') {
+    const group = [...el.form.querySelectorAll('input[type="radio"]')].filter((r) => r.name === el.name);
+    return group.some((r) => r.required) && !group.some((r) => r.checked) ? CHECK_MSG.choose : '';
+  }
+  if (el.type === 'checkbox') return el.required && !el.checked ? (el.dataset.msg || CHECK_MSG.consent) : '';
+  const v = el.value.trim();
+  if (el.validity.badInput) return el.type === 'number' ? CHECK_MSG.number : CHECK_MSG[el.type] || CHECK_MSG.required;
+  if (!v) {
+    if (!el.required) return '';
+    if (el.dataset.msg) return el.dataset.msg;
+    if (el.tagName === 'SELECT') return CHECK_MSG.choose;
+    return CHECK_MSG[el.type] && typeof CHECK_MSG[el.type] === 'string' && (el.type === 'date' || el.type === 'time') ? CHECK_MSG[el.type] : CHECK_MSG.required;
+  }
+  if (el.type === 'email' && !EMAIL_RE.test(v)) return CHECK_MSG.email;
+  if (el.dataset.check === 'phone') return phoneProblem(v);
+  if (el.dataset.check === 'contact') {
+    if (v.includes('@')) return EMAIL_RE.test(v) ? '' : CHECK_MSG.email;
+    return phoneProblem(v) ? CHECK_MSG.contact : '';
+  }
+  if (el.validity.rangeUnderflow) return el.type === 'date' ? CHECK_MSG.minDate(ruDate(el.min)) : CHECK_MSG.min(el.min);
+  if (el.validity.rangeOverflow) return el.type === 'date' ? CHECK_MSG.maxDate(ruDate(el.max)) : CHECK_MSG.max(el.max);
+  if (el.validity.stepMismatch) return CHECK_MSG.whole;
+  if (el.validity.tooShort) return CHECK_MSG.short(el.minLength);
+  return '';
+}
+
+/** Поля формы, которые проверяем: видимые и включённые; у группы кнопок — первая из группы */
+function checkFields(form) {
+  const seen = new Set();
+  return [...form.elements].filter((el) => {
+    if (!el.matches('input, select, textarea') || el.disabled || el.closest('[hidden], .visually-hidden')) return false;
+    if (['hidden', 'submit', 'button', 'reset'].includes(el.type)) return false;
+    if (el.type === 'radio') {
+      if (seen.has(el.name)) return false;
+      seen.add(el.name);
+    }
+    return true;
+  });
+}
+
+let checkUid = 0;
+const checkState = new WeakMap(); // поле → { dirty, shown, box }
+
+/** Куда вешать отметку и сообщение: у кнопок-переключателей — их fieldset */
+function checkTarget(el) {
+  return el.type === 'radio' ? el.closest('fieldset') || el : el;
+}
+
+function checkShow(el, problem) {
+  const target = checkTarget(el);
+  const st = checkState.get(el) || {};
+  checkState.set(el, st);
+  if (!target.id) target.id = 'fc-' + (++checkUid);
+  const errId = target.id + '-err';
+  const describe = (on) => {
+    const ids = (target.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== errId);
+    if (on) ids.push(errId);
+    if (ids.length) target.setAttribute('aria-describedby', ids.join(' '));
+    else target.removeAttribute('aria-describedby');
+  };
+  if (problem) {
+    target.setAttribute('aria-invalid', 'true');
+    target.removeAttribute('data-valid');
+    describe(true);
+    let box = st.box;
+    if (box && box.classList.contains('ferr-leave-active')) { box.remove(); box = null; }
+    if (!box) {
+      box = document.createElement('span');
+      box.className = 'field__error ferr-enter-from ferr-enter-active';
+      box.id = errId;
+      box.setAttribute('aria-live', 'polite');
+      box.appendChild(document.createElement('span'));
+      // Внутри .field — последним в поле; иначе — сразу после галочки или группы кнопок
+      // Внутри .field — последним в поле; в строке подписки — после кнопки, на всю ширину;
+      // иначе — сразу после галочки или группы кнопок
+      const field = target.closest('.field, .news-sub');
+      if (field) field.appendChild(box);
+      else (target.closest('.form__check') || target).after(box);
+      if (!box.parentElement.matches('.field, .form') && box.closest('.bq-form')) box.classList.add('field__error--row');
+      st.box = box;
+      void box.offsetWidth; // начальное состояние применено — дальше переход
+      box.classList.remove('ferr-enter-from');
+      setTimeout(() => box.classList.remove('ferr-enter-active'), 320);
+    }
+    box.firstChild.textContent = problem;
+    st.shown = true;
+  } else {
+    target.removeAttribute('aria-invalid');
+    describe(false);
+    const filled = el.type !== 'radio' && el.type !== 'checkbox' && el.value.trim();
+    if (filled && (el.required || el.dataset.check)) target.setAttribute('data-valid', '');
+    else target.removeAttribute('data-valid');
+    const box = st.box;
+    st.box = null;
+    st.shown = false;
+    if (box) {
+      box.classList.add('ferr-leave-active');
+      void box.offsetWidth;
+      box.classList.add('ferr-leave-to');
+      setTimeout(() => box.remove(), motionOff() ? 0 : 320);
+    }
+  }
+}
+
+function checkOne(el) {
+  // У группы кнопок проверяем и показываем по первой из группы
+  if (el.type === 'radio') el = [...el.form.elements].find((r) => r.type === 'radio' && r.name === el.name);
+  checkShow(el, checkProblem(el));
+  return el;
+}
+
+/** Проверить всю форму: true — можно отправлять */
+function checkForm(form) {
+  form.dataset.checked = '';
+  const bad = checkFields(form).filter((el) => {
+    const problem = checkProblem(el);
+    checkShow(el, problem);
+    return !!problem;
+  });
+  if (!bad.length) return true;
+  const first = bad[0];
+  const target = checkTarget(first);
+  target.scrollIntoView({ behavior: motionOff() ? 'auto' : 'smooth', block: 'center' });
+  (first.type === 'radio' ? first : target).focus({ preventScroll: true });
+  if (!motionOff()) {
+    bad.forEach((el) => {
+      const t = checkTarget(el);
+      t.classList.remove('is-shake');
+      void t.offsetWidth;
+      t.classList.add('is-shake');
+      t.addEventListener('animationend', () => t.classList.remove('is-shake'), { once: true });
+    });
+  }
+  return false;
+}
+
+document.querySelectorAll('form:not([data-no-check])').forEach((form) => { form.noValidate = true; });
+
+document.addEventListener('submit', (e) => {
+  const form = e.target;
+  if (form.matches('[data-no-check]') || checkForm(form)) return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+}, true);
+
+document.addEventListener('input', (e) => {
+  const el = e.target;
+  if (!el.form || el.form.matches('[data-no-check]') || !el.matches('input, select, textarea')) return;
+  const st = checkState.get(el) || {};
+  st.dirty = true;
+  checkState.set(el, st);
+  // Ошибка уже видна или форму пытались отправить — проверяем на ходу
+  if (st.shown || 'checked' in el.form.dataset) checkOne(el);
+});
+
+document.addEventListener('change', (e) => {
+  const el = e.target;
+  if (!el.form || el.form.matches('[data-no-check]')) return;
+  // Галочка, кнопка, список, дата — выбор сделан осознанно, показываем сразу
+  if (el.matches('select, [type="checkbox"], [type="radio"], [type="date"], [type="time"]')) checkOne(el);
+});
+
+document.addEventListener('focusout', (e) => {
+  const el = e.target;
+  if (!el.form || el.form.matches('[data-no-check]') || !el.matches('input, textarea')) return;
+  if (el.type === 'radio' || el.type === 'checkbox') return;
+  const st = checkState.get(el);
+  if (st && (st.dirty || st.shown)) checkOne(el);
+});
+
 // Заявки с ответом гостю (банкет, группа, обед, бронь стола, запись на мероприятие): отправки нет,
 // показываем гостю ответ, который он увидит. Важно, что это запрос, а не бронь, — так и написано в ответе.
 document.querySelectorAll('[data-request]').forEach((requestForm) => {
@@ -874,7 +1083,6 @@ document.querySelectorAll('[data-checkout]').forEach((form) => {
     const delText = !physical.length ? 'не нужна' : delivery ? euro(delivery) : 'бесплатно';
     if (del.textContent !== delText) { del.textContent = delText; bump(del); }
     tweenText(form.querySelector('[data-total]'), goods + delivery, euro);
-    form.querySelector('[data-pay]').disabled = !form.querySelector('[data-terms]').checked;
   }
   form.addEventListener('change', update);
   form.addEventListener('submit', (e) => {

@@ -81,6 +81,8 @@ const countryNames = computed(() => {
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 
 // Корзина устарела: поправить её по ответу сервера и показать, что изменилось
 function applyProblems(problems: OrderProblem[]) {
@@ -101,6 +103,7 @@ function applyProblems(problems: OrderProblem[]) {
 }
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
@@ -167,6 +170,7 @@ async function submit() {
       <div class="container">
         <form
           v-if="cart.loaded.value && lines.length"
+          ref="formEl"
           class="cart-wrap checkout"
           novalidate
           @submit.prevent="submit"
@@ -178,13 +182,13 @@ async function submit() {
             <div class="form">
               <div class="field">
                 <label for="o-name">{{ t('checkout.name') }}</label>
-                <input id="o-name" v-model="form.name" type="text" autocomplete="name" required />
-                <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+                <input id="o-name" v-model="form.name" type="text" autocomplete="name" required name="name" maxlength="100" />
+<FieldError id="o-name-err" :msg="fc.error('name')" />
               </div>
               <div class="field">
                 <label for="o-phone">{{ t('checkout.phone') }}</label>
-                <input id="o-phone" v-model="form.phone" type="tel" autocomplete="tel" />
-                <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+                <input id="o-phone" v-model="form.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" data-check="phone" />
+<FieldError id="o-phone-err" :msg="fc.error('phone')" />
               </div>
               <div class="field form__full">
                 <label for="o-mail">E-mail</label>
@@ -193,10 +197,9 @@ async function submit() {
                   v-model="form.email"
                   type="email"
                   autocomplete="email"
-                  required
-                />
-                <span class="form__note">{{ t('checkout.emailNote') }}</span>
-                <span v-if="issues.email" class="form__error">{{ issues.email }}</span>
+                  required name="email" maxlength="200" />
+<span class="form__note">{{ t('checkout.emailNote') }}</span>
+                <FieldError id="o-mail-err" :msg="fc.error('email')" />
               </div>
             </div>
 
@@ -232,9 +235,10 @@ async function submit() {
               <div v-if="method === 'parcel'" class="form checkout__fields">
                 <div class="field">
                   <label for="o-carrier">{{ t('checkout.carrier') }}</label>
-                  <select id="o-carrier" v-model="form.carrier">
+                  <select id="o-carrier" v-model="form.carrier" name="carrier" required>
                     <option v-for="c in carriers" :key="c" :value="c">{{ c }}</option>
                   </select>
+<FieldError id="o-carrier-err" :msg="fc.error('carrier')" />
                 </div>
                 <div class="field">
                   <label for="o-point">{{ t('checkout.point') }}</label>
@@ -242,21 +246,19 @@ async function submit() {
                     id="o-point"
                     v-model="form.parcelPoint"
                     type="text"
-                    :placeholder="t('checkout.pointHint')"
-                  />
-                  <span v-if="issues.parcelPoint" class="form__error">{{
-                    issues.parcelPoint
-                  }}</span>
+                    :placeholder="t('checkout.pointHint')" name="parcelPoint" maxlength="200" required />
+<FieldError id="o-point-err" :msg="fc.error('parcelPoint')" />
                 </div>
               </div>
               <div v-if="method === 'eu'" class="form checkout__fields">
                 <div class="field">
                   <label for="o-country">{{ t('checkout.country') }}</label>
-                  <select id="o-country" v-model="form.country">
+                  <select id="o-country" v-model="form.country" name="country" required>
                     <option v-for="c in countryNames" :key="c.code" :value="c.code">
                       {{ c.name }}
                     </option>
                   </select>
+<FieldError id="o-country-err" :msg="fc.error('country')" />
                 </div>
                 <div class="field">
                   <label for="o-zip">{{ t('checkout.postcode') }}</label>
@@ -264,9 +266,8 @@ async function submit() {
                     id="o-zip"
                     v-model="form.postcode"
                     type="text"
-                    autocomplete="postal-code"
-                  />
-                  <span v-if="issues.postcode" class="form__error">{{ issues.postcode }}</span>
+                    autocomplete="postal-code" name="postcode" maxlength="20" required />
+<FieldError id="o-zip-err" :msg="fc.error('postcode')" />
                 </div>
                 <div class="field form__full">
                   <label for="o-addr">{{ t('checkout.address') }}</label>
@@ -275,9 +276,8 @@ async function submit() {
                     v-model="form.address"
                     type="text"
                     autocomplete="street-address"
-                    :placeholder="t('checkout.addressHint')"
-                  />
-                  <span v-if="issues.address" class="form__error">{{ issues.address }}</span>
+                    :placeholder="t('checkout.addressHint')" name="address" maxlength="300" required />
+<FieldError id="o-addr-err" :msg="fc.error('address')" />
                 </div>
               </div>
               <p v-if="hasDigital" class="form__note">{{ t('checkout.mixed') }}</p>
@@ -293,7 +293,8 @@ async function submit() {
             <div class="form">
               <div class="field form__full">
                 <label for="o-comment">{{ t('checkout.comment') }}</label>
-                <textarea id="o-comment" v-model="form.comment" rows="2" maxlength="2000" />
+                <textarea id="o-comment" v-model="form.comment" rows="2" maxlength="2000" name="comment" />
+<FieldError id="o-comment-err" :msg="fc.error('comment')" />
               </div>
             </div>
             <!-- Ловушка для роботов: людям не видна, заполненная — заказ не заводим -->
@@ -308,7 +309,7 @@ async function submit() {
               />
             </div>
             <label class="form__check">
-              <input v-model="form.terms" type="checkbox" />
+              <input id="o-terms" v-model="form.terms" name="consent" type="checkbox" required />
               <span
                 >{{ t('checkout.terms') }}
                 <a
@@ -323,6 +324,7 @@ async function submit() {
                 }}</NuxtLink></span
               >
             </label>
+<FieldError id="o-terms-err" :msg="fc.error('consent')" />
             <label class="form__check">
               <input v-model="form.marketingOptIn" type="checkbox" />
               <span>{{ t('checkout.news') }}</span>
@@ -366,11 +368,13 @@ async function submit() {
             <button
               class="btn btn--red cart-side__go"
               type="submit"
-              :disabled="sending || !form.terms"
+              :disabled="sending"
             >
               {{ sending ? t('checkout.sending') : t('checkout.send') }}
             </button>
-            <p v-if="error" class="form__error" role="alert">{{ error }}</p>
+            <p v-if="error && !Object.keys(issues).length" class="form__error" role="alert">
+              {{ error }}
+            </p>
             <NuxtLink class="link-more" :to="localePath('/cart')">{{
               t('checkout.back')
             }}</NuxtLink>

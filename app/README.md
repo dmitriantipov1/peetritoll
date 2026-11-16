@@ -176,6 +176,11 @@ npm run dev
   нужен «правит» на раздел вида — `requireRequestAccess`)
 - тестовые заявки (почты `*@peetritoll.test`, от имени тестового админа):
   `docker compose exec app npx nuxi task run seed:requests`. Новую задачу dev-сервер видит после перезапуска
+- формы сайта проверяются ещё в браузере (8.6, 16.11.2026): правила — атрибутами поля (`required`,
+  `type="email"`, `min`/`max`, `data-check="phone"` / `"contact"`), разбор — `app/utils/form-check.ts`,
+  когда показывать — `useFormCheck(formEl, issues)` (`fc.check()` перед отправкой, `fc.error('name')`
+  в `<FieldError>`). Ключ поля — `name`, как поле на сервере: ошибки сервера встают под тем же полем.
+  Тексты — `form.check.*`. Та же логика в прототипе — блок «Проверка форм» в `js/main.js`
 
 ## Магазин
 

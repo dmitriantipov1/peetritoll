@@ -49,5 +49,26 @@
     "crumb": "Group menu",
     "menuNo": "Menu No. {n}",
     "perPerson": "per person"
+  },
+  "form": {
+    "check": {
+      "required": "Please fill in this field",
+      "choose": "Please choose an option",
+      "date": "Please pick a date",
+      "time": "Please pick a time",
+      "consent": "We need your consent",
+      "email": "Please check the e-mail: it should look like name{'@'}mail.ee",
+      "phone": "Phone may contain only digits, spaces, +, - and brackets",
+      "phoneShort": "The number is too short",
+      "contact": "Please enter a phone number or e-mail",
+      "number": "Please enter a number",
+      "whole": "Please enter a whole number",
+      "step": "Please choose a time in 15-minute steps",
+      "min": "At least {n}",
+      "max": "No more than {n}",
+      "minDate": "No earlier than {n}",
+      "maxDate": "No later than {n}",
+      "short": "Too short — at least {n} characters"
+    }
   }
 }

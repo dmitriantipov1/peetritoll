@@ -1306,6 +1306,61 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .form__check { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; }
 .form__check input { margin-top: 4px; accent-color: var(--c-red); }
 
+/* ---------- Проверка форм (16.11.2026, 8.6 в требованиях) ----------
+   Ошибка под полем раскрывается плавно (высота 0fr → 1fr и прозрачность). Классы появления —
+   как у <Transition name="ferr"> во Vue: прототип ставит их сам (js/main.js), приложение — Vue */
+.field input, .field select, .field textarea { transition: border-color .2s ease, box-shadow .2s ease; }
+.news-sub input { transition: border-color .2s ease, box-shadow .2s ease; }
+:is(.field, .news-sub) [aria-invalid="true"] { border-color: var(--c-red); box-shadow: 0 0 0 3px rgba(153, 49, 34, .12); }
+:is(.field, .news-sub) [aria-invalid="true"]:focus { outline-color: var(--c-red); }
+/* Верно заполненное обязательное текстовое поле — золотая рамка и галочка */
+:is(.field, .news-sub) input[data-valid]:is([type="text"], [type="email"], [type="tel"]) {
+  border-color: var(--c-gold-dark);
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='%23A66E0E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+.form__check input[aria-invalid="true"] { outline: 2px solid var(--c-red); outline-offset: 2px; }
+fieldset[aria-invalid="true"] .chip { border-color: var(--c-red); }
+
+.field__error {
+  --pull: 6px;                 /* зазор над сообщением: при появлении «вырастает» из нуля */
+  display: grid;
+  grid-template-rows: 1fr;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--c-red);
+}
+/* Сообщение не внутри .field, а отдельной строкой формы (под галочкой, под группой кнопок) */
+.form > .field__error, .bq-form .field__error--row { --pull: var(--s-2); grid-column: 1 / -1; }
+.news-sub .field__error { --pull: var(--s-2); flex-basis: 100%; }
+.field__error > span { display: flex; gap: 8px; min-height: 0; overflow: hidden; }
+.field__error > span::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7.5' fill='%23993122'/%3E%3Cpath d='M8 4v5' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='11.6' r='1' fill='%23fff'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.ferr-enter-from, .ferr-leave-to { grid-template-rows: 0fr; opacity: 0; margin-top: calc(-1 * var(--pull)); }
+@media (prefers-reduced-motion: no-preference) {
+  .ferr-enter-active, .ferr-leave-active {
+    transition: grid-template-rows .28s ease, opacity .22s ease, margin-top .28s ease;
+  }
+  .ferr-enter-active > span { transition: transform .28s ease; }
+  .ferr-enter-from > span { transform: translateY(-4px); }
+  /* При отправке с ошибками неверные поля коротко вздрагивают */
+  .is-shake { animation: field-shake .4s ease; }
+}
+@keyframes field-shake {
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
 /* ---------- Магазин ---------- */
 .shop-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-2); margin-bottom: var(--s-2); }
 .shop-bar .chips { margin: 0; }

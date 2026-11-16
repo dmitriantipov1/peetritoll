@@ -117,6 +117,8 @@ const outOfRange = computed(
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 const doneId = ref<number | null>(null)
 const done = ref<HTMLElement | null>(null)
 
@@ -124,6 +126,7 @@ const done = ref<HTMLElement | null>(null)
 const setTier = computed(() => props.banquet.sets.find(isActive)?.tier ?? null)
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
@@ -140,6 +143,7 @@ async function submit() {
       },
     })
     doneId.value = res.id
+    fc.reset()
     await nextTick()
     done.value?.focus()
     done.value?.scrollIntoView({ block: 'center' })
@@ -158,16 +162,18 @@ function again() {
 
 <template>
   <div>
-    <form v-if="doneId === null" class="bq-form" novalidate @submit.prevent="submit">
+    <form v-if="doneId === null" ref="formEl" class="bq-form" novalidate @submit.prevent="submit">
       <h3 class="bq-step"><span class="bq-step__num">1</span> {{ t('banquet.calc.step1') }}</h3>
       <div class="calc-top bq-top">
         <div class="field">
           <label for="b-date">{{ t('booking.date') }}</label>
-          <input id="b-date" v-model="form.visitDate" type="date" :min="minDate" />
+          <input id="b-date" v-model="form.visitDate" type="date" :min="minDate" name="visitDate" required />
+<FieldError id="b-date-err" :msg="fc.error('visitDate')" />
         </div>
         <div class="field">
           <label for="b-time">{{ t('booking.time') }}</label>
-          <input id="b-time" v-model="form.visitTime" type="time" step="900" />
+          <input id="b-time" v-model="form.visitTime" type="time" step="900" name="visitTime" required />
+<FieldError id="b-time-err" :msg="fc.error('visitTime')" />
         </div>
         <div class="field">
           <label for="b-ppl">{{ t('banquet.calc.guests') }}</label>
@@ -176,8 +182,9 @@ function again() {
             v-model.number="form.guests"
             type="number"
             :min="banquet.capacityMin"
-            :max="banquet.capacityMax"
-          />
+            :max="banquet.capacityMax" name="guests" required />
+<!-- Вне вместимости зала — своё сообщение под строкой, здесь не повторяем -->
+          <FieldError id="b-ppl-err" :msg="outOfRange ? '' : fc.error('guests')" />
         </div>
         <div class="field">
           <label for="b-reason">{{ t('booking.occasion') }}</label>
@@ -338,18 +345,18 @@ function again() {
       <div class="form bq-contacts">
         <div class="field">
           <label for="b-name">{{ t('events.form.name') }}</label>
-          <input id="b-name" v-model.trim="contact.name" type="text" autocomplete="name" />
-          <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+          <input id="b-name" v-model.trim="contact.name" type="text" autocomplete="name" name="name" maxlength="100" required />
+<FieldError id="b-name-err" :msg="fc.error('name')" />
         </div>
         <div class="field">
           <label for="b-phone">{{ t('events.form.phone') }}</label>
-          <input id="b-phone" v-model.trim="contact.phone" type="tel" autocomplete="tel" />
-          <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+          <input id="b-phone" v-model.trim="contact.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" required data-check="phone" />
+<FieldError id="b-phone-err" :msg="fc.error('phone')" />
         </div>
         <div class="field">
           <label for="b-mail">{{ t('events.form.email') }}</label>
-          <input id="b-mail" v-model.trim="contact.email" type="email" autocomplete="email" />
-          <span v-if="issues.email" class="form__error">{{ issues.email }}</span>
+          <input id="b-mail" v-model.trim="contact.email" type="email" autocomplete="email" name="email" maxlength="200" />
+<FieldError id="b-mail-err" :msg="fc.error('email')" />
         </div>
         <div class="field form__full">
           <label for="b-msg">{{ t('events.form.comment') }}</label>
@@ -357,8 +364,8 @@ function again() {
             id="b-msg"
             v-model="contact.comment"
             maxlength="2000"
-            :placeholder="t('banquet.form.commentHint')"
-          />
+            :placeholder="t('banquet.form.commentHint')" name="comment" />
+<FieldError id="b-msg-err" :msg="fc.error('comment')" />
         </div>
         <!-- Ловушка для роботов: людям не видна, заполненная — заявку не заводим -->
         <div class="visually-hidden" aria-hidden="true">
@@ -372,7 +379,7 @@ function again() {
           />
         </div>
         <label class="form__check form__full">
-          <input v-model="contact.consent" type="checkbox" />
+          <input id="b-consent" v-model="contact.consent" name="consent" type="checkbox" required />
           <span
             >{{ t('lunch.order.consent') }}
             <NuxtLink :to="localePath('/privacy')" target="_blank">{{
@@ -380,14 +387,13 @@ function again() {
             }}</NuxtLink></span
           >
         </label>
-        <p v-if="issues.visitDate || issues.guests || issues.items" class="form__full form__error">
-          {{ issues.visitDate || issues.guests || issues.items }}
-        </p>
+<FieldError id="b-consent-err" :msg="fc.error('consent')" />
+        <p v-if="issues.items" class="form__full form__error">{{ issues.items }}</p>
         <div class="form__full bq-send">
           <button
             class="btn btn--red"
             type="submit"
-            :disabled="sending || !contact.consent || outOfRange || form.visitDate < minDate"
+            :disabled="sending || outOfRange"
           >
             {{ sending ? t('lunch.order.sending') : t('banquet.form.send') }}
           </button>

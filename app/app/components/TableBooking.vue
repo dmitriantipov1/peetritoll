@@ -73,10 +73,13 @@ const banquet = computed(() => isBanquetSize(form.guests, props.rules))
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 const doneId = ref<number | null>(null)
 const done = ref<HTMLElement | null>(null)
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
@@ -86,6 +89,7 @@ async function submit() {
       body: { type: 'table', locale: locale.value, ...form },
     })
     doneId.value = res.id
+    fc.reset()
     await nextTick()
     done.value?.focus()
   } catch (e) {
@@ -137,36 +141,37 @@ async function submit() {
         <div class="story__media">
           <div class="bk-card">
             <h3 class="bk-card__title">{{ t('booking.title') }}</h3>
-            <form v-if="doneId === null" class="form" novalidate @submit.prevent="submit">
+            <form v-if="doneId === null" ref="formEl" class="form" novalidate @submit.prevent="submit">
               <div class="field">
                 <label for="t-name">{{ t('events.form.name') }}</label>
-                <input id="t-name" v-model.trim="form.name" type="text" autocomplete="name" />
-                <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+                <input id="t-name" v-model.trim="form.name" type="text" autocomplete="name" name="name" maxlength="100" required />
+<FieldError id="t-name-err" :msg="fc.error('name')" />
               </div>
               <div class="field">
                 <label for="t-phone">{{ t('events.form.phone') }}</label>
-                <input id="t-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" />
-                <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+                <input id="t-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" required data-check="phone" />
+<FieldError id="t-phone-err" :msg="fc.error('phone')" />
               </div>
               <div class="field">
                 <label for="t-date">{{ t('booking.date') }}</label>
-                <input id="t-date" v-model="form.visitDate" type="date" :min="today" />
+                <input id="t-date" v-model="form.visitDate" type="date" :min="today" name="visitDate" required />
+<FieldError id="t-date-err" :msg="fc.error('visitDate')" />
               </div>
               <div class="field">
                 <label for="t-time">{{ t('booking.time') }}</label>
-                <select id="t-time" v-model="form.visitTime" :disabled="!times.length">
+                <select id="t-time" v-model="form.visitTime" :disabled="!times.length" name="visitTime" required>
                   <option v-for="tm in times" :key="tm" :value="tm">{{ tm }}</option>
                   <option v-if="!times.length" value="">{{ t('booking.noTime') }}</option>
                 </select>
-                <span v-if="issues.visitTime" class="form__error">{{ issues.visitTime }}</span>
+<FieldError id="t-time-err" :msg="fc.error('visitTime')" />
               </div>
               <p v-if="!times.length" class="form__full form__error">
                 {{ t('booking.noTimeText') }}
               </p>
               <div class="field">
                 <label for="t-ppl">{{ t('booking.guests') }}</label>
-                <input id="t-ppl" v-model.number="form.guests" type="number" min="1" max="500" />
-                <span v-if="issues.guests" class="form__error">{{ issues.guests }}</span>
+                <input id="t-ppl" v-model.number="form.guests" type="number" min="1" max="500" name="guests" required />
+<FieldError id="t-ppl-err" :msg="fc.error('guests')" />
               </div>
               <div class="field">
                 <label for="t-occ">{{ t('booking.occasion') }}</label>
@@ -184,8 +189,8 @@ async function submit() {
               </p>
               <div class="field form__full">
                 <label for="t-mail">{{ t('events.form.email') }}</label>
-                <input id="t-mail" v-model.trim="form.email" type="email" autocomplete="email" />
-                <span v-if="issues.email" class="form__error">{{ issues.email }}</span>
+                <input id="t-mail" v-model.trim="form.email" type="email" autocomplete="email" name="email" maxlength="200" />
+<FieldError id="t-mail-err" :msg="fc.error('email')" />
               </div>
               <div class="field form__full">
                 <label for="t-msg">{{ t('booking.wishes') }}</label>
@@ -194,8 +199,8 @@ async function submit() {
                   v-model="form.comment"
                   rows="3"
                   maxlength="2000"
-                  :placeholder="t('booking.wishesHint')"
-                />
+                  :placeholder="t('booking.wishesHint')" name="comment" />
+<FieldError id="t-msg-err" :msg="fc.error('comment')" />
               </div>
               <!-- Ловушка для роботов: людям не видна, заполненная — заявку не заводим -->
               <div class="visually-hidden" aria-hidden="true">
@@ -209,7 +214,7 @@ async function submit() {
                 />
               </div>
               <label class="form__check form__full">
-                <input v-model="form.consent" type="checkbox" />
+                <input id="t-consent" v-model="form.consent" name="consent" type="checkbox" required />
                 <span
                   >{{ t('lunch.order.consent') }}
                   <NuxtLink :to="localePath('/privacy')" target="_blank">{{
@@ -217,11 +222,12 @@ async function submit() {
                   }}</NuxtLink></span
                 >
               </label>
+<FieldError id="t-consent-err" :msg="fc.error('consent')" />
               <div class="form__full bq-send">
                 <button
                   class="btn btn--red"
                   type="submit"
-                  :disabled="sending || !form.consent || !form.visitTime || banquet"
+                  :disabled="sending || !form.visitTime || banquet"
                 >
                   {{ sending ? t('lunch.order.sending') : t('booking.send') }}
                 </button>

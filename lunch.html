@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261116-3">
 </head>
 <body>
 
@@ -280,8 +280,8 @@
 
         <h3 class="bq-step" id="l-contacts"><span class="bq-step__num">2</span> Контакты и время</h3>
         <div class="form bq-contacts">
-          <div class="field"><label for="l-name">Имя</label><input id="l-name" type="text" autocomplete="name"></div>
-          <div class="field"><label for="l-phone">Телефон</label><input id="l-phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="l-name">Имя</label><input id="l-name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="l-phone">Телефон</label><input id="l-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
           <div class="field"><label for="l-time">Время</label>
             <select id="l-time"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option></select>
           </div>
@@ -291,7 +291,7 @@
             <label><input type="radio" name="l-where"> Заберу с собой</label>
           </fieldset>
           <div class="field form__full"><label for="l-msg">Комментарий</label><textarea id="l-msg" placeholder="Например, без лука или два прибора"></textarea></div>
-          <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+          <label class="form__check form__full"><input type="checkbox" required><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
           <div class="form__full bq-send">
             <button class="btn btn--red" type="submit">Отправить предзаказ</button>
             <p class="form__note">Оплата на месте. Мы подтвердим предзаказ по телефону.</p>
@@ -338,6 +338,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261115-2"></script>
+<script src="./js/main.js?v=20261116-3"></script>
 </body>
 </html>

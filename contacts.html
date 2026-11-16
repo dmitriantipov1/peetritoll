@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261116-3">
 </head>
 <body>
 
@@ -156,10 +156,10 @@
           <p class="quote">Старинный уют, щедрый стол<br><span class="quote__indent">и неповторимая атмосфера</span></p>
         </div>
         <form class="form" onsubmit="return false">
-          <div class="field"><label for="c-name">Имя</label><input id="c-name" type="text" autocomplete="name"></div>
-          <div class="field"><label for="c-contact">Телефон или e-mail</label><input id="c-contact" type="text" autocomplete="email"></div>
-          <div class="field form__full"><label for="c-msg">Сообщение</label><textarea id="c-msg"></textarea></div>
-          <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+          <div class="field"><label for="c-name">Имя</label><input id="c-name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="c-contact">Телефон или e-mail</label><input id="c-contact" type="text" autocomplete="email" required data-check="contact"></div>
+          <div class="field form__full"><label for="c-msg">Сообщение</label><textarea id="c-msg" required></textarea></div>
+          <label class="form__check form__full"><input type="checkbox" required><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
           <div class="form__full"><button class="btn btn--red" type="submit">Отправить</button></div>
           <p class="form__note form__full">Эскиз: форма пока ничего не отправляет.</p>
         </form>
@@ -193,6 +193,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261115-2"></script>
+<script src="./js/main.js?v=20261116-3"></script>
 </body>
 </html>

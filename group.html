@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261116-3">
 </head>
 <body>
 
@@ -152,16 +152,16 @@
         <div class="calc-top bq-top bq-one">
           <div class="field"><label for="g-date">Дата <span class="field__opt">— если знаете</span></label><input id="g-date" type="date"></div>
           <div class="field"><label for="g-time">Время прибытия <span class="field__opt">— если знаете</span></label><input id="g-time" type="time"></div>
-          <div class="field"><label for="g-ppl">Человек</label><input id="g-ppl" type="number" min="1" value="30"></div>
+          <div class="field"><label for="g-ppl">Человек</label><input id="g-ppl" type="number" min="1" value="30" required max="500"></div>
           <div class="field"><label for="g-menu">Меню</label>
             <select id="g-menu"><option>№ 1 Таможенное — 16,00 €</option><option>№ 2 Купеческое — 17,50 €</option><option>№ 3 Путевое — 10,00 €</option><option>№ 4 Ямское — 10,50 €</option><option>№ 5 Шкиперское — 21,50 €</option><option>№ 6 Гимназическое — 10,00 €</option><option>Ещё не выбрали — обсудим по телефону</option></select>
           </div>
           <div class="field"><label for="g-name">Группа или агентство</label><input id="g-name" type="text" placeholder="Школа № 5, Baltic Tours"></div>
-          <div class="field"><label for="g-person">Имя руководителя группы</label><input id="g-person" type="text" autocomplete="name"></div>
-          <div class="field"><label for="g-phone">Телефон</label><input id="g-phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="g-person">Имя руководителя группы</label><input id="g-person" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="g-phone">Телефон</label><input id="g-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
           <div class="field"><label for="g-mail">E-mail</label><input id="g-mail" type="email" autocomplete="email"></div>
           <div class="field form__full"><label for="g-msg">Комментарий</label><textarea id="g-msg" rows="2" placeholder="Вегетарианцы, аллергии, детские порции, обед с собой"></textarea></div>
-          <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+          <label class="form__check form__full"><input type="checkbox" required><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
           <div class="form__full bq-send">
             <button class="btn btn--red" type="submit">Отправить запрос</button>
             <p class="form__note">Это запрос: мы подтвердим заказ по телефону или письмом. Дату и время можно согласовать позже. Цена — с человека, оплата на месте.</p>
@@ -208,6 +208,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261115-2"></script>
+<script src="./js/main.js?v=20261116-3"></script>
 </body>
 </html>

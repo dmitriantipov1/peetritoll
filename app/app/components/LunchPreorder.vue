@@ -107,10 +107,13 @@ const whenLabel = (d: string) =>
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 const doneId = ref<number | null>(null)
 const done = ref<HTMLElement | null>(null)
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   if (!chosen.value.length) {
@@ -137,6 +140,7 @@ async function submit() {
       },
     })
     doneId.value = res.id
+    fc.reset()
     await nextTick()
     done.value?.focus()
   } catch (e) {
@@ -162,7 +166,7 @@ function again() {
 
       <p v-if="!days.length" class="events-empty">{{ t('lunch.order.closed') }}</p>
 
-      <form v-else-if="doneId === null" class="bq-form" novalidate @submit.prevent="submit">
+      <form v-else-if="doneId === null" ref="formEl" class="bq-form" novalidate @submit.prevent="submit">
         <h3 class="bq-step"><span class="bq-step__num">1</span> {{ t('lunch.order.step1') }}</h3>
         <fieldset class="chips lunch-pick">
           <legend class="visually-hidden">{{ t('lunch.order.day') }}</legend>
@@ -245,23 +249,25 @@ function again() {
         <div class="form bq-contacts">
           <div class="field">
             <label for="l-name">{{ t('lunch.order.name') }}</label>
-            <input id="l-name" v-model.trim="form.name" type="text" autocomplete="name" required />
-            <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+            <input id="l-name" v-model.trim="form.name" type="text" autocomplete="name" required name="name" maxlength="100" />
+<FieldError id="l-name-err" :msg="fc.error('name')" />
           </div>
           <div class="field">
             <label for="l-phone">{{ t('lunch.order.phone') }}</label>
-            <input id="l-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" required />
-            <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+            <input id="l-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" required name="phone" maxlength="40" data-check="phone" />
+<FieldError id="l-phone-err" :msg="fc.error('phone')" />
           </div>
           <div class="field">
             <label for="l-email">{{ t('lunch.order.email') }}</label>
-            <input id="l-email" v-model.trim="form.email" type="email" autocomplete="email" />
+            <input id="l-email" v-model.trim="form.email" type="email" autocomplete="email" name="email" maxlength="200" />
+<FieldError id="l-email-err" :msg="fc.error('email')" />
           </div>
           <div class="field">
             <label for="l-time">{{ t('lunch.order.time') }}</label>
-            <select id="l-time" v-model="form.time">
+            <select id="l-time" v-model="form.time" name="visitTime" required>
               <option v-for="tm in times" :key="tm" :value="tm">{{ tm }}</option>
             </select>
+<FieldError id="l-time-err" :msg="fc.error('visitTime')" />
           </div>
           <fieldset class="field bq-how-get">
             <legend>{{ t('lunch.order.how') }}</legend>
@@ -280,8 +286,8 @@ function again() {
               id="l-msg"
               v-model="form.comment"
               maxlength="2000"
-              :placeholder="t('lunch.order.commentHint')"
-            />
+              :placeholder="t('lunch.order.commentHint')" name="comment" />
+<FieldError id="l-msg-err" :msg="fc.error('comment')" />
           </div>
           <!-- Ловушка для роботов: людям не видна, заполненная — заявку не заводим -->
           <div class="visually-hidden" aria-hidden="true">
@@ -295,7 +301,7 @@ function again() {
             />
           </div>
           <label class="form__check form__full">
-            <input v-model="form.consent" type="checkbox" required />
+            <input id="l-consent" v-model="form.consent" name="consent" type="checkbox" required />
             <span
               >{{ t('lunch.order.consent') }}
               <NuxtLink :to="localePath('/privacy')" target="_blank">{{
@@ -303,17 +309,18 @@ function again() {
               }}</NuxtLink></span
             >
           </label>
+<FieldError id="l-consent-err" :msg="fc.error('consent')" />
           <div class="form__full bq-send">
             <button
               class="btn btn--red"
               type="submit"
-              :disabled="sending || !form.consent || !chosen.length"
+              :disabled="sending || !chosen.length"
             >
               {{ sending ? t('lunch.order.sending') : t('lunch.order.send') }}
             </button>
             <p class="form__note">{{ t('lunch.order.note') }}</p>
           </div>
-          <p v-if="error" class="form__full form__error" role="alert">{{ error }}</p>
+          <p v-if="error && !Object.keys(issues).length" class="form__full form__error" role="alert">{{ error }}</p>
         </div>
       </form>
 

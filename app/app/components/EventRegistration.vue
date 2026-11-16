@@ -31,10 +31,13 @@ const tooMany = computed(
 const sending = ref(false)
 const error = ref('')
 const issues = ref<Record<string, string>>({})
+const formEl = ref<HTMLFormElement | null>(null)
+const fc = useFormCheck(formEl, issues)
 const doneId = ref<number | null>(null)
 const done = ref<HTMLElement | null>(null)
 
 async function submit() {
+  if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
@@ -55,6 +58,7 @@ async function submit() {
       },
     })
     doneId.value = res.id
+    fc.reset()
     emit('registered')
     await nextTick()
     done.value?.focus()
@@ -102,21 +106,21 @@ async function submit() {
               {{ t('events.form.fullText') }}
             </p>
 
-            <form v-else-if="doneId === null" class="form" novalidate @submit.prevent="submit">
+            <form v-else-if="doneId === null" ref="formEl" class="form" novalidate @submit.prevent="submit">
               <div class="field">
                 <label for="r-name">{{ t('events.form.name') }}</label>
-                <input id="r-name" v-model.trim="form.name" type="text" autocomplete="name" />
-                <span v-if="issues.name" class="form__error">{{ issues.name }}</span>
+                <input id="r-name" v-model.trim="form.name" type="text" autocomplete="name" name="name" maxlength="100" required />
+<FieldError id="r-name-err" :msg="fc.error('name')" />
               </div>
               <div class="field">
                 <label for="r-phone">{{ t('events.form.phone') }}</label>
-                <input id="r-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" />
-                <span v-if="issues.phone" class="form__error">{{ issues.phone }}</span>
+                <input id="r-phone" v-model.trim="form.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" required data-check="phone" />
+<FieldError id="r-phone-err" :msg="fc.error('phone')" />
               </div>
               <div class="field">
                 <label for="r-mail">{{ t('events.form.email') }}</label>
-                <input id="r-mail" v-model.trim="form.email" type="email" autocomplete="email" />
-                <span v-if="issues.email" class="form__error">{{ issues.email }}</span>
+                <input id="r-mail" v-model.trim="form.email" type="email" autocomplete="email" name="email" maxlength="200" />
+<FieldError id="r-mail-err" :msg="fc.error('email')" />
               </div>
               <div class="field">
                 <label for="r-ppl">{{ t('events.form.people') }}</label>
@@ -125,12 +129,14 @@ async function submit() {
                   v-model.number="form.guests"
                   type="number"
                   min="1"
-                  :max="event.placesLeft ?? 500"
+                  :max="event.placesLeft ?? 500" name="guests" required />
+<FieldError
+                  id="r-ppl-err"
+                  :msg="
+                    fc.error('guests') ||
+                    (tooMany ? t('events.form.tooMany', { n: event.placesLeft ?? 0 }) : '')
+                  "
                 />
-                <span v-if="issues.guests" class="form__error">{{ issues.guests }}</span>
-                <span v-else-if="tooMany" class="form__error">{{
-                  t('events.form.tooMany', { n: event.placesLeft ?? 0 })
-                }}</span>
               </div>
               <div class="field form__full">
                 <label for="r-msg">{{ t('events.form.comment') }}</label>
@@ -139,8 +145,8 @@ async function submit() {
                   v-model="form.comment"
                   rows="3"
                   maxlength="2000"
-                  :placeholder="t('events.form.commentHint')"
-                />
+                  :placeholder="t('events.form.commentHint')" name="comment" />
+<FieldError id="r-msg-err" :msg="fc.error('comment')" />
               </div>
               <!-- Ловушка для роботов: людям не видна, заполненная — заявку не заводим -->
               <div class="visually-hidden" aria-hidden="true">
@@ -154,7 +160,7 @@ async function submit() {
                 />
               </div>
               <label class="form__check form__full">
-                <input v-model="form.consent" type="checkbox" />
+                <input id="r-consent" v-model="form.consent" name="consent" type="checkbox" required />
                 <span
                   >{{ t('lunch.order.consent') }}
                   <NuxtLink :to="localePath('/privacy')" target="_blank">{{
@@ -162,11 +168,12 @@ async function submit() {
                   }}</NuxtLink></span
                 >
               </label>
+<FieldError id="r-consent-err" :msg="fc.error('consent')" />
               <div class="form__full bq-send">
                 <button
                   class="btn btn--red"
                   type="submit"
-                  :disabled="sending || !form.consent || tooMany || form.guests < 1"
+                  :disabled="sending || tooMany"
                 >
                   {{ sending ? t('lunch.order.sending') : t('events.form.send') }}
                 </button>

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261116-3">
 </head>
 <body>
 
@@ -118,12 +118,12 @@
           <div class="bk-card">
             <h3 class="bk-card__title">Записаться на концерт</h3>
             <form class="form" data-request onsubmit="return false">
-              <div class="field"><label for="r-name">Имя</label><input id="r-name" type="text" autocomplete="name"></div>
-              <div class="field"><label for="r-phone">Телефон</label><input id="r-phone" type="tel" autocomplete="tel"></div>
+              <div class="field"><label for="r-name">Имя</label><input id="r-name" type="text" autocomplete="name" required></div>
+              <div class="field"><label for="r-phone">Телефон</label><input id="r-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
               <div class="field"><label for="r-mail">E-mail</label><input id="r-mail" type="email" autocomplete="email"></div>
-              <div class="field"><label for="r-ppl">Сколько человек</label><input id="r-ppl" type="number" min="1" value="2"></div>
+              <div class="field"><label for="r-ppl">Сколько человек</label><input id="r-ppl" type="number" min="1" value="2" required max="500"></div>
               <div class="field form__full"><label for="r-msg">Комментарий</label><textarea id="r-msg" rows="3" placeholder="Например, придём с ребёнком"></textarea></div>
-              <label class="form__check form__full"><input type="checkbox"><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+              <label class="form__check form__full"><input type="checkbox" required><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
               <div class="form__full bq-send">
                 <button class="btn btn--red" type="submit">Отправить</button>
                 <p class="form__note">Оплата на месте. Мы пришлём подтверждение на e-mail.</p>
@@ -167,6 +167,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261115-2"></script>
+<script src="./js/main.js?v=20261116-3"></script>
 </body>
 </html>
