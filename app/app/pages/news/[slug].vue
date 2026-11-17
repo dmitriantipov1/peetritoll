@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // Новость (news-item.html прототипа). С 16.11.2026 — как обычные страницы: герой «Новости»,
 // «01» — над заголовком дата, заголовок — название; слева «коротко» подзаголовком и текст
-// из редактора, справа обложка и строка хэштегов (тема и свои из админки); «02 Другие новости».
+// из редактора, справа обложка, строка хэштегов (тема и свои из админки) и цитата по желанию;
+// «02 Другие новости».
 // Адрес — слаг на языке страницы; переключатель языков ведёт на адрес этой же новости.
 import type { SiteNewsItem } from '#shared/site-news'
 import { newsTopics } from '#shared/materials'
@@ -47,16 +48,26 @@ const coverPhoto = computed(() =>
     ? { id: 0, categoryId: 0, image: item.value.cover, caption: item.value.title }
     : null,
 )
-// Хэштеги под фото: сначала тема новости («#Мероприятия»), потом свои из админки, без повторов
+// Хэштеги под фото — ссылки (17.11.2026): сначала тема новости («#Мероприятия» → «Новости» с этой
+// темой), потом свои из админки («#Палдиски» → новости с этим хэштегом), без повторов
 const tags = computed(() => {
   if (!item.value) return []
-  const topic = item.value.topic
-    ? newsTopics[item.value.topic][locale.value as ContentLocale].replace(/\s+/g, '')
+  const topicKey = item.value.topic
+  const topicName = topicKey
+    ? newsTopics[topicKey][locale.value as ContentLocale].replace(/\s+/g, '')
     : null
-  const all = topic ? [topic, ...item.value.tags] : item.value.tags
-  return all
-    .filter((tag, i) => all.findIndex((x) => x.toLowerCase() === tag.toLowerCase()) === i)
-    .map((tag) => `#${tag}`)
+  const own = item.value.tags.filter(
+    (tag) => tag.toLowerCase() !== topicName?.toLowerCase(),
+  )
+  return [
+    ...(topicKey && topicName
+      ? [{ label: `#${topicName}`, to: localePath({ path: '/news', query: { topic: topicKey } }) }]
+      : []),
+    ...own.map((tag) => ({
+      label: `#${tag}`,
+      to: localePath({ path: '/news', query: { tag } }),
+    })),
+  ]
 })
 </script>
 
@@ -115,9 +126,13 @@ const tags = computed(() => {
               </button>
               <PhotoFrame v-else src="/images/restaurant-house.jpg" :alt="item.title" />
               <ul v-if="tags.length" class="tags" :aria-label="t('news.tags')">
-                <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+                <li v-for="tag in tags" :key="tag.label">
+                  <NuxtLink :to="tag.to">{{ tag.label }}</NuxtLink>
+                </li>
               </ul>
             </div>
+            <!-- Цитата — по желанию; на телефоне встаёт после текста (style.css, .news-story) -->
+            <blockquote v-if="item.quote" class="quote news-story__quote">«{{ item.quote }}»</blockquote>
           </figure>
           <GalleryLightbox v-if="coverPhoto" ref="lightbox" :photos="[coverPhoto]" />
         </div>

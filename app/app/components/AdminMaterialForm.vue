@@ -66,6 +66,7 @@ function initialState() {
             body: t?.body ?? '',
             priceNote: t?.priceNote ?? '',
             tags: t?.tags ?? '',
+            quote: t?.quote ?? '',
           },
         ]
       }),
@@ -350,6 +351,23 @@ const publishHint = computed(() => {
                 </span>
                 <span v-else class="adm-note">
                   Через пробел, «#» можно не ставить; тема новости добавится сама
+                </span>
+              </div>
+              <div v-if="form.type === 'news'" class="field">
+                <label for="m-quote">Цитата — справа под фото, по желанию ({{ lang.toUpperCase() }})</label>
+                <textarea
+                  id="m-quote"
+                  v-model="t.quote"
+                  rows="2"
+                  maxlength="300"
+                  placeholder="Мы очень благодарны за оказанное нам доверие!"
+                  :aria-invalid="!!issues[`translations.${lang}.quote`]"
+                />
+                <span v-if="issues[`translations.${lang}.quote`]" class="adm-note adm-danger">
+                  {{ issues[`translations.${lang}.quote`] }}
+                </span>
+                <span v-else class="adm-note">
+                  Без кавычек — их поставит сайт; на телефоне цитата встанет после текста
                 </span>
               </div>
               <div class="field">

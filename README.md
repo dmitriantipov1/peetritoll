@@ -22,7 +22,7 @@
 | book-1.jpg … book-4.jpg | 03 Музей: книги издательства |
 | restaurant-terrace.jpg | 04 Экскурсии: карточка «Экскурсии от Peetri Toll» |
 | guides.jpg | **С** 04 Экскурсии: карточка «Сертифицированные гиды» (нужно новое фото) |
-| audioguide.jpg | 04 Экскурсии: аудиогид |
+| audioguide.webp | 04 Экскурсии: аудиогид (с 17.11.2026; старый audioguide.jpg — только для доски дизайна) |
 | pakri-express.jpg | 04 Экскурсии: Pakri Express |
 | event-poster.jpg | 05 Мероприятия: афиша |
 | footer.png | футер: логотип с птицами |

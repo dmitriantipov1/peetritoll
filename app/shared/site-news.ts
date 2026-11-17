@@ -14,13 +14,15 @@ export interface SiteNewsCard {
   publishedAt: string
   topic: NewsTopic | null
   cover: MediaImage | null
+  /** Свои хэштеги на языке страницы, без «#» — для фильтра «Новости» по хэштегу */
+  tags: string[]
 }
 
 export interface SiteNewsItem extends SiteNewsCard {
   /** HTML из редактора, очищен при сохранении */
   body: string
-  /** Свои хэштеги новости на языке страницы, без «#» */
-  tags: string[]
+  /** Цитата справа под фото, без кавычек; нет — null */
+  quote: string | null
   /** Адрес новости на других языках — для переключателя языков */
   slugs: Localized<string>
   /** «Другие новости» — три свежие, кроме этой */

@@ -343,6 +343,48 @@ document.querySelectorAll('[data-filter-group]').forEach((group) => {
   if (location.hash && fromHash) fromHash.click();
 });
 
+// «Показать ещё» (17.11.2026): видно первые data-page карточек, кнопка — только если есть ещё;
+// каждое нажатие открывает следующие data-page. Как в приложении (по 9 — три ряда сетки)
+document.querySelectorAll('[data-more]').forEach((box) => {
+  const list = document.getElementById(box.dataset.more);
+  const page = Number(box.dataset.page) || 9;
+  const cards = [...list.children];
+  let shown = page;
+  const apply = () => {
+    cards.forEach((card, i) => card.toggleAttribute('data-more-off', i >= shown));
+    box.hidden = cards.length <= shown;
+  };
+  box.querySelector('button').addEventListener('click', () => { shown += page; apply(); });
+  apply();
+});
+
+// Новости по хэштегу (17.11.2026): news.html?tag=Палдиски — только карточки, у которых он есть
+// в data-tags (регистр не важен). С фильтром по темам работает вместе: тема прячет карточки
+// атрибутом hidden, хэштег — data-tag-off. Крестик на метке снимает фильтр и убирает ?tag из адреса
+document.querySelectorAll('[data-tag-filter]').forEach((box) => {
+  const tag = (new URLSearchParams(location.search).get('tag') || '').replace(/^#/, '').trim();
+  if (!tag) return;
+  const list = document.getElementById('news-list');
+  const empty = document.querySelector('[data-tag-empty]');
+  const cards = [...list.querySelectorAll('[data-cat]')];
+  const want = tag.toLowerCase();
+  let found = 0;
+  cards.forEach((card) => {
+    const has = (card.dataset.tags || '').toLowerCase().split(/\s+/).includes(want);
+    card.toggleAttribute('data-tag-off', !has);
+    if (has) found += 1;
+  });
+  box.querySelector('[data-tag-name]').textContent = '#' + tag;
+  box.hidden = false;
+  if (empty) empty.hidden = found > 0;
+  box.querySelector('button').addEventListener('click', () => {
+    history.replaceState(null, '', location.pathname + location.hash);
+    box.hidden = true;
+    if (empty) empty.hidden = true;
+    filterSwap(list, '[data-cat]', () => cards.forEach((card) => card.removeAttribute('data-tag-off')));
+  });
+});
+
 // Переключатель вариантов блоков на elements.html.
 // Группа: <div data-variants="имя">, внутри кнопки [data-variant] и блоки [data-v].
 // Ссылка на конкретный вариант: elements.html#имя-v2

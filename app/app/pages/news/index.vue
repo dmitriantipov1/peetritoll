@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // «Новости» (news.html прототипа): опубликованные новости, новые сверху, фильтр по темам
 // (только темы, по которым есть новости) и «Показать ещё» по 9. Раздел «Новости» выключен — 404.
+// С хэштегов новости (17.11.2026): ?topic=museum — сразу эта тема; ?tag=Палдиски — только новости
+// с этим хэштегом (регистр не важен), над списком метка «#Палдиски ✕», крестик снимает фильтр.
 // Ниже — подписка на рассылку (components/NewsSubscribe.vue).
 import type { SiteNewsCard } from '#shared/site-news'
 import { newsTopics, type NewsTopic } from '#shared/materials'
@@ -9,6 +11,8 @@ import type { ContentLocale } from '#shared/locales'
 const PAGE = 9
 
 const { t, locale } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 useHead({ title: () => `${t('news.title')} — Tavern Peetri Toll` })
 
@@ -22,15 +26,31 @@ if (error.value?.statusCode === 404) {
 const topics = computed(() =>
   (Object.keys(newsTopics) as NewsTopic[]).filter((k) => news.value?.some((n) => n.topic === k)),
 )
-const topic = ref<NewsTopic | 'all'>('all')
+const queryTopic = String(route.query.topic ?? '')
+const topic = ref<NewsTopic | 'all'>(
+  queryTopic in newsTopics ? (queryTopic as NewsTopic) : 'all',
+)
+// Хэштег из адреса; новый переход по хэштегу (с другой новости) — подхватываем
+const tag = computed(() => String(route.query.tag ?? '').replace(/^#/, '').trim())
+function clearTag() {
+  const query = { ...route.query }
+  delete query.tag
+  router.replace({ query })
+  soft()
+}
 // После смены темы карточки на экране проявляются заново (как в прототипе, 14.11.2026)
 const list = ref<HTMLElement | null>(null)
 const soft = useSoftFilter(list, '.news-card')
 const shown = ref(PAGE)
-watch(topic, () => (shown.value = PAGE))
+watch([topic, tag], () => (shown.value = PAGE))
 
 const filtered = computed(
-  () => news.value?.filter((n) => topic.value === 'all' || n.topic === topic.value) ?? [],
+  () =>
+    news.value?.filter(
+      (n) =>
+        (topic.value === 'all' || n.topic === topic.value) &&
+        (!tag.value || n.tags.some((x) => x.toLowerCase() === tag.value.toLowerCase())),
+    ) ?? [],
 )
 const visible = computed(() => filtered.value.slice(0, shown.value))
 </script>
@@ -71,10 +91,22 @@ const visible = computed(() => filtered.value.slice(0, shown.value))
           </button>
         </div>
 
+        <div v-if="tag" class="tag-filter">
+          <span class="tag-filter__label">{{ t('news.tagFilter') }}</span>
+          <button
+            class="chip is-active tag-filter__chip"
+            type="button"
+            :aria-label="t('news.tagClear')"
+            @click="clearTag"
+          >
+            #{{ tag }} <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+
         <ul v-if="visible.length" ref="list" class="grid-3 news">
           <NewsCard v-for="n in visible" :key="n.id" :item="n" />
         </ul>
-        <p v-else class="events-empty">{{ t('news.empty') }}</p>
+        <p v-else class="events-empty">{{ tag ? t('news.tagEmpty') : t('news.empty') }}</p>
 
         <div v-if="filtered.length > shown" class="center">
           <button class="btn" type="button" @click="shown += PAGE">{{ t('news.more') }}</button>

@@ -141,6 +141,8 @@ export interface AdminMaterialTranslation {
   priceNote: string
   /** Хэштеги новости одной строкой, как в поле формы: «#НочьМузеев #Палдиски» */
   tags: string
+  /** Цитата новости, без кавычек */
+  quote: string
 }
 
 /** Строка списка */
@@ -201,6 +203,8 @@ const translationSchema = z.object({
   priceNote: z.string().trim().max(200),
   // Хэштеги новости одной строкой; разбирает parseTags. По умолчанию пусто — старые клиенты не ломаются
   tags: z.string().trim().max(300, 'Хэштеги — не длиннее 300 знаков').default(''),
+  // Цитата новости справа под фото; по умолчанию пусто — старые клиенты не ломаются
+  quote: z.string().trim().max(300, 'Цитата — не длиннее 300 знаков').default(''),
 })
 
 const eventSchema = z.object({
@@ -258,6 +262,11 @@ export function parseTags(raw: string): string[] {
     if (tags.length === MAX_TAGS) break
   }
   return tags
+}
+
+/** Цитата без кавычек по краям — их ставит сайт: «"Спасибо!"» → «Спасибо!» */
+export function cleanQuote(raw: string): string {
+  return raw.trim().replace(/^[«"“„'‘]+|[»"”'’]+$/g, '').trim()
 }
 
 /** Хэштеги обратно в строку для поля формы */

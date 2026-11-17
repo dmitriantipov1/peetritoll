@@ -1,6 +1,6 @@
-// Хэштеги новости (16.11.2026): строка из поля админки → список без «#» и обратно
+// Хэштеги и цитата новости (16.11.2026): строка из поля админки → как хранить и показывать
 import { describe, expect, it } from 'vitest'
-import { formatTags, MAX_TAGS, parseTags } from '../shared/materials'
+import { cleanQuote, formatTags, MAX_TAGS, parseTags } from '../shared/materials'
 
 describe('хэштеги новости', () => {
   it('пробелы, запятые, «#» не обязателен', () => {
@@ -23,5 +23,17 @@ describe('хэштеги новости', () => {
 
   it('туда и обратно', () => {
     expect(formatTags(parseTags('НочьМузеев Палдиски'))).toBe('#НочьМузеев #Палдиски')
+  })
+})
+
+describe('цитата новости', () => {
+  it('кавычки по краям убираются — их ставит сайт', () => {
+    expect(cleanQuote('«Спасибо за доверие!»')).toBe('Спасибо за доверие!')
+    expect(cleanQuote('  "Спасибо"  ')).toBe('Спасибо')
+    expect(cleanQuote('Без кавычек')).toBe('Без кавычек')
+  })
+
+  it('кавычки внутри остаются', () => {
+    expect(cleanQuote('Книга «Байки» — лучшая')).toBe('Книга «Байки» — лучшая')
   })
 })

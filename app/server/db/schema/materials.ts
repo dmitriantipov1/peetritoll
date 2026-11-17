@@ -84,6 +84,8 @@ export const materialTranslations = pgTable(
     // Новость: хэштеги под фото на странице новости, без «#» (16.11.2026). Свои на каждом языке:
     // «Палдиски» и «Paldiski» — разные слова
     tags: text('tags').array().notNull().default(sql`'{}'::text[]`),
+    // Новость: цитата справа под фото (16.11.2026), без кавычек — их ставит сайт
+    quote: text('quote'),
   },
   (t) => [
     primaryKey({ columns: [t.materialId, t.locale] }),

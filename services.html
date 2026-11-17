@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261116-8">
+  <link rel="stylesheet" href="./css/style.css?v=20261117-6">
 </head>
 <body>
 
@@ -101,16 +101,16 @@
   <section class="section section--bg2" id="gidy">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Партнёрская сеть</p>
+        <p class="section-head__crumb">Знатоки истории города</p>
         <h2 class="section-head__title"><span class="section-head__num">02</span> Местные гиды</h2>
       </header>
 
       <div class="story">
         <div class="story__text">
-          <h3 class="intro__title">Пешеходные и автобусные туры по Палдиски</h3>
-          <p>Мы сотрудничаем с аккредитованными гидами Ляэне-Харью. Они проведут вашу группу по знаковым местам: бастионы Петра Великого, маяк Пакри, старинный вокзал, церковь Георгия Победоносца, лютеранская церковь и наследие гарнизона.</p>
+          <h3 class="intro__title">Выберите своего проводника по городу</h3>
+          <p>Мы сотрудничаем с опытными гидами, влюблёнными в историю Палдиски и суровую красоту здешней природы. Вы можете связаться с любым из них напрямую, чтобы обсудить маршрут, стоимость и свободные даты. А чтобы день сложился идеально, рекомендуем также заранее забронировать у нас групповой обед.</p>
           <dl class="facts">
-            <div class="facts__row"><dt>Языки</dt><dd>Эстонский, русский, английский; по запросу финский и немецкий</dd></div>
+            <div class="facts__row"><dt>Языки</dt><dd>Эстонский, русский, английский, финский</dd></div>
             <div class="facts__row"><dt>Маршрут</dt><dd>Составим под тайминг вашей группы и объединим с обедом или банкетом в таверне</dd></div>
           </dl>
           <a class="btn" href="#zayavka">Заказать гида</a>
@@ -121,36 +121,96 @@
           <figcaption class="quote story__quote">от петровских бастионов<br><span class="quote__indent">до маяка Пакри</span></figcaption>
         </figure>
       </div>
+
+      <!-- Гиды-партнёры (17.11.2026): связаться напрямую. Фото пришлёт заказчица; чего нет — строки нет -->
+      <ul class="guides" aria-label="Гиды">
+        <li class="guide">
+          <div class="photo__frame"><img src="./images/guide-riina-kangro.jpg" alt="Riina Kangro" loading="lazy" data-ph="guide-riina-kangro.jpg"></div>
+          <div class="guide__body">
+            <h4 class="guide__name">Riina Kangro</h4>
+            <p class="guide__langs">Эстонский, русский, английский, финский, немецкий</p>
+            <ul class="guide__contacts">
+              <li><a href="tel:+37251966787">+372 51966787</a></li>
+              <li><a href="mailto:riinakangro.kangro@gmail.com">riinakangro.kangro@gmail.com</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="guide">
+          <div class="photo__frame"><img src="./images/guide-tiina-laanejarv.jpg" alt="Tiina Laanejärv" loading="lazy" data-ph="guide-tiina-laanejarv.jpg"></div>
+          <div class="guide__body">
+            <h4 class="guide__name">Tiina Laanejärv</h4>
+            <p class="guide__langs">Эстонский, русский, английский, финский</p>
+            <ul class="guide__contacts">
+              <li><a href="tel:+37256679368">+372 56679368</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="guide">
+          <div class="photo__frame"><img src="./images/guide-andrus-kuiva.jpg" alt="Andrus Kuiva" loading="lazy" data-ph="guide-andrus-kuiva.jpg"></div>
+          <div class="guide__body">
+            <h4 class="guide__name">Andrus Kuiva</h4>
+            <p class="guide__langs">Эстонский, русский, английский</p>
+            <ul class="guide__contacts">
+              <li><a href="tel:+37255576087">+372 55576087</a></li>
+              <li><a href="mailto:andrus@paldiski360.ee">andrus@paldiski360.ee</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="guide">
+          <div class="photo__frame"><img src="./images/guide-heiki-hoimoja.jpg" alt="Heiki Hõimoja" loading="lazy" data-ph="guide-heiki-hoimoja.jpg"></div>
+          <div class="guide__body">
+            <h4 class="guide__name">Heiki Hõimoja</h4>
+            <ul class="guide__contacts">
+              <li><a href="tel:+3725076007">+372 5076007</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
   <!-- ============ 03 АУДИОГИД ============ -->
+  <!-- Тексты заказчицы (17.11.2026). Текст длинный — фото с подписью и сноской едет рядом (story--sticky) -->
   <section class="section section--bg1" id="audiogid">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Для самостоятельных путешественников</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Мобильный аудиогид</h2>
+        <p class="section-head__crumb">Для любознательных путешественников</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Экскурсия с аудиогидом</h2>
       </header>
 
-      <div class="story story--reverse">
+      <div class="story story--reverse story--sticky">
         <div class="story__text">
-          <h3 class="intro__title">Исследуйте город в своём ритме</h3>
-          <p>Каждая история — результат глубокого краеведческого исследования, а профессиональная актёрская озвучка со звуковыми эффектами создаёт эффект полного погружения.</p>
+          <h3 class="intro__title">Исследуйте город в своём ритме, слушая увлекательные истории на своём смартфоне через приложение</h3>
+          <p>Каждое слово и каждая история здесь — результат кропотливой исследовательской работы. Профессиональная озвучка в сочетании с тщательно подобранными звуковыми эффектами создаёт полное ощущение присутствия. Вас ждут 20 знаковых объектов, 20 захватывающих историй и живописная природа полуострова Пакри — это не просто сухая экскурсия, а настоящее погружение в прошлое и уникальную атмосферу нашего края!</p>
+          <p>Мы подготовили два удобных формата: пеший маршрут для неспешных прогулок и автомобильный вариант, который позволит увидеть больше интересных мест за короткое время.</p>
           <dl class="facts">
-            <div class="facts__row"><dt>Пешком, 3,2 км</dt><dd>Исторический центр, уютные улочки и главные памятники города</dd></div>
-            <div class="facts__row"><dt>На машине, 15,3 км</dt><dd>Весь полуостров Пакри: маяк, обрывы, береговые батареи и ветропарк</dd></div>
+            <div class="facts__row"><dt>Пеший, 3,2 км</dt><dd>Исторический центр, интересные факты и все достопримечательности города</dd></div>
+            <div class="facts__row"><dt>Автомобильный, 15,3 км</dt><dd>Весь город и полуостров Пакри, маяки, обрывы и лестница RMK</dd></div>
           </dl>
-          <p class="h4">Как воспользоваться</p>
+          <p>Аудиогид доступен на эстонском, русском и английском языках.</p>
+          <p class="h4">Как это работает?</p>
           <ol class="steps">
             <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
             <li>Найдите в поиске «Paldiski audioguide».</li>
-            <li>Купите доступ в приложении — лучше заранее, чтобы слушать уже в пути.</li>
+            <li>Купите доступ в приложении, оплатив подходящий билет.</li>
           </ol>
+          <!-- QR-код открывает аудиогид в Navicup (17.11.2026): с компьютера — навести телефон, с телефона — нажать -->
+          <a class="qr-link" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">
+            <img src="./images/qr-navicup.png" alt="QR-код аудиогида в Navicup" width="120" height="120" loading="lazy">
+            <span>Наведите камеру телефона на QR-код или нажмите на него — аудиогид откроется в Navicup</span>
+          </a>
+          <p>Стоимость билетов зависит от срока действия: 7 € на день, 10 € на три дня или 15 € на полгода.</p>
+          <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути!</p>
+          <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
         </div>
 
         <figure class="story__media">
-          <div class="photo__frame"><img src="./images/audioguide.jpg" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.jpg"></div>
-          <figcaption class="quote story__quote">аудиоспектакль<br><span class="quote__indent">в вашем смартфоне</span></figcaption>
+          <div class="photo__frame"><img src="./images/audioguide.webp" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.webp"></div>
+          <figcaption class="quote story__quote">Настоящий аудиоспектакль о прошлом города<br><span class="quote__indent">в вашем смартфоне</span></figcaption>
+          <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
+          <div class="note story__note story__note--mid">
+            <p><strong>Нет наушников с собой?</strong> Купите простой дорожный вариант у нас в таверне.</p>
+          </div>
         </figure>
       </div>
     </div>
@@ -165,19 +225,21 @@
       </header>
 
       <div class="intro intro--single">
-        <h3 class="intro__title">Слышно каждое слово гида</h3>
-        <p>Даже в большой группе и на ветру у обрывов Пакри. Приёмники выдаём в аренду на время экскурсии.</p>
+        <h3 class="intro__title">Оборудование в аренду для прогулок и экскурсий</h3>
+        <p>Современные лёгкие приёмники с чистым звуком: экскурсовод говорит в микрофон, а участники группы свободно осматривают город, отчётливо слыша каждое слово даже в ветреную погоду.</p>
+        <p>Мы сдаём оборудование в аренду для групп от 10 человек — всего в нашем распоряжении 54+2 устройства, что достаточно даже для большого туристического автобуса. Идеально для туристических групп, авторских маршрутов и корпоративных прогулок по полуострову.</p>
       </div>
 
       <!-- Радиогиды — только аренда (15.11.2026): это устройства музея, не товар -->
       <div class="radio-two radio-two--one">
         <div>
           <h3 class="ev-card__title">Арендовать на группу</h3>
-          <p class="ev-card__price">3 € за устройство</p>
-          <p>От 5 устройств, выдаём на месте перед экскурсией. Залог не требуется, оплата на месте.</p>
+          <p class="ev-card__price">3 € за приёмник в день</p>
+          <p>Полный комплект выдаём на месте перед началом прогулки у нас в таверне «Петровская Таможня». Оплата на месте, залог не требуется.</p>
           <a class="btn btn--sm btn--red" href="#zayavka">Оставить запрос</a>
         </div>
       </div>
+      <p class="form__note radio-two__support">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
     </div>
   </section>
 
@@ -312,6 +374,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261116-4"></script>
+<script src="./js/main.js?v=20261117-2"></script>
 </body>
 </html>

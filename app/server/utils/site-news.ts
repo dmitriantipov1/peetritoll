@@ -40,6 +40,7 @@ function toCard(m: NewsRow, locale: ContentLocale): SiteNewsCard {
     publishedAt: m.publishAt!.toISOString(),
     topic: m.topic,
     cover: m.cover ? toMediaImage(m.cover) : null,
+    tags: t.tags,
   }
 }
 
@@ -64,7 +65,7 @@ export async function loadSiteNewsItem(
   return {
     ...toCard(m, locale),
     body: t.body,
-    tags: t.tags,
+    quote: t.quote,
     slugs: Object.fromEntries(
       contentLocales
         .filter((l) => m.locales.includes(l))

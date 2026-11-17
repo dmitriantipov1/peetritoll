@@ -1,0 +1,1 @@
+ALTER TABLE "material_translations" ADD COLUMN "quote" text;

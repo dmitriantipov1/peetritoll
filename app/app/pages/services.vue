@@ -1,11 +1,21 @@
 <script setup lang="ts">
-// «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды,
+// «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды (с карточками гидов),
 // 03 мобильный аудиогид, 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
 // 7.2), 06 банкетный зал (если включён), 07 заявка. Номера разделов идут подряд.
 // Тексты и цены пока в переводах, не в админке. Заявка — components/TourRequest.vue;
 // кнопки «Заказать» выше сразу выбирают тему заявки.
 import type { TourTopic } from '#shared/requests'
+import { guides, type Guide } from '~/utils/guides'
+
+/** Аудиогид в Navicup — по QR-коду и по нажатию на него */
+const navicupUrl = 'https://app.navicup.com/?eventID=5377&redirect_back=true'
 const { t, locale } = useI18n()
+
+// «Эстонский, русский, английский» — с заглавной первое слово, как в тексте заказчицы
+function guideLanguages(g: Guide) {
+  const list = g.languages.map((l) => t(`services.guides.languages.${l}`)).join(', ')
+  return list.charAt(0).toUpperCase() + list.slice(1)
+}
 const localePath = useLocalePath()
 
 useHead({ title: () => `${t('services.title')} — Tavern Peetri Toll` })
@@ -113,6 +123,24 @@ const topic = ref<TourTopic>('exhibition')
             </figcaption>
           </figure>
         </div>
+        <!-- Гиды-партнёры (17.11.2026): связаться напрямую; чего нет — строки нет -->
+        <ul class="guides" :aria-label="t('services.guides.list')">
+          <li v-for="g in guides" :key="g.name" class="guide">
+            <PhotoFrame :src="g.photo" :alt="g.name" />
+            <div class="guide__body">
+              <h4 class="guide__name">{{ g.name }}</h4>
+              <p v-if="g.languages.length" class="guide__langs">{{ guideLanguages(g) }}</p>
+              <ul class="guide__contacts">
+                <li>
+                  <a :href="`tel:${g.phone}`">{{ g.phoneText }}</a>
+                </li>
+                <li v-if="g.email">
+                  <a :href="`mailto:${g.email}`">{{ g.email }}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -124,10 +152,12 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.audio.crumb')"
           :title="t('services.audio.title')"
         />
-        <div class="story story--reverse">
+        <!-- Тексты заказчицы (17.11.2026); текст длинный — фото с подписью и сноской едет рядом -->
+        <div class="story story--reverse story--sticky">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.audio.lead') }}</h3>
             <p>{{ t('services.audio.text') }}</p>
+            <p>{{ t('services.audio.text2') }}</p>
             <dl class="facts">
               <div class="facts__row">
                 <dt>{{ t('services.audio.walk') }}</dt>
@@ -138,20 +168,42 @@ const topic = ref<TourTopic>('exhibition')
                 <dd>{{ t('services.audio.carText') }}</dd>
               </div>
             </dl>
+            <p>{{ t('services.audio.langs') }}</p>
             <p class="h4">{{ t('services.audio.how') }}</p>
             <ol class="steps">
               <li>{{ t('services.audio.step1') }}</li>
               <li>{{ t('services.audio.step2') }}</li>
               <li>{{ t('services.audio.step3') }}</li>
             </ol>
+            <!-- QR-код открывает аудиогид в Navicup (17.11.2026): с компьютера — навести телефон, с телефона — нажать -->
+            <a class="qr-link" :href="navicupUrl" target="_blank" rel="noopener">
+              <img
+                src="/images/qr-navicup.png"
+                :alt="t('services.audio.qrAlt')"
+                width="120"
+                height="120"
+                loading="lazy"
+              />
+              <span>{{ t('services.audio.qr') }}</span>
+            </a>
+            <p>{{ t('services.audio.prices') }}</p>
+            <p>{{ t('services.audio.early') }}</p>
+            <p class="form__note">{{ t('services.audio.support') }}</p>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/audioguide.jpg" :alt="t('services.audio.alt')" />
+            <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
             <figcaption class="quote story__quote">
               {{ t('services.audio.quote1') }}<br /><span class="quote__indent">{{
                 t('services.audio.quote2')
               }}</span>
             </figcaption>
+            <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
+            <div class="note story__note story__note--mid">
+              <p>
+                <strong>{{ t('services.audio.headphones.lead') }}</strong>
+                {{ t('services.audio.headphones.text') }}
+              </p>
+            </div>
           </figure>
         </div>
       </div>
@@ -168,6 +220,7 @@ const topic = ref<TourTopic>('exhibition')
         <div class="intro intro--single">
           <h3 class="intro__title">{{ t('services.radio.lead') }}</h3>
           <p>{{ t('services.radio.text') }}</p>
+          <p>{{ t('services.radio.text2') }}</p>
         </div>
         <!-- Радиогиды — только аренда (15.11.2026): это устройства музея, не товар -->
         <div class="radio-two radio-two--one">
@@ -180,6 +233,7 @@ const topic = ref<TourTopic>('exhibition')
             }}</a>
           </div>
         </div>
+        <p class="form__note radio-two__support">{{ t('services.radio.support') }}</p>
       </div>
     </section>
 
