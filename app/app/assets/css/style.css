@@ -720,6 +720,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .service__link:hover { color: var(--c-red); border-color: var(--c-red); }
 
 .center { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 64px); }
+.center[hidden] { display: none; }
 
 /* ---------- 05 Мероприятия ---------- */
 .tabs { display: flex; gap: var(--s-1); margin-bottom: var(--s-3); }
