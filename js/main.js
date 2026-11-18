@@ -203,6 +203,22 @@ document.querySelectorAll('[data-rotate]').forEach((box) => {
     });
   }
 
+  // На телефоне у события миниатюра афиши — по нажатию открывает афишу крупно (18.11.2026)
+  items.forEach((item, i) => {
+    const thumb = item.querySelector('.event__thumb');
+    if (!thumb) return;
+    thumb.tabIndex = 0;
+    thumb.setAttribute('role', 'button');
+    const open = () => {
+      pause(i);
+      openPoster(posters[Number(item.dataset.poster)] || thumb, item, play);
+    };
+    thumb.addEventListener('click', open);
+    thumb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
   show(0, false);
   play();
 });

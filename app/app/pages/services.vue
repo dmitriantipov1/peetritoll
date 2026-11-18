@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды (с карточками гидов),
 // 03 мобильный аудиогид, 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
-// 7.2), 06 банкетный зал (если включён), 07 заявка. Номера разделов идут подряд.
+// 7.2), 06 заявка. Номера разделов идут подряд. Банкетного зала здесь нет (18.11.2026) — он в «Меню» и «Ресторане».
 // Тексты и цены пока в переводах, не в админке. Заявка — components/TourRequest.vue;
 // кнопки «Заказать» выше сразу выбирают тему заявки.
 import type { TourTopic } from '#shared/requests'
@@ -16,7 +16,6 @@ function guideLanguages(g: Guide) {
   const list = g.languages.map((l) => t(`services.guides.languages.${l}`)).join(', ')
   return list.charAt(0).toUpperCase() + list.slice(1)
 }
-const localePath = useLocalePath()
 
 useHead({ title: () => `${t('services.title')} — Tavern Peetri Toll` })
 
@@ -30,7 +29,7 @@ if (error.value?.statusCode === 404) {
 
 const { data: contacts } = await useSiteContacts()
 
-// Номера по порядку показанных разделов: без Pakri Express и банкета — без пропусков
+// Номера по порядку показанных разделов: без Pakri Express — без пропусков
 const order = computed(() =>
   [
     'tours',
@@ -38,7 +37,6 @@ const order = computed(() =>
     'audio',
     'radio',
     s.value?.pakri && 'pakri',
-    s.value?.banquet && 'banquet',
     'request',
   ].filter(Boolean),
 )
@@ -70,7 +68,8 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.tours.crumb')"
           :title="t('services.tours.title')"
         />
-        <div class="intro intro--single">
+        <!-- Текст во всю ширину, кнопки — обычные .btn (18.11.2026) -->
+        <div class="intro intro--single intro--wide">
           <h3 class="intro__title">{{ t('services.tours.lead') }}</h3>
           <p>{{ t('services.tours.text') }}</p>
         </div>
@@ -80,7 +79,7 @@ const topic = ref<TourTopic>('exhibition')
             <h3 class="service__title">{{ t(`services.tours.${tour.key}.title`) }}</h3>
             <p class="service__text">{{ t(`services.tours.${tour.key}.text`) }}</p>
             <p class="tile__meta">{{ t(`services.tours.${tour.key}.meta`) }}</p>
-            <a class="service__link" href="#zayavka" @click="topic = tour.topic">{{
+            <a class="btn" href="#zayavka" @click="topic = tour.topic">{{
               t('services.order')
             }}</a>
           </li>
@@ -96,7 +95,8 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.guides.crumb')"
           :title="t('services.guides.title')"
         />
-        <div class="story">
+        <!-- Фото — около 2/3 ширины (18.11.2026) -->
+        <div class="story story--wide-media">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.guides.lead') }}</h3>
             <p>{{ t('services.guides.text') }}</p>
@@ -157,14 +157,29 @@ const topic = ref<TourTopic>('exhibition')
                 <dd>{{ t('services.audio.carText') }}</dd>
               </div>
             </dl>
-            <p>{{ t('services.audio.langs') }}</p>
             <p class="h4">{{ t('services.audio.how') }}</p>
             <ol class="steps">
               <li>{{ t('services.audio.step1') }}</li>
               <li>{{ t('services.audio.step2') }}</li>
               <li>{{ t('services.audio.step3') }}</li>
             </ol>
-            <!-- QR-код открывает аудиогид в Navicup (17.11.2026): с компьютера — навести телефон, с телефона — нажать -->
+            <p>{{ t('services.audio.prices') }}</p>
+            <p>{{ t('services.audio.langs') }}</p>
+            <p>{{ t('services.audio.early') }}</p>
+            <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
+            <div class="note story__note story__note--mid">
+              <p>
+                <strong>{{ t('services.audio.headphones.lead') }}</strong>
+                {{ t('services.audio.headphones.text') }}
+              </p>
+            </div>
+            <p class="form__note">{{ t('services.audio.support') }}</p>
+          </div>
+          <figure class="story__media">
+            <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
+            <!-- Подпись без принудительного переноса — в 2–3 строки сама (18.11.2026) -->
+            <figcaption class="quote story__quote">{{ t('services.audio.quote') }}</figcaption>
+            <!-- QR-код под фото (18.11.2026) открывает аудиогид в Navicup: с компьютера — навести телефон, с телефона — нажать -->
             <a class="qr-link" :href="navicupUrl" target="_blank" rel="noopener">
               <img
                 src="/images/qr-navicup.png"
@@ -175,24 +190,6 @@ const topic = ref<TourTopic>('exhibition')
               />
               <span>{{ t('services.audio.qr') }}</span>
             </a>
-            <p>{{ t('services.audio.prices') }}</p>
-            <p>{{ t('services.audio.early') }}</p>
-            <p class="form__note">{{ t('services.audio.support') }}</p>
-          </div>
-          <figure class="story__media">
-            <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
-            <figcaption class="quote story__quote">
-              {{ t('services.audio.quote1') }}<br /><span class="quote__indent">{{
-                t('services.audio.quote2')
-              }}</span>
-            </figcaption>
-            <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
-            <div class="note story__note story__note--mid">
-              <p>
-                <strong>{{ t('services.audio.headphones.lead') }}</strong>
-                {{ t('services.audio.headphones.text') }}
-              </p>
-            </div>
           </figure>
         </div>
       </div>
@@ -277,47 +274,6 @@ const topic = ref<TourTopic>('exhibition')
       </div>
     </section>
 
-    <!-- Банкетный зал — если запрос на банкет включён -->
-    <section v-if="s.banquet" id="banketnyj-zal" class="section section--bg2">
-      <div class="container">
-        <SectionHead
-          :num="num('banquet')"
-          :crumb="t('services.banquet.crumb')"
-          :title="t('services.banquet.title')"
-          :more="{ to: localePath('/banquet'), label: t('home.more') }"
-        />
-        <div class="story">
-          <div class="story__text">
-            <h3 class="intro__title">{{ t('banquet.hall.lead') }}</h3>
-            <p>{{ t('services.banquet.text') }}</p>
-            <dl class="facts">
-              <div
-                v-for="k in ['where', 'occasion', 'menu', 'prepay'] as const"
-                :key="k"
-                class="facts__row"
-              >
-                <dt>{{ t(`services.banquet.${k}`) }}</dt>
-                <dd>{{ t(`services.banquet.${k}Text`) }}</dd>
-              </div>
-            </dl>
-          </div>
-          <figure class="story__media">
-            <PhotoFrame src="/images/banquet-hall.jpg" :alt="t('banquet.hall.photoAlt')" />
-            <figcaption class="quote story__quote">
-              {{ t('banquet.hall.quote1') }}<br /><span class="quote__indent">{{
-                t('banquet.hall.quote2')
-              }}</span>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="cta-row">
-          <p class="note">{{ t('services.banquet.note') }}</p>
-          <NuxtLink class="btn btn--red" :to="localePath('/banquet')">{{
-            t('restaurant.toBanquet')
-          }}</NuxtLink>
-        </div>
-      </div>
-    </section>
 
     <!-- Заявка -->
     <section id="zayavka" class="section section--bg1">

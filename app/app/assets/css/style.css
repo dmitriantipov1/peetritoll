@@ -559,6 +559,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   margin-bottom: clamp(40px, 5vw, 64px);
 }
 .intro--single { display: block; max-width: 760px; }
+/* Вводный текст во всю ширину (18.11.2026: «Экскурсии от Peetri Toll», «Мероприятия») */
+.intro--wide { max-width: none; }
+.intro.intro--wide p { max-width: none; }
 
 .intro__title {
   font-family: var(--f-head);
@@ -718,6 +721,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   padding-bottom: 2px;
 }
 .service__link:hover { color: var(--c-red); border-color: var(--c-red); }
+/* Обычная кнопка в карточке услуги — внизу, по левому краю (18.11.2026) */
+.service .btn { margin-top: auto; align-self: flex-start; }
+.service:has(.btn) .tile__meta { margin-bottom: var(--s-2); }
 
 .center { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 64px); }
 .center[hidden] { display: none; }
@@ -744,24 +750,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .events[hidden], .events-empty[hidden] { display: none; }
 
-/* Афиша поднята до подзаголовка, верх по верхнему краю (просьба дизайнера, 15.11.2026):
-   подзаголовок, вкладки, список и афиша — одна сетка, панель «Предстоящие» в ней растворяется
-   (display: contents), афиша справа на три ряда. Архив и «пусто» — во всю ширину. До 1024 px — как было */
-@media (min-width: 1025px) {
-  .events-block {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr;
-    column-gap: clamp(32px, 5vw, 80px);
-    align-items: start;
-  }
-  .events-block > * { grid-column: 1 / -1; grid-row: 3; }
-  .events-block > .intro { grid-column: 1; grid-row: 1; }
-  .events-block > .tabs { grid-column: 1; grid-row: 2; }
-  .events-block > .events:not([hidden]) { display: contents; }
-  .events-block .events__list { grid-column: 1; grid-row: 3; }
-  .events-block .events__poster { grid-column: 2; grid-row: 1 / 4; }
-}
+/* Афиша — на уровне списка, вводный текст над ними во всю ширину (18.11.2026: вернули, как до 15.11.2026) */
 
 .events__list { list-style: none; border-top: 1px solid rgba(111,108,108,.5); }
 .event {
@@ -997,7 +986,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
   .event__desc { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .event__meta { margin-top: 2px; font-size: 13px; }
   .event__btn { grid-area: btn; justify-self: start; min-height: 36px; padding: 4px 14px; font-size: 14px; }
-  .events__poster { display: none; }
+  /* Афиша и на телефоне — под списком (18.11.2026); миниатюра у события открывает афишу крупно */
+  .events__poster { max-width: none; }
+  [data-rotate] .event__thumb { cursor: zoom-in; }
   [data-rotate] .event, [data-rotate] .event.is-active { padding-inline: 0; opacity: 1; box-shadow: none; }
   .event__progress { display: none; }
 
@@ -1173,6 +1164,16 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story--third.story--reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
 .story--third .story__media .photo__frame { aspect-ratio: 3 / 4; }
 .story--third .story__quote { font-size: clamp(20px, 1.7vw, 24px); }
+/* Колонка текста широкая — абзацы во всю её ширину, как заголовок (18.11.2026) */
+.story--third .story__text p { max-width: none; }
+/* QR-код под фото, сноска о наушниках — в тексте (18.11.2026, аудиогид) */
+.story__media .qr-link { margin: var(--s-3) 0 0; }
+.story__text .story__note { margin: 0 0 var(--s-3); }
+/* Фото около 2/3 ширины, текст — треть (18.11.2026, «Местные гиды») */
+.story--wide-media { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+@media (max-width: 860px) {
+  .story--wide-media { grid-template-columns: 1fr; }
+}
 @media (max-width: 860px) {
   .story--third, .story--third.story--reverse { grid-template-columns: 1fr; }
   .story--third .story__media .photo__frame { aspect-ratio: auto; }
@@ -1903,6 +1904,8 @@ fieldset[aria-invalid="true"] .chip { border-color: var(--c-red); }
   .two-col--reverse > :first-child { order: 0; }
   .story, .story--reverse { grid-template-columns: 1fr; }
   .story--reverse .story__media { order: 0; }
+  /* Фото целиком: правило 4:3 у .story__media стоит ниже общего «без обрезки» и перебивало его (18.11.2026) */
+  .story__media .photo__frame { aspect-ratio: auto; }
   /* Здесь кадры фиксированные — это сетки-превью, а не «главные» фото */
   .gallery .photo__frame { aspect-ratio: 1; }
   .gallery .photo__frame img { height: 100%; object-fit: cover; }
@@ -2407,8 +2410,12 @@ fieldset[aria-invalid="true"] .chip { border-color: var(--c-red); }
 /* Переключатель языков — ссылки на ту же страницу на другом языке, а не кнопки */
 a.lang__btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 
-/* Афиша на главной пока не открывается крупно (окно с афишей прототипа — позже) */
-[data-rotate] .events__poster--still { cursor: default; }
+/* Афиша открывается крупно (18.11.2026); без афиши — заглушка, крупно нечего */
+[data-rotate] .events__poster.is-missing { cursor: default; }
+/* На телефоне афиша под списком; если её нет — заглушку не показываем */
+@media (max-width: 640px) {
+  .events__poster.is-missing { display: none; }
+}
 
 /* Текст страницы из редактора админки (страницы-материалы: политика конфиденциальности, cookies…).
    В HTML из редактора голые h2, h3, списки и цитаты — оформляем как статью прототипа (.article__h) */

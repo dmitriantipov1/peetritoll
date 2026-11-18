@@ -68,6 +68,21 @@ function onFocusOut(e: FocusEvent) {
   if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node | null)) play()
 }
 
+// ---------- Афиша крупно (18.11.2026) ----------
+// Клик по афише или (на телефоне) по миниатюре у события — окно с афишей; стрелки листают афиши
+const lightbox = ref<{ open: (id: number) => void } | null>(null)
+const posters = computed(() =>
+  props.events.upcoming.flatMap((e, i) =>
+    e.poster ? [{ id: i, categoryId: 0, image: e.poster, caption: e.title }] : [],
+  ),
+)
+
+function openPoster(i: number) {
+  if (!props.events.upcoming[i]?.poster) return
+  pause(i)
+  lightbox.value?.open(i)
+}
+
 onMounted(play)
 onBeforeUnmount(() => clearTimeout(timer))
 </script>
@@ -82,9 +97,9 @@ onBeforeUnmount(() => clearTimeout(timer))
         :more="more ? { to: localePath('/events'), label: t('home.events.more') } : undefined"
       />
 
-      <!-- подзаголовок, вкладки, список и афиша — одна сетка: афиша поднята до подзаголовка (15.11.2026) -->
+      <!-- Вводный текст во всю ширину, афиша — на уровне списка (18.11.2026, как было до 15.11) -->
       <div class="events-block">
-        <div class="intro intro--single">
+        <div class="intro intro--single intro--wide">
           <h3 class="intro__title">{{ lead ?? t('home.events.lead') }}</h3>
           <p>{{ text ?? t('home.events.text') }}</p>
         </div>
@@ -135,6 +150,10 @@ onBeforeUnmount(() => clearTimeout(timer))
                 sizes="76px"
                 :alt="t('home.events.poster', { title: e.title })"
                 loading="lazy"
+                role="button"
+                tabindex="0"
+                @click="openPoster(i)"
+                @keydown.enter.space.prevent="openPoster(i)"
               />
               <p class="event__date">
                 <span class="event__day">{{ dateParts(e.date).day }}</span>
@@ -167,9 +186,14 @@ onBeforeUnmount(() => clearTimeout(timer))
           </ul>
 
           <figure
-            class="events__poster events__poster--still"
+            class="events__poster"
             :class="{ 'is-missing': !events.upcoming[current]?.poster }"
+            :role="events.upcoming[current]?.poster ? 'button' : undefined"
+            :tabindex="events.upcoming[current]?.poster ? 0 : undefined"
+            :aria-label="events.upcoming[current]?.poster ? t('home.events.posterOpen') : undefined"
             :data-ph="events.upcoming[current]?.poster ? undefined : t('home.events.noPoster')"
+            @click="openPoster(current)"
+            @keydown.enter.space.prevent="openPoster(current)"
           >
             <template v-for="(e, i) in events.upcoming" :key="e.slug">
               <img
@@ -183,6 +207,7 @@ onBeforeUnmount(() => clearTimeout(timer))
               />
             </template>
           </figure>
+          <GalleryLightbox v-if="posters.length" ref="lightbox" :photos="posters" />
         </div>
         <div
           v-else
