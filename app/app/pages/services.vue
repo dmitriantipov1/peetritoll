@@ -100,22 +100,9 @@ const topic = ref<TourTopic>('exhibition')
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.guides.lead') }}</h3>
             <p>{{ t('services.guides.text') }}</p>
-            <dl class="facts">
-              <div class="facts__row">
-                <dt>{{ t('services.guides.langs') }}</dt>
-                <dd>{{ t('services.guides.langsText') }}</dd>
-              </div>
-              <div class="facts__row">
-                <dt>{{ t('services.guides.route') }}</dt>
-                <dd>{{ t('services.guides.routeText') }}</dd>
-              </div>
-            </dl>
-            <a class="btn" href="#zayavka" @click="topic = 'guide'">{{
-              t('services.guides.order')
-            }}</a>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/guides.jpg" :alt="t('services.guides.alt')" />
+            <PhotoFrame src="/images/guides.webp" :alt="t('services.guides.alt')" />
             <figcaption class="quote story__quote">
               {{ t('services.guides.quote1') }}<br /><span class="quote__indent">{{
                 t('services.guides.quote2')
@@ -123,21 +110,22 @@ const topic = ref<TourTopic>('exhibition')
             </figcaption>
           </figure>
         </div>
-        <!-- Гиды-партнёры (17.11.2026): связаться напрямую; чего нет — строки нет -->
+        <!-- Гиды-партнёры (17.11.2026): связаться напрямую, кнопки в блоке нет (18.11.2026).
+             Под фото: e-mail, телефон, языки; чего нет — строки нет -->
         <ul class="guides" :aria-label="t('services.guides.list')">
           <li v-for="g in guides" :key="g.name" class="guide">
             <PhotoFrame :src="g.photo" :alt="g.name" />
             <div class="guide__body">
               <h4 class="guide__name">{{ g.name }}</h4>
-              <p v-if="g.languages.length" class="guide__langs">{{ guideLanguages(g) }}</p>
               <ul class="guide__contacts">
-                <li>
-                  <a :href="`tel:${g.phone}`">{{ g.phoneText }}</a>
-                </li>
                 <li v-if="g.email">
                   <a :href="`mailto:${g.email}`">{{ g.email }}</a>
                 </li>
+                <li>
+                  <a :href="`tel:${g.phone}`">{{ g.phoneText }}</a>
+                </li>
               </ul>
+              <p v-if="g.languages.length" class="guide__langs">{{ guideLanguages(g) }}</p>
             </div>
           </li>
         </ul>
@@ -152,8 +140,9 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.audio.crumb')"
           :title="t('services.audio.title')"
         />
-        <!-- Тексты заказчицы (17.11.2026); текст длинный — фото с подписью и сноской едет рядом -->
-        <div class="story story--reverse story--sticky">
+        <!-- Тексты заказчицы (17.11.2026); текст длинный — фото с подписью и сноской едет рядом.
+             18.11.2026: фото вертикальное, в треть ширины (story--third) -->
+        <div class="story story--reverse story--sticky story--third">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.audio.lead') }}</h3>
             <p>{{ t('services.audio.text') }}</p>
@@ -217,23 +206,37 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.radio.crumb')"
           :title="t('services.radio.title')"
         />
-        <div class="intro intro--single">
-          <h3 class="intro__title">{{ t('services.radio.lead') }}</h3>
-          <p>{{ t('services.radio.text') }}</p>
-          <p>{{ t('services.radio.text2') }}</p>
-        </div>
-        <!-- Радиогиды — только аренда (15.11.2026): это устройства музея, не товар -->
-        <div class="radio-two radio-two--one">
-          <div>
-            <h3 class="ev-card__title">{{ t('services.radio.rent') }}</h3>
-            <p class="ev-card__price">{{ t('services.radio.rentPrice') }}</p>
-            <p>{{ t('services.radio.rentText') }}</p>
-            <a class="btn btn--sm btn--red" href="#zayavka" @click="topic = 'radioguides'">{{
+        <!-- Сплошным текстом, условия — фактами с линиями, как у аудиогида; кнопка обычная (18.11.2026).
+             Радиогиды — только аренда (15.11.2026): это устройства музея, не товар -->
+        <div class="story">
+          <div class="story__text">
+            <h3 class="intro__title">{{ t('services.radio.lead') }}</h3>
+            <p>{{ t('services.radio.text') }}</p>
+            <p>{{ t('services.radio.text2') }}</p>
+            <p>{{ t('services.radio.handout') }}</p>
+            <dl class="facts">
+              <div class="facts__row">
+                <dt>{{ t('services.radio.price') }}</dt>
+                <dd>{{ t('services.radio.priceText') }}</dd>
+              </div>
+              <div class="facts__row">
+                <dt>{{ t('services.radio.payment') }}</dt>
+                <dd>{{ t('services.radio.paymentText') }}</dd>
+              </div>
+              <div class="facts__row">
+                <dt>{{ t('services.radio.deposit') }}</dt>
+                <dd>{{ t('services.radio.depositText') }}</dd>
+              </div>
+            </dl>
+            <a class="btn" href="#zayavka" @click="topic = 'radioguides'">{{
               t('services.radio.request')
             }}</a>
+            <p class="form__note radio-two__support">{{ t('services.radio.support') }}</p>
           </div>
+          <figure class="story__media">
+            <PhotoFrame src="/images/radioguides.jpg" :alt="t('services.radio.photoAlt')" />
+          </figure>
         </div>
-        <p class="form__note radio-two__support">{{ t('services.radio.support') }}</p>
       </div>
     </section>
 

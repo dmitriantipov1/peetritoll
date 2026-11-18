@@ -18,7 +18,7 @@ const halls = ['/images/restaurant-hall.jpg', '/images/banquet-hall.jpg', '/imag
 // i — номер текста в переводах; Pakri Express — только если раздел включён (ждёт условий, 7.2)
 const allServices = [
   { i: 0, image: '/images/restaurant-terrace.jpg', to: '/services#ekskursii' },
-  { i: 1, image: '/images/guides.jpg', to: '/services#gidy' },
+  { i: 1, image: '/images/guides.webp', to: '/services#gidy' },
   { i: 2, image: '/images/audioguide.webp', to: '/services#audiogid' },
   { i: 3, image: '/images/pakri-express.jpg', to: '/services#pakri-express' },
 ]

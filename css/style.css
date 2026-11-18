@@ -1165,6 +1165,16 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 @media (max-width: 860px) {
   .story--sticky .story__media { position: static; }
 }
+/* Вертикальное фото в треть ширины, текст — остальное (18.11.2026, аудиогид на «Услугах»).
+   До 860 px — столбиком, как обычный .story, фото целиком */
+.story--third { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.story--third.story--reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.story--third .story__media .photo__frame { aspect-ratio: 3 / 4; }
+.story--third .story__quote { font-size: clamp(20px, 1.7vw, 24px); }
+@media (max-width: 860px) {
+  .story--third, .story--third.story--reverse { grid-template-columns: 1fr; }
+  .story--third .story__media .photo__frame { aspect-ratio: auto; }
+}
 
 /* Строка о поддержке проекта под карточкой аренды радиогидов (17.11.2026) */
 .radio-two__support { margin-top: var(--s-3); }
@@ -1187,7 +1197,7 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .guide .photo__frame { aspect-ratio: 4 / 5; }
 .guide__body { margin-top: var(--s-2); }
 .guide__name { font-family: var(--f-head); font-weight: 700; font-size: 20px; line-height: 1.3; }
-.guide__langs { margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--c-grey); }
+.guide__langs { margin-top: var(--s-1); font-size: 15px; line-height: 1.45; color: var(--c-grey); }
 .guide__contacts { margin-top: var(--s-1); list-style: none; font-size: 15px; line-height: 1.6; }
 .guide__contacts a { color: var(--c-gold-text); text-decoration: none; overflow-wrap: anywhere; }
 .guide__contacts a:hover { color: var(--c-red); text-decoration: underline; }
