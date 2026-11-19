@@ -1199,9 +1199,9 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .guide .photo__frame { aspect-ratio: 4 / 5; }
 .guide__body { margin-top: var(--s-2); }
-.guide__name { font-family: var(--f-head); font-weight: 700; font-size: 20px; line-height: 1.3; }
+.guide__name { margin: 0; font-family: var(--f-head); font-weight: 700; font-size: 20px; line-height: 1.3; }
 .guide__langs { margin-top: var(--s-1); font-size: 15px; line-height: 1.45; color: var(--c-grey); }
-.guide__contacts { margin-top: var(--s-1); list-style: none; font-size: 15px; line-height: 1.6; }
+.guide__contacts { margin-top: 6px; list-style: none; font-size: 15px; line-height: 1.6; }
 .guide__contacts a { color: var(--c-gold-text); text-decoration: none; overflow-wrap: anywhere; }
 .guide__contacts a:hover { color: var(--c-red); text-decoration: underline; }
 @media (max-width: 1024px) {
