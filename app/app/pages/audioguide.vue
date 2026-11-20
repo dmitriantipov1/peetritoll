@@ -98,9 +98,10 @@ const tracks = computed(() =>
             <li>{{ t('services.audio.step2') }}</li>
             <li>{{ t('services.audio.step3') }}</li>
           </ol>
-          <p>{{ t('services.audio.early') }}</p>
+          <!-- Два предложения вместе — купить заранее и наушники (заказчица, 20.11.2026) -->
           <div class="note story__note story__note--mid">
             <p>
+              {{ t('services.audio.early') }}
               <strong>{{ t('services.audio.headphones.lead') }}</strong>
               {{ t('services.audio.headphones.text') }}
             </p>

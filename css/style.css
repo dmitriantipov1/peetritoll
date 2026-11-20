@@ -1188,6 +1188,8 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .note.story__note--light { background: var(--bg-shop); }
 /* Сноска на шаг темнее — о книге Каца в «03» (16.11.2026) */
 .note.story__note--mid { background: var(--bg-2); }
+/* В разделе с тем же фоном (bg2) сноска сливалась — берём светлый бежевый фона bg1 (20.11.2026) */
+.section--bg2 .note.story__note--mid { background: var(--bg-1); }
 .story__more { display: flex; justify-content: flex-end; margin-top: var(--s-3); }
 .story--reverse .story__more { justify-content: flex-start; }
 @media (max-width: 860px) { .story__more { justify-content: flex-start; } }

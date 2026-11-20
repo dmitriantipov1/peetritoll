@@ -105,7 +105,7 @@ const { meta: tourMeta } = useTourText()
             <p>{{ t('services.guides.text') }}</p>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/guides.webp" :alt="t('services.guides.alt')" />
+            <PhotoFrame src="/images/guides-pakri.jpg" :alt="t('services.guides.alt')" />
             <figcaption class="quote story__quote">
               {{ t('services.guides.quote1') }}<br /><span class="quote__indent">{{
                 t('services.guides.quote2')
@@ -231,7 +231,7 @@ const { meta: tourMeta } = useTourText()
             <p class="form__note radio-two__support">{{ t('services.radio.support') }}</p>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/radioguides.jpg" :alt="t('services.radio.photoAlt')" />
+            <PhotoFrame src="/images/radioguides.webp" :alt="t('services.radio.photoAlt')" />
           </figure>
         </div>
       </div>
@@ -241,25 +241,23 @@ const { meta: tourMeta } = useTourText()
     <section v-if="s.pakri" id="pakri-express" class="section section--bg4">
       <div class="container">
         <SectionHead :num="num('pakri')" :crumb="t('services.pakri.crumb')" title="Pakri Express" />
+        <!-- Тексты заказчицы (20.11.2026) -->
         <div class="story">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.pakri.lead') }}</h3>
             <p>{{ t('services.pakri.text') }}</p>
             <dl class="facts">
-              <div v-for="k in ['trips', 'programs', 'rent'] as const" :key="k" class="facts__row">
+              <div
+                v-for="k in ['route', 'duration', 'capacity', 'price'] as const"
+                :key="k"
+                class="facts__row"
+              >
                 <dt>{{ t(`services.pakri.${k}`) }}</dt>
                 <dd>{{ t(`services.pakri.${k}Text`) }}</dd>
               </div>
-              <div class="facts__row">
-                <dt>{{ t('services.pakri.start') }}</dt>
-                <dd>
-                  {{ t('services.pakri.startText')
-                  }}<template v-if="contacts?.address">, {{ contacts.address }}</template>
-                </dd>
-              </div>
             </dl>
             <a class="btn" href="#zayavka" @click="choice = 'pakri'">{{
-              t('services.pakri.schedule')
+              t('services.pakri.order')
             }}</a>
           </div>
           <figure class="story__media">
