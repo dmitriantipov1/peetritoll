@@ -143,7 +143,7 @@ const partners = [
     <section id="paldiski" class="section section--bg1">
       <div class="container">
         <SectionHead num="03" :crumb="t('about.city.crumb')" :title="t('about.city.title')" />
-        <div class="story story--reverse story--sticky">
+        <div class="story story--sticky">
           <div class="story__text">
             <h3 class="intro__title">{{ t('about.city.lead') }}</h3>
             <p>{{ t('about.city.text1') }}</p>

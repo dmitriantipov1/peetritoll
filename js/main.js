@@ -21,7 +21,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && nav.classList.contains('is-open')) setMenu(false);
 });
 
-// Выпадающее меню у «Меню» (созвон 12.11.2026): по нажатию, закрывается кликом мимо и Esc.
+// Выпадающие списки в шапке: «Меню» (созвон 12.11.2026), «О нас» и «Услуги» (20.11.2026).
+// По нажатию, закрывается кликом мимо, по пункту (ссылки на разделы той же страницы) и Esc.
 // На компьютере открывается и при наведении — это в CSS
 document.querySelectorAll('.nav__item--sub').forEach((item) => {
   const toggle = item.querySelector('.nav__toggle');
@@ -30,6 +31,7 @@ document.querySelectorAll('.nav__item--sub').forEach((item) => {
     toggle.setAttribute('aria-expanded', String(open));
   };
   toggle.addEventListener('click', () => setOpen(!item.classList.contains('is-open')));
+  item.querySelectorAll('.nav__sublink').forEach((a) => a.addEventListener('click', () => setOpen(false)));
   document.addEventListener('click', (e) => {
     if (!item.contains(e.target)) setOpen(false);
   });

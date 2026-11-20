@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261120-7">
+  <link rel="stylesheet" href="./css/style.css?v=20261120-8">
 </head>
 <body>
 
@@ -23,7 +23,18 @@
 
     <nav class="nav" id="nav" aria-label="Главное меню">
       <ul class="nav__list">
-        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-about">О нас<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-about">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./about.html">Семейное дело</a></li>
+              <li><a class="nav__sublink" href="./about.html#zdanie">История здания</a></li>
+              <li><a class="nav__sublink" href="./about.html#paldiski">История Палдиски</a></li>
+              <li><a class="nav__sublink" href="./news.html">Новости</a></li>
+              <li><a class="nav__sublink" href="./about.html#partnery">Партнёры</a></li>
+            </ul>
+          </div>
+        </li>
         <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
         <li class="nav__item nav__item--sub">
           <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-menu">Меню<span class="nav__caret" aria-hidden="true"></span></button>
@@ -36,7 +47,18 @@
           </div>
         </li>
         <li><a class="nav__link" href="./museum.html">Музей</a></li>
-        <li><a class="nav__link" href="./services.html">Услуги</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-services">Услуги<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-services">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./services.html">Экскурсии от Peetri Toll</a></li>
+              <li><a class="nav__sublink" href="./services.html#gidy">Местные гиды</a></li>
+              <li><a class="nav__sublink" href="./audioguide.html">Аудиогид</a></li>
+              <li><a class="nav__sublink" href="./services.html#radiogidy">Радиогиды</a></li>
+              <li><a class="nav__sublink" href="./services.html#pakri-express">Pakri Express</a></li>
+            </ul>
+          </div>
+        </li>
         <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
         <li><a class="nav__link is-current" href="./shop.html" aria-current="page">Магазин</a></li>
       </ul>
@@ -117,6 +139,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261120-2"></script>
+<script src="./js/main.js?v=20261120-3"></script>
 </body>
 </html>

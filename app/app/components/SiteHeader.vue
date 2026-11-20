@@ -1,13 +1,14 @@
 <script setup lang="ts">
 // Шапка сайта: логотип, меню, переключатель языков, бургер на узких экранах.
-// Разметка и классы — из прототипа (index.html), поведение бургера и выпадающего «Меню» — из js/main.js.
+// Разметка и классы — из прототипа (index.html), поведение бургера и выпадающих списков — из js/main.js.
 
 const { t, te, locale, locales } = useI18n()
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 
 // Адрес страницы один для всех языков, префикс языка добавляет localePath (5.1).
-// У «Меню» — выпадающий список (созвон 12.11.2026): основное, банкетное, групповое меню
+// Выпадающие списки: у «Меню» (созвон 12.11.2026) — основное, банкетное, групповое меню;
+// у «О нас» и «Услуг» (20.11.2026) — разделы этих страниц, новости и аудиогид
 const items = computed(() =>
   ['about', 'restaurant', 'menu', 'museum', 'services', 'contacts', 'shop'].map((key) => ({
     key,
@@ -15,16 +16,50 @@ const items = computed(() =>
     label: t(`nav.${key}`),
   })),
 )
+
+// Какие разделы включены — чтобы не было ссылок на выключенные новости и Pakri Express
+const { data: shown } = useFetch<{ news: boolean; services: boolean; pakri: boolean }>(
+  '/api/site/nav',
+  { key: 'site-nav', query: { locale } },
+)
+
 const menuPages = ['menu', 'banquet', 'group'] as const
-const subItems = computed(() =>
-  menuPages.map((key) => ({
+interface SubItem {
+  key: string
+  to: string
+  label: string
+  note?: string
+  /** Страница, на которой пункт подсвечен (у ссылок на раздел той же страницы — нет) */
+  page?: string
+}
+const subMenus = computed<Record<string, SubItem[]>>(() => ({
+  about: [
+    { key: 'family', to: localePath('/about') },
+    { key: 'building', to: `${localePath('/about')}#zdanie` },
+    { key: 'paldiski', to: `${localePath('/about')}#paldiski` },
+    shown.value?.news !== false && { key: 'news', to: localePath('/news'), page: 'news' },
+    { key: 'partners', to: `${localePath('/about')}#partnery` },
+  ]
+    .filter((i) => !!i)
+    .map((i) => ({ ...i, label: t(`nav.sub.about.${i.key}`) })),
+  menu: menuPages.map((key) => ({
     key,
     to: localePath(`/${key}`),
     label: t(`nav.sub.${key}.title`),
     // Подпись «Основное меню» есть только там, где название образное (по-русски)
     note: te(`nav.sub.${key}.note`) ? t(`nav.sub.${key}.note`) : '',
+    page: key,
   })),
-)
+  services: [
+    { key: 'tours', to: localePath('/services') },
+    { key: 'guides', to: `${localePath('/services')}#gidy` },
+    { key: 'audioguide', to: localePath('/audioguide'), page: 'audioguide' },
+    { key: 'radio', to: `${localePath('/services')}#radiogidy` },
+    !!shown.value?.pakri && { key: 'pakri', to: `${localePath('/services')}#pakri-express` },
+  ]
+    .filter((i) => !!i)
+    .map((i) => ({ ...i, label: t(`nav.sub.services.${i.key}`) })),
+}))
 
 // Переключатель ведёт на эту же страницу на другом языке; если её там нет — куда скажет
 // страница (useLangFallback: новость, выключенная в этой версии сайта, → список новостей).
@@ -49,20 +84,27 @@ const langs = computed(() =>
 )
 
 const open = ref(false)
-const subOpen = ref(false)
-const sub = ref<HTMLElement | null>(null)
+/** Какой выпадающий список открыт: about, menu, services */
+const subOpen = ref<string | null>(null)
 const routeBaseName = useRouteBaseName()
 
-// «Меню» подсвечен на всех страницах меню, в том числе на дневном (lunch) — у него ссылки в списке нет
+// Пункт подсвечен на всех страницах своего списка: «Меню» — и на дневном (lunch), у него ссылки
+// в списке нет; «О нас» — и на новостях; «Услуги» — и на аудиогиде
 const pageName = computed(() => String(routeBaseName(route) ?? ''))
-const onMenuPage = computed(() => [...menuPages, 'lunch'].includes(pageName.value))
+const currentGroup = computed(() => {
+  const p = pageName.value
+  if ([...menuPages, 'lunch'].includes(p)) return 'menu'
+  if (p === 'about' || p.startsWith('news')) return 'about'
+  if (p === 'services' || p === 'audioguide') return 'services'
+  return ''
+})
 
 // Закрываем меню при переходе на другую страницу
 watch(
   () => route.fullPath,
   () => {
     open.value = false
-    subOpen.value = false
+    subOpen.value = null
   },
 )
 
@@ -75,13 +117,18 @@ watch(open, (value) => {
 function onKey(e: KeyboardEvent) {
   if (e.key !== 'Escape') return
   if (subOpen.value) {
-    subOpen.value = false
-    sub.value?.querySelector<HTMLElement>('.nav__toggle')?.focus()
+    document.querySelector<HTMLElement>(`[aria-controls="nav-sub-${subOpen.value}"]`)?.focus()
+    subOpen.value = null
   } else if (open.value) open.value = false
 }
-// Выпадающий список закрывается кликом мимо него
+// Выпадающий список закрывается кликом мимо него и по пункту (ссылки на разделы той же страницы:
+// адрес меняется только якорем, и watch выше не срабатывает); бургер — тоже
 function onClick(e: MouseEvent) {
-  if (subOpen.value && !sub.value?.contains(e.target as Node)) subOpen.value = false
+  const target = e.target as Element
+  if (target.closest?.('.nav__sublink')) {
+    subOpen.value = null
+    open.value = false
+  } else if (subOpen.value && !target.closest?.('.nav__item--sub')) subOpen.value = null
 }
 onMounted(() => {
   document.addEventListener('keydown', onKey)
@@ -105,28 +152,27 @@ onBeforeUnmount(() => {
         <ul class="nav__list">
           <template v-for="item in items" :key="item.key">
             <li
-              v-if="item.key === 'menu'"
-              :ref="(el) => (sub = el as HTMLElement | null)"
+              v-if="subMenus[item.key]"
               class="nav__item nav__item--sub"
-              :class="{ 'is-open': subOpen }"
+              :class="{ 'is-open': subOpen === item.key }"
             >
               <button
                 class="nav__link nav__toggle"
-                :class="{ 'is-current': onMenuPage }"
+                :class="{ 'is-current': currentGroup === item.key }"
                 type="button"
-                :aria-expanded="subOpen"
-                aria-controls="nav-sub-menu"
-                @click="subOpen = !subOpen"
+                :aria-expanded="subOpen === item.key"
+                :aria-controls="`nav-sub-${item.key}`"
+                @click="subOpen = subOpen === item.key ? null : item.key"
               >
                 {{ item.label }}<span class="nav__caret" aria-hidden="true" />
               </button>
-              <div id="nav-sub-menu" class="nav__sub">
+              <div :id="`nav-sub-${item.key}`" class="nav__sub">
                 <ul class="nav__sublist">
-                  <li v-for="s in subItems" :key="s.key">
+                  <li v-for="s in subMenus[item.key]" :key="s.key">
                     <NuxtLink
                       class="nav__sublink"
                       :to="s.to"
-                      :aria-current="pageName === s.key ? 'page' : undefined"
+                      :aria-current="s.page && pageName === s.page ? 'page' : undefined"
                     >
                       {{ s.label }}<small v-if="s.note">{{ s.note }}</small>
                     </NuxtLink>

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261120-7">
+  <link rel="stylesheet" href="./css/style.css?v=20261120-8">
 </head>
 <body>
 
@@ -23,7 +23,18 @@
 
     <nav class="nav" id="nav" aria-label="Главное меню">
       <ul class="nav__list">
-        <li><a class="nav__link" href="./about.html">О нас</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-about">О нас<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-about">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./about.html">Семейное дело</a></li>
+              <li><a class="nav__sublink" href="./about.html#zdanie">История здания</a></li>
+              <li><a class="nav__sublink" href="./about.html#paldiski">История Палдиски</a></li>
+              <li><a class="nav__sublink" href="./news.html">Новости</a></li>
+              <li><a class="nav__sublink" href="./about.html#partnery">Партнёры</a></li>
+            </ul>
+          </div>
+        </li>
         <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
         <li class="nav__item nav__item--sub">
           <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-menu">Меню<span class="nav__caret" aria-hidden="true"></span></button>
@@ -36,7 +47,18 @@
           </div>
         </li>
         <li><a class="nav__link" href="./museum.html">Музей</a></li>
-        <li><a class="nav__link is-current" href="./services.html" aria-current="page">Услуги</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle is-current" type="button" aria-expanded="false" aria-controls="nav-sub-services">Услуги<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-services">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./services.html">Экскурсии от Peetri Toll</a></li>
+              <li><a class="nav__sublink" href="./services.html#gidy">Местные гиды</a></li>
+              <li><a class="nav__sublink" href="./audioguide.html">Аудиогид</a></li>
+              <li><a class="nav__sublink" href="./services.html#radiogidy">Радиогиды</a></li>
+              <li><a class="nav__sublink" href="./services.html#pakri-express">Pakri Express</a></li>
+            </ul>
+          </div>
+        </li>
         <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
         <li><a class="nav__link" href="./shop.html">Магазин</a></li>
       </ul>
@@ -177,62 +199,17 @@
         <h2 class="section-head__title"><span class="section-head__num">03</span> Экскурсия с аудиогидом</h2>
       </header>
 
-      <div class="story story--reverse story--sticky story--third">
+      <!-- Коротко (20.11.2026): подробности, фрагменты и «Как это работает» — на audioguide.html -->
+      <div class="story story--reverse story--third">
         <div class="story__text">
           <h3 class="intro__title">Исследуйте город в своём ритме, слушая увлекательные истории на своём смартфоне через приложение</h3>
-          <p>Каждое слово и каждая история здесь — результат кропотливой исследовательской работы. Профессиональная озвучка в сочетании с тщательно подобранными звуковыми эффектами создаёт полное ощущение присутствия. Вас ждут 20 знаковых объектов, 20 захватывающих историй и живописная природа полуострова Пакри — это не просто сухая экскурсия, а настоящее погружение в прошлое и уникальную атмосферу нашего края!</p>
-          <p>Мы подготовили два удобных формата: пеший маршрут для неспешных прогулок и автомобильный вариант, который позволит увидеть больше интересных мест за короткое время.</p>
+          <p>20 знаковых объектов, 20 захватывающих историй и живописная природа полуострова Пакри. Два маршрута — пеший и автомобильный.</p>
           <dl class="facts">
-            <div class="facts__row"><dt>Пеший, 3,2 км</dt><dd>Исторический центр, интересные факты и все достопримечательности города</dd></div>
+            <div class="facts__row"><dt>Пеший, 3,2 км</dt><dd>Исторический центр и все достопримечательности города</dd></div>
             <div class="facts__row"><dt>Автомобильный, 15,3 км</dt><dd>Весь город и полуостров Пакри, маяки, обрывы и лестница RMK</dd></div>
+            <div class="facts__row"><dt>Билет</dt><dd>от 7&nbsp;€ · эстонский, русский, английский</dd></div>
           </dl>
-          <!-- Фрагменты аудиогида (20.11.2026): заказчица оставила два из трёх — «Интересные факты» и
-               «Здание таможенной заставы»; «Железная дорога» (02, 5:29) — по желанию. Тёмная панель по примеру
-               заказчицы в нашей палитре (.tracks, js/main.js): играет один фрагмент за раз, файлы грузятся
-               только по нажатию, перемотка — у запущенного. Записи пока только русские -->
-          <p class="h4">Послушайте несколько фрагментов</p>
-          <div class="tracks">
-            <ul class="tracks__list">
-              <li class="track">
-                <button class="track__play" type="button" aria-label="Слушать: Интересные факты"><span class="track__icon" aria-hidden="true"></span></button>
-                <div class="track__body">
-                  <p class="track__title">Интересные факты</p>
-                  <p class="track__meta"><span class="track__time">2:18</span> · RU</p>
-                  <input class="track__seek" type="range" min="0" max="138" step="1" value="0" aria-label="Перемотка: Интересные факты">
-                </div>
-                <span class="track__num" aria-hidden="true">01</span>
-                <audio src="./media/audioguide/ru/01-interesting-facts.mp3" preload="none"></audio>
-              </li>
-              <li class="track">
-                <button class="track__play" type="button" aria-label="Слушать: Здание таможенной заставы"><span class="track__icon" aria-hidden="true"></span></button>
-                <div class="track__body">
-                  <p class="track__title">Здание таможенной заставы</p>
-                  <p class="track__meta"><span class="track__time">5:07</span> · RU</p>
-                  <input class="track__seek" type="range" min="0" max="307" step="1" value="0" aria-label="Перемотка: Здание таможенной заставы">
-                </div>
-                <span class="track__num" aria-hidden="true">02</span>
-                <audio src="./media/audioguide/ru/03-border-house.mp3" preload="none"></audio>
-              </li>
-            </ul>
-            <div class="tracks__foot">
-              <p>Весь аудиогид — 20 историй — в приложении Navicup</p>
-              <a class="btn btn--sm" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Слушать</a>
-            </div>
-          </div>
-          <p class="h4">Как это работает?</p>
-          <ol class="steps">
-            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
-            <li>Найдите в поиске «Paldiski audioguide».</li>
-            <li>Купите доступ в приложении, оплатив подходящий билет.</li>
-          </ol>
-          <p>Стоимость билетов зависит от срока действия: 7&nbsp;€ на день, 10&nbsp;€ на три дня или 15&nbsp;€ на полгода.</p>
-          <p>Аудиогид доступен на эстонском, русском и английском языках.</p>
-          <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути!</p>
-          <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
-          <div class="note story__note story__note--mid">
-            <p><strong>Нет наушников с собой?</strong> Купите простой дорожный вариант у нас в таверне.</p>
-          </div>
-          <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
+          <p class="story__more"><a class="btn" href="./audioguide.html">Подробнее и фрагменты</a></p>
         </div>
 
         <figure class="story__media">
@@ -381,6 +358,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261120-2"></script>
+<script src="./js/main.js?v=20261120-3"></script>
 </body>
 </html>

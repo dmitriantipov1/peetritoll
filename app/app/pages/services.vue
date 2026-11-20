@@ -1,15 +1,15 @@
 <script setup lang="ts">
 // «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды (с карточками гидов),
-// 03 мобильный аудиогид, 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
+// 03 мобильный аудиогид (коротко, подробности — на /audioguide с 20.11.2026), 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
 // 7.2), 06 заявка. Номера разделов идут подряд. Банкетного зала здесь нет (18.11.2026) — он в «Меню» и «Ресторане».
 // Тексты и цены пока в переводах, не в админке. Заявка — components/TourRequest.vue;
 // кнопки «Заказать» выше сразу выбирают тему заявки.
 import type { TourTopic } from '#shared/requests'
 import { guides, type Guide } from '~/utils/guides'
+import { NAVICUP_URL } from '~/utils/audioguide'
 
-/** Аудиогид в Navicup — по QR-коду и по нажатию на него */
-const navicupUrl = 'https://app.navicup.com/?eventID=5377&redirect_back=true'
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 
 // «Эстонский, русский, английский» — с заглавной первое слово, как в тексте заказчицы
 function guideLanguages(g: Guide) {
@@ -46,22 +46,6 @@ const tours = [
   { key: 'express', image: '/images/weapons-2.jpg', topic: 'exhibition' },
   { key: 'secrets', image: '/images/restaurant-house.jpg', topic: 'secrets' },
 ] as const
-
-/** Фрагменты аудиогида (20.11.2026) — файлы в public/media/audioguide/<язык>/. Пока есть только русские
- *  записи; эстонские и английские заказчица пришлёт позже — до тех пор на et/en блока нет */
-const audioFiles: Record<string, { key: string; file: string; seconds: number }[]> = {
-  ru: [
-    { key: 'facts', file: '01-interesting-facts.mp3', seconds: 138 },
-    { key: 'border', file: '03-border-house.mp3', seconds: 307 },
-  ],
-}
-const audioTracks = computed(() =>
-  (audioFiles[locale.value] ?? []).map((f) => ({
-    key: f.key,
-    src: `/media/audioguide/${locale.value}/${f.file}`,
-    seconds: f.seconds,
-  })),
-)
 
 /** Тема заявки: кнопки «Заказать» выше выбирают её и ведут к форме */
 const topic = ref<TourTopic>('exhibition')
@@ -156,45 +140,30 @@ const topic = ref<TourTopic>('exhibition')
           :crumb="t('services.audio.crumb')"
           :title="t('services.audio.title')"
         />
-        <!-- Тексты заказчицы (17.11.2026); текст длинный — фото с подписью и сноской едет рядом.
-             18.11.2026: фото вертикальное, в треть ширины (story--third) -->
-        <div class="story story--reverse story--sticky story--third">
+        <!-- Коротко (20.11.2026): подробности, фрагменты и «Как это работает» — на /audioguide -->
+        <div class="story story--reverse story--third">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.audio.lead') }}</h3>
-            <p>{{ t('services.audio.text') }}</p>
-            <p>{{ t('services.audio.text2') }}</p>
+            <p>{{ t('services.audio.short') }}</p>
             <dl class="facts">
               <div class="facts__row">
                 <dt>{{ t('services.audio.walk') }}</dt>
-                <dd>{{ t('services.audio.walkText') }}</dd>
+                <dd>{{ t('services.audio.walkShort') }}</dd>
               </div>
               <div class="facts__row">
                 <dt>{{ t('services.audio.car') }}</dt>
                 <dd>{{ t('services.audio.carText') }}</dd>
               </div>
+              <div class="facts__row">
+                <dt>{{ t('services.audio.ticket') }}</dt>
+                <dd>{{ t('services.audio.ticketShort') }}</dd>
+              </div>
             </dl>
-            <!-- Фрагменты аудиогида (20.11.2026): заказчица оставила два из трёх, «Железная дорога» — по желанию -->
-            <template v-if="audioTracks.length">
-              <p class="h4">{{ t('services.audio.fragments') }}</p>
-              <AudioTracks :tracks="audioTracks" :full-url="navicupUrl" />
-            </template>
-            <p class="h4">{{ t('services.audio.how') }}</p>
-            <ol class="steps">
-              <li>{{ t('services.audio.step1') }}</li>
-              <li>{{ t('services.audio.step2') }}</li>
-              <li>{{ t('services.audio.step3') }}</li>
-            </ol>
-            <p>{{ t('services.audio.prices') }}</p>
-            <p>{{ t('services.audio.langs') }}</p>
-            <p>{{ t('services.audio.early') }}</p>
-            <!-- Сноска — как о книге Каца на «О нас»; уберём, когда заказчица напишет об этом новость -->
-            <div class="note story__note story__note--mid">
-              <p>
-                <strong>{{ t('services.audio.headphones.lead') }}</strong>
-                {{ t('services.audio.headphones.text') }}
-              </p>
-            </div>
-            <p class="form__note">{{ t('services.audio.support') }}</p>
+            <p class="story__more">
+              <NuxtLink class="btn" :to="localePath('/audioguide')">{{
+                t('services.audio.more')
+              }}</NuxtLink>
+            </p>
           </div>
           <figure class="story__media">
             <!-- QR-код — в левом нижнем углу фото, нажимается только он (дизайнер, 20.11.2026) -->
@@ -202,7 +171,7 @@ const topic = ref<TourTopic>('exhibition')
               <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
               <a
                 class="qr-badge"
-                :href="navicupUrl"
+                :href="NAVICUP_URL"
                 target="_blank"
                 rel="noopener"
                 :aria-label="t('services.audio.qrOpen')"
