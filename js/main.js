@@ -223,6 +223,54 @@ document.querySelectorAll('[data-rotate]').forEach((box) => {
   play();
 });
 
+// Фрагменты аудиогида (20.11.2026, «Услуги»): кнопка — играть / пауза, ползунок — перемотка,
+// время — «прошло / всего». Играет один фрагмент за раз; файл грузится только по нажатию (preload="none")
+const tracks = [...document.querySelectorAll('.track')];
+tracks.forEach((track) => {
+  const audio = track.querySelector('audio');
+  const btn = track.querySelector('.track__play');
+  const seek = track.querySelector('.track__seek');
+  const time = track.querySelector('.track__time');
+  const title = track.querySelector('.track__title').textContent;
+  const fmt = (s) => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  const total = () => (Number.isFinite(audio.duration) ? audio.duration : Number(seek.max));
+
+  function paint() {
+    const now = audio.currentTime;
+    seek.max = Math.round(total());
+    seek.value = now;
+    seek.style.setProperty('--p', (now / total()) * 100 + '%');
+    time.textContent = now > 0 ? fmt(now) + ' / ' + fmt(total()) : fmt(total());
+    // Перемотка видна, когда фрагмент запущен (тёмная панель, 20.11.2026)
+    track.classList.toggle('is-started', now > 0 || !audio.paused);
+  }
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      tracks.forEach((t) => { if (t !== track) t.querySelector('audio').pause(); });
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+  audio.addEventListener('play', () => {
+    track.classList.add('is-playing');
+    btn.setAttribute('aria-label', 'Пауза: ' + title);
+    paint();
+  });
+  audio.addEventListener('pause', () => {
+    track.classList.remove('is-playing');
+    btn.setAttribute('aria-label', 'Слушать: ' + title);
+  });
+  audio.addEventListener('timeupdate', paint);
+  audio.addEventListener('loadedmetadata', paint);
+  audio.addEventListener('ended', () => { audio.currentTime = 0; paint(); });
+  seek.addEventListener('input', () => {
+    audio.currentTime = Number(seek.value);
+    paint();
+  });
+});
+
 // Галерея: клик по фото открывает его крупно. Стрелки листают фото, видимые
 // в текущем фильтре; закрывается кликом мимо фото или Esc.
 // data-zoom — то же для любого блока с фото (фото новости, 16.11.2026); одно фото — без стрелок

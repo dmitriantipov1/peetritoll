@@ -1166,9 +1166,75 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .story--third .story__quote { font-size: clamp(20px, 1.7vw, 24px); }
 /* Колонка текста широкая — абзацы во всю её ширину, как заголовок (18.11.2026) */
 .story--third .story__text p { max-width: none; }
-/* QR-код под фото, сноска о наушниках — в тексте (18.11.2026, аудиогид) */
-.story__media .qr-link { margin: var(--s-3) 0 0; }
+/* Сноска о наушниках — в тексте (18.11.2026, аудиогид) */
 .story__text .story__note { margin: 0 0 var(--s-3); }
+
+/* Фрагменты аудиогида (20.11.2026, «Услуги»): панель по примеру заказчицы, в нашей палитре, светлая —
+   квадратная кнопка, название, строка «время · язык», номер справа; перемотка — у запущенного фрагмента.
+   Внизу — полный аудиогид в Navicup. Играет один фрагмент за раз (js/main.js; в app — components/AudioTracks.vue) */
+.tracks {
+  margin: 0 0 var(--s-4);
+  padding: var(--s-2) clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 28px);
+  background: var(--bg-2);
+  border: 1px solid rgba(203, 170, 88, .45);
+  --line: rgba(111, 108, 108, .25);
+}
+.tracks__list { list-style: none; margin: 0; }
+/* Абзацы внутри панели — без общего отступа колонки текста */
+.story__text .tracks p { margin-bottom: 0; }
+.track {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: var(--s-2) clamp(16px, 2vw, 24px);
+  align-items: start; /* кнопка не сдвигается, когда раскрывается перемотка */
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.track__play {
+  display: grid; place-items: center;
+  width: 48px; height: 48px;
+  border: 1px solid var(--c-gold);
+  background: transparent; color: var(--c-gold-dark);
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.track__play:hover, .track.is-playing .track__play { background: var(--c-gold); color: var(--c-brown); }
+.track__play:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
+/* Треугольник «играть», две черты «пауза» */
+.track__icon { width: 0; height: 0; margin-left: 3px; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; }
+.track.is-playing .track__icon { width: 10px; height: 12px; margin-left: 0; border: 0; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+.track__title { font-family: var(--f-head); font-weight: 500; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.25; color: var(--c-ink); }
+.track__meta {
+  margin-top: 4px;
+  font-family: var(--f-deco); font-size: 14px; letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-grey);
+}
+.track__num { align-self: start; padding-top: 6px; font-family: var(--f-deco); font-size: 14px; letter-spacing: .08em; color: var(--c-gold-text); }
+/* Перемотка — тонкая линия, пройденное золотом (--p из js); плавно раскрывается, когда фрагмент запущен */
+.track__seek {
+  display: block; width: 100%; height: 0; margin: 0;
+  opacity: 0; visibility: hidden;
+  transition: height .3s ease, margin .3s ease, opacity .3s ease, visibility 0s .3s;
+  background: transparent; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  --p: 0%;
+}
+.track.is-started .track__seek { height: 16px; margin-top: 6px; opacity: 1; visibility: visible; transition: height .3s ease, margin .3s ease, opacity .3s ease .1s; }
+@media (prefers-reduced-motion: reduce) {
+  .track__seek, .track.is-started .track__seek { transition: none; }
+}
+.track__seek::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right, var(--c-gold) var(--p), rgba(111,108,108,.3) var(--p)); }
+.track__seek::-moz-range-track { height: 2px; background: linear-gradient(to right, var(--c-gold) var(--p), rgba(111,108,108,.3) var(--p)); }
+.track__seek::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; border: 0; border-radius: 50%; background: var(--c-gold-dark); }
+.track__seek::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 50%; background: var(--c-gold-dark); }
+.track__seek:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+.tracks__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3);
+  flex-wrap: wrap;
+  padding-top: clamp(20px, 2.5vw, 28px);
+}
+.tracks__foot p { font-size: 15px; line-height: 1.45; color: var(--c-grey); max-width: 40ch; }
 /* Фото около 2/3 ширины, текст — треть (18.11.2026, «Местные гиды») */
 .story--wide-media { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
 @media (max-width: 860px) {
@@ -1181,11 +1247,18 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 
 /* Строка о поддержке проекта под карточкой аренды радиогидов (17.11.2026) */
 .radio-two__support { margin-top: var(--s-3); }
-/* QR-код со ссылкой (аудиогид в Navicup, 17.11.2026): кадр на белом, подпись рядом */
-.qr-link { display: flex; align-items: center; gap: var(--s-2); max-width: 60ch; margin: 0 0 var(--s-3); color: inherit; text-decoration: none; }
-.qr-link img { flex: none; width: 120px; height: 120px; padding: 6px; background: #fff; border: 1px solid rgba(111,108,108,.35); }
-.qr-link span { font-size: 15px; line-height: 1.45; color: var(--c-gold-text); }
-.qr-link:hover span { color: var(--c-red); text-decoration: underline; }
+/* QR-код в левом нижнем углу фото аудиогида (дизайнер, 20.11.2026): белая плашка внутри золотой рамки,
+   нажимается только он — открывает аудиогид в Navicup */
+.story__photo { position: relative; }
+.qr-badge {
+  position: absolute; left: calc(var(--frame-inset) + 12px); bottom: calc(var(--frame-inset) + 12px); z-index: 1;
+  display: block; padding: 6px; background: #fff;
+  box-shadow: 0 2px 10px rgba(60, 31, 12, .25);
+  transition: transform .2s ease;
+}
+.qr-badge img { display: block; width: clamp(76px, 7vw, 104px); height: auto; }
+.qr-badge:hover { transform: scale(1.04); }
+.qr-badge:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
 
 /* ---------- Гиды-партнёры (17.11.2026, «Услуги») ----------
    Карточки: фото, имя, языки, телефон и e-mail ссылками. До 1024 px — по две, до 640 px — строкой:

@@ -47,6 +47,22 @@ const tours = [
   { key: 'secrets', image: '/images/restaurant-house.jpg', topic: 'secrets' },
 ] as const
 
+/** Фрагменты аудиогида (20.11.2026) — файлы в public/media/audioguide/<язык>/. Пока есть только русские
+ *  записи; эстонские и английские заказчица пришлёт позже — до тех пор на et/en блока нет */
+const audioFiles: Record<string, { key: string; file: string; seconds: number }[]> = {
+  ru: [
+    { key: 'facts', file: '01-interesting-facts.mp3', seconds: 138 },
+    { key: 'border', file: '03-border-house.mp3', seconds: 307 },
+  ],
+}
+const audioTracks = computed(() =>
+  (audioFiles[locale.value] ?? []).map((f) => ({
+    key: f.key,
+    src: `/media/audioguide/${locale.value}/${f.file}`,
+    seconds: f.seconds,
+  })),
+)
+
 /** Тема заявки: кнопки «Заказать» выше выбирают её и ведут к форме */
 const topic = ref<TourTopic>('exhibition')
 </script>
@@ -157,6 +173,11 @@ const topic = ref<TourTopic>('exhibition')
                 <dd>{{ t('services.audio.carText') }}</dd>
               </div>
             </dl>
+            <!-- Фрагменты аудиогида (20.11.2026): заказчица оставила два из трёх, «Железная дорога» — по желанию -->
+            <template v-if="audioTracks.length">
+              <p class="h4">{{ t('services.audio.fragments') }}</p>
+              <AudioTracks :tracks="audioTracks" :full-url="navicupUrl" />
+            </template>
             <p class="h4">{{ t('services.audio.how') }}</p>
             <ol class="steps">
               <li>{{ t('services.audio.step1') }}</li>
@@ -176,20 +197,27 @@ const topic = ref<TourTopic>('exhibition')
             <p class="form__note">{{ t('services.audio.support') }}</p>
           </div>
           <figure class="story__media">
-            <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
+            <!-- QR-код — в левом нижнем углу фото, нажимается только он (дизайнер, 20.11.2026) -->
+            <div class="story__photo">
+              <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
+              <a
+                class="qr-badge"
+                :href="navicupUrl"
+                target="_blank"
+                rel="noopener"
+                :aria-label="t('services.audio.qrOpen')"
+              >
+                <img
+                  src="/images/qr-navicup.png"
+                  :alt="t('services.audio.qrAlt')"
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                />
+              </a>
+            </div>
             <!-- Подпись без принудительного переноса — в 2–3 строки сама (18.11.2026) -->
             <figcaption class="quote story__quote">{{ t('services.audio.quote') }}</figcaption>
-            <!-- QR-код под фото (18.11.2026) открывает аудиогид в Navicup: с компьютера — навести телефон, с телефона — нажать -->
-            <a class="qr-link" :href="navicupUrl" target="_blank" rel="noopener">
-              <img
-                src="/images/qr-navicup.png"
-                :alt="t('services.audio.qrAlt')"
-                width="120"
-                height="120"
-                loading="lazy"
-              />
-              <span>{{ t('services.audio.qr') }}</span>
-            </a>
           </figure>
         </div>
       </div>
