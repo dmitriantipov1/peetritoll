@@ -1,18 +1,22 @@
 <script setup lang="ts">
 // Заявка «Экскурсия» на странице «Экскурсии и поездки» (services.html прототипа, раздел
-// «Оставить заявку»; 7.2): имя, телефон, e-mail (необязательно), дата, сколько человек,
-// что интересует, комментарий, согласие. Тема приходит и с кнопок «Заказать» выше (v-model).
+// «Оставить заявку»; 7.2): имя, телефон, e-mail (необязательно), дата (необязательно, 20.11.2026), сколько человек,
+// что интересует, комментарий, согласие. Что интересует — программа из админки («program:5»,
+// 20.11.2026) или постоянная тема; приходит и с кнопок «Заказать» выше (v-model).
 // Pakri Express в списке — только если раздел включён; сервер проверяет ещё раз.
-import { tourTopics, type TourTopic } from '#shared/requests'
+import { tourTopics } from '#shared/requests'
+import type { SiteTour } from '#shared/tours'
 import { todayInTallinn } from '#shared/dates'
 
-const props = defineProps<{ pakri: boolean }>()
-const topic = defineModel<TourTopic>('topic', { required: true })
+const props = defineProps<{ pakri: boolean; tours: SiteTour[] }>()
+const choice = defineModel<string>('choice', { required: true })
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-const topics = computed(() => tourTopics.filter((x) => x !== 'pakri' || props.pakri))
+const topics = computed(() =>
+  tourTopics.filter((x) => x !== 'program' && (x !== 'pakri' || props.pakri)),
+)
 
 const minDate = ref(todayInTallinn())
 onMounted(() => (minDate.value = todayInTallinn()))
@@ -44,7 +48,16 @@ async function submit() {
   try {
     const res = await $fetch<{ id: number }>('/api/site/requests', {
       method: 'POST',
-      body: { type: 'tour', locale: locale.value, topic: topic.value, ...form },
+      body: {
+        type: 'tour',
+        locale: locale.value,
+        ...(choice.value.startsWith('program:')
+          ? { topic: 'program', programId: Number(choice.value.slice(8)) }
+          : { topic: choice.value, programId: null }),
+        ...form,
+        // Дата необязательна (20.11.2026): пустая — null
+        visitDate: form.visitDate || null,
+      },
     })
     doneId.value = res.id
     fc.reset()
@@ -72,8 +85,8 @@ async function submit() {
 <FieldError id="f-phone-err" :msg="fc.error('phone')" />
     </div>
     <div class="field">
-      <label for="f-date">{{ t('booking.date') }}</label>
-      <input id="f-date" v-model="form.visitDate" type="date" :min="minDate" name="visitDate" required />
+      <label for="f-date">{{ t('services.form.date') }}</label>
+      <input id="f-date" v-model="form.visitDate" type="date" :min="minDate" name="visitDate" />
 <FieldError id="f-date-err" :msg="fc.error('visitDate')" />
     </div>
     <div class="field">
@@ -83,7 +96,10 @@ async function submit() {
     </div>
     <div class="field form__full">
       <label for="f-type">{{ t('services.form.topic') }}</label>
-      <select id="f-type" v-model="topic" name="topic" required>
+      <select id="f-type" v-model="choice" name="topic" required>
+        <optgroup v-if="tours.length" :label="t('services.form.programs')">
+          <option v-for="p in tours" :key="p.id" :value="`program:${p.id}`">{{ p.title }}</option>
+        </optgroup>
         <option v-for="x in topics" :key="x" :value="x">{{ t(`services.topics.${x}`) }}</option>
       </select>
 <FieldError id="f-type-err" :msg="fc.error('topic')" />

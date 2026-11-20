@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261120-8">
+  <link rel="stylesheet" href="./css/style.css?v=20261120-12">
 </head>
 <body>
 
@@ -51,7 +51,8 @@
           <button class="nav__link nav__toggle is-current" type="button" aria-expanded="false" aria-controls="nav-sub-services">Услуги<span class="nav__caret" aria-hidden="true"></span></button>
           <div class="nav__sub" id="nav-sub-services">
             <ul class="nav__sublist">
-              <li><a class="nav__sublink" href="./services.html">Экскурсии от Peetri Toll</a></li>
+              <li><a class="nav__sublink" href="./services.html" aria-current="page">Все услуги</a></li>
+              <li><a class="nav__sublink" href="./excursions.html">Экскурсионные программы</a></li>
               <li><a class="nav__sublink" href="./services.html#gidy">Местные гиды</a></li>
               <li><a class="nav__sublink" href="./audioguide.html">Аудиогид</a></li>
               <li><a class="nav__sublink" href="./services.html#radiogidy">Радиогиды</a></li>
@@ -88,35 +89,27 @@
   </section>
 
   <!-- ============ 01 ЭКСКУРСИИ ============ -->
-  <section class="section section--bg1" id="ekskursii">
+    <section class="section section--bg1" id="ekskursii">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Программы нашей команды</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Экскурсии от Peetri Toll</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Наши экскурсионные программы</h2>
       </header>
 
-      <!-- Текст во всю ширину, кнопки — обычные .btn (18.11.2026) -->
       <div class="intro intro--single intro--wide">
         <h3 class="intro__title">Откройте Палдиски и полуостров Пакри вместе с нами</h3>
-        <p>Короткие обзоры музея и исторические программы по старинному зданию таможни. Проводим на эстонском, английском и русском.</p>
+        <p>Исторические экскурсии по старинному зданию таможни и выставке холодного оружия, авторские туры по Палдиски и полуострову Пакри, готовые пакеты с угощениями и специальные программы для школьников.</p>
       </div>
 
-      <ul class="grid-2">
-        <li class="service">
-          <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Выставочный зал" loading="lazy" data-ph="weapons-2.jpg"></div>
-          <h3 class="service__title">Экспресс-экскурсия по выставке</h3>
-          <p class="service__text">Идеальное дополнение к обеду или визиту группы. Гид покажет саблю великана, дамские стилеты, клинки шаманов Борнео и кинжал бронзового века.</p>
-          <p class="tile__meta">15–20 минут · 20 € за группу · по предварительному заказу</p>
-          <a class="btn" href="#zayavka">Заказать</a>
-        </li>
-        <li class="service">
-          <div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание старой таможни" loading="lazy" data-ph="restaurant-house.jpg"></div>
-          <h3 class="service__title">«Тайны старой таможни»</h3>
-          <p class="service__text">История дома с 1760-х годов: царские таможенники, эстонская пограничная стража, спасённый под полом крест и возрождение таверны.</p>
-          <p class="tile__meta">30–45 минут</p>
-          <a class="btn" href="#zayavka">Заказать</a>
-        </li>
+      <!-- Коротко (20.11.2026): карточки с описаниями, гидами и заказом — на excursions.html -->
+      <ul class="tour-list">
+        <li><a class="tour-list__link" href="./excursions.html#programma-1"><span class="tour-list__title">Экспресс-экскурсия по выставке</span><span class="tour-list__meta">20 минут · 30&nbsp;€ за группу</span></a></li>
+        <li><a class="tour-list__link" href="./excursions.html#programma-2"><span class="tour-list__title">«Тайны старой таможни»</span><span class="tour-list__meta">60 минут · 50&nbsp;€ за группу</span></a></li>
+        <li><a class="tour-list__link" href="./excursions.html#programma-3"><span class="tour-list__title">История Палдиски: экспресс-обзор</span><span class="tour-list__meta">30 минут · 40&nbsp;€ за группу</span></a></li>
+        <li><a class="tour-list__link" href="./excursions.html#programma-4"><span class="tour-list__title">Тайны старых карт</span><span class="tour-list__meta">60 минут · 5&nbsp;€ с человека · группа от 12 человек</span></a></li>
+        <li><a class="tour-list__link" href="./excursions.html#programma-5"><span class="tour-list__title">Экскурсия по Палдиски и полуострову Пакри</span><span class="tour-list__meta">1,5–2 часа · 90&nbsp;€ за группу</span></a></li>
       </ul>
+      <p class="tour-list__more"><a class="btn" href="./excursions.html">Все программы и заказ</a></p>
     </div>
   </section>
 
@@ -294,29 +287,32 @@
   <section class="section section--bg1" id="zayavka">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Бронирование и консультации</p>
+        <p class="section-head__crumb">Планирование поездки</p>
         <h2 class="section-head__title"><span class="section-head__num">06</span> Оставить заявку</h2>
       </header>
 
       <div class="two-col">
         <div class="prose">
-          <h3 class="intro__title">Хотите организовать экскурсию или поездку?</h3>
-          <p>Свяжитесь с нами: подберём гида, поможем составить тайминг дня, объединим экскурсию с обедом или дегустацией и забронируем билеты.</p>
+          <h3 class="intro__title">Планируете визит или экскурсию?</h3>
+          <p>Выберите интересующий вариант и отправьте заявку. Поможем удобно вписать экскурсию в ваши планы, объединить её с обедом и подскажем, как спланировать поездку наилучшим образом.</p>
           <dl class="facts">
             <div class="facts__row"><dt>Телефон</dt><dd><a href="tel:+37253423425">+372 53 423 425</a></dd></div>
             <div class="facts__row"><dt>E-mail</dt><dd><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></dd></div>
           </dl>
-          <p class="quote">Подберём маршрут<br><span class="quote__indent">и накроем стол после прогулки</span></p>
+          <p class="quote">Подарим день, полный открытий,<br><span class="quote__indent">увлекательных историй и ярких впечатлений</span></p>
         </div>
         <form class="form" onsubmit="return false">
           <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
-          <div class="field"><label for="f-date">Дата</label><input id="f-date" type="date" required></div>
-          <div class="field"><label for="f-people">Количество человек</label><input id="f-people" type="number" min="1" required max="500"></div>
-          <div class="field form__full"><label for="f-type">Что вас интересует</label>
+          <div class="field"><label for="f-date">Желаемая дата (если известна)</label><input id="f-date" type="date"></div>
+          <div class="field"><label for="f-people">Количество человек (примерно)</label><input id="f-people" type="number" min="1" required max="500"></div>
+          <div class="field form__full"><label for="f-type">Выберите программу или услугу</label>
             <select id="f-type" required>
-              <option>Экскурсия по выставке</option>
+              <option>Экспресс-экскурсия по выставке</option>
               <option>«Тайны старой таможни»</option>
+              <option>История Палдиски: экспресс-обзор</option>
+              <option>Тайны старых карт (для школьников)</option>
+              <option>Экскурсия по Палдиски и Пакри</option>
               <option>Тур с местным гидом</option>
               <option>Радиогиды в аренду</option>
               <option>Pakri Express</option>
@@ -324,7 +320,7 @@
             </select>
           </div>
           <div class="field form__full"><label for="f-msg">Комментарий</label><textarea id="f-msg"></textarea></div>
-          <label class="form__check form__full"><input type="checkbox" required><span>Согласен на обработку данных по <a href="./privacy.html">политике конфиденциальности</a></span></label>
+          <label class="form__check form__full"><input type="checkbox" required><span>Даю согласие на обработку персональных данных согласно политике конфиденциальности. <a href="./privacy.html">Ознакомиться</a></span></label>
           <div class="form__full"><button class="btn btn--red" type="submit">Отправить заявку</button></div>
           <p class="form__note form__full">Эскиз: форма пока ничего не отправляет.</p>
         </form>

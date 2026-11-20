@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261120-8">
+  <link rel="stylesheet" href="./css/style.css?v=20261120-12">
 </head>
 <body>
 
@@ -51,7 +51,8 @@
           <button class="nav__link nav__toggle is-current" type="button" aria-expanded="false" aria-controls="nav-sub-services">Услуги<span class="nav__caret" aria-hidden="true"></span></button>
           <div class="nav__sub" id="nav-sub-services">
             <ul class="nav__sublist">
-              <li><a class="nav__sublink" href="./services.html">Экскурсии от Peetri Toll</a></li>
+              <li><a class="nav__sublink" href="./services.html">Все услуги</a></li>
+              <li><a class="nav__sublink" href="./excursions.html">Экскурсионные программы</a></li>
               <li><a class="nav__sublink" href="./services.html#gidy">Местные гиды</a></li>
               <li><a class="nav__sublink" href="./audioguide.html" aria-current="page">Аудиогид</a></li>
               <li><a class="nav__sublink" href="./services.html#radiogidy">Радиогиды</a></li>
@@ -88,7 +89,7 @@
   </section>
 
   <!-- Аудиогид отдельной страницей (20.11.2026): на «Услугах» он был перегружен — там теперь короткий
-       блок с кнопкой сюда. Сначала главное (что, маршруты, цена, где купить), ниже фрагменты и как начать -->
+       блок с кнопкой сюда. Блок 01: слева главное (что, маршруты, цена, где купить), справа фрагменты; ниже — как начать -->
 
   <!-- ============ 01 ОБ АУДИОГИДЕ ============ -->
   <section class="section section--bg1" id="ob-audiogide">
@@ -98,7 +99,7 @@
         <h2 class="section-head__title"><span class="section-head__num">01</span> Палдиски и Пакри в своём ритме</h2>
       </header>
 
-      <div class="story story--reverse story--sticky story--third">
+      <div class="story story--aside story--sticky">
         <div class="story__text">
           <h3 class="intro__title">Исследуйте город в своём ритме, слушая увлекательные истории на своём смартфоне через приложение</h3>
           <p>Каждое слово и каждая история здесь — результат кропотливой исследовательской работы. Профессиональная озвучка в сочетании с тщательно подобранными звуковыми эффектами создаёт полное ощущение присутствия. Вас ждут 20 знаковых объектов, 20 захватывающих историй и живописная природа полуострова Пакри — это не просто сухая экскурсия, а настоящее погружение в прошлое и уникальную атмосферу нашего края!</p>
@@ -112,32 +113,11 @@
           <p class="story__more"><a class="btn" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Открыть в Navicup</a></p>
         </div>
 
-        <figure class="story__media">
-          <!-- QR-код — в левом нижнем углу фото, нажимается только он (дизайнер, 20.11.2026) -->
-          <div class="story__photo">
-            <div class="photo__frame"><img src="./images/audioguide.webp" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.webp"></div>
-            <a class="qr-badge" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener" aria-label="Открыть аудиогид в Navicup">
-              <img src="./images/qr-navicup.png" alt="QR-код аудиогида в Navicup" width="120" height="120" loading="lazy">
-            </a>
-          </div>
-          <figcaption class="quote story__quote">Настоящий аудиоспектакль о прошлом города в вашем смартфоне</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 02 ФРАГМЕНТЫ ============ -->
-  <section class="section section--bg4" id="fragmenty">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Прежде чем отправиться в путь</p>
-        <h2 class="section-head__title"><span class="section-head__num">02</span> Послушайте несколько фрагментов</h2>
-      </header>
-
-      <!-- Фрагменты (20.11.2026): заказчица оставила два из трёх — «Интересные факты» и «Здание таможенной
-           заставы». Панель .tracks (js/main.js): один фрагмент за раз, файлы — по нажатию. Записи пока русские -->
-      <div class="audio-page__tracks">
-        <div class="tracks">
+        <!-- Справа — фрагменты вместо фото (20.11.2026): панель .tracks (js/main.js), один фрагмент за раз,
+             файлы — по нажатию. Записи пока русские -->
+        <div class="story__media">
+          <p class="h4">Послушайте несколько фрагментов</p>
+          <div class="tracks">
             <ul class="tracks__list">
               <li class="track">
                 <button class="track__play" type="button" aria-label="Слушать: Интересные факты"><span class="track__icon" aria-hidden="true"></span></button>
@@ -164,30 +144,44 @@
               <p>Весь аудиогид — 20 историй — в приложении Navicup</p>
               <a class="btn btn--sm" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Слушать</a>
             </div>
-          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 03 КАК НАЧАТЬ ============ -->
-  <section class="section section--bg1" id="kak-nachat">
+  <!-- ============ 02 КАК НАЧАТЬ ============ -->
+  <section class="section section--bg2" id="kak-nachat">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Три простых шага</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Как это работает?</h2>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Как это работает?</h2>
       </header>
 
-      <div class="intro intro--single">
-        <ol class="steps">
-          <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
-          <li>Найдите в поиске «Paldiski audioguide».</li>
-          <li>Купите доступ в приложении, оплатив подходящий билет.</li>
-        </ol>
-        <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути!</p>
-        <div class="note story__note story__note--mid">
-          <p><strong>Нет наушников с собой?</strong> Купите простой дорожный вариант у нас в таверне.</p>
+      <!-- Справа — фото с QR-кодом (20.11.2026, чтобы справа не было пустоты): с компьютера навести телефон,
+           с телефона нажать — аудиогид откроется в Navicup -->
+      <div class="story story--third">
+        <div class="story__text">
+          <ol class="steps">
+            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
+            <li>Найдите в поиске «Paldiski audioguide».</li>
+            <li>Купите доступ в приложении, оплатив подходящий билет.</li>
+          </ol>
+          <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути!</p>
+          <div class="note story__note story__note--mid">
+            <p><strong>Нет наушников с собой?</strong> Купите простой дорожный вариант у нас в таверне.</p>
+          </div>
+          <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
         </div>
-        <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
+
+        <figure class="story__media">
+          <div class="story__photo">
+            <div class="photo__frame"><img src="./images/audioguide.webp" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.webp"></div>
+            <a class="qr-badge" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener" aria-label="Открыть аудиогид в Navicup">
+              <img src="./images/qr-navicup.png" alt="QR-код аудиогида в Navicup" width="120" height="120" loading="lazy">
+            </a>
+          </div>
+          <figcaption class="quote story__quote">Настоящий аудиоспектакль о прошлом города в вашем смартфоне</figcaption>
+        </figure>
       </div>
     </div>
   </section>

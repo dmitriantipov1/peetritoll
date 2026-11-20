@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // «Экскурсия с аудиогидом» (audioguide.html прототипа, 20.11.2026): на «Услугах» аудиогид был перегружен —
-// там теперь короткий блок с кнопкой сюда. Сначала главное (что, маршруты, цена, где купить),
-// ниже 02 фрагменты (только на языке, где есть записи) и 03 как это работает.
+// там теперь короткий блок с кнопкой сюда. 01: слева главное (что, маршруты, цена, где купить),
+// справа фрагменты (только на языке, где есть записи; фото нет — 20.11.2026); 02 как это работает.
 // Страница — часть «Экскурсий и поездок»: раздел выключен — 404.
 import { NAVICUP_URL, audioFiles } from '~/utils/audioguide'
 
@@ -22,8 +22,6 @@ const tracks = computed(() =>
     seconds: f.seconds,
   })),
 )
-// Номера по порядку: без записей на этом языке «Как это работает» — 02
-const howNum = computed(() => (tracks.value.length ? '03' : '02'))
 </script>
 
 <template>
@@ -49,7 +47,8 @@ const howNum = computed(() => (tracks.value.length ? '03' : '02'))
           :crumb="t('audioguide.about.crumb')"
           :title="t('audioguide.about.title')"
         />
-        <div class="story story--reverse story--sticky story--third">
+        <!-- Нет записей на этом языке — текст во всю ширину, без колонок -->
+        <div :class="tracks.length ? 'story story--aside story--sticky' : ''">
           <div class="story__text">
             <h3 class="intro__title">{{ t('services.audio.lead') }}</h3>
             <p>{{ t('services.audio.text') }}</p>
@@ -78,8 +77,37 @@ const howNum = computed(() => (tracks.value.length ? '03' : '02'))
               }}</a>
             </p>
           </div>
+          <!-- Справа — фрагменты вместо фото (20.11.2026); только на языке, где есть записи (пока ru) -->
+          <div v-if="tracks.length" class="story__media">
+            <p class="h4">{{ t('audioguide.fragments.title') }}</p>
+            <AudioTracks :tracks="tracks" :full-url="NAVICUP_URL" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Как это работает -->
+    <section id="kak-nachat" class="section section--bg2">
+      <div class="container">
+        <SectionHead num="02" :crumb="t('audioguide.how.crumb')" :title="t('audioguide.how.title')" />
+        <!-- Справа — фото с QR-кодом (20.11.2026, чтобы справа не было пустоты) -->
+        <div class="story story--third">
+          <div class="story__text">
+          <ol class="steps">
+            <li>{{ t('services.audio.step1') }}</li>
+            <li>{{ t('services.audio.step2') }}</li>
+            <li>{{ t('services.audio.step3') }}</li>
+          </ol>
+          <p>{{ t('services.audio.early') }}</p>
+          <div class="note story__note story__note--mid">
+            <p>
+              <strong>{{ t('services.audio.headphones.lead') }}</strong>
+              {{ t('services.audio.headphones.text') }}
+            </p>
+          </div>
+          <p class="form__note">{{ t('services.audio.support') }}</p>
+          </div>
           <figure class="story__media">
-            <!-- QR-код — в левом нижнем углу фото, нажимается только он (дизайнер, 20.11.2026) -->
             <div class="story__photo">
               <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
               <a
@@ -100,46 +128,6 @@ const howNum = computed(() => (tracks.value.length ? '03' : '02'))
             </div>
             <figcaption class="quote story__quote">{{ t('services.audio.quote') }}</figcaption>
           </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- 02 Фрагменты — только на языке, где есть записи (пока ru) -->
-    <section v-if="tracks.length" id="fragmenty" class="section section--bg4">
-      <div class="container">
-        <SectionHead
-          num="02"
-          :crumb="t('audioguide.fragments.crumb')"
-          :title="t('audioguide.fragments.title')"
-        />
-        <div class="audio-page__tracks">
-          <AudioTracks :tracks="tracks" :full-url="NAVICUP_URL" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Как это работает -->
-    <section
-      id="kak-nachat"
-      class="section"
-      :class="tracks.length ? 'section--bg1' : 'section--bg2'"
-    >
-      <div class="container">
-        <SectionHead :num="howNum" :crumb="t('audioguide.how.crumb')" :title="t('audioguide.how.title')" />
-        <div class="intro intro--single">
-          <ol class="steps">
-            <li>{{ t('services.audio.step1') }}</li>
-            <li>{{ t('services.audio.step2') }}</li>
-            <li>{{ t('services.audio.step3') }}</li>
-          </ol>
-          <p>{{ t('services.audio.early') }}</p>
-          <div class="note story__note story__note--mid">
-            <p>
-              <strong>{{ t('services.audio.headphones.lead') }}</strong>
-              {{ t('services.audio.headphones.text') }}
-            </p>
-          </div>
-          <p class="form__note">{{ t('services.audio.support') }}</p>
         </div>
       </div>
     </section>

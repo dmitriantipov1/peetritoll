@@ -50,6 +50,7 @@ export const adminNav: AdminNavGroup[] = [
     title: 'Содержимое',
     items: [
       { to: '/admin/menu', label: 'Меню', icon: 'menu', access: ['menu', 'menu.lunch'] },
+      { to: '/admin/tours', label: 'Экскурсии', icon: 'tours', access: ['tours'] },
       {
         to: '/admin/materials',
         label: 'Новости и мероприятия',

@@ -1,5 +1,6 @@
 // «Экскурсии и поездки» (услуги): GET /api/site/services?locale=ru — какие связанные разделы
-// включены: Pakri Express (по умолчанию выключен — ждём условия, 7.2), банкет, магазин.
+// включены: Pakri Express (по умолчанию выключен — ждём условия, 7.2), банкет, магазин;
+// экскурсионные программы «на сайте» (из админки, 20.11.2026).
 // Раздел «Экскурсии и поездки» выключен или скрыт на языке — 404
 import { isContentLocale } from '#shared/locales'
 
@@ -12,5 +13,10 @@ export default defineEventHandler(async (event) => {
   if (!shown('services')) {
     throw createError({ statusCode: 404, message: 'Страница сейчас не показывается' })
   }
-  return { pakri: shown('pakri'), banquet: shown('banquet'), shop: shown('shop') }
+  return {
+    pakri: shown('pakri'),
+    banquet: shown('banquet'),
+    shop: shown('shop'),
+    tours: await loadSiteTours(locale),
+  }
 })

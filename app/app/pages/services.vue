@@ -2,27 +2,29 @@
 // «Экскурсии и поездки» (services.html прототипа): 01 экскурсии от Peetri Toll, 02 местные гиды (с карточками гидов),
 // 03 мобильный аудиогид (коротко, подробности — на /audioguide с 20.11.2026), 04 радиогиды, 05 Pakri Express (если раздел включён — ждёт условий,
 // 7.2), 06 заявка. Номера разделов идут подряд. Банкетного зала здесь нет (18.11.2026) — он в «Меню» и «Ресторане».
-// Тексты и цены пока в переводах, не в админке. Заявка — components/TourRequest.vue;
-// кнопки «Заказать» выше сразу выбирают тему заявки.
-import type { TourTopic } from '#shared/requests'
-import { guides, type Guide } from '~/utils/guides'
+// Экскурсионные программы — из админки (20.11.2026), остальные тексты пока в переводах.
+// Заявка — components/TourRequest.vue; кнопки выше сразу выбирают тему.
+import type { SiteTour } from '#shared/tours'
+import { guides, type GuideLanguage } from '~/utils/guides'
 import { NAVICUP_URL } from '~/utils/audioguide'
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
 // «Эстонский, русский, английский» — с заглавной первое слово, как в тексте заказчицы
-function guideLanguages(g: Guide) {
+function guideLanguages(g: { languages: readonly GuideLanguage[] }) {
   const list = g.languages.map((l) => t(`services.guides.languages.${l}`)).join(', ')
   return list.charAt(0).toUpperCase() + list.slice(1)
 }
 
 useHead({ title: () => `${t('services.title')} — Tavern Peetri Toll` })
 
-const { data: s, error } = await useFetch<{ pakri: boolean; banquet: boolean; shop: boolean }>(
-  '/api/site/services',
-  { query: { locale } },
-)
+const { data: s, error } = await useFetch<{
+  pakri: boolean
+  banquet: boolean
+  shop: boolean
+  tours: SiteTour[]
+}>('/api/site/services', { query: { locale } })
 if (error.value?.statusCode === 404) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
@@ -42,13 +44,12 @@ const order = computed(() =>
 )
 const num = (key: string) => String(order.value.indexOf(key) + 1).padStart(2, '0')
 
-const tours = [
-  { key: 'express', image: '/images/weapons-2.jpg', topic: 'exhibition' },
-  { key: 'secrets', image: '/images/restaurant-house.jpg', topic: 'secrets' },
-] as const
 
-/** Тема заявки: кнопки «Заказать» выше выбирают её и ведут к форме */
-const topic = ref<TourTopic>('exhibition')
+/** Что интересует в заявке: «program:5» — программа, иначе тема. Кнопки ниже выбирают тему
+ *  и ведут к форме; программы заказывают на /excursions, но выбрать их можно и здесь */
+const choice = ref('guide')
+
+const { meta: tourMeta } = useTourText()
 </script>
 
 <template>
@@ -73,17 +74,19 @@ const topic = ref<TourTopic>('exhibition')
           <h3 class="intro__title">{{ t('services.tours.lead') }}</h3>
           <p>{{ t('services.tours.text') }}</p>
         </div>
-        <ul class="grid-2">
-          <li v-for="tour in tours" :key="tour.key" class="service">
-            <PhotoFrame :src="tour.image" :alt="t(`services.tours.${tour.key}.alt`)" />
-            <h3 class="service__title">{{ t(`services.tours.${tour.key}.title`) }}</h3>
-            <p class="service__text">{{ t(`services.tours.${tour.key}.text`) }}</p>
-            <p class="tile__meta">{{ t(`services.tours.${tour.key}.meta`) }}</p>
-            <a class="btn" href="#zayavka" @click="topic = tour.topic">{{
-              t('services.order')
-            }}</a>
+        <!-- Коротко (20.11.2026): название и «время · цена» из админки «Экскурсии»; карточки с описаниями,
+             гидами и заказом — на /excursions -->
+        <ul v-if="s.tours.length" class="tour-list">
+          <li v-for="tour in s.tours" :key="tour.id">
+            <NuxtLink class="tour-list__link" :to="`${localePath('/excursions')}#programma-${tour.id}`">
+              <span class="tour-list__title">{{ tour.title }}</span>
+              <span class="tour-list__meta">{{ tourMeta(tour, false) }}</span>
+            </NuxtLink>
           </li>
         </ul>
+        <p class="tour-list__more">
+          <NuxtLink class="btn" :to="localePath('/excursions')">{{ t('services.tours.all') }}</NuxtLink>
+        </p>
       </div>
     </section>
 
@@ -222,7 +225,7 @@ const topic = ref<TourTopic>('exhibition')
                 <dd>{{ t('services.radio.depositText') }}</dd>
               </div>
             </dl>
-            <a class="btn" href="#zayavka" @click="topic = 'radioguides'">{{
+            <a class="btn" href="#zayavka" @click="choice = 'radioguides'">{{
               t('services.radio.request')
             }}</a>
             <p class="form__note radio-two__support">{{ t('services.radio.support') }}</p>
@@ -255,7 +258,7 @@ const topic = ref<TourTopic>('exhibition')
                 </dd>
               </div>
             </dl>
-            <a class="btn" href="#zayavka" @click="topic = 'pakri'">{{
+            <a class="btn" href="#zayavka" @click="choice = 'pakri'">{{
               t('services.pakri.schedule')
             }}</a>
           </div>
@@ -304,7 +307,7 @@ const topic = ref<TourTopic>('exhibition')
               }}</span>
             </p>
           </div>
-          <TourRequest v-model:topic="topic" :pakri="s.pakri" />
+          <TourRequest v-model:choice="choice" :pakri="s.pakri" :tours="s.tours" />
         </div>
       </div>
     </section>

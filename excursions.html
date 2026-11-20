@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экскурсионные программы — Tavern Peetri Toll</title>
+  <meta name="description" content="Экскурсии по старинному зданию таможни и выставке холодного оружия, по Палдиски и полуострову Пакри, программы для школьников — с ценами, гидами и языками.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css?v=20261120-12">
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="header__logo" href="./index.html" aria-label="Peetri Toll — на главную">
+      <img src="./images/logo.svg" alt="Peetri Toll" width="109" height="57" data-ph="logo.svg">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Главное меню">
+      <ul class="nav__list">
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-about">О нас<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-about">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./about.html">Семейное дело</a></li>
+              <li><a class="nav__sublink" href="./about.html#zdanie">История здания</a></li>
+              <li><a class="nav__sublink" href="./about.html#paldiski">История Палдиски</a></li>
+              <li><a class="nav__sublink" href="./news.html">Новости</a></li>
+              <li><a class="nav__sublink" href="./about.html#partnery">Партнёры</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="./restaurant.html">Ресторан</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sub-menu">Меню<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-menu">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./menu.html">Роспись кушаньям<small>Основное меню</small></a></li>
+              <li><a class="nav__sublink" href="./banquet.html">Пиршества и застолья<small>Банкетное меню</small></a></li>
+              <li><a class="nav__sublink" href="./group.html">Устроителям путешествий<small>Групповое меню</small></a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="./museum.html">Музей</a></li>
+        <li class="nav__item nav__item--sub">
+          <button class="nav__link nav__toggle is-current" type="button" aria-expanded="false" aria-controls="nav-sub-services">Услуги<span class="nav__caret" aria-hidden="true"></span></button>
+          <div class="nav__sub" id="nav-sub-services">
+            <ul class="nav__sublist">
+              <li><a class="nav__sublink" href="./services.html">Все услуги</a></li>
+              <li><a class="nav__sublink" href="./excursions.html" aria-current="page">Экскурсионные программы</a></li>
+              <li><a class="nav__sublink" href="./services.html#gidy">Местные гиды</a></li>
+              <li><a class="nav__sublink" href="./audioguide.html">Аудиогид</a></li>
+              <li><a class="nav__sublink" href="./services.html#radiogidy">Радиогиды</a></li>
+              <li><a class="nav__sublink" href="./services.html#pakri-express">Pakri Express</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="./contacts.html">Контакты</a></li>
+        <li><a class="nav__link" href="./shop.html">Магазин</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" role="group" aria-label="Язык">
+      <button class="lang__btn" type="button" aria-pressed="false">EE</button>
+      <button class="lang__btn" type="button" aria-pressed="false">EN</button>
+      <button class="lang__btn is-active" type="button" aria-pressed="true">RU</button>
+    </div>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <img class="hero__bg" src="./images/weapons-1.jpg" alt="" data-ph="weapons-1.jpg">
+    <div class="container page-hero__content">
+      <p class="page-hero__crumb"><a href="./index.html">Главная</a> / <a href="./services.html">Услуги</a> / Экскурсионные программы</p>
+      <h1 class="page-hero__title">Экскурсионные программы</h1>
+      <p class="page-hero__lead">Откройте Палдиски и полуостров Пакри вместе с нами</p>
+    </div>
+  </section>
+
+  <!-- Программы отдельной страницей (20.11.2026): на «Услугах» блок с пятью карточками был самым большим —
+       там теперь короткий список со ссылками сюда. В app карточки ведутся в админке («Экскурсии») -->
+
+  <!-- ============ 01 ПРОГРАММЫ ============ -->
+  <section class="section section--bg1" id="programmy">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Программы нашей команды</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Наши экскурсионные программы</h2>
+      </header>
+
+      <div class="intro intro--single intro--wide">
+        <h3 class="intro__title">Откройте Палдиски и полуостров Пакри вместе с нами</h3>
+        <p>Исторические экскурсии по старинному зданию таможни и выставке холодного оружия, авторские туры по Палдиски и полуострову Пакри, готовые пакеты с угощениями и специальные программы для школьников.</p>
+      </div>
+
+      <ul class="grid-3">
+        <li class="service" id="programma-1">
+          <div class="photo__frame"><img src="./images/weapons-2.jpg" alt="Выставочный зал" loading="lazy" data-ph="weapons-2.jpg"></div>
+          <h3 class="service__title">Экспресс-экскурсия по выставке</h3>
+          <p class="service__text">Гид покажет саблю великана, дамские стилеты, нож с открывалкой для бутылок, а также кинжал бронзового века — короткий и насыщенный обзор коллекции. Идеальное дополнение к обеду или групповой поездке.</p>
+          <p class="tile__meta">20 минут · 30&nbsp;€ за группу · по предварительному заказу</p>
+          <dl class="service__facts">
+            <div><dt>Гид</dt><dd>Елена Малютина</dd></div>
+            <div><dt>Языки</dt><dd>Эстонский, русский, английский</dd></div>
+          </dl>
+          <a class="btn" href="#zayavka">Заказать</a>
+        </li>
+        <li class="service" id="programma-2">
+          <div class="photo__frame"><img src="./images/restaurant-house.jpg" alt="Здание старой таможни" loading="lazy" data-ph="restaurant-house.jpg"></div>
+          <h3 class="service__title">«Тайны старой таможни»</h3>
+          <p class="service__text">Вы узнаете об истории дома, курьёзах таможенной службы, увидите редкие исторические документы семьи Пауля Лаана, а также секреты бережной реставрации.</p>
+          <p class="tile__meta">60 минут · 50&nbsp;€ за группу · по предварительному заказу</p>
+          <dl class="service__facts">
+            <div><dt>Гид</dt><dd>Андрей Кириллов</dd></div>
+            <div><dt>Языки</dt><dd>Русский</dd></div>
+          </dl>
+          <a class="btn" href="#zayavka">Заказать</a>
+        </li>
+        <li class="service" id="programma-3">
+          <div class="photo__frame"><img src="./images/paldiski-history.jpg" alt="Балтийский Порт — старинная гравюра" loading="lazy" data-ph="paldiski-history.jpg"></div>
+          <h3 class="service__title">История Палдиски: экспресс-обзор</h3>
+          <p class="service__text">Идеальное дополнение к обеду или визиту группы с плотным графиком: за полчаса в уютных стенах старинной таможни гид проведёт вас через главные вехи истории Палдиски, иллюстрируя рассказ редкими архивными снимками, картами и другими изображениями на большом экране — без выезда на полуостров.</p>
+          <p class="tile__meta">30 минут · 40&nbsp;€ за группу · по предварительному заказу</p>
+          <dl class="service__facts">
+            <div><dt>Гид</dt><dd>Елена Малютина</dd></div>
+            <div><dt>Языки</dt><dd>Русский, английский</dd></div>
+          </dl>
+          <a class="btn" href="#zayavka">Заказать</a>
+        </li>
+        <li class="service" id="programma-4">
+          <div class="photo__frame"><img src="./images/tour-old-maps.jpg" alt="Школьники изучают старинные карты" loading="lazy" data-ph="tour-old-maps.jpg"></div>
+          <h3 class="service__title">Тайны старых карт</h3>
+          <p class="service__text">Познавательная программа для школьников, объединяющая увлекательный рассказ об истории Палдиски с практическим исследованием старинных карт.</p>
+          <p class="tile__meta">60 минут · 5&nbsp;€ с человека · группа от 12 человек · по предварительному заказу</p>
+          <dl class="service__facts">
+            <div><dt>Гид</dt><dd>Елена Малютина</dd></div>
+            <div><dt>Языки</dt><dd>Эстонский, русский</dd></div>
+          </dl>
+          <a class="btn" href="#zayavka">Заказать</a>
+        </li>
+        <li class="service" id="programma-5">
+          <div class="photo__frame"><img src="./images/tour-paldiski-pakri.jpg" alt="Маяк Пакри и обрывы полуострова" loading="lazy" data-ph="tour-paldiski-pakri.jpg"></div>
+          <h3 class="service__title">Экскурсия по Палдиски и полуострову Пакри</h3>
+          <p class="service__text">Обзорный маршрут по знаковым местам города и побережья: от петровской крепости и старинных церквей до живописных обрывов и маяка Пакри.</p>
+          <p class="tile__meta">1,5–2 часа · 90&nbsp;€ за группу · по предварительному заказу · для групп и индивидуальных гостей</p>
+          <dl class="service__facts">
+            <div><dt>Гид</dt><dd>Андрей Кириллов</dd></div>
+            <div><dt>Языки</dt><dd>Русский</dd></div>
+          </dl>
+          <a class="btn" href="#zayavka">Заказать</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 02 ЗАЯВКА ============ -->
+  <section class="section section--bg2" id="zayavka">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Планирование поездки</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Оставить заявку</h2>
+      </header>
+
+      <div class="two-col">
+        <div class="prose">
+          <h3 class="intro__title">Планируете визит или экскурсию?</h3>
+          <p>Выберите интересующий вариант и отправьте заявку. Поможем удобно вписать экскурсию в ваши планы, объединить её с обедом и подскажем, как спланировать поездку наилучшим образом.</p>
+          <dl class="facts">
+            <div class="facts__row"><dt>Телефон</dt><dd><a href="tel:+37253423425">+372 53 423 425</a></dd></div>
+            <div class="facts__row"><dt>E-mail</dt><dd><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></dd></div>
+          </dl>
+          <p class="quote">Подарим день, полный открытий,<br><span class="quote__indent">увлекательных историй и ярких впечатлений</span></p>
+        </div>
+        <form class="form" onsubmit="return false">
+          <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
+          <div class="field"><label for="f-date">Желаемая дата (если известна)</label><input id="f-date" type="date"></div>
+          <div class="field"><label for="f-people">Количество человек (примерно)</label><input id="f-people" type="number" min="1" required max="500"></div>
+          <div class="field form__full"><label for="f-type">Выберите программу или услугу</label>
+            <select id="f-type" required>
+              <option>Экспресс-экскурсия по выставке</option>
+              <option>«Тайны старой таможни»</option>
+              <option>История Палдиски: экспресс-обзор</option>
+              <option>Тайны старых карт (для школьников)</option>
+              <option>Экскурсия по Палдиски и Пакри</option>
+              <option>Тур с местным гидом</option>
+              <option>Радиогиды в аренду</option>
+              <option>Pakri Express</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="field form__full"><label for="f-msg">Комментарий</label><textarea id="f-msg"></textarea></div>
+          <label class="form__check form__full"><input type="checkbox" required><span>Даю согласие на обработку персональных данных согласно политике конфиденциальности. <a href="./privacy.html">Ознакомиться</a></span></label>
+          <div class="form__full"><button class="btn btn--red" type="submit">Отправить заявку</button></div>
+          <p class="form__note form__full">Эскиз: форма пока ничего не отправляет.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="kontakty">
+  <div class="container footer__inner">
+    <img class="footer__logo" src="./images/footer.png" alt="Peetri Toll, 1716" width="980" height="241" loading="lazy" data-ph="footer.png">
+
+    <address class="footer__contacts">
+      <p>Открыто: пн–чт 11.00–18.00, пт–вс 11.00–19.00</p>
+      <p>Mere 10, Палдиски 76805</p>
+      <p><a href="tel:+37253423425">+372 53 423 425</a></p>
+      <p><a href="mailto:info@peetritoll.ee">info@peetritoll.ee</a></p>
+    </address>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© 2026 Tavern Peetri Toll · <a href="./privacy.html">Конфиденциальность</a> · <a href="./cookies.html">Cookies</a></p>
+      <ul class="social">
+        <li><a href="https://www.facebook.com/TavernPeetriToll" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="#">TripAdvisor</a></li>
+        <li><a href="#">Foursquare</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="./js/main.js?v=20261120-3"></script>
+</body>
+</html>

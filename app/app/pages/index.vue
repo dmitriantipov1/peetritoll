@@ -17,7 +17,7 @@ useHead({ title: () => t('home.meta') })
 const halls = ['/images/restaurant-hall.jpg', '/images/banquet-hall.jpg', '/images/terrace.jpg']
 // i — номер текста в переводах; Pakri Express — только если раздел включён (ждёт условий, 7.2)
 const allServices = [
-  { i: 0, image: '/images/restaurant-terrace.jpg', to: '/services#ekskursii' },
+  { i: 0, image: '/images/restaurant-terrace.jpg', to: '/excursions' },
   { i: 1, image: '/images/guides.webp', to: '/services#gidy' },
   { i: 2, image: '/images/audioguide.webp', to: '/audioguide' },
   { i: 3, image: '/images/pakri-express.jpg', to: '/services#pakri-express' },

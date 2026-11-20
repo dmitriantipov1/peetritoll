@@ -30,7 +30,7 @@ import {
   requestTypes,
   ruFirst,
   tableOccasionNames,
-  tourTopicNames,
+  tourInterest,
   type TourTopic,
   type AdminRequest,
   type AdminRequestRow,
@@ -46,6 +46,7 @@ import {
   type RequestStatus,
 } from '#shared/requests'
 import type { CatalogKind } from '#shared/catalog'
+import type { TourRef } from '#shared/tours'
 import { groupLeadOk, groupMenuTitles } from '#shared/group-menus'
 import { contentLocales, type ContentLocale } from '#shared/locales'
 import { eventPlacesLeft, materialStatus } from '#shared/materials'
@@ -324,17 +325,32 @@ async function checkBanquetRequest(guests: number, date: string) {
 }
 
 /**
- * Заявка на экскурсию с сайта («Экскурсии и поездки», 7.2): дата — не в прошлом;
+ * Заявка на экскурсию с сайта («Экскурсии и поездки», 7.2): дата необязательна (20.11.2026), но не в прошлом;
  * Pakri Express — только если его раздел включён (ждёт условий заказчицы).
  */
-async function checkTourRequest(date: string, topic: TourTopic, locale: ContentLocale) {
-  if (date < todayInTallinn()) bad('Эта дата уже прошла — выберите другую', 'visitDate')
+async function checkTourRequest(date: string | null, topic: TourTopic, locale: ContentLocale) {
+  if (date && date < todayInTallinn()) bad('Эта дата уже прошла — выберите другую', 'visitDate')
   if (topic === 'pakri') {
     const { pakri } = await readSections()
     if (!pakri.enabled || !pakri.locales[locale]) {
       bad('Поездки Pakri Express сейчас не принимаем — выберите другое', 'topic')
     }
   }
+}
+
+/**
+ * Экскурсионная программа заявки (20.11.2026) — снимком названия. С сайта — только программа
+ * «на сайте»; из админки — любая заведённая.
+ */
+async function tourProgram(
+  topic: TourTopic,
+  programId: number | null,
+  source: RequestSource,
+): Promise<TourRef | undefined> {
+  if (topic !== 'program') return undefined
+  const program = programId ? await findTourRef(programId, source === 'site') : null
+  if (!program) bad('Выберите программу из списка', 'topic')
+  return program
 }
 
 /**
@@ -398,7 +414,11 @@ export async function createRequest(input: RequestInput, opts: CreateRequestOpti
       break
     case 'tour':
       if (opts.source === 'site') await checkTourRequest(input.visitDate, input.topic, input.locale)
-      details = { type: 'tour', topic: input.topic }
+      details = {
+        type: 'tour',
+        topic: input.topic,
+        program: await tourProgram(input.topic, input.programId, opts.source),
+      }
       ;({ visitDate, guests } = input)
       break
     case 'event':
@@ -585,7 +605,7 @@ export function requestSummary(row: RequestRow, withComment = true): string {
       parts.push(lunchModeNames[d.mode].toLowerCase())
       break
     case 'tour':
-      parts.push(tourTopicNames[d.topic])
+      parts.push(tourInterest(d))
       break
     case 'event':
       parts.push(ruFirst(d.title))

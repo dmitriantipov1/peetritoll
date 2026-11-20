@@ -51,7 +51,8 @@ const subMenus = computed<Record<string, SubItem[]>>(() => ({
     page: key,
   })),
   services: [
-    { key: 'tours', to: localePath('/services') },
+    { key: 'all', to: localePath('/services'), page: 'services' },
+    { key: 'tours', to: localePath('/excursions'), page: 'excursions' },
     { key: 'guides', to: `${localePath('/services')}#gidy` },
     { key: 'audioguide', to: localePath('/audioguide'), page: 'audioguide' },
     { key: 'radio', to: `${localePath('/services')}#radiogidy` },
@@ -89,13 +90,13 @@ const subOpen = ref<string | null>(null)
 const routeBaseName = useRouteBaseName()
 
 // Пункт подсвечен на всех страницах своего списка: «Меню» — и на дневном (lunch), у него ссылки
-// в списке нет; «О нас» — и на новостях; «Услуги» — и на аудиогиде
+// в списке нет; «О нас» — и на новостях; «Услуги» — и на аудиогиде и программах
 const pageName = computed(() => String(routeBaseName(route) ?? ''))
 const currentGroup = computed(() => {
   const p = pageName.value
   if ([...menuPages, 'lunch'].includes(p)) return 'menu'
   if (p === 'about' || p.startsWith('news')) return 'about'
-  if (p === 'services' || p === 'audioguide') return 'services'
+  if (['services', 'audioguide', 'excursions'].includes(p)) return 'services'
   return ''
 })
 

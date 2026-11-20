@@ -166,7 +166,8 @@ export default defineTask({
       marketingOptIn: false,
       visitDate: addDays(today, 9),
       guests: 18,
-      topic: 'exhibition',
+      topic: 'guide',
+      programId: null,
     })
     await add({
       type: 'tour',
@@ -179,6 +180,7 @@ export default defineTask({
       visitDate: addDays(today, 20),
       guests: 2,
       topic: 'pakri',
+      programId: null,
     })
 
     // Запись на мероприятие — на любое заведённое мероприятие (из админки — без проверки «запись открыта»)

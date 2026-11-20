@@ -17,7 +17,7 @@ import {
   requestTypeNames,
   ruFirst,
   tableOccasionNames,
-  tourTopicNames,
+  tourInterest,
   type AdminRequest,
   type AdminRequestCalcLine,
   type AdminRequestHistoryItem,
@@ -179,7 +179,7 @@ const facts = computed(() => {
     case 'lunch':
       return [['Как', lunchModeNames[d.mode]]]
     case 'tour':
-      return [['Что интересует', tourTopicNames[d.topic]]]
+      return [['Что интересует', tourInterest(d)]]
     case 'event':
       return [['Мероприятие', ruFirst(d.title)]]
   }

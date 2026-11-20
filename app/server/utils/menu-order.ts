@@ -1,5 +1,5 @@
 // Порядок категорий, блюд в категории и отметок (поле sort), в том числе банкетного
-// и группового каталогов, и фото галереи. Доступно без импорта.
+// и группового каталогов, фото галереи и экскурсионных программ. Доступно без импорта.
 import { eq, type SQL } from 'drizzle-orm'
 import {
   catalogCategories,
@@ -10,6 +10,7 @@ import {
   galleryCategories,
   galleryPhotos,
   menuCategories,
+  tours,
 } from '../db/schema'
 import type { MarkKind } from '#shared/menu'
 import type { CatalogKind } from '#shared/catalog'
@@ -25,6 +26,7 @@ type Sortable =
   | typeof catalogDishes
   | typeof galleryCategories
   | typeof galleryPhotos
+  | typeof tours
 
 /**
  * Записать порядок: ids — все записи списка в новой последовательности.
@@ -66,3 +68,5 @@ export const orderCatalogDishes = (categoryId: number, ids: number[]) =>
 export const orderGalleryCategories = (ids: number[]) => applyOrder(galleryCategories, ids)
 
 export const orderGalleryPhotos = (ids: number[]) => applyOrder(galleryPhotos, ids)
+
+export const orderTours = (ids: number[]) => applyOrder(tours, ids)

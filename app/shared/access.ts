@@ -23,6 +23,7 @@ export const sections = {
     note: 'цены и состав',
   },
   'menu.lunch': { label: 'Меню: дневное', group: 'Содержимое', note: 'обеды недели' },
+  tours: { label: 'Экскурсионные программы', group: 'Содержимое', note: 'цены, гиды, языки' },
   materials: { label: 'Новости и мероприятия', group: 'Содержимое' },
   products: { label: 'Товары', group: 'Содержимое' },
   gallery: { label: 'Галерея', group: 'Содержимое' },

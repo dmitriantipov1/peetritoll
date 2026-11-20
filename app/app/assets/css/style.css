@@ -725,6 +725,45 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 /* Обычная кнопка в карточке услуги — внизу, по левому краю (18.11.2026) */
 .service .btn { margin-top: auto; align-self: flex-start; }
 .service:has(.btn) .tile__meta { margin-bottom: var(--s-2); }
+/* Гид и языки у экскурсионной программы (20.11.2026): подпись мелко золотом, значение рядом */
+.service__facts { margin: 0 0 var(--s-3); font-size: 15px; }
+.service__facts div { display: flex; gap: 8px; padding: 4px 0; border-top: 1px solid rgba(60, 31, 12, .14); }
+.service__facts div:last-child { border-bottom: 1px solid rgba(60, 31, 12, .14); }
+.service__facts dt {
+  flex: 0 0 64px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  padding-top: 2px;
+}
+.service__facts dd { margin: 0; }
+/* Цена, гид и языки — внизу карточки, на одном уровне в ряду */
+.service:has(.service__facts) .tile__meta { margin-top: auto; }
+.service:has(.service__facts) .btn { margin-top: 0; }
+/* Программы коротко на «Услугах» (20.11.2026): строка — название и «время · цена», ведёт к карточке
+   на странице программ. До 640 px — цена под названием */
+.tour-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(60, 31, 12, .14); }
+.tour-list li { border-bottom: 1px solid rgba(60, 31, 12, .14); }
+.tour-list__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 16px 0;
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s;
+}
+.tour-list__title { font-family: var(--f-head); font-size: 20px; }
+.tour-list__meta { font-size: 15px; color: var(--c-gold-text); white-space: nowrap; }
+.tour-list__link:hover .tour-list__title, .tour-list__link:focus-visible .tour-list__title { color: var(--c-red); }
+.tour-list__more { margin-top: var(--s-4); }
+@media (max-width: 640px) {
+  .tour-list__link { flex-direction: column; gap: 4px; }
+  .tour-list__title { font-size: 18px; }
+  .tour-list__meta { white-space: normal; }
+}
 
 .center { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 64px); }
 .center[hidden] { display: none; }
@@ -1996,8 +2035,12 @@ fieldset[aria-invalid="true"] .chip { border-color: var(--c-red); }
 }
 
 .steps { padding-left: 1.3em; margin-bottom: var(--s-4); }
-/* Страница аудиогида (20.11.2026): панель фрагментов — не во всю ширину */
-.audio-page__tracks { max-width: 760px; }
+/* Страница аудиогида (20.11.2026): текст слева, фрагменты справа, без фото */
+.story--aside { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.story--aside .story__media .h4 { margin-top: 0; }
+@media (max-width: 860px) {
+  .story--aside { grid-template-columns: 1fr; }
+}
 .steps li { margin-bottom: 6px; }
 
 /* ---------- Меню: позиции без фото (добавки, соусы, напитки) ---------- */

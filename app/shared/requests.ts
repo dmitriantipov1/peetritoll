@@ -6,6 +6,7 @@ import { contentLocales } from './locales'
 import { isDateString } from './dates'
 import type { Localized } from './menu'
 import { catalogUnitShort, type CatalogUnit } from './catalog'
+import { tourTitleRu, type TourRef } from './tours'
 
 // ---------- Виды и статусы ----------
 
@@ -72,23 +73,25 @@ export const banquetOccasionNames: Record<(typeof banquetOccasions)[number], str
   other: 'Другое',
 }
 
-/** «Что вас интересует» в форме «Экскурсии и поездки» */
-export const tourTopics = [
-  'exhibition',
-  'secrets',
-  'guide',
-  'radioguides',
-  'pakri',
-  'other',
-] as const
-export type TourTopic = (typeof tourTopics)[number]
+/** «Что вас интересует» в форме «Экскурсии и поездки»: program — одна из экскурсионных программ
+ *  (из админки, 20.11.2026; какая — programId), остальное — постоянные темы */
+export const tourTopics = ['program', 'guide', 'radioguides', 'pakri', 'other'] as const
+/** Темы заявок до 20.11.2026, когда программы были зашиты в код: только для показа старых заявок */
+export const legacyTourTopics = ['exhibition', 'secrets'] as const
+export type TourTopic = (typeof tourTopics)[number] | (typeof legacyTourTopics)[number]
 export const tourTopicNames: Record<TourTopic, string> = {
+  program: 'Экскурсионная программа',
   exhibition: 'Экскурсия по выставке',
   secrets: '«Тайны старой таможни»',
   guide: 'Тур с местным гидом',
   radioguides: 'Радиогиды в аренду',
   pakri: 'Pakri Express',
   other: 'Другое',
+}
+
+/** «Что интересует» в заявке: программа — по названию снимком, иначе тема */
+export function tourInterest(d: { topic: TourTopic; program?: TourRef }): string {
+  return d.program ? tourTitleRu(d.program.titles) || tourTopicNames.program : tourTopicNames[d.topic]
 }
 
 /** Обед: на месте или с собой */
@@ -122,7 +125,12 @@ export type RequestDetails =
       menuId?: number | null
     }
   | { type: 'lunch'; mode: (typeof lunchModes)[number] }
-  | { type: 'tour'; topic: TourTopic }
+  | {
+      type: 'tour'
+      topic: TourTopic
+      /** Экскурсионная программа снимком: её могут переименовать или удалить (с 20.11.2026) */
+      program?: TourRef
+    }
   | {
       type: 'event'
       materialId: number
@@ -274,9 +282,12 @@ export const requestInputSchema = z.discriminatedUnion(
     z.object({
       ...common,
       type: z.literal('tour'),
-      visitDate,
+      // Дата необязательна: всё равно уточняют по телефону после заявки (20.11.2026)
+      visitDate: visitDate.nullable().default(null),
       guests,
       topic: z.enum(tourTopics, 'Выберите, что вас интересует'),
+      /** Какая программа — при topic = program */
+      programId: z.number().int().positive().nullable().default(null),
     }),
     z.object({
       ...common,
@@ -408,7 +419,7 @@ export const requestTabs = [
     key: 'tour',
     label: 'Экскурсии',
     type: 'tour',
-    topics: ['exhibition', 'secrets', 'guide', 'other'],
+    topics: ['program', 'exhibition', 'secrets', 'guide', 'other'],
   },
   { key: 'pakri', label: 'Pakri Express', type: 'tour', topics: ['pakri'] },
   { key: 'radioguides', label: 'Радиогиды', type: 'tour', topics: ['radioguides'] },

@@ -162,6 +162,13 @@
       "when": 1794864276091,
       "tag": "0022_news_quote",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1795186698996,
+      "tag": "0023_tours",
+      "breakpoints": true
     }
   ]
 }
