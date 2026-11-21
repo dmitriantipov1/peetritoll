@@ -7,7 +7,6 @@
 import { phoneDigits } from '#shared/site-contacts'
 
 const { t, locale } = useI18n()
-const localePath = useLocalePath()
 
 useHead({ title: () => `${t('contacts.title')} — Tavern Peetri Toll` })
 
@@ -19,7 +18,6 @@ const fmt = (options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat(locale.value, { ...options, timeZone: 'UTC' })
 
 const hoursRows = useHoursRows(() => c.value?.week)
-const everyDay = computed(() => c.value?.week.every((d) => d.open) ?? false)
 
 const specialDate = (d: string) => fmt({ day: 'numeric', month: 'long' }).format(asDate(d))
 
@@ -41,7 +39,7 @@ const social = computed(() =>
       :lead="t('contacts.heroLead')"
     />
 
-    <!-- 01 Как нас найти -->
+    <!-- 01 Контакты. Тексты страницы — заказчицы, 21.11.2026 -->
     <section id="adres" class="section section--bg1">
       <div class="container">
         <SectionHead num="01" :crumb="t('contacts.findCrumb')" :title="t('contacts.findTitle')" />
@@ -105,16 +103,15 @@ const social = computed(() =>
       </div>
     </section>
 
-    <!-- 02 Часы работы -->
+    <!-- 02 Расписание -->
     <section id="chasy" class="section section--bg2">
       <div class="container">
         <SectionHead num="02" :crumb="t('contacts.hoursCrumb')" :title="t('contacts.hoursTitle')" />
 
         <div class="intro" :class="{ 'intro--single': !c.specialDays.length }">
           <div class="intro__text">
-            <h3 class="intro__title">
-              {{ everyDay ? t('contacts.hoursLeadDaily') : t('contacts.hoursLead') }}
-            </h3>
+            <h3 class="intro__title">{{ t('contacts.hoursLead') }}</h3>
+            <p>{{ t('contacts.hoursText') }}</p>
             <dl class="facts">
               <div v-for="r in hoursRows" :key="r.days" class="facts__row">
                 <dt>{{ r.days }}</dt>
@@ -127,7 +124,8 @@ const social = computed(() =>
             </dl>
           </div>
           <div v-if="c.specialDays.length" class="intro__aside">
-            <div class="note">
+            <!-- Золотая полоска сверху, а не сбоку (заказчица, 21.11.2026) -->
+            <div class="note note--top">
               <p class="note__title">{{ t('contacts.special') }}</p>
               <dl class="facts facts--compact">
                 <div v-for="d in c.specialDays" :key="d.date" class="facts__row">
@@ -144,7 +142,7 @@ const social = computed(() =>
       </div>
     </section>
 
-    <!-- 03 Как добраться -->
+    <!-- 03 Из Таллина в Палдиски -->
     <section id="doroga" class="section section--bg1">
       <div class="container">
         <SectionHead num="03" :crumb="t('contacts.roadCrumb')" :title="t('contacts.roadTitle')" />
@@ -153,20 +151,23 @@ const social = computed(() =>
           <li class="tile">
             <h4 class="tile__title">{{ t('contacts.byCar') }}</h4>
             <p class="tile__text">{{ t('contacts.byCarText') }}</p>
+            <p class="tile__text">{{ t('contacts.byCarText2') }}</p>
           </li>
           <li class="tile">
             <h4 class="tile__title">{{ t('contacts.byTrain') }}</h4>
-            <p class="tile__text">{{ t('contacts.byTrainText') }}</p>
+            <p class="tile__text">
+              {{ t('contacts.byTrainText') }}
+              <a href="https://elron.ee" target="_blank" rel="noopener">elron.ee</a>.
+            </p>
+            <p class="tile__text">{{ t('contacts.byTrainText2') }}</p>
           </li>
           <li class="tile">
-            <h4 class="tile__title">{{ t('contacts.byGroup') }}</h4>
+            <h4 class="tile__title">{{ t('contacts.byBus') }}</h4>
             <p class="tile__text">
-              {{ t('contacts.byGroupText') }}
-              <NuxtLink :to="localePath('/group') + '#zayavka'">{{
-                t('contacts.byGroupLink')
-              }}</NuxtLink
-              >.
+              {{ t('contacts.byBusText') }}
+              <a href="https://peatus.ee/linjat/estonia:harjumaa145/pysakit/estonia:harjumaa145:0:03" target="_blank" rel="noopener">Sõiduplaanid</a>.
             </p>
+            <p class="tile__text">{{ t('contacts.byBusText2') }}</p>
           </li>
         </ul>
       </div>

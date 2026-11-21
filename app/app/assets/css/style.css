@@ -1155,6 +1155,10 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 }
 .section--bg2 .note { background: var(--bg-1); }
 .note__title { font-family: var(--f-head); font-weight: 700; margin-bottom: 6px; }
+/* Золотая полоска сверху, а не сбоку — «Особые дни» в «Контактах» (заказчица, 21.11.2026) */
+.note--top { border-left: 0; border-top: 3px solid var(--c-gold); }
+/* Несколько абзацев в плитке — «Из Таллина в Палдиски» (21.11.2026) */
+.tile__text + .tile__text { margin-top: var(--s-2); }
 
 .grid-2, .grid-3, .grid-4 { display: grid; gap: var(--gap); list-style: none; }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
