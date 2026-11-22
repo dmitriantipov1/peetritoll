@@ -1159,6 +1159,55 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .note--top { border-left: 0; border-top: 3px solid var(--c-gold); }
 /* Несколько абзацев в плитке — «Из Таллина в Палдиски» (21.11.2026) */
 .tile__text + .tile__text { margin-top: var(--s-2); }
+/* Длинная плитка — первый абзац, остальное по «Показать полностью»: плавно по высоте; свёрнутое
+   не читается и не получает фокус (visibility) — «Как добраться» в «Контактах» (22.11.2026) */
+.tile__rest {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows .35s ease, visibility 0s linear .35s;
+}
+.tile__rest > div { min-height: 0; overflow: hidden; }
+/* Отступ — у первого абзаца внутри: свёрнутое не занимает места, кнопка сразу под текстом */
+.tile__rest .tile__text:first-child { padding-top: var(--s-2); }
+.tile.is-open .tile__rest {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows .35s ease, visibility 0s;
+}
+.tile__toggle {
+  margin-top: var(--s-2);
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--c-gold);
+  background: none;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.tile__toggle:hover { color: var(--c-red); border-color: var(--c-red); }
+/* Плитки с «Показать полностью» в ряду — общие строки (subgrid): заголовок, первый абзац, раскрываемое
+   и кнопка у всех на одном уровне, и когда одну раскрыли (22.11.2026) */
+.tile:has(> .tile__toggle) {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  row-gap: 0;
+  align-content: start;
+}
+.tile:has(> .tile__toggle) > .tile__toggle { justify-self: start; align-self: start; }
+/* Межстрочный отступ сетки делился бы между строками внутри плиток и раздвигал текст и кнопку —
+   у такой сетки его нет, расстояние между плитками в столбик даёт отступ снизу у плитки */
+.grid-3:has(> .tile > .tile__toggle) { row-gap: 0; margin-bottom: calc(-1 * var(--gap)); }
+.tile:has(> .tile__toggle) { margin-bottom: var(--gap); }
+@media (prefers-reduced-motion: reduce) {
+  .tile__rest, .tile.is-open .tile__rest { transition: none; }
+}
 
 .grid-2, .grid-3, .grid-4 { display: grid; gap: var(--gap); list-style: none; }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

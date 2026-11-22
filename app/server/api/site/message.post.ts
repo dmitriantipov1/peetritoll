@@ -3,7 +3,7 @@
 // оставил почту) и сообщение в Telegram, если бот настроен. В базе не храним — поэтому если
 // не ушло ни письмо, ни Telegram, говорим гостю об этом, а не делаем вид, что всё в порядке.
 // Защита от спама — как у заявок: ловушка website и не больше 10 отправок за 10 минут с адреса.
-import { contactKind, contactMessageSchema } from '#shared/contact-message'
+import { contactMessageSchema } from '#shared/contact-message'
 import { PRIVACY_POLICY_VERSION } from '#shared/requests'
 import { defaultNotifications, notificationsSchema } from '#shared/site-settings'
 
@@ -22,7 +22,6 @@ export default defineEventHandler(async (event) => {
   }
 
   const msg = validateWith(contactMessageSchema)(body)
-  const isEmail = contactKind(msg.contact) === 'email'
   const sentAt = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Tallinn' })
 
   let delivered = false
@@ -37,17 +36,18 @@ export default defineEventHandler(async (event) => {
       await sendMail({
         to,
         subject: `Сообщение с сайта — ${msg.name}`,
-        replyTo: isEmail ? msg.contact : undefined,
+        replyTo: msg.email ?? undefined,
         text: [
           `Сообщение с формы «Написать нам», ${localeNames[msg.locale]} версия`,
           '',
           `Гость: ${msg.name}`,
-          `${isEmail ? 'E-mail' : 'Телефон'}: ${msg.contact}`,
+          ...(msg.phone ? [`Телефон: ${msg.phone}`] : []),
+          ...(msg.email ? [`E-mail: ${msg.email}`] : []),
           '',
           msg.message,
           '',
           `Согласие на обработку данных: да, политика версии ${PRIVACY_POLICY_VERSION}, ${sentAt}`,
-          isEmail
+          msg.email
             ? 'Ответ на это письмо уйдёт гостю.'
             : 'Гость оставил телефон — ответьте звонком или сообщением.',
         ].join('\n'),
@@ -66,7 +66,7 @@ export default defineEventHandler(async (event) => {
       await sendTelegram(
         [
           '<b>Сообщение с сайта</b>',
-          `${e(msg.name)} · ${e(msg.contact)}`,
+          [msg.name, msg.phone, msg.email].filter(Boolean).map((v) => e(v!)).join(' · '),
           `<i>${e(msg.message.slice(0, 500))}</i>`,
         ].join('\n'),
       )

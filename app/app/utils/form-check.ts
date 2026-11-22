@@ -1,6 +1,7 @@
 // Проверка форм на сайте (16.11.2026, 8.6 в требованиях): что не так с полем.
 // Правила — атрибутами поля, как в прототипе (js/main.js): required, type="email", min/max,
-// minlength, data-check="phone" и data-check="contact". Совпадают с серверными (shared/requests.ts,
+// minlength, data-check="phone" и data-check="contact"; data-one-of="имя" у нескольких полей — нужно хотя
+// бы одно из них (телефон или e-mail в «Написать нам», 22.11.2026), ошибка — у первого из группы. Совпадают с серверными (shared/requests.ts,
 // shared/orders.ts, shared/contact-message.ts): что пропустит браузер, примет и сервер.
 // Возвращает ключ сообщения (form.check.<key>) и подстановку; тексты — в useFormCheck.
 
@@ -35,6 +36,12 @@ export function checkProblem(el: CheckControl): CheckProblem {
   const v = el.value.trim()
   if (el.validity.badInput) return { key: el.type === 'number' ? 'number' : el.type === 'date' ? 'date' : 'required' }
   if (!v) {
+    if (el.dataset.oneOf && el.form) {
+      const group = [
+        ...el.form.querySelectorAll<HTMLInputElement>(`[data-one-of="${el.dataset.oneOf}"]`),
+      ]
+      return group[0] === el && group.every((g) => !g.value.trim()) ? { key: 'contact' } : null
+    }
     if (!el.required) return null
     if (el.dataset.msg) return { key: el.dataset.msg }
     if (el instanceof HTMLSelectElement) return { key: 'choose' }

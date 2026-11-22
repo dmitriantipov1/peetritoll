@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261121">
+  <link rel="stylesheet" href="./css/style.css?v=20261122-5">
 </head>
 <body>
 
@@ -88,13 +88,13 @@
     </div>
   </section>
 
-  <!-- ============ 01 КОНТАКТЫ ============ -->
+  <!-- ============ 01 КАК НАС НАЙТИ ============ -->
   <!-- Тексты страницы — заказчицы, 21.11.2026 -->
   <section class="section section--bg1" id="adres">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Адрес и связь</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Контакты</h2>
+        <p class="section-head__crumb">Контакты</p>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Как нас найти</h2>
       </header>
 
       <div class="story">
@@ -119,15 +119,15 @@
     </div>
   </section>
 
-  <!-- ============ 02 РАСПИСАНИЕ ============ -->
+  <!-- ============ 02 ЧАСЫ РАБОТЫ ============ -->
   <section class="section section--bg2" id="chasy">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Ресторан и музей</p>
-        <h2 class="section-head__title"><span class="section-head__num">02</span> Расписание</h2>
+        <p class="section-head__crumb">Расписание</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Часы работы</h2>
       </header>
 
-      <div class="intro">
+      <div class="intro intro--wide"><!-- Текст во всю колонку, до блока особых дней (заказчица, 22.11.2026) -->
         <div class="intro__text">
           <h3 class="intro__title">Работаем по расписанию — и под ваш персональный запрос</h3>
           <p>В зимний период мы работаем по сокращённому расписанию. Однако если вы планируете провести у нас банкет, семейный ужин или собраться небольшой компанией вне основных часов работы, мы с удовольствием продлим время работы специально для вас. Просто свяжитесь с нами заранее, чтобы согласовать день и время.</p>
@@ -151,29 +151,46 @@
     </div>
   </section>
 
-  <!-- ============ 03 ИЗ ТАЛЛИНА В ПАЛДИСКИ ============ -->
+  <!-- ============ 03 КАК ДОБРАТЬСЯ ============ -->
   <section class="section section--bg1" id="doroga">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Как добраться</p>
-        <h2 class="section-head__title"><span class="section-head__num">03</span> Из Таллина в Палдиски</h2>
+        <p class="section-head__crumb">Из Таллина в Палдиски</p>
+        <h2 class="section-head__title"><span class="section-head__num">03</span> Как добраться</h2>
       </header>
 
+      <!-- Видно по первому абзацу, остальное — «Показать полностью» (заказчица, 22.11.2026; js/main.js) -->
       <ul class="grid-3">
         <li class="tile">
           <h4 class="tile__title">На машине</h4>
-          <p class="tile__text">Путешествие из Таллина до Таверны «Петровская Таможня» на машине займёт у вас 45–50 минут и даст прекрасную возможность самостоятельно осмотреть все близлежащие достопримечательности и большую часть полуострова.</p>
-          <p class="tile__text">Следуйте до города Палдиски по шоссе № 8 Tallinn — Paldiski. Сразу при въезде в город, следуя указателю, поверните налево и двигайтесь по улице Peetri, которая идёт параллельно главной дороге. Через 800 м на перекрёстке с улицей Pakri ещё раз поверните налево, а затем, следуя направлению дороги, направо на улицу Mere — буквально через 100 м вы увидите здание Таверны «Петровская Таможня».</p>
+          <p class="tile__text">Путешествие из Таллина на машине займёт у вас 45–50 минут и даст прекрасную возможность самостоятельно осмотреть все близлежащие достопримечательности и большую часть полуострова.</p>
+          <div class="tile__rest" id="doroga-car">
+            <div>
+              <p class="tile__text">Следуйте до города Палдиски по шоссе № 8 Tallinn — Paldiski. Сразу при въезде в город, следуя указателю, поверните налево и двигайтесь по улице Peetri, которая идёт параллельно главной дороге. Через 800 м на перекрёстке с улицей Pakri ещё раз поверните налево, а затем, следуя направлению дороги, направо на улицу Mere — буквально через 100 м вы увидите здание Таверны «Петровская Таможня».</p>
+            </div>
+          </div>
+          <button class="tile__toggle" type="button" aria-expanded="false" aria-controls="doroga-car">Показать полностью</button>
         </li>
         <li class="tile">
           <h4 class="tile__title">На электричке Tallinn — Paldiski</h4>
-          <p class="tile__text">Очень комфортно добраться к нам можно на электричке. Новые поезда Elron отправляются из Таллина в Палдиски с Балтийского вокзала 14 раз в день. Дорога занимает менее часа. В электричку можно взять с собой велосипед — он пригодится, если вы планируете осмотреть весь полуостров. По пути вам не придётся скучать: все поезда Elron оснащены беспроводным интернетом. Расписание можно посмотреть на сайте <a href="https://elron.ee" target="_blank" rel="noopener">elron.ee</a>.</p>
-          <p class="tile__text">Путь от железнодорожного вокзала Палдиски до Таверны «Петровская Таможня» занимает не более 10 минут. Повернув налево от вокзала, идите прямо, не сворачивая, по улице Peetri (650 м). Вскоре после перекрёстка с улицей Pakri будет пешеходный переход, от которого влево уходит небольшая пешеходная дорожка — она и приведёт вас к дверям таверны.</p>
+          <p class="tile__text">Очень комфортно добраться к нам можно на электричке. Поезда Elron отправляются из Таллина в Палдиски с Балтийского вокзала 14 раз в день. Дорога занимает менее часа.</p>
+          <div class="tile__rest" id="doroga-train">
+            <div>
+              <p class="tile__text">В электричку можно взять с собой велосипед — он пригодится, если вы планируете осмотреть весь полуостров. По пути вам не придётся скучать: все поезда Elron оснащены беспроводным интернетом. Расписание можно посмотреть на сайте <a href="https://elron.ee" target="_blank" rel="noopener">elron.ee</a>.</p>
+              <p class="tile__text">Путь от железнодорожного вокзала Палдиски до Таверны «Петровская Таможня» занимает не более 10 минут. Повернув налево от вокзала, идите прямо, не сворачивая, по улице Peetri (650 м). Вскоре после перекрёстка с улицей Pakri будет пешеходный переход, от которого влево уходит небольшая пешеходная дорожка — она и приведёт вас к дверям таверны.</p>
+            </div>
+          </div>
+          <button class="tile__toggle" type="button" aria-expanded="false" aria-controls="doroga-train">Показать полностью</button>
         </li>
         <li class="tile">
           <h4 class="tile__title">На автобусе № 145</h4>
-          <p class="tile__text">Автобус № 145 отправляется с остановки Viru в самом центре, на шоссе Pärnu у горки поцелуев (Musumägi). Время в пути около часа. Расписание — <a href="https://peatus.ee/linjat/estonia:harjumaa145/pysakit/estonia:harjumaa145:0:03" target="_blank" rel="noopener">Sõiduplaanid</a>.</p>
-          <p class="tile__text">Путь от конечной остановки автобуса до Таверны «Петровская Таможня» занимает около 7 минут. Направляйтесь в сторону моря и порта по улице Sadama, на которой и расположена автобусная остановка. На первом перекрёстке поверните налево на улицу Peetri. Вскоре после перекрёстка будет пешеходный переход, от которого вправо уходит небольшая пешеходная дорожка — она и приведёт вас к дверям таверны.</p>
+          <p class="tile__text">Автобус № 145 отправляется с остановки Viru в самом центре, на шоссе Pärnu у горки поцелуев (Musumägi). Время в пути около часа. <a href="https://transport.tallinn.ee/mobile.html#harju/regionalbus/145" target="_blank" rel="noopener">Расписание</a>.</p>
+          <div class="tile__rest" id="doroga-bus">
+            <div>
+              <p class="tile__text">Путь от конечной остановки автобуса до Таверны «Петровская Таможня» занимает около 7 минут. Направляйтесь в сторону моря и порта по улице Sadama, на которой и расположена автобусная остановка. На первом перекрёстке поверните налево на улицу Peetri. Вскоре после перекрёстка будет пешеходный переход, от которого вправо уходит небольшая пешеходная дорожка — она и приведёт вас к дверям таверны.</p>
+            </div>
+          </div>
+          <button class="tile__toggle" type="button" aria-expanded="false" aria-controls="doroga-bus">Показать полностью</button>
         </li>
       </ul>
     </div>
@@ -183,19 +200,21 @@
   <section class="section section--bg2" id="napisat">
     <div class="container">
       <header class="section-head">
-        <p class="section-head__crumb">Вопросы и пожелания</p>
+        <p class="section-head__crumb">Обратная связь</p>
         <h2 class="section-head__title"><span class="section-head__num">04</span> Написать нам</h2>
       </header>
 
       <div class="two-col">
         <div class="prose">
-          <h3 class="intro__title">Напишите нам</h3>
-          <p>Спросите о банкете, экскурсии или книгах — или просто поделитесь впечатлениями. Для брони стола удобнее позвонить или написать в WhatsApp.</p>
+          <h3 class="intro__title">Задайте вопрос или поделитесь историей</h3>
+          <p>Уточните детали о предлагаемых услугах или просто расскажите о своих впечатлениях. Для общих вопросов заполните форму, а если нужно забронировать столик или решить срочный вопрос — напишите в мессенджер.</p>
           <p class="quote">Старинный уют, щедрый стол<br><span class="quote__indent">и неповторимая атмосфера</span></p>
         </div>
         <form class="form" onsubmit="return false">
-          <div class="field"><label for="c-name">Имя</label><input id="c-name" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="c-contact">Телефон или e-mail</label><input id="c-contact" type="text" autocomplete="email" required data-check="contact"></div>
+          <div class="field form__full"><label for="c-name">Имя</label><input id="c-name" type="text" autocomplete="name" required></div>
+          <!-- Телефон и e-mail — отдельными полями, нужно хотя бы одно (заказчица, 22.11.2026) -->
+          <div class="field"><label for="c-phone">Телефон</label><input id="c-phone" type="tel" autocomplete="tel" data-check="phone" data-one-of="contact"></div>
+          <div class="field"><label for="c-mail">E-mail</label><input id="c-mail" type="email" autocomplete="email" data-one-of="contact"></div>
           <div class="field form__full"><label for="c-msg">Сообщение</label><textarea id="c-msg" required></textarea></div>
           <label class="form__check form__full"><input type="checkbox" required><span>Даю согласие на обработку персональных данных согласно политике конфиденциальности. <a href="./privacy.html">Ознакомиться</a></span></label>
           <div class="form__full"><button class="btn btn--red" type="submit">Отправить</button></div>
@@ -231,6 +250,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261120-3"></script>
+<script src="./js/main.js?v=20261122-2"></script>
 </body>
 </html>

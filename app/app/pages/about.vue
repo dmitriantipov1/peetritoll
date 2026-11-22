@@ -77,12 +77,6 @@ const partners = [
             <p>{{ t('about.family.text1') }}</p>
             <p>{{ t('about.family.text2') }}</p>
             <p>{{ t('about.family.text3') }}</p>
-            <p>
-              <strong>{{ t('about.family.factLabel') }}</strong> {{ t('about.family.fact') }}
-            </p>
-            <NuxtLink v-if="bookSlug" class="btn" :to="localePath(`/shop/${bookSlug}`)">{{
-              t('about.family.book')
-            }}</NuxtLink>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/about-family.jpg" :alt="t('about.family.photoAlt')" />
@@ -91,6 +85,17 @@ const partners = [
                 t('about.family.quote2')
               }}</span>
             </figcaption>
+            <!-- «Интересный факт» — сноской с кнопкой, как о книгах в 02 и 03 (22.11.2026) -->
+            <div class="note story__note story__note--mid">
+              <p>
+                <strong>{{ t('about.family.factLabel') }}</strong> {{ t('about.family.fact') }}
+              </p>
+            </div>
+            <p v-if="bookSlug" class="story__more">
+              <NuxtLink class="btn" :to="localePath(`/shop/${bookSlug}`)">{{
+                t('about.family.book')
+              }}</NuxtLink>
+            </p>
           </figure>
         </div>
       </div>
@@ -182,7 +187,8 @@ const partners = [
           :more="{ to: localePath('/news'), label: t('news.allNews') }"
         />
         <ul class="grid-3 news">
-          <NewsCard v-for="n in latest" :key="n.id" :item="n" />
+          <!-- Здесь — только заголовки, без текста под ними (заказчица, 22.11.2026) -->
+          <NewsCard v-for="n in latest" :key="n.id" :item="n" no-lead />
         </ul>
       </div>
     </section>

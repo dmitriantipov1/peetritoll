@@ -641,9 +641,24 @@ document.querySelectorAll('[data-calc]').forEach((calc) => {
   recalc();
 });
 
+// ---------- Плитка «Показать полностью» (22.11.2026) ----------
+// Видно начало, остальное (.tile__rest) раскрывается по кнопке .tile__toggle — «Как добраться»
+// в «Контактах». Высота анимируется в CSS
+document.querySelectorAll('.tile__toggle').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const tile = btn.closest('.tile');
+    const open = !tile.classList.contains('is-open');
+    tile.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Свернуть' : 'Показать полностью';
+  });
+});
+
 // ---------- Проверка форм (16.11.2026, 8.6 в требованиях) ----------
 // Правила — атрибутами поля: required, type="email", min/max, minlength, data-check="phone"
 // (цифры, пробелы, +, -, скобки, хотя бы 5 цифр) и data-check="contact" (телефон или e-mail).
+// data-one-of="имя" у нескольких полей — нужно заполнить хотя бы одно (телефон или e-mail в «Написать нам»,
+// 22.11.2026): пустые все — ошибка у первого из группы.
 // «Хвалим сразу, ругаем позже»: ошибка появляется, когда гость ушёл из поля, которое начал
 // заполнять, или при отправке; поле с ошибкой проверяется на каждое нажатие. Отправка с ошибками
 // останавливается (раньше всех других обработчиков — слушаем на document при погружении),
@@ -688,6 +703,10 @@ function checkProblem(el) {
   const v = el.value.trim();
   if (el.validity.badInput) return el.type === 'number' ? CHECK_MSG.number : CHECK_MSG[el.type] || CHECK_MSG.required;
   if (!v) {
+    if (el.dataset.oneOf) {
+      const group = [...el.form.querySelectorAll('[data-one-of="' + el.dataset.oneOf + '"]')];
+      return group[0] === el && group.every((g) => !g.value.trim()) ? CHECK_MSG.contact : '';
+    }
     if (!el.required) return '';
     if (el.dataset.msg) return el.dataset.msg;
     if (el.tagName === 'SELECT') return CHECK_MSG.choose;

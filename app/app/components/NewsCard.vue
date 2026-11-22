@@ -5,7 +5,11 @@ import type { SiteNewsCard } from '#shared/site-news'
 import { newsTopics } from '#shared/materials'
 import type { ContentLocale } from '#shared/locales'
 
-const props = defineProps<{ item: SiteNewsCard }>()
+const props = defineProps<{
+  item: SiteNewsCard
+  /** Без «коротко» под заголовком — новости на «О нас» (22.11.2026) */
+  noLead?: boolean
+}>()
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
@@ -28,7 +32,7 @@ const meta = computed(() => {
       <PhotoFrame :src="item.cover?.url ?? '/images/restaurant-house.jpg'" :alt="item.title" />
       <p class="news__date">{{ meta }}</p>
       <h3 class="news__title">{{ item.title }}</h3>
-      <p v-if="item.lead" class="news-card__text">{{ item.lead }}</p>
+      <p v-if="item.lead && !noLead" class="news-card__text">{{ item.lead }}</p>
     </NuxtLink>
   </li>
 </template>

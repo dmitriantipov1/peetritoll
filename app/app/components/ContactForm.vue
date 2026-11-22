@@ -1,10 +1,18 @@
 <script setup lang="ts">
-// «Написать нам» (contacts.html прототипа, раздел 04): имя, «телефон или e-mail» одним полем,
+// «Написать нам» (contacts.html прототипа, раздел 04): имя, телефон и e-mail — отдельными полями,
+// нужно хотя бы одно (заказчица, 22.11.2026),
 // сообщение, согласие. Не заявка — письмо сотрудникам и Telegram (server/api/site/message.post.ts).
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-const form = reactive({ name: '', contact: '', message: '', consent: false, website: '' })
+const form = reactive({
+  name: '',
+  phone: '',
+  email: '',
+  message: '',
+  consent: false,
+  website: '',
+})
 
 const sending = ref(false)
 const error = ref('')
@@ -26,7 +34,7 @@ async function submit() {
     })
     sent.value = true
     fc.reset()
-    Object.assign(form, { name: '', contact: '', message: '', consent: false })
+    Object.assign(form, { name: '', phone: '', email: '', message: '', consent: false })
     await nextTick()
     done.value?.focus()
   } catch (e) {
@@ -40,7 +48,8 @@ async function submit() {
 
 <template>
   <form v-if="!sent" ref="formEl" class="form" novalidate @submit.prevent="submit">
-    <div class="field">
+    <!-- Имя во всю ширину, телефон и e-mail — парой (22.11.2026) -->
+    <div class="field form__full">
       <label for="c-name">{{ t('contacts.form.name') }}</label>
       <input
         id="c-name"
@@ -54,18 +63,31 @@ async function submit() {
       <FieldError id="c-name-err" :msg="fc.error('name')" />
     </div>
     <div class="field">
-      <label for="c-contact">{{ t('contacts.form.contact') }}</label>
+      <label for="c-phone">{{ t('contacts.form.phone') }}</label>
       <input
-        id="c-contact"
-        v-model.trim="form.contact"
-        name="contact"
-        type="text"
+        id="c-phone"
+        v-model.trim="form.phone"
+        name="phone"
+        type="tel"
+        autocomplete="tel"
+        maxlength="40"
+        data-check="phone"
+        data-one-of="contact"
+      />
+      <FieldError id="c-phone-err" :msg="fc.error('phone')" />
+    </div>
+    <div class="field">
+      <label for="c-mail">{{ t('contacts.form.email') }}</label>
+      <input
+        id="c-mail"
+        v-model.trim="form.email"
+        name="email"
+        type="email"
         autocomplete="email"
         maxlength="200"
-        required
-        data-check="contact"
+        data-one-of="contact"
       />
-      <FieldError id="c-contact-err" :msg="fc.error('contact')" />
+      <FieldError id="c-mail-err" :msg="fc.error('email')" />
     </div>
     <div class="field form__full">
       <label for="c-msg">{{ t('contacts.form.message') }}</label>

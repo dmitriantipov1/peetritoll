@@ -19,6 +19,9 @@ const fmt = (options: Intl.DateTimeFormatOptions) =>
 
 const hoursRows = useHoursRows(() => c.value?.week)
 
+/** «Как добраться»: какие плитки раскрыты целиком (22.11.2026) */
+const roadOpen = reactive({ car: false, train: false, bus: false })
+
 const specialDate = (d: string) => fmt({ day: 'numeric', month: 'long' }).format(asDate(d))
 
 const social = computed(() =>
@@ -108,7 +111,8 @@ const social = computed(() =>
       <div class="container">
         <SectionHead num="02" :crumb="t('contacts.hoursCrumb')" :title="t('contacts.hoursTitle')" />
 
-        <div class="intro" :class="{ 'intro--single': !c.specialDays.length }">
+        <!-- Текст во всю колонку, до блока особых дней (заказчица, 22.11.2026) -->
+        <div class="intro intro--wide" :class="{ 'intro--single': !c.specialDays.length }">
           <div class="intro__text">
             <h3 class="intro__title">{{ t('contacts.hoursLead') }}</h3>
             <p>{{ t('contacts.hoursText') }}</p>
@@ -147,27 +151,73 @@ const social = computed(() =>
       <div class="container">
         <SectionHead num="03" :crumb="t('contacts.roadCrumb')" :title="t('contacts.roadTitle')" />
 
+        <!-- Видно по первому абзацу, остальное — «Показать полностью» (заказчица, 22.11.2026) -->
         <ul class="grid-3">
-          <li class="tile">
+          <li class="tile" :class="{ 'is-open': roadOpen.car }">
             <h4 class="tile__title">{{ t('contacts.byCar') }}</h4>
             <p class="tile__text">{{ t('contacts.byCarText') }}</p>
-            <p class="tile__text">{{ t('contacts.byCarText2') }}</p>
+            <div id="doroga-car" class="tile__rest">
+              <div>
+                <p class="tile__text">{{ t('contacts.byCarText2') }}</p>
+              </div>
+            </div>
+            <button
+              class="tile__toggle"
+              type="button"
+              aria-controls="doroga-car"
+              :aria-expanded="roadOpen.car"
+              @click="roadOpen.car = !roadOpen.car"
+            >
+              {{ roadOpen.car ? t('contacts.showLess') : t('contacts.showMore') }}
+            </button>
           </li>
-          <li class="tile">
+          <li class="tile" :class="{ 'is-open': roadOpen.train }">
             <h4 class="tile__title">{{ t('contacts.byTrain') }}</h4>
-            <p class="tile__text">
-              {{ t('contacts.byTrainText') }}
-              <a href="https://elron.ee" target="_blank" rel="noopener">elron.ee</a>.
-            </p>
-            <p class="tile__text">{{ t('contacts.byTrainText2') }}</p>
+            <p class="tile__text">{{ t('contacts.byTrainText') }}</p>
+            <div id="doroga-train" class="tile__rest">
+              <div>
+                <p class="tile__text">
+                  {{ t('contacts.byTrainMore') }}
+                  <a href="https://elron.ee" target="_blank" rel="noopener">elron.ee</a>.
+                </p>
+                <p class="tile__text">{{ t('contacts.byTrainText2') }}</p>
+              </div>
+            </div>
+            <button
+              class="tile__toggle"
+              type="button"
+              aria-controls="doroga-train"
+              :aria-expanded="roadOpen.train"
+              @click="roadOpen.train = !roadOpen.train"
+            >
+              {{ roadOpen.train ? t('contacts.showLess') : t('contacts.showMore') }}
+            </button>
           </li>
-          <li class="tile">
+          <li class="tile" :class="{ 'is-open': roadOpen.bus }">
             <h4 class="tile__title">{{ t('contacts.byBus') }}</h4>
             <p class="tile__text">
               {{ t('contacts.byBusText') }}
-              <a href="https://peatus.ee/linjat/estonia:harjumaa145/pysakit/estonia:harjumaa145:0:03" target="_blank" rel="noopener">Sõiduplaanid</a>.
+              <a
+                href="https://transport.tallinn.ee/mobile.html#harju/regionalbus/145"
+                target="_blank"
+                rel="noopener"
+                >{{ t('contacts.byBusSchedule') }}</a
+              >.
             </p>
-            <p class="tile__text">{{ t('contacts.byBusText2') }}</p>
+            <div id="doroga-bus" class="tile__rest">
+              <div>
+                <p class="tile__text">{{ t('contacts.byBusText2') }}</p>
+              </div>
+            </div>
+            <button
+              class="tile__toggle"
+              type="button"
+              aria-controls="doroga-bus"
+              :aria-expanded="roadOpen.bus"
+              @click="roadOpen.bus = !roadOpen.bus"
+            >
+              {{ roadOpen.bus ? t('contacts.showLess') : t('contacts.showMore') }}
+            </button>
           </li>
         </ul>
       </div>
