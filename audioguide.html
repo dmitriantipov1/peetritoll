@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261122-5">
+  <link rel="stylesheet" href="./css/style.css?v=20261123-2">
 </head>
 <body>
 
@@ -89,32 +89,71 @@
   </section>
 
   <!-- Аудиогид отдельной страницей (20.11.2026): на «Услугах» он был перегружен — там теперь короткий
-       блок с кнопкой сюда. Блок 01: слева главное (что, маршруты, цена, где купить), справа фрагменты; ниже — как начать -->
+       блок с кнопкой сюда. 01: слева главное (что, маршруты, цена, где купить), справа фото с QR; 02 — как начать и фрагменты -->
 
   <!-- ============ 01 ОБ АУДИОГИДЕ ============ -->
   <section class="section section--bg1" id="ob-audiogide">
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Для любознательных путешественников</p>
-        <h2 class="section-head__title"><span class="section-head__num">01</span> Палдиски и Пакри в своём ритме</h2>
+        <h2 class="section-head__title"><span class="section-head__num">01</span> Экскурсия с аудиогидом</h2>
       </header>
 
-      <div class="story story--aside story--sticky">
+      <!-- 23.11.2026, заказчица: справа — фото с QR-кодом (поменялось местами с фрагментами из 02),
+           текст во всю колонку, у маршрутов расстояние второй строкой, кнопка — у левого края -->
+      <div class="story story--sticky story--third">
         <div class="story__text">
-          <h3 class="intro__title">Исследуйте город в своём ритме, слушая увлекательные истории на своём смартфоне через приложение</h3>
+          <h3 class="intro__title">Исследуйте город в своём ритме, слушая увлекательные истории на своём смартфоне</h3>
           <p>Каждое слово и каждая история здесь — результат кропотливой исследовательской работы. Профессиональная озвучка в сочетании с тщательно подобранными звуковыми эффектами создаёт полное ощущение присутствия. Вас ждут 20 знаковых объектов, 20 захватывающих историй и живописная природа полуострова Пакри — это не просто сухая экскурсия, а настоящее погружение в прошлое и уникальную атмосферу нашего края!</p>
           <p>Мы подготовили два удобных формата: пеший маршрут для неспешных прогулок и автомобильный вариант, который позволит увидеть больше интересных мест за короткое время.</p>
           <dl class="facts">
-            <div class="facts__row"><dt>Пеший, 3,2 км</dt><dd>Исторический центр, интересные факты и все достопримечательности города</dd></div>
-            <div class="facts__row"><dt>Автомобильный, 15,3 км</dt><dd>Весь город и полуостров Пакри, маяки, обрывы и лестница RMK</dd></div>
+            <div class="facts__row"><dt>Пеший<br>3,2 км</dt><dd>Исторический центр, интересные факты и все достопримечательности города</dd></div>
+            <div class="facts__row"><dt>Автомобильный<br>15,3 км</dt><dd>Весь город и полуостров Пакри, маяки, обрывы и лестница RMK</dd></div>
             <div class="facts__row"><dt>Билет</dt><dd>7&nbsp;€ на день, 10&nbsp;€ на три дня, 15&nbsp;€ на полгода</dd></div>
             <div class="facts__row"><dt>Языки</dt><dd>Эстонский, русский, английский</dd></div>
           </dl>
-          <p class="story__more"><a class="btn" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Открыть в Navicup</a></p>
+          <a class="btn" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Открыть в Navicup</a>
         </div>
 
-        <!-- Справа — фрагменты вместо фото (20.11.2026): панель .tracks (js/main.js), один фрагмент за раз,
-             файлы — по нажатию. Записи пока русские -->
+        <!-- QR-код — в левом нижнем углу фото, нажимается только он: с компьютера навести телефон,
+             с телефона нажать — аудиогид откроется в Navicup -->
+        <figure class="story__media">
+          <div class="story__photo">
+            <div class="photo__frame"><img src="./images/audioguide.webp" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.webp"></div>
+            <a class="qr-badge" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener" aria-label="Открыть аудиогид в Navicup">
+              <img src="./images/qr-navicup.png" alt="QR-код аудиогида в Navicup" width="120" height="120" loading="lazy">
+            </a>
+          </div>
+          <figcaption class="quote story__quote">Настоящий аудиоспектакль о прошлом города в вашем смартфоне</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 КАК НАЧАТЬ ============ -->
+  <section class="section section--bg2" id="kak-nachat">
+    <div class="container">
+      <header class="section-head">
+        <p class="section-head__crumb">Три простых шага</p>
+        <h2 class="section-head__title"><span class="section-head__num">02</span> Как это работает?</h2>
+      </header>
+
+      <!-- Справа — фрагменты (23.11.2026, поменялись местами с фото из 01): панель .tracks (js/main.js),
+           один фрагмент за раз, файлы — по нажатию. Записи пока русские -->
+      <div class="story story--aside story--sticky">
+        <div class="story__text">
+          <ol class="steps">
+            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
+            <li>Найдите в поиске «Paldiski audioguide».</li>
+            <li>Купите доступ в приложении, оплатив подходящий билет.</li>
+          </ol>
+          <div class="note story__note story__note--mid">
+            <!-- Два предложения вместе; про наушники — с новой строки без промежутка (23.11.2026) -->
+            <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути!<br><strong>Нет наушников с собой?</strong> Купить простой дорожный вариант можно у нас в таверне.</p>
+          </div>
+          <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
+        </div>
+
         <div class="story__media">
           <p class="h4">Послушайте несколько фрагментов</p>
           <div class="tracks">
@@ -141,47 +180,10 @@
               </li>
             </ul>
             <div class="tracks__foot">
-              <p>Весь аудиогид — 20 историй — в приложении Navicup</p>
               <a class="btn btn--sm" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener">Слушать</a>
             </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 02 КАК НАЧАТЬ ============ -->
-  <section class="section section--bg2" id="kak-nachat">
-    <div class="container">
-      <header class="section-head">
-        <p class="section-head__crumb">Три простых шага</p>
-        <h2 class="section-head__title"><span class="section-head__num">02</span> Как это работает?</h2>
-      </header>
-
-      <!-- Справа — фото с QR-кодом (20.11.2026, чтобы справа не было пустоты): с компьютера навести телефон,
-           с телефона нажать — аудиогид откроется в Navicup -->
-      <div class="story story--third">
-        <div class="story__text">
-          <ol class="steps">
-            <li>Скачайте бесплатное приложение Navicup (App Store и Google Play).</li>
-            <li>Найдите в поиске «Paldiski audioguide».</li>
-            <li>Купите доступ в приложении, оплатив подходящий билет.</li>
-          </ol>
-          <div class="note story__note story__note--mid">
-            <!-- Два предложения вместе — купить заранее и наушники (заказчица, 20.11.2026) -->
-            <p>Рекомендуем приобрести аудиогид заранее — пусть знакомство с городом начнётся ещё в пути! <strong>Нет наушников с собой?</strong> Купить простой дорожный вариант можно у нас в таверне.</p>
           </div>
-          <p class="form__note">Реализацию проекта поддержали волость Ляэне-Харью и MTÜ Paldiski Toetusgrupp.</p>
         </div>
-
-        <figure class="story__media">
-          <div class="story__photo">
-            <div class="photo__frame"><img src="./images/audioguide.webp" alt="Аудиогид на фоне маяка Пакри" loading="lazy" data-ph="audioguide.webp"></div>
-            <a class="qr-badge" href="https://app.navicup.com/?eventID=5377&amp;redirect_back=true" target="_blank" rel="noopener" aria-label="Открыть аудиогид в Navicup">
-              <img src="./images/qr-navicup.png" alt="QR-код аудиогида в Navicup" width="120" height="120" loading="lazy">
-            </a>
-          </div>
-          <figcaption class="quote story__quote">Настоящий аудиоспектакль о прошлом города в вашем смартфоне</figcaption>
-        </figure>
       </div>
     </div>
   </section>

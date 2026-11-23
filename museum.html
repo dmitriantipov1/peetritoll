@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261122-5">
+  <link rel="stylesheet" href="./css/style.css?v=20261123-2">
 </head>
 <body>
 
@@ -317,16 +317,16 @@
     <div class="container">
       <header class="section-head">
         <p class="section-head__crumb">Книгопечатня</p>
-        <h2 class="section-head__title"><span class="section-head__num">06</span> Книги, которые мы издаём</h2>
+        <h2 class="section-head__title"><span class="section-head__num">06</span> Книги нашего издательства</h2>
         <a class="section-head__more" href="./shop.html">Все книги</a>
       </header>
+      <!-- Только автор и название, без пояснения курсивом (заказчица, 23.11.2026) -->
       <ul class="products">
         <li class="product">
           <div class="product__img"><img src="https://images.sumup.com/img_4JCFJXNJ6H8B4ADHSJG1KQHB3D/image.png" alt="Обложка книги «Байки из-за барной стойки»" loading="lazy" data-ph="bajki-iz-za-barnoj-stojki"></div>
           <div class="product__body">
             <p class="product__cat">Галина Малютина</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Байки из-за барной стойки</a></h3>
-            <p class="product__desc">Юмористические рассказы о реальных историях в таверне, которая в 1989–2010 годах была сауна-баром «Садко».</p>
           </div>
           <div class="product__foot">
             <p class="product__price">10,00 €</p>
@@ -338,7 +338,6 @@
           <div class="product__body">
             <p class="product__cat">Йосеф Кац</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Былой Палдиски и его люди</a></h3>
-            <p class="product__desc">Три столетия города через биографии людей, которые его строили, лечили и учили. Иллюстрации Андрея Кириллова.</p>
           </div>
           <div class="product__foot">
             <p class="product__price">12,00 €</p>
@@ -350,7 +349,6 @@
           <div class="product__body">
             <p class="product__cat">Пауль Лаан</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Мой родной Палдиски</a></h3>
-            <p class="product__desc">Довоенный Палдиски в воспоминаниях сына начальника таможни, с фотографиями из семейного архива.</p>
           </div>
           <div class="product__foot">
             <p class="product__price">15,00 €</p>
@@ -362,7 +360,6 @@
           <div class="product__body">
             <p class="product__cat">Galina Maljutina</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Lood baarileti tagant</a></h3>
-            <p class="product__desc">Издание на эстонском языке: юмористические рассказы о 1989–2010 годах.</p>
           </div>
           <div class="product__foot">
             <p class="product__price">10,00 €</p>
@@ -374,7 +371,6 @@
           <div class="product__body">
             <p class="product__cat">Paul Laan</p>
             <h3 class="product__name"><a class="product__link" href="./product.html">Kodulinn Paldiski</a></h3>
-            <p class="product__desc">Брошюра по воспоминаниям Пауля Лаана о жизни в Палдиски в 1930-х годах.</p>
           </div>
           <div class="product__foot">
             <p class="product__price">15,00 €</p>
@@ -397,16 +393,42 @@
         <h3 class="intro__title">Художники, исследователи и писатели</h3>
         <p>Их работы создают живой культурный ландшафт нашего края.</p>
       </div>
-      <ul class="grid-3">
-        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-kirillov.jpg" alt="Андрей Кириллов" loading="lazy" data-ph="author-kirillov.jpg"></div></a><p class="author__role">Художник, график</p><h3 class="author__name">Андрей Кириллов</h3><p>Картины об истории Палдиски и о Салавате Юлаеве, иллюстрированная туристическая карта Пакри, иллюстрации к сборникам местных авторов.</p><a class="link-more" href="./author.html">Работы автора</a></li>
-        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-laan.jpg" alt="Пауль Лаан" loading="lazy" data-ph="author-laan.jpg"></div></a><p class="author__role">Филолог, архивист</p><h3 class="author__name">Пауль Лаан</h3><p>Сын последнего начальника довоенной таможни. Его мемуары о детстве в стенах этого здания сохранили для нас историю дома.</p><a class="link-more" href="./author.html">Читать подробнее</a></li>
-        <li class="author"><a class="author__photo" href="./author.html"><div class="photo__frame"><img src="./images/author-maljutina.jpg" alt="Галина Малютина" loading="lazy" data-ph="author-maljutina.jpg"></div></a><p class="author__role">Писательница</p><h3 class="author__name">Галина Малютина</h3><p>Стихи, проза, песни и «Байки из-за барной стойки». Аудиокнигу можно послушать после покупки.</p><a class="link-more" href="./author.html">Произведения</a></li>
+      <!-- Четыре автора карточками, как гиды на «Услугах»: фото, имя, профессия курсивом, «Подробнее»;
+           описаний, цитаты и кнопки «Заказать экскурсию» внизу нет (заказчица, 23.11.2026) -->
+      <ul class="guides" aria-label="Авторы">
+        <li class="guide">
+          <a class="author__photo" href="./author.html" tabindex="-1" aria-hidden="true"><div class="photo__frame"><img src="./images/author-kirillov.jpg" alt="Андрей Кириллов" loading="lazy" data-ph="author-kirillov.jpg"></div></a>
+          <div class="guide__body">
+            <h3 class="guide__name">Андрей Кириллов</h3>
+            <p class="guide__role">Художник, график</p>
+            <a class="link-caps" href="./author.html">Подробнее</a>
+          </div>
+        </li>
+        <li class="guide">
+          <a class="author__photo" href="./author.html" tabindex="-1" aria-hidden="true"><div class="photo__frame"><img src="./images/author-laan.jpg" alt="Пауль Лаан" loading="lazy" data-ph="author-laan.jpg"></div></a>
+          <div class="guide__body">
+            <h3 class="guide__name">Пауль Лаан</h3>
+            <p class="guide__role">Филолог, архивист</p>
+            <a class="link-caps" href="./author.html">Подробнее</a>
+          </div>
+        </li>
+        <li class="guide">
+          <a class="author__photo" href="./author.html" tabindex="-1" aria-hidden="true"><div class="photo__frame"><img src="./images/author-maljutina.jpg" alt="Галина Малютина" loading="lazy" data-ph="author-maljutina.jpg"></div></a>
+          <div class="guide__body">
+            <h3 class="guide__name">Галина Малютина</h3>
+            <p class="guide__role">Писательница</p>
+            <a class="link-caps" href="./author.html">Подробнее</a>
+          </div>
+        </li>
+        <li class="guide">
+          <a class="author__photo" href="./author.html" tabindex="-1" aria-hidden="true"><div class="photo__frame"><img src="./images/author-kats.jpg" alt="Йосеф Кац" loading="lazy" data-ph="author-kats.jpg"></div></a>
+          <div class="guide__body">
+            <h3 class="guide__name">Йосеф Кац</h3>
+            <p class="guide__role">Писатель</p>
+            <a class="link-caps" href="./author.html">Подробнее</a>
+          </div>
+        </li>
       </ul>
-
-      <div class="cta-row">
-        <p class="quote">От клинков<br><span class="quote__indent">до старинных фолиантов</span></p>
-        <a class="btn btn--red" href="./services.html#zayavka">Заказать экскурсию</a>
-      </div>
     </div>
   </section>
 

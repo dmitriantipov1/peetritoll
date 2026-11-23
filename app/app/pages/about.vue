@@ -77,6 +77,16 @@ const partners = [
             <p>{{ t('about.family.text1') }}</p>
             <p>{{ t('about.family.text2') }}</p>
             <p>{{ t('about.family.text3') }}</p>
+            <!-- «Интересный факт» — под текстом слева, сноской с кнопкой, как о книгах в 02 и 03
+                 (22.11.2026, место — 23.11.2026) -->
+            <div class="note story__note story__note--mid">
+              <p>
+                <strong>{{ t('about.family.factLabel') }}</strong> {{ t('about.family.fact') }}
+              </p>
+            </div>
+            <NuxtLink v-if="bookSlug" class="btn" :to="localePath(`/shop/${bookSlug}`)">{{
+              t('about.family.book')
+            }}</NuxtLink>
           </div>
           <figure class="story__media">
             <PhotoFrame src="/images/about-family.jpg" :alt="t('about.family.photoAlt')" />
@@ -85,17 +95,6 @@ const partners = [
                 t('about.family.quote2')
               }}</span>
             </figcaption>
-            <!-- «Интересный факт» — сноской с кнопкой, как о книгах в 02 и 03 (22.11.2026) -->
-            <div class="note story__note story__note--mid">
-              <p>
-                <strong>{{ t('about.family.factLabel') }}</strong> {{ t('about.family.fact') }}
-              </p>
-            </div>
-            <p v-if="bookSlug" class="story__more">
-              <NuxtLink class="btn" :to="localePath(`/shop/${bookSlug}`)">{{
-                t('about.family.book')
-              }}</NuxtLink>
-            </p>
           </figure>
         </div>
       </div>

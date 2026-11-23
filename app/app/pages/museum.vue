@@ -192,6 +192,7 @@ const visitFacts = ['where', 'when', 'ticket', 'labels', 'tour'] as const
           :title="t('museum.books.title')"
           :more="{ to: 'https://peetritoll.sumupstore.com/tooted', label: t('museum.books.all') }"
         />
+        <!-- Только автор и название, без пояснения курсивом (заказчица, 23.11.2026) -->
         <ul class="products">
           <li v-for="b in museumBooks" :key="b.key" class="product">
             <div class="product__img">
@@ -208,7 +209,6 @@ const visitFacts = ['where', 'when', 'ticket', 'labels', 'tour'] as const
                   t(`museum.books.items.${b.key}.title`)
                 }}</a>
               </h3>
-              <p class="product__desc">{{ t(`museum.books.items.${b.key}.desc`) }}</p>
             </div>
             <div class="product__foot">
               <p class="product__price">{{ b.price }}</p>
@@ -233,29 +233,27 @@ const visitFacts = ['where', 'when', 'ticket', 'labels', 'tour'] as const
           <h3 class="intro__title">{{ t('museum.authors.lead') }}</h3>
           <p>{{ t('museum.authors.text') }}</p>
         </div>
-        <ul class="grid-3">
-          <li v-for="a in museumAuthors" :key="a.slug" class="author">
-            <NuxtLink class="author__photo" :to="localePath(`/authors/${a.slug}`)">
+        <!-- Четыре автора карточками, как гиды на «Услугах»: фото, имя, профессия курсивом, «Подробнее»;
+             описаний, цитаты и кнопки «Заказать экскурсию» внизу нет (заказчица, 23.11.2026) -->
+        <ul class="guides" :aria-label="t('museum.authors.title')">
+          <li v-for="a in museumAuthors" :key="a.slug" class="guide">
+            <NuxtLink
+              class="author__photo"
+              :to="localePath(`/authors/${a.slug}`)"
+              tabindex="-1"
+              aria-hidden="true"
+            >
               <PhotoFrame :src="a.photo" :alt="t(`museum.authors.items.${a.slug}.name`)" />
             </NuxtLink>
-            <p class="author__role">{{ t(`museum.authors.items.${a.slug}.role`) }}</p>
-            <h3 class="author__name">{{ t(`museum.authors.items.${a.slug}.name`) }}</h3>
-            <p>{{ t(`museum.authors.items.${a.slug}.text`) }}</p>
-            <NuxtLink class="link-more" :to="localePath(`/authors/${a.slug}`)">{{
-              t(`museum.authors.items.${a.slug}.link`)
-            }}</NuxtLink>
+            <div class="guide__body">
+              <h3 class="guide__name">{{ t(`museum.authors.items.${a.slug}.name`) }}</h3>
+              <p class="guide__role">{{ t(`museum.authors.items.${a.slug}.role`) }}</p>
+              <NuxtLink class="link-caps" :to="localePath(`/authors/${a.slug}`)">{{
+                t('museum.authors.more')
+              }}</NuxtLink>
+            </div>
           </li>
         </ul>
-        <div class="cta-row">
-          <p class="quote">
-            {{ t('museum.quote1') }}<br /><span class="quote__indent">{{
-              t('museum.quote2')
-            }}</span>
-          </p>
-          <NuxtLink class="btn btn--red" :to="localePath('/services') + '#zayavka'">{{
-            t('museum.orderTour')
-          }}</NuxtLink>
-        </div>
       </div>
     </section>
   </div>

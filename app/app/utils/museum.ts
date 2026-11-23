@@ -7,6 +7,8 @@ export const museumAuthors = [
   { slug: 'kirillov', photo: '/images/author-kirillov.jpg' },
   { slug: 'laan', photo: '/images/author-laan.jpg' },
   { slug: 'maljutina', photo: '/images/author-maljutina.jpg' },
+  // Четвёртый автор — 23.11.2026, фото пришлёт заказчица
+  { slug: 'kats', photo: '/images/author-kats.jpg' },
 ] as const
 export type MuseumAuthorSlug = (typeof museumAuthors)[number]['slug']
 

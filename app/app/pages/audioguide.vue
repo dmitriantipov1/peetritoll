@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // «Экскурсия с аудиогидом» (audioguide.html прототипа, 20.11.2026): на «Услугах» аудиогид был перегружен —
 // там теперь короткий блок с кнопкой сюда. 01: слева главное (что, маршруты, цена, где купить),
-// справа фрагменты (только на языке, где есть записи; фото нет — 20.11.2026); 02 как это работает.
+// справа фото с QR; 02: как это работает, справа фрагменты (только на языке, где есть записи) —
+// фото и фрагменты поменялись местами 23.11.2026 (заказчица).
 // Страница — часть «Экскурсий и поездок»: раздел выключен — 404.
 import { NAVICUP_URL, audioFiles } from '~/utils/audioguide'
 
@@ -39,7 +40,8 @@ const tracks = computed(() =>
       </div>
     </section>
 
-    <!-- 01 Об аудиогиде -->
+    <!-- 01 Об аудиогиде: текст во всю колонку, у маршрутов расстояние второй строкой, кнопка у левого
+         края, справа фото с QR (23.11.2026) -->
     <section id="ob-audiogide" class="section section--bg1">
       <div class="container">
         <SectionHead
@@ -47,19 +49,18 @@ const tracks = computed(() =>
           :crumb="t('audioguide.about.crumb')"
           :title="t('audioguide.about.title')"
         />
-        <!-- Нет записей на этом языке — текст во всю ширину, без колонок -->
-        <div :class="tracks.length ? 'story story--aside story--sticky' : ''">
+        <div class="story story--sticky story--third">
           <div class="story__text">
-            <h3 class="intro__title">{{ t('services.audio.lead') }}</h3>
+            <h3 class="intro__title">{{ t('audioguide.about.lead') }}</h3>
             <p>{{ t('services.audio.text') }}</p>
             <p>{{ t('services.audio.text2') }}</p>
             <dl class="facts">
               <div class="facts__row">
-                <dt>{{ t('services.audio.walk') }}</dt>
+                <dt>{{ t('audioguide.walk') }}<br />{{ t('audioguide.walkDist') }}</dt>
                 <dd>{{ t('services.audio.walkText') }}</dd>
               </div>
               <div class="facts__row">
-                <dt>{{ t('services.audio.car') }}</dt>
+                <dt>{{ t('audioguide.car') }}<br />{{ t('audioguide.carDist') }}</dt>
                 <dd>{{ t('services.audio.carText') }}</dd>
               </div>
               <div class="facts__row">
@@ -71,44 +72,12 @@ const tracks = computed(() =>
                 <dd>{{ t('services.audio.langsText') }}</dd>
               </div>
             </dl>
-            <p class="story__more">
-              <a class="btn" :href="NAVICUP_URL" target="_blank" rel="noopener">{{
-                t('services.audio.open')
-              }}</a>
-            </p>
-          </div>
-          <!-- Справа — фрагменты вместо фото (20.11.2026); только на языке, где есть записи (пока ru) -->
-          <div v-if="tracks.length" class="story__media">
-            <p class="h4">{{ t('audioguide.fragments.title') }}</p>
-            <AudioTracks :tracks="tracks" :full-url="NAVICUP_URL" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Как это работает -->
-    <section id="kak-nachat" class="section section--bg2">
-      <div class="container">
-        <SectionHead num="02" :crumb="t('audioguide.how.crumb')" :title="t('audioguide.how.title')" />
-        <!-- Справа — фото с QR-кодом (20.11.2026, чтобы справа не было пустоты) -->
-        <div class="story story--third">
-          <div class="story__text">
-          <ol class="steps">
-            <li>{{ t('services.audio.step1') }}</li>
-            <li>{{ t('services.audio.step2') }}</li>
-            <li>{{ t('services.audio.step3') }}</li>
-          </ol>
-          <!-- Два предложения вместе — купить заранее и наушники (заказчица, 20.11.2026) -->
-          <div class="note story__note story__note--mid">
-            <p>
-              {{ t('services.audio.early') }}
-              <strong>{{ t('services.audio.headphones.lead') }}</strong>
-              {{ t('services.audio.headphones.text') }}
-            </p>
-          </div>
-          <p class="form__note">{{ t('services.audio.support') }}</p>
+            <a class="btn" :href="NAVICUP_URL" target="_blank" rel="noopener">{{
+              t('services.audio.open')
+            }}</a>
           </div>
           <figure class="story__media">
+            <!-- QR-код — в левом нижнем углу фото, нажимается только он (дизайнер, 20.11.2026) -->
             <div class="story__photo">
               <PhotoFrame src="/images/audioguide.webp" :alt="t('services.audio.alt')" />
               <a
@@ -129,6 +98,35 @@ const tracks = computed(() =>
             </div>
             <figcaption class="quote story__quote">{{ t('services.audio.quote') }}</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Как это работает, справа фрагменты (только на языке, где есть записи; без них — во всю ширину) -->
+    <section id="kak-nachat" class="section section--bg2">
+      <div class="container">
+        <SectionHead num="02" :crumb="t('audioguide.how.crumb')" :title="t('audioguide.how.title')" />
+        <div :class="tracks.length ? 'story story--aside story--sticky' : ''">
+          <div class="story__text">
+            <ol class="steps">
+              <li>{{ t('services.audio.step1') }}</li>
+              <li>{{ t('services.audio.step2') }}</li>
+              <li>{{ t('services.audio.step3') }}</li>
+            </ol>
+            <!-- Два предложения вместе; про наушники — с новой строки без промежутка (23.11.2026) -->
+            <div class="note story__note story__note--mid">
+              <p>
+                {{ t('services.audio.early') }}<br />
+                <strong>{{ t('services.audio.headphones.lead') }}</strong>
+                {{ t('services.audio.headphones.text') }}
+              </p>
+            </div>
+            <p class="form__note">{{ t('services.audio.support') }}</p>
+          </div>
+          <div v-if="tracks.length" class="story__media">
+            <p class="h4">{{ t('audioguide.fragments.title') }}</p>
+            <AudioTracks :tracks="tracks" :full-url="NAVICUP_URL" />
+          </div>
         </div>
       </div>
     </section>

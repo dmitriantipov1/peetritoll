@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Фрагменты аудиогида на «Услугах» (20.11.2026), как .tracks в js/main.js прототипа: тёмная панель
 // по примеру заказчицы — кнопка играть / пауза, название, «время · язык», номер; перемотка — у запущенного.
-// Внизу — полный аудиогид в Navicup. Играет один фрагмент за раз; файл грузится только по нажатию.
+// Внизу — кнопка «Слушать»: полный аудиогид в Navicup. Играет один фрагмент за раз; файл грузится только по нажатию.
 
 export interface AudioTrack {
   /** Ключ названия в services.audio.fragment */
@@ -117,8 +117,8 @@ function onSeek(i: number, e: Event) {
         />
       </li>
     </ul>
+    <!-- Пояснение «Весь аудиогид — 20 историй — в Navicup» убрано (заказчица, 23.11.2026) -->
     <div class="tracks__foot">
-      <p>{{ t('services.audio.fullGuide') }}</p>
       <a class="btn btn--sm" :href="fullUrl" target="_blank" rel="noopener">{{
         t('services.audio.listen')
       }}</a>
