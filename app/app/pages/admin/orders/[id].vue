@@ -1,12 +1,14 @@
 <script setup lang="ts">
 // Карточка заказа (7.3): состав, получение, покупатель, история, статус. Разметка и классы —
-// из прототипа (admin/order.html). Онлайн-оплаты пока нет: «Оплачен» отмечают руками,
-// когда покупатель заплатил по счёту. Отмена возвращает остаток товаров, обратно не переводится.
+// из прототипа (admin/order.html). Оплата SumUp отмечается сама; «Оплачен» руками — при оплате
+// по счёту. Отмена возвращает остаток товаров, обратно не переводится. При смене статуса на
+// «Оплачен», «Готов к выдаче», «Отправлен», «Отменён» — письмо покупателю (галочка, 28.11.2026).
 // Без права «правит» — только просмотр.
 import { fullDate, momentLabel } from '#shared/dates'
 import { formatPrice } from '#shared/money'
 import { plural } from '#shared/plural'
 import {
+  BUYER_LETTER_STATUSES,
   deliveryMethodNames,
   orderStatusChoices,
   orderStatusNames,
@@ -35,6 +37,7 @@ function initialState() {
     trackingNo: o?.trackingNo ?? '',
     staffNote: o?.staffNote ?? '',
     note: '',
+    notifyBuyer: true,
   }
 }
 const form = reactive(initialState())
@@ -43,6 +46,10 @@ watch(order, () => Object.assign(form, initialState()))
 const choices = computed(() => (order.value ? orderStatusChoices(order.value.status) : []))
 const cancelling = computed(
   () => order.value?.status !== 'cancelled' && form.status === 'cancelled',
+)
+/** Новый статус — с письмом покупателю: показать галочку «Сообщить покупателю» */
+const letterOnSave = computed(
+  () => form.status !== order.value?.status && BUYER_LETTER_STATUSES.includes(form.status),
 )
 const restock = computed(() =>
   (order.value?.orderItems ?? []).filter((i) => i.kind === 'physical' && i.productId),
@@ -62,6 +69,7 @@ async function save() {
     trackingNo: form.trackingNo,
     staffNote: form.staffNote,
     note: form.note,
+    notifyBuyer: form.notifyBuyer,
   }
   try {
     order.value = await $fetch<AdminOrder>(`/api/admin/orders/${o.id}`, { method: 'PUT', body })
@@ -384,6 +392,18 @@ function historyText(h: AdminOrder['history'][number]) {
             <p v-else-if="order.status === 'cancelled'" class="adm-note" style="margin-top: 10px">
               Заказ отменён, остаток вернулся в магазин. Нужен снова — оформите новый.
             </p>
+            <div v-if="canEdit && letterOnSave" style="margin-top: 14px">
+              <label class="adm-check">
+                <input v-model="form.notifyBuyer" type="checkbox" />
+                Сообщить покупателю по e-mail
+              </label>
+              <p v-if="form.notifyBuyer" class="adm-note" style="margin-top: 6px">
+                Письмо на {{ order.email }} на языке заказа.
+                <template v-if="form.status === 'shipped' && !form.trackingNo.trim()"
+                  >Впишите трек-номер — он будет в письме.</template
+                >
+              </p>
+            </div>
             <div v-if="canEdit" class="field" style="margin-top: 14px">
               <label for="s-note">Пояснение для истории</label>
               <input

@@ -19,6 +19,8 @@ import { formatPrice } from '#shared/money'
 import { PRIVACY_POLICY_VERSION } from '#shared/requests'
 import { defaultNotifications, notificationsSchema } from '#shared/site-settings'
 import {
+  BUYER_LETTER_STATUSES,
+  type BuyerLetter,
   deliveryChoices,
   deliveryMethodNames,
   orderStatusChoices,
@@ -180,7 +182,11 @@ export async function createOrder(input: OrderInput): Promise<{ id: number; publ
 
   // Письмо и Telegram — после сохранения: сбой отправки заказ не теряет. С онлайн-оплатой —
   // только когда оплачен (syncPayment): брошенные на странице оплаты заказы персонал не беспокоят
-  if (!sumupConfigured()) await notifyNewOrder(order.id)
+  // Без онлайн-оплаты покупателю — «заказ принят, пришлём, как оплатить»
+  if (!sumupConfigured()) {
+    await notifyNewOrder(order.id)
+    await sendBuyerLetter(order.id, 'accepted')
+  }
   return { id: order.id, publicId: order.publicId }
 }
 
@@ -407,7 +413,7 @@ export async function loadOrder(id: number): Promise<AdminOrder> {
  * на полку — поэтому из «Отменён» обратно не переводим: вещь уже могли купить.
  */
 export async function saveOrder(id: number, input: OrderSaveInput, userId: number) {
-  const checkoutToClose = await useDb().transaction(async (tx) => {
+  const result = await useDb().transaction(async (tx) => {
     const [o] = await tx.select().from(orders).where(eq(orders.id, id)).for('update').limit(1)
     if (!o) throw createError({ statusCode: 404, message: 'Заказ не найден' })
     if (!orderStatusChoices(o.status).includes(input.status)) {
@@ -439,10 +445,21 @@ export async function saveOrder(id: number, input: OrderSaveInput, userId: numbe
       })
     }
     if (changed && input.status === 'cancelled') await restockOrder(tx, id)
-    // Отменили или отметили оплату вручную — открытый платёж SumUp закрыть: по нему уже не платят
-    return changed && o.status === 'awaiting_payment' ? o.sumupCheckoutId : null
+    return {
+      // Отменили или отметили оплату вручную — открытый платёж SumUp закрыть: по нему уже не платят
+      checkoutToClose: changed && o.status === 'awaiting_payment' ? o.sumupCheckoutId : null,
+      changed,
+    }
   })
-  if (checkoutToClose && sumupConfigured()) await closeSumupCheckout(checkoutToClose)
+  if (result.checkoutToClose && sumupConfigured()) await closeSumupCheckout(result.checkoutToClose)
+  // Письмо покупателю — после сохранения: сбой отправки статус не откатывает
+  if (
+    result.changed &&
+    input.notifyBuyer !== false &&
+    BUYER_LETTER_STATUSES.includes(input.status)
+  ) {
+    await sendBuyerLetter(id, input.status as BuyerLetter)
+  }
 }
 
 /** Сколько заказов ждут действия персонала: ждут оплаты или оплачены и не собраны */

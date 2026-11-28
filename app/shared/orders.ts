@@ -201,6 +201,20 @@ export const orderStatusNames: Record<OrderStatus, string> = {
 
 export type OrderHistoryKind = 'created' | 'status' | 'notified'
 
+// ---------- Письма покупателю ----------
+
+/** accepted — принят (без онлайн-оплаты); paid — оплачен; ready — готов к выдаче; shipped — отправлен;
+ *  cancelled — отменён персоналом. Тексты — server/utils/order-letters.ts */
+export type BuyerLetter = 'accepted' | 'paid' | 'ready' | 'shipped' | 'cancelled'
+
+/** При смене статуса персоналом на эти — письмо покупателю (галочка в карточке заказа) */
+export const BUYER_LETTER_STATUSES: readonly OrderStatus[] = [
+  'paid',
+  'ready',
+  'shipped',
+  'cancelled',
+]
+
 // ---------- Оплата SumUp ----------
 
 /** Сколько минут ждём оплату с начала попытки; потом заказ отменяется и остаток возвращается.
@@ -316,6 +330,8 @@ export const orderSaveSchema = z.object({
     .default(null),
   // Пояснение к смене статуса — в историю
   note: z.string().trim().max(300).default(''),
+  // Сообщить покупателю о смене статуса (если для нового статуса есть письмо)
+  notifyBuyer: z.boolean().default(true),
 })
 export type OrderSave = z.input<typeof orderSaveSchema>
 

@@ -97,7 +97,10 @@ export async function syncPayment(orderId: number) {
     })
     return true
   })
-  if (becamePaid) await notifyNewOrder(o.id)
+  if (becamePaid) {
+    await notifyNewOrder(o.id)
+    await sendBuyerLetter(o.id, 'paid')
+  }
   return 'PAID' as const
 }
 
