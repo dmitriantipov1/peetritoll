@@ -2673,7 +2673,20 @@ a.lang__btn { display: inline-flex; align-items: center; justify-content: center
 .checkout .bq-step { margin-top: var(--s-4); }
 .checkout .bq-step:first-child { margin-top: 0; }
 .checkout__note { margin-bottom: var(--s-2); }
-.checkout__fields { margin-top: var(--s-2); }
+/* Что идёт после способов получения (шага «Оплата» с 28.11.2026 нет) — с отступом от них */
+.checkout__extra { margin-top: var(--s-3); }
+/* Поля почтомата и адреса: раскрываются и сворачиваются плавно (28.11.2026) — высота через
+   grid-template-rows, как у ошибок под полем. Классы ship-* ставит <Transition> во Vue и js/main.js в прототипе */
+.ship-fields { display: grid; grid-template-rows: 1fr; margin-top: var(--s-2); }
+.ship-fields[hidden] { display: none; }
+.ship-fields > * { min-height: 0; }
+.ship-enter-from, .ship-leave-to { grid-template-rows: 0fr; opacity: 0; margin-top: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .ship-enter-active, .ship-leave-active {
+    transition: grid-template-rows .3s ease, opacity .25s ease, margin-top .3s ease;
+  }
+  .ship-enter-active > *, .ship-leave-active > * { overflow: hidden; }
+}
 .ship-opts { display: grid; gap: var(--s-1); }
 .ship-opt {
   display: grid; grid-template-columns: auto 1fr; gap: 4px var(--s-2); align-items: start;

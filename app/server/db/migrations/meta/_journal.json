@@ -169,6 +169,13 @@
       "when": 1795186698996,
       "tag": "0023_tours",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1795858760585,
+      "tag": "0024_order_payments",
+      "breakpoints": true
     }
   ]
 }

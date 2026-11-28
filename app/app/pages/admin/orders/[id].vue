@@ -108,6 +108,20 @@ const meta = computed(() => {
   ].join(' · ')
 })
 
+/** «Через SumUp 28.11 в 12:40 · транзакция TABC123», «Ждёт оплаты на странице SumUp, попытка 2» */
+const paymentText = computed(() => {
+  const o = order.value
+  if (!o) return ''
+  if (o.paidAt) {
+    const via = o.transactionCode ? 'Через SumUp' : 'Отмечена'
+    const code = o.transactionCode ? ` · транзакция ${o.transactionCode}` : ''
+    return `${via} ${momentLabel(new Date(o.paidAt))}${code}`
+  }
+  if (!o.sumupCheckoutId) return 'Ещё нет — онлайн-оплаты не было, согласуйте с покупателем'
+  if (o.status === 'cancelled') return `Не оплачен через SumUp (попыток: ${o.paymentAttempts})`
+  return `Ждёт оплаты на странице SumUp, попытка ${o.paymentAttempts}. Не оплатят за час — заказ отменится сам`
+})
+
 const kindHint = computed(() => {
   const o = order.value
   if (!o) return ''
@@ -412,13 +426,7 @@ function historyText(h: AdminOrder['history'][number]) {
               </div>
               <div>
                 <dt>Оплата</dt>
-                <dd>
-                  {{
-                    order.paidAt
-                      ? `Отмечена ${momentLabel(new Date(order.paidAt))}`
-                      : 'Ещё нет — онлайн-оплата не подключена'
-                  }}
-                </dd>
+                <dd>{{ paymentText }}</dd>
               </div>
               <div>
                 <dt>Рассылка</dt>

@@ -212,7 +212,25 @@ npm run dev
   `PUT /api/admin/products/:id/variants/:variantId/files/:locale?name=…`, тело — сам файл, пишется
   на диск потоком (до 500 МБ, `productFileTypes` в `shared/shop.ts`); скачать из админки —
   `GET /api/admin/products/:id/files/:fileId`
-- заказы — с корзиной и оплатой SumUp (этап 4)
+- заказы — `server/utils/orders.ts`, правила — `shared/orders.ts`
+
+### Оплата SumUp
+
+Hosted Checkout (5.3 в требованиях): покупатель платит на странице SumUp, карточные данные к нам не попадают.
+
+- ключи в `app/.env`: `NUXT_SUMUP_API_KEY` (секретный, `sup_sk_…`) и `NUXT_SUMUP_MERCHANT_CODE`.
+  В разработке — песочница: кабинет SumUp → «Arendaja sätted» → «Liivakastid», там же «API-võtmed».
+  Без ключей онлайн-оплаты нет — заказ «ждёт оплаты», оплату согласуют вручную, как раньше
+- клиент SumUp — `server/utils/sumup.ts`, ход оплаты — `server/utils/order-payment.ts`:
+  «Оформить» → `POST /api/site/orders` сохраняет заказ и отдаёт `payUrl` → браузер уходит на SumUp →
+  «Back to merchant website» → `/order-done` спрашивает статус (`syncPayment`) → «Оплачен», письмо и Telegram
+- уведомление SumUp — `POST /api/site/orders/sumup` (статусу в нём не верим, переспрашиваем SumUp);
+  локально не доходит, нужно только на сервере
+- «Оплатить ещё раз» — `POST /api/site/orders/pay { id }`: прошлый платёж закрывается, новый — `PT-<заказ>-<попытка>-<случайный хвост>`
+- не оплачен за час — отменяется, остаток возвращается: задача `orders:expire` сама раз в 10 минут;
+  вручную — `curl -X POST localhost:3000/_nitro/tasks/orders:expire`
+- тестовая карта песочницы: `4200 0000 0000 0091`, срок — любая будущая дата, CVV — любые 3 цифры.
+  Оплата тестового заказа шлёт настоящее сообщение в Telegram
 
 ## Уведомления
 

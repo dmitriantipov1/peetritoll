@@ -1178,6 +1178,29 @@ document.querySelectorAll('[data-cart-page]').forEach((page) => {
   render();
 });
 
+// Плавно раскрыть или свернуть блок (поля почтомата и адреса на checkout.html): классы ship-*
+// в style.css — как <Transition name="ship"> во Vue. При «уменьшить движение» — сразу
+function slideBlock(el, show, animate) {
+  const leaving = el.classList.contains('ship-leave-active');
+  if (show === !el.hidden && !leaving) return;
+  clearTimeout(el._slide);
+  el.classList.remove('ship-enter-from', 'ship-enter-active', 'ship-leave-active', 'ship-leave-to');
+  if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.hidden = !show; return; }
+  if (show) {
+    el.hidden = false;
+    el.classList.add('ship-enter-from', 'ship-enter-active');
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('ship-enter-from')));
+    el._slide = setTimeout(() => el.classList.remove('ship-enter-active'), 320);
+  } else {
+    el.classList.add('ship-leave-active');
+    requestAnimationFrame(() => el.classList.add('ship-leave-to'));
+    el._slide = setTimeout(() => {
+      el.hidden = true;
+      el.classList.remove('ship-leave-active', 'ship-leave-to');
+    }, 320);
+  }
+}
+
 // Оформление: checkout.html. Способы получения зависят от корзины
 document.querySelectorAll('[data-checkout]').forEach((form) => {
   const items = cartRead();
@@ -1201,9 +1224,11 @@ document.querySelectorAll('[data-checkout]').forEach((form) => {
   });
   form.querySelector('[data-pickup-only]').hidden = !pickupOnly;
 
+  let shown = false; // первый показ — без анимации
   function update() {
     const way = physical.length ? (form.querySelector('input[name="ship"]:checked') || {}).value : 'none';
-    form.querySelectorAll('[data-ship-fields]').forEach((f) => { f.hidden = f.dataset.shipFields !== way; });
+    form.querySelectorAll('[data-ship-fields]').forEach((f) => slideBlock(f, f.dataset.shipFields === way, shown));
+    shown = true;
     const goods = cartSum(items);
     const delivery = DELIVERY[way] || 0;
     form.querySelector('[data-goods]').textContent = euro(goods);

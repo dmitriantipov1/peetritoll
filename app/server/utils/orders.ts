@@ -1,10 +1,10 @@
 // Заказы магазина (7.3): оформление с сайта, уведомления персоналу, «Заказ принят».
 // Доступно в серверном коде без импорта. Правила — shared/orders.ts.
 //
-// Пока без оплаты (решение 15.11.2026): заказ сохраняется со статусом «ждёт оплаты».
+// Заказ сохраняется «ждёт оплаты», оплата — server/utils/order-payment.ts (SumUp, 5.3).
 // Цены и наличие сервер проверяет сам — корзина в браузере могла устареть. Остаток списываем
 // сразу при оформлении, под блокировкой строки: два покупателя одну вещь не купят (7.3).
-import { and, count, desc, eq, inArray, isNotNull, sql } from 'drizzle-orm'
+import { count, desc, eq, inArray, sql } from 'drizzle-orm'
 import {
   orderHistory,
   orderItems,
@@ -178,8 +178,9 @@ export async function createOrder(input: OrderInput): Promise<{ id: number; publ
     return row!
   })
 
-  // Письмо и Telegram — после сохранения: сбой отправки заказ не теряет
-  await notifyNewOrder(order.id)
+  // Письмо и Telegram — после сохранения: сбой отправки заказ не теряет. С онлайн-оплатой —
+  // только когда оплачен (syncPayment): брошенные на странице оплаты заказы персонал не беспокоят
+  if (!sumupConfigured()) await notifyNewOrder(order.id)
   return { id: order.id, publicId: order.publicId }
 }
 
@@ -213,7 +214,9 @@ function itemLine(i: ItemRow) {
 function mailText(row: OrderRow, items: ItemRow[], link: string): string {
   return [
     `Заказ № ${row.id} — с сайта, ${localeNames[row.locale]} версия`,
-    `Статус: ${orderStatusNames[row.status]}. Онлайн-оплата пока не подключена — счёт или оплату согласуйте с покупателем.`,
+    row.status === 'paid'
+      ? `Статус: ${orderStatusNames.paid} через SumUp${row.transactionCode ? `, транзакция ${row.transactionCode}` : ''}.`
+      : `Статус: ${orderStatusNames[row.status]}. Онлайн-оплаты не было — счёт или оплату согласуйте с покупателем.`,
     '',
     'Состав:',
     ...items.map((i) => `  ${itemLine(i)}`),
@@ -259,7 +262,8 @@ export async function notifyNewOrder(id: number) {
   })
   if (!row) return
   const link = `${siteUrl()}/admin/orders/${row.id}`
-  const subject = `Заказ № ${row.id} — ${row.name}, ${formatPrice(row.totalCents)}`
+  const paid = row.status === 'paid' ? ', оплачен' : ''
+  const subject = `Заказ № ${row.id} — ${row.name}, ${formatPrice(row.totalCents)}${paid}`
 
   const { email: to } = await readSetting(
     'notifications',
@@ -306,6 +310,7 @@ export async function loadOrderDone(publicId: string): Promise<SiteOrderDone | n
     hasDigital: row.items.some((i) => i.kind === 'digital'),
     email: row.email,
     totalCents: row.totalCents,
+    canPay: row.status === 'awaiting_payment' && sumupConfigured(),
   }
 }
 
@@ -369,6 +374,9 @@ export async function loadOrder(id: number): Promise<AdminOrder> {
     goodsCents: o.goodsCents,
     deliveryCents: o.deliveryCents,
     paidAt: o.paidAt?.toISOString() ?? null,
+    sumupCheckoutId: o.sumupCheckoutId,
+    paymentAttempts: o.paymentAttempts,
+    transactionCode: o.transactionCode,
     consentAt: o.consentAt.toISOString(),
     policyVersion: o.policyVersion,
     marketingOptIn: o.marketingOptIn,
@@ -399,7 +407,7 @@ export async function loadOrder(id: number): Promise<AdminOrder> {
  * на полку — поэтому из «Отменён» обратно не переводим: вещь уже могли купить.
  */
 export async function saveOrder(id: number, input: OrderSaveInput, userId: number) {
-  await useDb().transaction(async (tx) => {
+  const checkoutToClose = await useDb().transaction(async (tx) => {
     const [o] = await tx.select().from(orders).where(eq(orders.id, id)).for('update').limit(1)
     if (!o) throw createError({ statusCode: 404, message: 'Заказ не найден' })
     if (!orderStatusChoices(o.status).includes(input.status)) {
@@ -430,18 +438,11 @@ export async function saveOrder(id: number, input: OrderSaveInput, userId: numbe
         userId,
       })
     }
-    if (changed && input.status === 'cancelled') {
-      const items = await tx.select().from(orderItems).where(eq(orderItems.orderId, id))
-      for (const i of items) {
-        if (!i.variantId) continue
-        // Остаток не считаем (null) — возвращать нечего
-        await tx
-          .update(productVariants)
-          .set({ stock: sql`${productVariants.stock} + ${i.qty}` })
-          .where(and(eq(productVariants.id, i.variantId), isNotNull(productVariants.stock)))
-      }
-    }
+    if (changed && input.status === 'cancelled') await restockOrder(tx, id)
+    // Отменили или отметили оплату вручную — открытый платёж SumUp закрыть: по нему уже не платят
+    return changed && o.status === 'awaiting_payment' ? o.sumupCheckoutId : null
   })
+  if (checkoutToClose && sumupConfigured()) await closeSumupCheckout(checkoutToClose)
 }
 
 /** Сколько заказов ждут действия персонала: ждут оплаты или оплачены и не собраны */

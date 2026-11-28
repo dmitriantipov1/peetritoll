@@ -1,6 +1,7 @@
 // Заказы магазина (7.3): способы получения, доставка только на физическое, форма оформления
 import { describe, expect, it } from 'vitest'
 import {
+  paymentReference,
   deliveryChoices,
   orderInputSchema,
   orderTotals,
@@ -36,6 +37,7 @@ describe('заказы', () => {
       locale: 'ru',
       name: 'Тест',
       email: 'Test@Peetritoll.test',
+      phone: ' +372 5555 1234 ',
       lines: [{ variantId: 1, qty: 1, priceCents: 1000 }],
     }
     expect(orderInputSchema.safeParse({ ...base, delivery: 'parcel' }).success).toBe(false)
@@ -46,11 +48,28 @@ describe('заказы', () => {
       parcelPoint: 'Paldiski Rimi',
     })
     expect(ok.email).toBe('test@peetritoll.test')
-    expect(ok.phone).toBe(null)
+    expect(ok.phone).toBe('+372 5555 1234')
     expect(orderInputSchema.safeParse({ ...base, delivery: 'eu', country: 'FI' }).success).toBe(
       false,
     )
     const twice = { ...base, delivery: 'pickup', lines: [base.lines[0], base.lines[0]] }
     expect(orderInputSchema.safeParse(twice).success).toBe(false)
+  })
+
+  it('без телефона заказ не оформить', () => {
+    const order = {
+      locale: 'ru',
+      name: 'Тест',
+      email: 'test@peetritoll.test',
+      lines: [{ variantId: 1, qty: 1, priceCents: 1000 }],
+      delivery: 'pickup',
+    }
+    expect(orderInputSchema.safeParse(order).success).toBe(false)
+    expect(orderInputSchema.safeParse({ ...order, phone: '  ' }).success).toBe(false)
+    expect(orderInputSchema.safeParse({ ...order, phone: '+372 5555 1234' }).success).toBe(true)
+  })
+
+  it('номер платежа SumUp: заказ, попытка и хвост', () => {
+    expect(paymentReference(2001, 2, 'k3f9a1')).toBe('PT-2001-2-k3f9a1')
   })
 })

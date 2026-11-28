@@ -73,6 +73,12 @@ export default defineNuxtConfig({
       botToken: '',
       chatId: '',
     },
+    // Оплата SumUp Hosted Checkout (5.3): NUXT_SUMUP_API_KEY (секретный, sup_sk_…) и
+    // NUXT_SUMUP_MERCHANT_CODE. Пусто — онлайн-оплаты нет, заказ «ждёт оплаты» (оплату согласуют вручную)
+    sumup: {
+      apiKey: '',
+      merchantCode: '',
+    },
     session: {
       name: 'pt_admin',
       // Без «Запомнить меня» — 12 часов (рабочий день); с ним — 30 дней (server/api/auth/login.post.ts)
@@ -84,6 +90,8 @@ export default defineNuxtConfig({
   // Серверные задачи: создание владельца (server/tasks/users/create-owner.ts)
   nitro: {
     experimental: { tasks: true },
+    // Раз в 10 минут — отменить заказы, не оплаченные за час (server/tasks/orders/expire.ts)
+    scheduledTasks: { '*/10 * * * *': ['orders:expire'] },
   },
 
   // Плавный переход между страницами (14.11.2026, как в прототипе): Nuxt оборачивает смену

@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   // Ловушка заполнена — это робот: отвечаем как обычно, но заявку не заводим
   if (typeof body?.website === 'string' && body.website) return { id: 0 }
 
-  if (!allowFormSubmit(getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
+  if (!allowFormSubmit('request', getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
     throw createError({
       statusCode: 429,
       message: 'Слишком много заявок подряд — попробуйте через несколько минут',

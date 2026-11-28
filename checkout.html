@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=20261123-2">
+  <link rel="stylesheet" href="./css/style.css?v=20261128-2">
 </head>
 <body>
 
@@ -97,7 +97,7 @@
           <h2 class="bq-step"><span class="bq-step__num">1</span> Контакты</h2>
           <div class="form">
             <div class="field"><label for="o-name">Имя и фамилия</label><input id="o-name" type="text" autocomplete="name" required></div>
-            <div class="field"><label for="o-phone">Телефон</label><input id="o-phone" type="tel" autocomplete="tel" data-check="phone"></div>
+            <div class="field"><label for="o-phone">Телефон</label><input id="o-phone" type="tel" autocomplete="tel" required data-check="phone"></div>
             <div class="field form__full"><label for="o-mail">E-mail</label><input id="o-mail" type="email" autocomplete="email" required>
               <span class="form__note">Сюда придут подтверждение заказа и ссылки на цифровые покупки.</span></div>
           </div>
@@ -123,7 +123,7 @@
               </label>
             </div>
 
-            <div class="form checkout__fields" data-ship-fields="parcel" hidden>
+            <div class="ship-fields" data-ship-fields="parcel" hidden><div class="form checkout__fields">
               <div class="field"><label for="o-carrier">Служба</label>
                 <select id="o-carrier" required><option>Omniva</option><option>Smartpost</option><option>DPD</option></select></div>
               <div class="field"><label for="o-point">Почтомат</label>
@@ -134,23 +134,19 @@
                   <option>Tallinn, Balti jaam</option>
                 </select>
                 <span class="form__note">В эскизе — несколько точек для примера; в магазине будет весь список с поиском.</span></div>
-            </div>
-            <div class="form checkout__fields" data-ship-fields="eu" hidden>
+            </div></div>
+            <div class="ship-fields" data-ship-fields="eu" hidden><div class="form checkout__fields">
               <div class="field"><label for="o-country">Страна</label>
                 <select id="o-country" required><option>Финляндия</option><option>Латвия</option><option>Литва</option><option>Германия</option><option>Другая страна ЕС</option></select></div>
               <div class="field"><label for="o-zip">Индекс</label><input id="o-zip" type="text" autocomplete="postal-code" required></div>
               <div class="field form__full"><label for="o-addr">Адрес</label><input id="o-addr" type="text" autocomplete="street-address" placeholder="Город, улица, дом, квартира" required></div>
-            </div>
+            </div></div>
             <p class="form__note" data-has-digital hidden>Цифровые покупки придут ссылкой на e-mail сразу после оплаты — доставка считается только на печатное.</p>
           </div>
           <p class="note checkout__note" data-digital-only hidden>В заказе только цифровые товары — доставка не нужна: ссылки на скачивание придут на e-mail сразу после оплаты.</p>
 
-          <h2 class="bq-step"><span class="bq-step__num">3</span> Оплата</h2>
-          <div class="pay-box">
-            <p class="pay-box__methods"><span>Банковская карта</span><span>Apple Pay</span><span>Google Pay</span></p>
-            <p class="form__note">Оплата на защищённой странице SumUp — данные карты мы не видим и не храним.</p>
-          </div>
-          <label class="form__check"><input type="checkbox" data-terms required><span>Согласен с <a href="https://peetritoll.sumupstore.com/lehekulg/tingimused" target="_blank" rel="noopener">условиями продажи</a> и <a href="./privacy.html">политикой конфиденциальности</a></span></label>
+          <!-- Шага «Оплата» нет (28.11.2026): способы оплаты — на странице SumUp, здесь покупатель с ними ничего не делает -->
+          <label class="form__check checkout__extra"><input type="checkbox" data-terms required><span>Согласен с <a href="https://peetritoll.sumupstore.com/lehekulg/tingimused" target="_blank" rel="noopener">условиями продажи</a> и <a href="./privacy.html">политикой конфиденциальности</a></span></label>
           <label class="form__check"><input type="checkbox"><span>Хочу получать новости и приглашения — раз в месяц, отписаться можно в любом письме</span></label>
         </div>
 
@@ -196,6 +192,6 @@
   </div>
 </footer>
 
-<script src="./js/main.js?v=20261122-2"></script>
+<script src="./js/main.js?v=20261128"></script>
 </body>
 </html>

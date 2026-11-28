@@ -2,8 +2,9 @@
 // Оформление заказа (checkout.html прототипа) одной страницей: контакты, получение, оплата.
 // Способы получения зависят от корзины (shared/orders.ts): только цифровое — получать нечего,
 // антиквариат — весь заказ самовывозом. Цены доставки — из настроек магазина.
-// Оплаты пока нет (решение 15.11.2026): заказ уходит нам со статусом «ждёт оплаты»,
-// на «Заказ принят» — что будет дальше. Потом здесь встанет переход на страницу оплаты SumUp.
+// Телефон обязателен. Оплата — SumUp (5.3, 28.11.2026): заказ сохраняется «ждёт оплаты», и браузер уходит на страницу
+// оплаты SumUp; оттуда покупатель возвращается на «Заказ принят». Без онлайн-оплаты (ключей SumUp
+// нет) — сразу «Заказ принят»: оплату пришлём на почту.
 import {
   carriers,
   deliveryChoices,
@@ -21,9 +22,12 @@ const cart = useCart()
 
 useHead({ title: () => `${t('checkout.title')} — Tavern Peetri Toll` })
 
-const { data: settings } = await useFetch<ShopSettings>('/api/site/shop/settings', {
-  query: { locale },
-})
+const { data: settings } = await useFetch<ShopSettings & { onlinePayment: boolean }>(
+  '/api/site/shop/settings',
+  {
+    query: { locale },
+  },
+)
 
 onMounted(() => {
   cart.load()
@@ -102,39 +106,49 @@ function applyProblems(problems: OrderProblem[]) {
   cart.save()
 }
 
+let leaving = false
+
 async function submit() {
   if (!fc.check()) return
   error.value = ''
   issues.value = {}
   sending.value = true
   try {
-    const res = await $fetch<{ id: number; publicId: string }>('/api/site/orders', {
-      method: 'POST',
-      body: {
-        locale: locale.value,
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        comment: form.comment,
-        lines: lines.value.map((i) => ({
-          variantId: i.variantId,
-          qty: i.qty,
-          priceCents: i.priceCents,
-        })),
-        delivery: method.value,
-        ...(method.value === 'parcel'
-          ? { carrier: form.carrier, parcelPoint: form.parcelPoint }
-          : {}),
-        ...(method.value === 'eu'
-          ? { country: form.country, postcode: form.postcode, address: form.address }
-          : {}),
-        marketingOptIn: form.marketingOptIn,
-        consent: form.terms,
-        website: form.website,
+    const res = await $fetch<{ id: number; publicId: string; payUrl: string | null }>(
+      '/api/site/orders',
+      {
+        method: 'POST',
+        body: {
+          locale: locale.value,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          comment: form.comment,
+          lines: lines.value.map((i) => ({
+            variantId: i.variantId,
+            qty: i.qty,
+            priceCents: i.priceCents,
+          })),
+          delivery: method.value,
+          ...(method.value === 'parcel'
+            ? { carrier: form.carrier, parcelPoint: form.parcelPoint }
+            : {}),
+          ...(method.value === 'eu'
+            ? { country: form.country, postcode: form.postcode, address: form.address }
+            : {}),
+          marketingOptIn: form.marketingOptIn,
+          consent: form.terms,
+          website: form.website,
+        },
       },
-    })
+    )
     cart.clear()
-    await navigateTo({ path: localePath('/order-done'), query: { id: res.publicId } })
+    // Не удалось открыть оплату — заказ сохранён, на «Заказ принят» есть «Оплатить»
+    if (res.payUrl) {
+      // Уходим на SumUp: кнопка остаётся «Переходим к оплате…», пока грузится их страница
+      leaving = true
+      await navigateTo(res.payUrl, { external: true })
+    } else await navigateTo({ path: localePath('/order-done'), query: { id: res.publicId } })
   } catch (e) {
     const problems = (e as { data?: { data?: { problems?: OrderProblem[] } } }).data?.data?.problems
     if (problems?.length) {
@@ -146,7 +160,7 @@ async function submit() {
       issues.value = apiErrorIssues(e)
     }
   } finally {
-    sending.value = false
+    if (!leaving) sending.value = false
   }
 }
 </script>
@@ -182,13 +196,30 @@ async function submit() {
             <div class="form">
               <div class="field">
                 <label for="o-name">{{ t('checkout.name') }}</label>
-                <input id="o-name" v-model="form.name" type="text" autocomplete="name" required name="name" maxlength="100" />
-<FieldError id="o-name-err" :msg="fc.error('name')" />
+                <input
+                  id="o-name"
+                  v-model="form.name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  name="name"
+                  maxlength="100"
+                />
+                <FieldError id="o-name-err" :msg="fc.error('name')" />
               </div>
               <div class="field">
                 <label for="o-phone">{{ t('checkout.phone') }}</label>
-                <input id="o-phone" v-model="form.phone" type="tel" autocomplete="tel" name="phone" maxlength="40" data-check="phone" />
-<FieldError id="o-phone-err" :msg="fc.error('phone')" />
+                <input
+                  id="o-phone"
+                  v-model="form.phone"
+                  type="tel"
+                  autocomplete="tel"
+                  name="phone"
+                  maxlength="40"
+                  required
+                  data-check="phone"
+                />
+                <FieldError id="o-phone-err" :msg="fc.error('phone')" />
               </div>
               <div class="field form__full">
                 <label for="o-mail">E-mail</label>
@@ -197,8 +228,11 @@ async function submit() {
                   v-model="form.email"
                   type="email"
                   autocomplete="email"
-                  required name="email" maxlength="200" />
-<span class="form__note">{{ t('checkout.emailNote') }}</span>
+                  required
+                  name="email"
+                  maxlength="200"
+                />
+                <span class="form__note">{{ t('checkout.emailNote') }}</span>
                 <FieldError id="o-mail-err" :msg="fc.error('email')" />
               </div>
             </div>
@@ -232,69 +266,100 @@ async function submit() {
                 </label>
               </div>
 
-              <div v-if="method === 'parcel'" class="form checkout__fields">
-                <div class="field">
-                  <label for="o-carrier">{{ t('checkout.carrier') }}</label>
-                  <select id="o-carrier" v-model="form.carrier" name="carrier" required>
-                    <option v-for="c in carriers" :key="c" :value="c">{{ c }}</option>
-                  </select>
-<FieldError id="o-carrier-err" :msg="fc.error('carrier')" />
+              <!-- Поля почтомата и адреса раскрываются плавно (28.11.2026): высота и прозрачность, ship-* в style.css -->
+              <Transition name="ship">
+                <div v-if="method === 'parcel'" class="ship-fields">
+                  <div class="form checkout__fields">
+                    <div class="field">
+                      <label for="o-carrier">{{ t('checkout.carrier') }}</label>
+                      <select id="o-carrier" v-model="form.carrier" name="carrier" required>
+                        <option v-for="c in carriers" :key="c" :value="c">{{ c }}</option>
+                      </select>
+                      <FieldError id="o-carrier-err" :msg="fc.error('carrier')" />
+                    </div>
+                    <div class="field">
+                      <label for="o-point">{{ t('checkout.point') }}</label>
+                      <input
+                        id="o-point"
+                        v-model="form.parcelPoint"
+                        type="text"
+                        :placeholder="t('checkout.pointHint')"
+                        name="parcelPoint"
+                        maxlength="200"
+                        required
+                      />
+                      <FieldError id="o-point-err" :msg="fc.error('parcelPoint')" />
+                    </div>
+                  </div>
                 </div>
-                <div class="field">
-                  <label for="o-point">{{ t('checkout.point') }}</label>
-                  <input
-                    id="o-point"
-                    v-model="form.parcelPoint"
-                    type="text"
-                    :placeholder="t('checkout.pointHint')" name="parcelPoint" maxlength="200" required />
-<FieldError id="o-point-err" :msg="fc.error('parcelPoint')" />
+              </Transition>
+              <Transition name="ship">
+                <div v-if="method === 'eu'" class="ship-fields">
+                  <div class="form checkout__fields">
+                    <div class="field">
+                      <label for="o-country">{{ t('checkout.country') }}</label>
+                      <select id="o-country" v-model="form.country" name="country" required>
+                        <option v-for="c in countryNames" :key="c.code" :value="c.code">
+                          {{ c.name }}
+                        </option>
+                      </select>
+                      <FieldError id="o-country-err" :msg="fc.error('country')" />
+                    </div>
+                    <div class="field">
+                      <label for="o-zip">{{ t('checkout.postcode') }}</label>
+                      <input
+                        id="o-zip"
+                        v-model="form.postcode"
+                        type="text"
+                        autocomplete="postal-code"
+                        name="postcode"
+                        maxlength="20"
+                        required
+                      />
+                      <FieldError id="o-zip-err" :msg="fc.error('postcode')" />
+                    </div>
+                    <div class="field form__full">
+                      <label for="o-addr">{{ t('checkout.address') }}</label>
+                      <input
+                        id="o-addr"
+                        v-model="form.address"
+                        type="text"
+                        autocomplete="street-address"
+                        :placeholder="t('checkout.addressHint')"
+                        name="address"
+                        maxlength="300"
+                        required
+                      />
+                      <FieldError id="o-addr-err" :msg="fc.error('address')" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div v-if="method === 'eu'" class="form checkout__fields">
-                <div class="field">
-                  <label for="o-country">{{ t('checkout.country') }}</label>
-                  <select id="o-country" v-model="form.country" name="country" required>
-                    <option v-for="c in countryNames" :key="c.code" :value="c.code">
-                      {{ c.name }}
-                    </option>
-                  </select>
-<FieldError id="o-country-err" :msg="fc.error('country')" />
-                </div>
-                <div class="field">
-                  <label for="o-zip">{{ t('checkout.postcode') }}</label>
-                  <input
-                    id="o-zip"
-                    v-model="form.postcode"
-                    type="text"
-                    autocomplete="postal-code" name="postcode" maxlength="20" required />
-<FieldError id="o-zip-err" :msg="fc.error('postcode')" />
-                </div>
-                <div class="field form__full">
-                  <label for="o-addr">{{ t('checkout.address') }}</label>
-                  <input
-                    id="o-addr"
-                    v-model="form.address"
-                    type="text"
-                    autocomplete="street-address"
-                    :placeholder="t('checkout.addressHint')" name="address" maxlength="300" required />
-<FieldError id="o-addr-err" :msg="fc.error('address')" />
-                </div>
-              </div>
+              </Transition>
               <p v-if="hasDigital" class="form__note">{{ t('checkout.mixed') }}</p>
             </template>
             <p v-else class="note checkout__note">{{ t('checkout.digitalOnly') }}</p>
 
-            <h2 class="bq-step">
-              <span class="bq-step__num">{{ hasPhysical ? 3 : 2 }}</span> {{ t('checkout.pay') }}
-            </h2>
-            <div class="pay-box">
-              <p class="form__note">{{ t('checkout.payLater') }}</p>
-            </div>
-            <div class="form">
+            <!-- С онлайн-оплатой шага «Оплата» нет (28.11.2026): способы оплаты покупатель увидит
+                 на странице SumUp, здесь с ними ничего не делает. Без неё — как пришлём оплату -->
+            <template v-if="!settings?.onlinePayment">
+              <h2 class="bq-step">
+                <span class="bq-step__num">{{ hasPhysical ? 3 : 2 }}</span> {{ t('checkout.pay') }}
+              </h2>
+              <div class="pay-box">
+                <p class="form__note">{{ t('checkout.payLater') }}</p>
+              </div>
+            </template>
+            <div class="form checkout__extra">
               <div class="field form__full">
                 <label for="o-comment">{{ t('checkout.comment') }}</label>
-                <textarea id="o-comment" v-model="form.comment" rows="2" maxlength="2000" name="comment" />
-<FieldError id="o-comment-err" :msg="fc.error('comment')" />
+                <textarea
+                  id="o-comment"
+                  v-model="form.comment"
+                  rows="2"
+                  maxlength="2000"
+                  name="comment"
+                />
+                <FieldError id="o-comment-err" :msg="fc.error('comment')" />
               </div>
             </div>
             <!-- Ловушка для роботов: людям не видна, заполненная — заказ не заводим -->
@@ -324,7 +389,7 @@ async function submit() {
                 }}</NuxtLink></span
               >
             </label>
-<FieldError id="o-terms-err" :msg="fc.error('consent')" />
+            <FieldError id="o-terms-err" :msg="fc.error('consent')" />
             <label class="form__check">
               <input v-model="form.marketingOptIn" type="checkbox" />
               <span>{{ t('checkout.news') }}</span>
@@ -365,12 +430,11 @@ async function submit() {
                 <dd><TweenNumber :value="totals.totalCents" :format="formatPrice" /></dd>
               </div>
             </dl>
-            <button
-              class="btn btn--red cart-side__go"
-              type="submit"
-              :disabled="sending"
-            >
-              {{ sending ? t('checkout.sending') : t('checkout.send') }}
+            <button class="btn btn--red cart-side__go" type="submit" :disabled="sending">
+              <template v-if="settings?.onlinePayment">
+                {{ sending ? t('checkout.sendingPay') : t('checkout.sendPay') }}
+              </template>
+              <template v-else>{{ sending ? t('checkout.sending') : t('checkout.send') }}</template>
             </button>
             <p v-if="error && !Object.keys(issues).length" class="form__error" role="alert">
               {{ error }}

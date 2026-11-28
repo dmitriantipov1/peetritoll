@@ -50,6 +50,13 @@ export const orders = pgTable(
     deliveryCents: integer('delivery_cents').notNull(),
     totalCents: integer('total_cents').notNull(),
     paidAt: timestamp('paid_at', { withTimezone: true }),
+    // Оплата SumUp (5.3): текущий платёж (у каждой попытки свой), сколько попыток было
+    // и код транзакции оплаченного. Без ключей SumUp — пусто, оплату отмечают руками
+    sumupCheckoutId: text('sumup_checkout_id'),
+    paymentAttempts: integer('payment_attempts').notNull().default(0),
+    transactionCode: text('transaction_code'),
+    // Когда начата последняя попытка: через час без оплаты заказ отменяется (orders:expire)
+    paymentStartedAt: timestamp('payment_started_at', { withTimezone: true }),
 
     // Согласие с условиями и политикой (8.1) — когда и по какой версии политики
     consentAt: timestamp('consent_at', { withTimezone: true }).notNull(),
@@ -67,6 +74,7 @@ export const orders = pgTable(
   (t) => [
     index('orders_created').on(t.createdAt),
     index('orders_status').on(t.status),
+    index('orders_sumup_checkout').on(t.sumupCheckoutId),
     check('orders_locale', sql`${t.locale} in ('et', 'en', 'ru')`),
     check(
       'orders_status_check',

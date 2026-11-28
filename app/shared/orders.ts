@@ -1,6 +1,6 @@
 // Заказы магазина (7.3): правила получения и доставки, данные формы оформления, статусы.
-// Пока без оплаты (решение 15.11.2026): заказ сохраняется со статусом «ждёт оплаты»,
-// позже между «Оформить» и «Спасибо» встанет страница оплаты SumUp.
+// Оплата — SumUp Hosted Checkout (5.3, 28.11.2026): заказ сохраняется «ждёт оплаты», покупатель
+// платит на странице SumUp. Без ключей SumUp оплату согласуют вручную.
 import { z } from 'zod'
 import { contentLocales, type ContentLocale } from './locales'
 import type { ShopSettings, VariantKind } from './shop'
@@ -99,14 +99,13 @@ export const orderInputSchema = z
     name: z.string().trim().min(1, 'Укажите имя').max(100, 'Имя слишком длинное'),
     // E-mail обязателен: на него — подтверждение и ссылки на цифровое
     email: z.string().trim().toLowerCase().max(200).pipe(z.email('Проверьте e-mail')),
+    // Телефон обязателен (28.11.2026): уточнить заказ, договориться о самовывозе, служба доставки
     phone: z
       .string()
       .trim()
+      .min(1, 'Укажите телефон')
       .max(40, 'Телефон слишком длинный')
-      .regex(/^[+\d\s()-]*$/, 'В телефоне — только цифры, пробелы, +, -, скобки')
-      .transform((v) => v || null)
-      .nullable()
-      .default(null),
+      .regex(/^[+\d\s()-]*$/, 'В телефоне — только цифры, пробелы, +, -, скобки'),
     comment: z
       .string()
       .trim()
@@ -176,7 +175,7 @@ export function shipToOf(input: OrderInput): OrderShipTo {
 
 // ---------- Статусы ----------
 
-/** awaiting_payment — оформлен, оплаты ещё нет (пока SumUp не подключён — все заказы такие);
+/** awaiting_payment — оформлен, оплаты ещё нет;
  *  paid — оплачен; packing — собирается; ready — готов к выдаче; shipped — отправлен;
  *  done — выполнен; cancelled — отменён */
 export const orderStatuses = [
@@ -202,6 +201,21 @@ export const orderStatusNames: Record<OrderStatus, string> = {
 
 export type OrderHistoryKind = 'created' | 'status' | 'notified'
 
+// ---------- Оплата SumUp ----------
+
+/** Сколько минут ждём оплату с начала попытки; потом заказ отменяется и остаток возвращается.
+ *  Страница оплаты SumUp сама живёт 30 минут */
+export const PAYMENT_TIMEOUT_MIN = 60
+
+/**
+ * Номер платежа в SumUp: заказ, попытка и случайный хвост — «PT-2001-1-k3f9».
+ * SumUp не принимает номер дважды (409), а номера заказов могут повториться: после
+ * восстановления базы из копии или сброса счётчика. Хвост делает номер уникальным всегда
+ */
+export function paymentReference(orderId: number, attempt: number, salt: string): string {
+  return `PT-${orderId}-${attempt}-${salt}`
+}
+
 // ---------- Ответы сайта ----------
 
 /** «Цена изменилась», «закончился» — что вернуть покупателю, чтобы он поправил корзину */
@@ -220,6 +234,8 @@ export interface SiteOrderDone {
   hasDigital: boolean
   email: string
   totalCents: number
+  /** Не оплачен, и онлайн-оплата включена — показать «Оплатить» */
+  canPay: boolean
 }
 
 // ---------- Админка ----------
@@ -270,6 +286,10 @@ export interface AdminOrder extends AdminOrderRow {
   goodsCents: number
   deliveryCents: number
   paidAt: string | null
+  /** SumUp: номер текущего платежа, попыток, код транзакции оплаченного */
+  sumupCheckoutId: string | null
+  paymentAttempts: number
+  transactionCode: string | null
   consentAt: string
   policyVersion: string
   marketingOptIn: boolean

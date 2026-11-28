@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   // Ловушка заполнена — это робот: отвечаем как обычно, но ничего не отправляем
   if (typeof body?.website === 'string' && body.website) return { ok: true }
 
-  if (!allowFormSubmit(getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
+  if (!allowFormSubmit('message', getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
     throw createError({
       statusCode: 429,
       message: 'Слишком много сообщений подряд — попробуйте через несколько минут',
@@ -66,7 +66,10 @@ export default defineEventHandler(async (event) => {
       await sendTelegram(
         [
           '<b>Сообщение с сайта</b>',
-          [msg.name, msg.phone, msg.email].filter(Boolean).map((v) => e(v!)).join(' · '),
+          [msg.name, msg.phone, msg.email]
+            .filter(Boolean)
+            .map((v) => e(v!))
+            .join(' · '),
           `<i>${e(msg.message.slice(0, 500))}</i>`,
         ].join('\n'),
       )

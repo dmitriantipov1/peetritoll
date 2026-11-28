@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   if (typeof body?.website === 'string' && body.website) return { ok: true }
 
-  if (!allowFormSubmit(getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
+  if (!allowFormSubmit('subscribe', getRequestIP(event, { xForwardedFor: true }) ?? 'unknown')) {
     throw createError({
       statusCode: 429,
       message: 'Слишком много попыток подряд — попробуйте через несколько минут',
